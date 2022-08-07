@@ -4,8 +4,8 @@
     "category": "G2P",
     "version": "15.0.0.0.1",
     "sequence": 1,
-    "author": "Newlogic",
-    "website": "https://newlogic.com/",
+    "author": "OpenG2P",
+    "website": "https://openg2p.org/",
     "license": "MPL-2",
     "depends": [
         "base",
