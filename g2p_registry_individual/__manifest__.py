@@ -6,7 +6,7 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org/",
-    "license": "MPL-2",
+    "license": "Other OSI approved licence",
     "depends": ["base", "mail", "contacts", "g2p_registry_base"],
     "data": [
         "views/individuals_view.xml",
