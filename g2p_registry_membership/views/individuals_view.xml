@@ -28,7 +28,7 @@
                                 domain="[('is_registrant','=',True),('is_group','=',True)]"
                                 options="{'no_create':True}"
                                 string="Group Name"
-                                context="{'form_view_ref':'g2p_registrant.view_groups_form'}"
+                                context="{'form_view_ref':'g2p_registry_group.view_groups_form'}"
                             />
                             <field
                                 name="kind"
