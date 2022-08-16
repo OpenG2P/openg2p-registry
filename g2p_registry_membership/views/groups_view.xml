@@ -40,7 +40,7 @@
                                     domain="[('is_registrant','=',True),('is_group','=',False)]"
                                     options="{'no_create':True}"
                                     string="Member Name"
-                                    context="{'form_view_ref':'g2p_registrant.view_individuals_form'}"
+                                    context="{'form_view_ref':'g2p_registry_individual.view_individuals_form'}"
                                 />
                                 <field
                                     name="kind"
