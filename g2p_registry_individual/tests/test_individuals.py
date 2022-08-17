@@ -13,85 +13,73 @@ _logger = logging.getLogger(__name__)
 class IndividualsTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        _logger.info("Registry: Individuals Testing - SETUP INITIALIZED")
         super(IndividualsTest, cls).setUpClass()
 
         # Initial Setup of Variables
-        _logger.info("Individuals Testing: Creating Registrant: Heidi Jaddranka")
         cls.registrant_1 = cls.env["res.partner"].create(
             {
+                "name": "Heidi Jaddranka",
                 "family_name": "Jaddranka",
                 "given_name": "Heidi",
-                "name": "Heidi Jaddranka",
                 "is_group": False,
+                "is_registrant": True,
             }
         )
-        if cls.registrant_1:
-            _logger.info(
-                "Individuals Testing: Created Registrant: %s" % cls.registrant_1.name
-            )
-        else:
-            _logger.info(
-                "Individuals Testing: Creation Failed for Registrant: Heidi Jaddranka"
-            )
-
-        _logger.info("Individuals Testing: Creating Registrant: Angus Kleitos")
         cls.registrant_2 = cls.env["res.partner"].create(
             {
+                "name": "Angus Kleitos",
                 "family_name": "Kleitos",
                 "given_name": "Angus",
-                "name": "Angus Kleitos",
                 "is_group": False,
+                "is_registrant": True,
             }
         )
-        if cls.registrant_2:
-            _logger.info(
-                "Individuals Testing: Created Registrant: %s" % cls.registrant_2.name
-            )
-        else:
-            _logger.info(
-                "Individuals Testing: Creation Failed for Registrant: Angus Kleitos"
-            )
-
-        _logger.info("Individuals Testing: Creating Registrant: Sora Caratacos")
         cls.registrant_3 = cls.env["res.partner"].create(
             {
+                "name": "Sora Caratacos",
                 "family_name": "Caratacos",
                 "given_name": "Sora",
-                "name": "Sora Caratacos",
                 "is_group": False,
+                "is_registrant": True,
             }
         )
-        if cls.registrant_3:
-            _logger.info(
-                "Individuals Testing: Created Registrant: %s" % cls.registrant_3.name
-            )
-        else:
-            _logger.info(
-                "Individuals Testing: Creation Failed for Registrant: Sora Caratacos"
-            )
-
-        _logger.info("Individuals Testing: Creating Registrant: Amaphia Demophon")
         cls.registrant_4 = cls.env["res.partner"].create(
             {
+                "name": "Amaphia Demophon",
                 "family_name": "Demophon",
                 "given_name": "Amaphia",
-                "name": "Amaphia Demophon",
                 "is_group": False,
+                "is_registrant": True,
             }
         )
-        if cls.registrant_4:
-            _logger.info(
-                "Individuals Testing: Created Registrant: %s" % cls.registrant_4.name
-            )
-        else:
-            _logger.info(
-                "Individuals Testing: Creation Failed for Registrant: Amaphia Demophon"
-            )
 
-    def test_01_age_calculation(self):
-        _logger.info("Individuals Testing: Testing Age Calculations")
+    def test_01_check_names(self):
+        self.registrant_1.name_change()
+        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+            "JADDRANKA, HEIDI ",
+            self.registrant_1.name,
+        )
+        self.assertEqual(self.registrant_1.name, "JADDRANKA, HEIDI ", message)
+        self.registrant_2.name_change()
+        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+            "KLEITOS, ANGUS ",
+            self.registrant_2.name,
+        )
+        self.assertEqual(self.registrant_2.name, "KLEITOS, ANGUS ", message)
+        self.registrant_3.name_change()
+        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+            "CARATACOS, SORA ",
+            self.registrant_3.name,
+        )
+        self.assertEqual(self.registrant_3.name, "CARATACOS, SORA ", message)
+        self.registrant_4.name_change()
+        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+            "DEMOPHON, AMAPHIA ",
+            self.registrant_4.name,
+        )
+        self.assertEqual(self.registrant_4.name, "DEMOPHON, AMAPHIA ", message)
 
+    def test_02_age_calculation(self):
         start_date = date(2000, 1, 1)
         end_date = date(2022, 12, 30)
         time_between_dates = end_date - start_date
@@ -109,22 +97,70 @@ class IndividualsTest(TransactionCase):
             years_months_days = "No Birthdate!"
 
         age = years_months_days
-
-        _logger.info(
-            "Individuals Testing: Adding Birthdate %s, Expecting Age: %s"
-            % (random_date, age)
-        )
         self.registrant_1.birthdate = random_date
-        if self.registrant_1.birthdate:
-            _logger.info(
-                "Individuals Testing: Added Birthdate %s, Age: %s"
-                % (self.registrant_1.birthdate, self.registrant_1.age)
-            )
-        message = (
-            "Individuals Testing: Age Calculation FAILED (EXPECTED %s but RESULT is %s)"
-            % (
-                age,
-                self.registrant_1.age,
-            )
+        message = "Age Calculation FAILED (EXPECTED %s but RESULT is %s)" % (
+            age,
+            self.registrant_1.age,
         )
         self.assertEqual(self.registrant_1.age, age, message)
+
+    def test_03_add_phone_check_sanitized(self):
+        Phone_Number = "09123456789"
+        vals = {"phone_no": Phone_Number}
+        self.registrant_1.write({"phone_number_ids": [(0, 0, vals)]})
+
+        message = "Phone Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+            Phone_Number,
+            self.registrant_1.phone_number_ids[0].phone_no,
+        )
+        self.assertEqual(
+            self.registrant_1.phone_number_ids[0].phone_no, Phone_Number, message
+        )
+
+        Expected_Sanitized = "+639123456789"
+        message = "Phone Sanitation FAILED (EXPECTED %s but RESULT is %s)" % (
+            Expected_Sanitized,
+            self.registrant_1.phone_number_ids[0].phone_sanitized,
+        )
+        self.assertEqual(
+            self.registrant_1.phone_number_ids[0].phone_sanitized,
+            Expected_Sanitized,
+            message,
+        )
+
+    def test_04_add_id(self):
+        id_type = self.env["g2p.id.type"].create(
+            {
+                "name": "Testing ID Type",
+            }
+        )
+        vals = {"id_type": id_type.id, "value": "112233445566778899"}
+
+        self.registrant_1.write({"reg_ids": [(0, 0, vals)]})
+        Expected_Value = "112233445566778899"
+        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+            Expected_Value,
+            self.registrant_1.reg_ids[0].value,
+        )
+        self.assertEqual(self.registrant_1.reg_ids[0].value, Expected_Value, message)
+
+    def test_05_add_relationship(self):
+        rel_type = self.env["g2p.relationship"].create(
+            {
+                "name": "Friend",
+                "name_inverse": "Friend",
+            }
+        )
+        vals2 = {"registrant2": self.registrant_2.id, "relation": rel_type.id}
+
+        self.registrant_1.write({"related_2_ids": [(0, 0, vals2)]})
+
+        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+            self.registrant_2.id,
+            self.registrant_1.related_2_ids[0].registrant2.id,
+        )
+        self.assertEqual(
+            self.registrant_1.related_2_ids[0].registrant2.id,
+            self.registrant_2.id,
+            message,
+        )
