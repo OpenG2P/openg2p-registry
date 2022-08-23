@@ -14,7 +14,8 @@ odoo_version: 15.0
 org_name: OpenG2P
 org_slug: openg2p
 rebel_module_groups: []
-repo_description: OpenG2P Registry
+repo_description: OpenG2P Registry is an open source project that provides a social
+    registry that can be used on top of Odoo.
 repo_name: OpenG2P Registry
 repo_slug: openg2p-registry
 repo_website: https://github.com/openg2p/openg2p-registry

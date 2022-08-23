@@ -9,7 +9,7 @@
 
 # OpenG2P Registry
 
-OpenG2P Registry
+OpenG2P Registry is an open source project that provides a social registry that can be used on top of Odoo.
 
 <!-- /!\ do not modify below this line -->
 
@@ -17,7 +17,14 @@ OpenG2P Registry
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[g2p_registry_base](g2p_registry_base/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Base
+[g2p_registry_group](g2p_registry_group/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Groups
+[g2p_registry_individual](g2p_registry_individual/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Individual
+[g2p_registry_membership](g2p_registry_membership/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Membership
 
 [//]: # (end addons)
 
