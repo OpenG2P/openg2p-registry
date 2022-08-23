@@ -36,26 +36,26 @@ class GroupsTest(TransactionCase):
         )
 
     def test_01_add_phone_check_sanitized(self):
-        Phone_Number = "09123456789"
-        vals = {"phone_no": Phone_Number}
+        phone_number = "09123456789"
+        vals = {"phone_no": phone_number}
         self.group_1.write({"phone_number_ids": [(0, 0, vals)]})
 
         message = "Phone Creation FAILED (EXPECTED %s but RESULT is %s)" % (
-            Phone_Number,
+            phone_number,
             self.group_1.phone_number_ids[0].phone_no,
         )
         self.assertEqual(
-            self.group_1.phone_number_ids[0].phone_no, Phone_Number, message
+            self.group_1.phone_number_ids[0].phone_no, phone_number, message
         )
 
-        Expected_Sanitized = "+639123456789"
+        expected_sanitized = "+639123456789"
         message = "Phone Sanitation FAILED (EXPECTED %s but RESULT is %s)" % (
-            Expected_Sanitized,
+            expected_sanitized,
             self.group_1.phone_number_ids[0].phone_sanitized,
         )
         self.assertEqual(
             self.group_1.phone_number_ids[0].phone_sanitized,
-            Expected_Sanitized,
+            expected_sanitized,
             message,
         )
 
@@ -68,12 +68,12 @@ class GroupsTest(TransactionCase):
         vals = {"id_type": id_type.id, "value": "112233445566778899"}
 
         self.group_1.write({"reg_ids": [(0, 0, vals)]})
-        Expected_Value = "112233445566778899"
+        expected_value = "112233445566778899"
         message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
-            Expected_Value,
+            expected_value,
             self.group_1.reg_ids[0].value,
         )
-        self.assertEqual(self.group_1.reg_ids[0].value, Expected_Value, message)
+        self.assertEqual(self.group_1.reg_ids[0].value, expected_value, message)
 
     def test_03_add_relationship(self):
         rel_type = self.env["g2p.relationship"].create(
