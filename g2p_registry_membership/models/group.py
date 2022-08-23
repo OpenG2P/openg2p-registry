@@ -14,7 +14,7 @@ class G2PMembershipGroup(models.Model):
         "g2p.group.membership", "group", "Group Members"
     )
 
-    def count_individuals(self, kinds=None, indicator=None):
+    def count_individuals(self, kinds=None, indicators=None):
         self.ensure_one()
         membership_kind_domain = None
         individual_domain = None
@@ -24,8 +24,8 @@ class G2PMembershipGroup(models.Model):
         else:
             return 0
 
-        if indicator is not None:
-            individual_domain = indicator
+        if indicators is not None:
+            individual_domain = indicators
 
         res_ids = self.query_members_aggregate(
             membership_kind_domain, individual_domain
