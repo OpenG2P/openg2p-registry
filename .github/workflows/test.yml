@@ -57,7 +57,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          persist-credentials: true
+          persist-credentials: false
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses
