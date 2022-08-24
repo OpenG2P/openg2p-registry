@@ -6,8 +6,9 @@ on:
       - "15.0*"
   push:
     branches:
-      - "15.0"
-      - "15.0-ocabot-*"
+#      - "15.0"
+#      - "15.0-ocabot-*"
+      - "*"
 
 jobs:
   unreleased-deps:
@@ -59,4 +60,4 @@ jobs:
         run: manifestoo -d . check-licenses
       - name: Check development status
         run: manifestoo -d . check-dev-status --default-dev-status=Beta
-      
+
