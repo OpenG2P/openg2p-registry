@@ -1,5 +1,6 @@
 import logging
 
+from odoo.addons.phone_validation.tools import phone_validation
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -47,8 +48,18 @@ class GroupsTest(TransactionCase):
         self.assertEqual(
             self.group_1.phone_number_ids[0].phone_no, phone_number, message
         )
-
-        expected_sanitized = "+639123456789"
+        expected_sanitized = ""
+        country_fname = "country_id"
+        number = phone_number
+        sanitized = str(
+            phone_validation.phone_sanitize_numbers_w_record(
+                [number],
+                self,
+                record_country_fname=country_fname,
+                force_format="E164",
+            )[number]["sanitized"]
+        )
+        expected_sanitized = sanitized
         message = "Phone Sanitation FAILED (EXPECTED %s but RESULT is %s)" % (
             expected_sanitized,
             self.group_1.phone_number_ids[0].phone_sanitized,
