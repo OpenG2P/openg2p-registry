@@ -70,7 +70,7 @@ class G2PRegistry(models.Model):
         :return: The count then set it on the Field Name.
         """
 
-        _logger.info("COMPUTE FIELD: _compute_count_and_set: records:%s" % len(self))
+        _logger.info("SQL DEBUG: _compute_count_and_set: total records:%s" % len(self))
         # Check if we need to use job_queue
         tot_rec = len(self)
         max_rec = (
@@ -83,13 +83,34 @@ class G2PRegistry(models.Model):
         except Exception:
             max_rec = 200
         if tot_rec <= max_rec:
-            for record in self:
-                if record["is_group"]:
-                    record[field_name] = record.count_individuals(
-                        kinds=kinds, indicators=indicators
-                    )
-                else:
-                    record[field_name] = None
+            # Get groups only
+            records = self.filtered(lambda a: a.is_group)
+            query_result = None
+            if records:
+                # Generate the SQL query
+                query_result = records.count_individuals(
+                    kinds=kinds, indicators=indicators
+                )
+                _logger.info(
+                    "SQL DEBUG: _compute_count_and_set: results:%s" % query_result
+                )
+                if query_result:
+                    # Update the compute fields and affected records
+                    for record in records:
+                        rec = next(
+                            (
+                                item
+                                for item in query_result
+                                if item["id"] == record["id"]
+                            ),
+                            None,
+                        )
+                        if rec:
+                            record[field_name] = rec["members_cnt"]
+                            _logger.info(
+                                "SQL DEBUG: _compute_count_and_set: members_cnt:%s"
+                                % rec["members_cnt"]
+                            )
         else:
             # Update compute fields in batch using job_queue
             batch_cnt = (
@@ -103,7 +124,8 @@ class G2PRegistry(models.Model):
                 batch_cnt = 2000
 
             # Todo: Divide recordset (self) to batches by batch_cnt
-            self.with_delay()._process_batch_update_compute_fields(
+            # Run using Job Queue
+            self.with_delay()._update_compute_fields(
                 self, field_name, kinds, indicators
             )
 
@@ -158,17 +180,32 @@ class G2PRegistry(models.Model):
                 subtype_xmlid="mail.mt_comment",
             )
 
-    def _process_batch_update_compute_fields(
-        self, records, field_name, kinds, indicators
-    ):
-        for record in records:
-            if record["is_group"]:
-                record[field_name] = record.count_individuals(
-                    kinds=kinds, indicators=indicators
-                )
-            else:
-                record[field_name] = None
+    def _update_compute_fields(self, records, field_name, kinds, indicators):
+        # Get groups only
+        records = records.filtered(lambda a: a.is_group)
 
-        # Send message to admins via odoobot
-        message = _("All compute fields are updated.")
-        self._send_message_admins(message)
+        query_result = None
+        if records:
+            # Generate the SQL query using Job Queue
+            query_result = records.count_individuals(kinds=kinds, indicators=indicators)
+            _logger.info(
+                "SQL DEBUG: job_queue->_update_compute_fields: results:%s"
+                % query_result
+            )
+            if query_result:
+                # Update the compute fields and affected records
+                for record in records:
+                    rec = next(
+                        (item for item in query_result if item["id"] == record["id"]),
+                        None,
+                    )
+                    if rec:
+                        record[field_name] = rec["members_cnt"]
+                        _logger.info(
+                            "SQL DEBUG: job_queue->_update_compute_fields: members_cnt:%s"
+                            % rec["members_cnt"]
+                        )
+
+            # Send message to admins via odoobot
+            message = _("All compute fields are updated.")
+            self._send_message_admins(message)

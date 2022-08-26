@@ -15,7 +15,7 @@ class G2PMembershipGroup(models.Model):
     )
 
     def count_individuals(self, kinds=None, indicators=None):
-        self.ensure_one()
+        _logger.info("SQL DEBUG: count_individuals: records:%s" % self.ids)
         membership_kind_domain = None
         individual_domain = None
         if self.group_membership_ids:
@@ -27,16 +27,19 @@ class G2PMembershipGroup(models.Model):
         if indicators is not None:
             individual_domain = indicators
 
-        res_ids = self.query_members_aggregate(
+        query_result = self.query_members_aggregate(
             membership_kind_domain, individual_domain
         )
-        return len(res_ids)
+        return query_result
 
     def query_members_aggregate(
         self, membership_kind_domain=None, individual_domain=None
     ):
+        _logger.info("SQL DEBUG: query_members_aggregate: records:%s" % self.ids)
+        ids = self.ids
+        partner_model = "res.partner"
         domain = [("is_registrant", "=", True), ("is_group", "=", True)]
-        query_obj = self.env["res.partner"]._where_calc(domain)
+        query_obj = self.env[partner_model]._where_calc(domain)
 
         membership_alias = query_obj.left_join(
             "res_partner", "id", "g2p_group_membership", "group", "id"
@@ -62,7 +65,7 @@ class G2PMembershipGroup(models.Model):
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
             model=self.env["g2p.group.membership"],
-            domain=[("end_date", "=", None), ("group", "=", self.id)],
+            domain=[("end_date", "=", None), ("group", "in", ids)],
             alias=membership_alias,
         ).query
         (
@@ -93,7 +96,7 @@ class G2PMembershipGroup(models.Model):
 
         if individual_domain:
             individual_query_obj = expression.expression(
-                model=self.env["res.partner"],
+                model=self.env[partner_model],
                 domain=individual_domain,
                 alias=individual_alias,
             ).query
@@ -106,7 +109,13 @@ class G2PMembershipGroup(models.Model):
             #   (individual_from_clause,individual_where_clause,individual_where_params))
             query_obj.add_where(individual_where_clause, individual_where_params)
 
-        select_query, select_params = query_obj.select()
+        select_query, select_params = query_obj.select(
+            "res_partner.id AS id", "count(*) AS members_cnt"
+        )
+
+        # In the absence of managing "GROUP BY" by Odoo Query object,
+        # we will add the GROUP BY clause manually
+        select_query += " GROUP BY " + partner_model.replace(".", "_") + ".id"
         _logger.info(
             "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
         )
