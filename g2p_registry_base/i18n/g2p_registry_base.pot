@@ -73,12 +73,6 @@ msgid "Administrator"
 msgstr ""
 
 #. module: g2p_registry_base
-#: code:addons/g2p_registry_base/models/registrant.py:0
-#, python-format
-msgid "All compute fields are updated."
-msgstr ""
-
-#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -673,14 +667,6 @@ msgstr ""
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
 #, python-format
 msgid "Still part of group membership in: %s."
-msgstr ""
-
-#. module: g2p_registry_base
-#: code:addons/g2p_registry_base/models/registrant.py:0
-#, python-format
-msgid ""
-"The processing of the calculated field: %(field)s with %(cnt)s records was "
-"put on queue. You will be notified once the process is completed."
 msgstr ""
 
 #. module: g2p_registry_base
