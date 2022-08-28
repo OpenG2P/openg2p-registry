@@ -142,7 +142,9 @@ class G2PMembershipGroup(models.Model):
             "SQL DEBUG: compute_count_and_set_indicator: total records:%s" % len(self)
         )
         # Check if we need to use job_queue
-        tot_rec = len(self)
+        # Get groups only
+        records = self.filtered(lambda a: a.is_group)
+        tot_rec = len(records)
         max_rec = (
             self.env["ir.config_parameter"]
             .sudo()
@@ -153,8 +155,6 @@ class G2PMembershipGroup(models.Model):
         except Exception:
             max_rec = 200
         if tot_rec <= max_rec:
-            # Get groups only
-            records = self.filtered(lambda a: a.is_group)
             query_result = None
             if records:
                 # Generate the SQL query
