@@ -5,8 +5,10 @@
     "version": "15.0.0.0.1",
     "sequence": 1,
     "author": "OpenG2P",
-    "website": "https://openg2p.org/",
+    "website": "https://github.com/openg2p/openg2p-registry",
     "license": "Other OSI approved licence",
+    "development_status": "Production/Stable",
+    "maintainers": ["jeremi", "gonzalesedwin1123"],
     "depends": [
         "base",
         "mail",
@@ -16,6 +18,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/registrant_rule.xml",
         "data/group_membership_kinds.xml",
         "views/groups_view.xml",
         "views/individuals_view.xml",
