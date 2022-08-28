@@ -92,25 +92,37 @@ class G2PRegistry(models.Model):
                     kinds=kinds, indicators=indicators
                 )
                 _logger.info(
-                    "SQL DEBUG: _compute_count_and_set: results:%s" % query_result
+                    "SQL DEBUG: _compute_count_and_set: field:%s, results:%s"
+                    % (field_name, query_result)
                 )
                 if query_result:
                     # Update the compute fields and affected records
-                    for record in records:
-                        rec = next(
-                            (
-                                item
-                                for item in query_result
-                                if item["id"] == record["id"]
-                            ),
-                            None,
+                    for res in query_result:
+                        update_sql = (
+                            "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
                         )
-                        if rec:
-                            record[field_name] = rec["members_cnt"]
-                            _logger.info(
-                                "SQL DEBUG: _compute_count_and_set: members_cnt:%s"
-                                % rec["members_cnt"]
-                            )
+                        update_params = (res["members_cnt"], res["id"])
+                        self._cr.execute(update_sql, update_params)
+                        _logger.info(
+                            "SQL DEBUG: _compute_count_and_set: update_sql:%s, update_params:%s"
+                            % (update_sql, update_params)
+                        )
+
+                    # for record in records:
+                    #    rec = next(
+                    #        (
+                    #            item
+                    #            for item in query_result
+                    #            if item["id"] == record["id"]
+                    #        ),
+                    #        None,
+                    #    )
+                    #    if rec:
+                    #        record[field_name] = rec["members_cnt"]
+                    #        _logger.info(
+                    #            "SQL DEBUG: _compute_count_and_set: members_cnt:%s"
+                    #            % rec["members_cnt"]
+                    #        )
         else:
             # Update compute fields in batch using job_queue
             batch_cnt = (
@@ -189,22 +201,33 @@ class G2PRegistry(models.Model):
             # Generate the SQL query using Job Queue
             query_result = records.count_individuals(kinds=kinds, indicators=indicators)
             _logger.info(
-                "SQL DEBUG: job_queue->_update_compute_fields: results:%s"
-                % query_result
+                "SQL DEBUG: job_queue->_update_compute_fields: field:%s, results:%s"
+                % (field_name, query_result)
             )
             if query_result:
-                # Update the compute fields and affected records
-                for record in records:
-                    rec = next(
-                        (item for item in query_result if item["id"] == record["id"]),
-                        None,
+                for res in query_result:
+                    update_sql = (
+                        "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
                     )
-                    if rec:
-                        record[field_name] = rec["members_cnt"]
-                        _logger.info(
-                            "SQL DEBUG: job_queue->_update_compute_fields: members_cnt:%s"
-                            % rec["members_cnt"]
-                        )
+                    update_params = (res["members_cnt"], res["id"])
+                    self._cr.execute(update_sql, update_params)
+                    _logger.info(
+                        "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
+                        % (update_sql, update_params)
+                    )
+
+                # Update the compute fields and affected records
+                # for record in records:
+                #    rec = next(
+                #        (item for item in query_result if item["id"] == record["id"]),
+                #        None,
+                #    )
+                #    if rec:
+                #        record[field_name] = rec["members_cnt"]
+                #        _logger.info(
+                #            "SQL DEBUG: job_queue->_update_compute_fields: members_cnt:%s"
+                #            % rec["members_cnt"]
+                #        )
 
             # Send message to admins via odoobot
             message = _("All compute fields are updated.")

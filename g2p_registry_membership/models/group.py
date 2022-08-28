@@ -30,6 +30,7 @@ class G2PMembershipGroup(models.Model):
         query_result = self.query_members_aggregate(
             membership_kind_domain, individual_domain
         )
+
         return query_result
 
     def query_members_aggregate(
