@@ -4,7 +4,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class G2PRegistryRelationship(models.Model):
+class G2PRegistrantRelationship(models.Model):
     _name = "g2p.reg.rel"
     _description = "Registrant Relationship"
     _order = "id desc"
@@ -103,7 +103,7 @@ class G2PRegistryRelationship(models.Model):
                 )
 
     def name_get(self):
-        res = super(G2PRegistryRelationship, self).name_get()
+        res = super(G2PRegistrantRelationship, self).name_get()
         for rec in self:
             name = ""
             if rec.registrant1:

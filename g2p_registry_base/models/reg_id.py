@@ -4,7 +4,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class G2PRegistryID(models.Model):
+class G2PRegistrantID(models.Model):
     _name = "g2p.reg.id"
     _description = "Registrant ID"
     _order = "id desc"
@@ -21,7 +21,7 @@ class G2PRegistryID(models.Model):
     expiry_date = fields.Date("Expiry Date")
 
     def name_get(self):
-        res = super(G2PRegistryID, self).name_get()
+        res = super(G2PRegistrantID, self).name_get()
         for rec in self:
             name = ""
             if rec.partner_id:
