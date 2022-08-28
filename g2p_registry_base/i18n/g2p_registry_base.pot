@@ -73,6 +73,12 @@ msgid "Administrator"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/registrant.py:0
+#, python-format
+msgid "All compute fields are updated."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -124,6 +130,11 @@ msgstr ""
 msgid ""
 "Click the create button to enter the new registrant's relationship "
 "information."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -240,6 +251,11 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "G2P Registry"
+msgstr ""
+
+#. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__is_group
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__is_group
@@ -323,6 +339,11 @@ msgid "Is Related to:"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "Job Queue"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
@@ -358,6 +379,21 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "Maximum Registrants"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_config_settings__max_registrants_count_job_queue
+msgid "Maximum Registrants Before Using Job Queue"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "Maximum number of registrants to process before running job queue"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -381,6 +417,11 @@ msgid "Number of Actions"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_config_settings__batch_registrants_count_job_queue
+msgid "Number of Registrants Per Batch"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
 msgid "Number of errors"
 msgstr ""
@@ -393,6 +434,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
 msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "Number of registrants per batch to be processed with job queue"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -518,6 +564,11 @@ msgid "Registrant:"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.g2p_registry_res_config_settings_view_form
+msgid "Registrants per Batch"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_registrar
 msgid "Registrar"
 msgstr ""
@@ -608,6 +659,12 @@ msgid "Select Relationship..."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.g2p_registry_res_config_settings_menu_action
+#: model:ir.ui.menu,name:g2p_registry_base.menu_registry_config
+msgid "Settings"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__start_date
 msgid "Start Date"
 msgstr ""
@@ -616,6 +673,14 @@ msgstr ""
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
 #, python-format
 msgid "Still part of group membership in: %s."
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/registrant.py:0
+#, python-format
+msgid ""
+"The processing of the calculated field: %(field)s with %(cnt)s records was "
+"put on queue. You will be notified once the process is completed."
 msgstr ""
 
 #. module: g2p_registry_base
