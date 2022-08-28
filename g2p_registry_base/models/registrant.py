@@ -34,8 +34,6 @@ class G2PRegistry(models.Model):
 
     registration_date = fields.Date("Registration Date")
 
-    last_update = fields.Datetime()
-
     @api.onchange("phone_number_ids")
     def phone_number_ids_change(self):
         phone = ""
@@ -108,21 +106,6 @@ class G2PRegistry(models.Model):
                             % (update_sql, update_params)
                         )
 
-                    # for record in records:
-                    #    rec = next(
-                    #        (
-                    #            item
-                    #            for item in query_result
-                    #            if item["id"] == record["id"]
-                    #        ),
-                    #        None,
-                    #    )
-                    #    if rec:
-                    #        record[field_name] = rec["members_cnt"]
-                    #        _logger.info(
-                    #            "SQL DEBUG: _compute_count_and_set: members_cnt:%s"
-                    #            % rec["members_cnt"]
-                    #        )
         else:
             # Update compute fields in batch using job_queue
             batch_cnt = (
@@ -215,19 +198,6 @@ class G2PRegistry(models.Model):
                         "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
                         % (update_sql, update_params)
                     )
-
-                # Update the compute fields and affected records
-                # for record in records:
-                #    rec = next(
-                #        (item for item in query_result if item["id"] == record["id"]),
-                #        None,
-                #    )
-                #    if rec:
-                #        record[field_name] = rec["members_cnt"]
-                #        _logger.info(
-                #            "SQL DEBUG: job_queue->_update_compute_fields: members_cnt:%s"
-                #            % rec["members_cnt"]
-                #        )
 
             # Send message to admins via odoobot
             message = _("All compute fields are updated.")
