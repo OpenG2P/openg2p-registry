@@ -4,7 +4,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class G2PRegistryID(models.Model):
+class G2PRegistrantID(models.Model):
     _name = "g2p.reg.id"
     _description = "Registrant ID"
     _order = "id desc"
@@ -16,12 +16,12 @@ class G2PRegistryID(models.Model):
         domain=[("is_registrant", "=", True)],
     )
     id_type = fields.Many2one("g2p.id.type", "ID Type", required=True)
-    value = fields.Char("Value", size=100)
+    value = fields.Char(size=100)
 
-    expiry_date = fields.Date("Expiry Date")
+    expiry_date = fields.Date()
 
     def name_get(self):
-        res = super(G2PRegistryID, self).name_get()
+        res = super(G2PRegistrantID, self).name_get()
         for rec in self:
             name = ""
             if rec.partner_id:
@@ -44,7 +44,7 @@ class G2PIDType(models.Model):
     _description = "ID Type"
     _order = "id desc"
 
-    name = fields.Char("Name")
+    name = fields.Char()
 
     def unlink(self):
         for rec in self:

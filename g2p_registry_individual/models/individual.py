@@ -12,16 +12,15 @@ _logger = logging.getLogger(__name__)
 class G2PIndividual(models.Model):
     _inherit = "res.partner"
 
-    family_name = fields.Char("Family Name", translate=True)
-    given_name = fields.Char("Given Name", translate=True)
+    family_name = fields.Char(translate=True)
+    given_name = fields.Char(translate=True)
     addl_name = fields.Char("Additional Name", translate=True)
-    birth_place = fields.Char("Birth Place")
-    birthdate_not_exact = fields.Boolean("Birthdate not exact")
+    birth_place = fields.Char()
+    birthdate_not_exact = fields.Boolean()
     birthdate = fields.Date("Date of Birth")
-    age = fields.Char(compute="_compute_calc_age", string="Age", size=50, readonly=True)
+    age = fields.Char(compute="_compute_calc_age", size=50, readonly=True)
     gender = fields.Selection(
         [("Female", "Female"), ("Male", "Male"), ("Other", "Other")],
-        "Gender",
     )
 
     @api.onchange("is_group", "family_name", "given_name", "addl_name")

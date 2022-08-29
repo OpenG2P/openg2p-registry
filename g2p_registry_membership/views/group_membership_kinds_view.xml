@@ -8,7 +8,7 @@
         <field name="model">g2p.group.membership.kind</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree string="Group Memberships" editable="bottom">
+            <tree editable="bottom">
                 <field name="name" required="1" />
                 <field name="is_unique" />
             </tree>

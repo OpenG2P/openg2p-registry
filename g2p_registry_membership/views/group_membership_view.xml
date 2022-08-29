@@ -8,7 +8,7 @@
         <field name="model">g2p.group.membership</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree string="Group Memberships">
+            <tree>
                 <field name="group" />
                 <field name="individual" />
                 <field name="kind" widget="many2many_tags" options="{'no_create_edit':True,'no_open':True}" />

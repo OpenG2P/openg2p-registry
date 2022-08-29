@@ -28,7 +28,7 @@
                             nolabel="1"
                             colspan="4"
                         >
-                            <tree string="Members" editable="top">
+                            <tree editable="top">
                                 <button
                                     name="open_individual_form"
                                     type="object"

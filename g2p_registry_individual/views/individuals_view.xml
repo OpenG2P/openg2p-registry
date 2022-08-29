@@ -8,7 +8,7 @@
         <field name="model">res.partner</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree string="Individual Registrants" decoration-danger="disabled != False">
+            <tree decoration-danger="disabled != False">
                 <field name="name" />
                 <field name="address" />
                 <field name="phone" />
@@ -158,7 +158,7 @@
                                         nolabel="1"
                                         colspan="2"
                                     >
-                                        <tree string="Phone Numbers" decoration-danger="disabled != False">
+                                        <tree decoration-danger="disabled != False">
                                              <field
                                                 name="phone_no"
                                                 string="Phone Numbers"
@@ -189,7 +189,7 @@
                         </page>
                         <page string="IDs" name="ids">
                             <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
-                                <tree string="Registrant IDs" editable="top">
+                                <tree editable="top">
                                     <field
                                         name="id_type"
                                         options="{'no_open':True,'no_create_edit':True,'no_create':True}"
@@ -207,11 +207,7 @@
                                     attrs="{'readonly':[('disabled','!=',False)]}"
                                     nolabel="1"
                                 >
-                                    <tree
-                                        string="Relationships 1"
-                                        editable="top"
-                                        decoration-danger="disabled != False"
-                                    >
+                                    <tree editable="top" decoration-danger="disabled != False">
                                         <button
                                             name="open_relationship1_form"
                                             type="object"
@@ -242,11 +238,7 @@
                                     attrs="{'readonly':[('disabled','!=',False)]}"
                                     nolabel="1"
                                 >
-                                    <tree
-                                        string="Relationships 2"
-                                        editable="top"
-                                        decoration-danger="disabled != False"
-                                    >
+                                    <tree editable="top" decoration-danger="disabled != False">
                                         <button
                                             name="open_relationship2_form"
                                             type="object"

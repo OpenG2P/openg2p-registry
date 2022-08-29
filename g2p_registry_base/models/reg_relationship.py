@@ -4,7 +4,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class G2PRegistryRelationship(models.Model):
+class G2PRegistrantRelationship(models.Model):
     _name = "g2p.reg.rel"
     _description = "Registrant Relationship"
     _order = "id desc"
@@ -22,11 +22,11 @@ class G2PRegistryRelationship(models.Model):
         required=True,
         domain=[("is_registrant", "=", True)],
     )
-    relation = fields.Many2one("g2p.relationship", "Relation")
+    relation = fields.Many2one("g2p.relationship")
     disabled = fields.Datetime("Date Disabled")
-    disabled_by = fields.Many2one("res.users", "Disabled by")
-    start_date = fields.Datetime("Start Date")
-    end_date = fields.Datetime("End Date")
+    disabled_by = fields.Many2one("res.users")
+    start_date = fields.Datetime()
+    end_date = fields.Datetime()
 
     @api.constrains("registrant1", "registrant2")
     def _check_registrants(self):
@@ -103,7 +103,7 @@ class G2PRegistryRelationship(models.Model):
                 )
 
     def name_get(self):
-        res = super(G2PRegistryRelationship, self).name_get()
+        res = super(G2PRegistrantRelationship, self).name_get()
         for rec in self:
             name = ""
             if rec.registrant1:
@@ -196,7 +196,7 @@ class G2PRelationship(models.Model):
     _description = "Relationship"
     _order = "id desc"
 
-    name = fields.Char("Name", translate=True)
+    name = fields.Char(translate=True)
     name_inverse = fields.Char(string="Inverse name", required=True, translate=True)
     bidirectional = fields.Boolean("Bi-directional", default=False)
     registrant_type_1 = fields.Selection(

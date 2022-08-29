@@ -8,7 +8,7 @@
         <field name="model">g2p.relationship</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree string="ID Types" editable="bottom">
+            <tree editable="bottom">
                 <field name="name" />
                 <field name="name_inverse" />
                 <field name="bidirectional" />
