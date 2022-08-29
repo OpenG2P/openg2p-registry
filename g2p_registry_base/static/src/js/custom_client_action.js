@@ -1,10 +1,9 @@
 /** @odoo-module **/
 
 import {registry} from "@web/core/registry";
-import {useService} from "@web/core/utils/hooks";
 import {sprintf} from "@web/core/utils/strings";
 
-const {utils, Component} = owl;
+const {utils} = owl;
 const {escape} = utils;
 
 export const displayNotificationAction = (env, action) => {
@@ -16,7 +15,8 @@ export const displayNotificationAction = (env, action) => {
         type: params.type || "info",
         messageIsHtml: true,
     };
-    let links = (params.links || []).map((link) => {
+    const links = (params.links || []).map((link) => {
+        console.log(link);
         return `<a href="#" onClick="window.location.reload();return false;">Refresh Page</a>`;
     });
     const message = sprintf(escape(params.message), ...links);
