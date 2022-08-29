@@ -15,7 +15,8 @@ export const displayNotificationAction = (env, action) => {
         type: params.type || "info",
         messageIsHtml: true,
     };
-    const links = (params.links || []).map((link) => { // no-unused-vars
+    const links = (params.links || []).map((link) => {
+        console.log(link); // TODO: remove the need for it...
         return `<a href="#" onClick="window.location.reload();return false;">Refresh Page</a>`;
     });
     const message = sprintf(escape(params.message), ...links);
