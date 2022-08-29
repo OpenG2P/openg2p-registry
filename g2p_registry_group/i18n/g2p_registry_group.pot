@@ -92,18 +92,8 @@ msgid "Group Kind"
 msgstr ""
 
 #. module: g2p_registry_group
-#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_group_kind_tree
-msgid "Group Membership Kinds"
-msgstr ""
-
-#. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Group Registrant"
-msgstr ""
-
-#. module: g2p_registry_group
-#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_list_tree
-msgid "Group Registrants"
 msgstr ""
 
 #. module: g2p_registry_group
@@ -187,11 +177,6 @@ msgstr ""
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
-msgid "Registrant IDs"
-msgstr ""
-
-#. module: g2p_registry_group
-#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Registrant is related to:"
 msgstr ""
 
@@ -203,16 +188,6 @@ msgstr ""
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Relationships"
-msgstr ""
-
-#. module: g2p_registry_group
-#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
-msgid "Relationships 1"
-msgstr ""
-
-#. module: g2p_registry_group
-#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
-msgid "Relationships 2"
 msgstr ""
 
 #. module: g2p_registry_group
