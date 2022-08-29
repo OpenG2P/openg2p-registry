@@ -15,6 +15,7 @@
         "contacts",
         "g2p_registry_group",
         "g2p_registry_individual",
+        "queue_job",
     ],
     "data": [
         "security/ir.model.access.csv",
