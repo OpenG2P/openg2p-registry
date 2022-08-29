@@ -132,7 +132,9 @@ class G2PMembershipGroup(models.Model):
         _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
         return results
 
-    def compute_count_and_set_indicator(self, field_name, kinds, indicators):
+    def compute_count_and_set_indicator(
+        self, field_name, kinds, indicators, presence_only=False
+    ):
         """
         This method is used to compute the count then set it.
         :param field_name: The Field Name.
@@ -172,34 +174,41 @@ class G2PMembershipGroup(models.Model):
                     # Update the compute fields and affected records
                     query_result = ", ".join(map(str, query_result))
                     update_params = (field_name, query_result)
-                    update_sql = (
+                    if not presence_only:
+                        update_sql = (
+                            """
+                            UPDATE res_partner AS p
+                                SET %s = r.members_cnt
+                            FROM (VALUES
+                                %s
+                            ) AS r(id, members_cnt)
+                            where r.id = p.id
                         """
-                        UPDATE res_partner AS p
-                            SET %s = r.members_cnt
-                        FROM (VALUES
-                            %s
-                        ) AS r(id, members_cnt)
-                        where r.id = p.id
-                    """
-                        % update_params
-                    )
+                            % update_params
+                        )
+                    else:
+                        update_sql = (
+                            """
+                            UPDATE res_partner AS p
+                                SET %s =
+                                    CASE WHEN r.members_cnt > 0 THEN
+                                        True
+                                    ELSE
+                                        False
+                                    END
+                            FROM (VALUES
+                                %s
+                            ) AS r(id, members_cnt)
+                            where r.id = p.id
+                        """
+                            % update_params
+                        )
+
                     _logger.info(
                         "SQL DEBUG: compute_count_and_set_indicator: update_sql:%s, update_params:%s"
                         % (update_sql, update_params)
                     )
                     self._cr.execute(update_sql, ())
-
-                    # Update the compute fields and affected records
-                    # for res in query_result:
-                    #    update_sql = (
-                    #        "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
-                    #    )
-                    #    update_params = (res["members_cnt"], res["id"])
-                    #    self._cr.execute(update_sql, update_params)
-                    #    _logger.info(
-                    #        "SQL DEBUG: compute_count_and_set_indicator: update_sql:%s, update_params:%s"
-                    #        % (update_sql, update_params)
-                    #    )
 
         else:
             # Update compute fields in batch using job_queue
@@ -216,7 +225,7 @@ class G2PMembershipGroup(models.Model):
             # Todo: Divide recordset (self) to batches by batch_cnt
             # Run using Job Queue
             self.with_delay()._update_compute_fields(
-                self, field_name, kinds, indicators
+                self, field_name, kinds, indicators, presence_only=presence_only
             )
 
             # # Send message to admins via odoobot
@@ -226,7 +235,9 @@ class G2PMembershipGroup(models.Model):
             # ) % {"field": field_name, "cnt": tot_rec}
             # self._send_message_admins(message)
 
-    def _update_compute_fields(self, records, field_name, kinds, indicators):
+    def _update_compute_fields(
+        self, records, field_name, kinds, indicators, presence_only=False
+    ):
         # Get groups only
         records = records.filtered(lambda a: a.is_group)
 
@@ -244,33 +255,41 @@ class G2PMembershipGroup(models.Model):
                 # Update the compute fields and affected records
                 query_result = ", ".join(map(str, query_result))
                 update_params = (field_name, query_result)
-                update_sql = (
+                if not presence_only:
+                    update_sql = (
+                        """
+                        UPDATE res_partner AS p
+                            SET %s = r.members_cnt
+                        FROM (VALUES
+                            %s
+                        ) AS r(id, members_cnt)
+                        where r.id = p.id
                     """
-                    UPDATE res_partner AS p
-                        SET %s = r.members_cnt
-                    FROM (VALUES
-                        %s
-                    ) AS r(id, members_cnt)
-                    where r.id = p.id
-                """
-                    % update_params
-                )
+                        % update_params
+                    )
+                else:
+                    update_sql = (
+                        """
+                        UPDATE res_partner AS p
+                            SET %s =
+                                CASE WHEN r.members_cnt > 0 THEN
+                                    True
+                                ELSE
+                                    False
+                                END
+                        FROM (VALUES
+                            %s
+                        ) AS r(id, members_cnt)
+                        where r.id = p.id
+                    """
+                        % update_params
+                    )
+
                 _logger.info(
                     "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
                     % (update_sql, update_params)
                 )
                 self._cr.execute(update_sql, ())
-
-                # for res in query_result:
-                #    update_sql = (
-                #        "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
-                #    )
-                #    update_params = (res["members_cnt"], res["id"])
-                #    self._cr.execute(update_sql, update_params)
-                #    _logger.info(
-                #        "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
-                #        % (update_sql, update_params)
-                #    )
 
             # # Send message to admins via odoobot
             # message = _("All compute fields are updated.")
