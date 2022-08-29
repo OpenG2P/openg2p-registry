@@ -16,7 +16,6 @@ export const displayNotificationAction = (env, action) => {
         messageIsHtml: true,
     };
     const links = (params.links || []).map((link) => {
-        console.log(link);
         return `<a href="#" onClick="window.location.reload();return false;">Refresh Page</a>`;
     });
     const message = sprintf(escape(params.message), ...links);
