@@ -16,23 +16,18 @@ class G2PGroupMembership(models.Model):
 
     group = fields.Many2one(
         "res.partner",
-        "Group",
         required=True,
         domain=[("is_group", "=", True), ("is_registrant", "=", True)],
     )
     individual = fields.Many2one(
         "res.partner",
-        "Individual",
         required=True,
         domain=[("is_group", "=", False), ("is_registrant", "=", True)],
     )
-    kind = fields.Many2many("g2p.group.membership.kind", string="Kind")
-    start_date = fields.Datetime(
-        "Start Date", default=lambda self: fields.Datetime.now()
-    )
-    end_date = fields.Datetime(
-        "End Date"
-    )  # TODO: Should rename `ended_date` add a check that the date is in the past
+    kind = fields.Many2many("g2p.group.membership.kind")
+    start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
+    end_date = fields.Datetime()
+    # TODO: Should rename `ended_date` add a check that the date is in the past
 
     @api.onchange("kind")
     def _kind_onchange(self):
@@ -59,7 +54,7 @@ class G2PGroupMembership(models.Model):
                             unique_count += 1
                 if unique_count > 1:
                     raise ValidationError(
-                        _("Only one %s is allowed per group" % unique_kind_id.name)
+                        _("Only one %s is allowed per group") % unique_kind_id.name
                     )
 
     @api.constrains("individual")

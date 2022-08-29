@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class G2PGroup(models.Model):
     _inherit = "res.partner"
 
-    kind = fields.Many2one("g2p.group.kind", "Kind")
+    kind = fields.Many2one("g2p.group.kind")
     is_partial_group = fields.Boolean("Partial Group")
 
 

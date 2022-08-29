@@ -3,6 +3,7 @@
 import logging
 
 from odoo import api, fields, models
+
 from odoo.addons.phone_validation.tools import phone_validation
 
 _logger = logging.getLogger(__name__)
@@ -21,10 +22,10 @@ class G2PPhoneNumber(models.Model):
         domain=[("is_registrant", "=", True)],
     )
     phone_no = fields.Char("Phone Number", required=True)
-    phone_sanitized = fields.Char("Phone Sanitized", compute="_compute_phone_sanitized")
-    date_collected = fields.Date("Date Collected", default=fields.Date.today)
+    phone_sanitized = fields.Char(compute="_compute_phone_sanitized")
+    date_collected = fields.Date(default=fields.Date.today)
     disabled = fields.Datetime("Date Disabled")
-    disabled_by = fields.Many2one("res.users", "Disabled by")
+    disabled_by = fields.Many2one("res.users")
     country_id = fields.Many2one("res.country", "Country")
 
     @api.depends("phone_no", "country_id")

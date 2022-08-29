@@ -15,7 +15,7 @@ class RegistryConfig(models.TransientModel):
     )
 
     def set_values(self):
-        super(RegistryConfig, self).set_values()
+        res = super(RegistryConfig, self).set_values()
         self.env["ir.config_parameter"].set_param(
             "g2p_registry.max_registrants_count_job_queue",
             self.max_registrants_count_job_queue,
@@ -24,6 +24,7 @@ class RegistryConfig(models.TransientModel):
             "g2p_registry.batch_registrants_count_job_queue",
             self.batch_registrants_count_job_queue,
         )
+        return res
 
     @api.model
     def get_values(self):
