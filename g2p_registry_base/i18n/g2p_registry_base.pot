@@ -211,7 +211,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_by
-msgid "Disabled by"
+msgid "Disabled By"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -289,8 +289,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:g2p_registry_base.action_id_type
 #: model:ir.ui.menu,name:g2p_registry_base.menu_id_type
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_id_type_tree
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_relationship_tree
 msgid "ID Types"
 msgstr ""
 
@@ -521,7 +519,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:g2p_registry_base.action_reg_id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__reg_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__reg_ids
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_id_tree
 msgid "Registrant IDs"
 msgstr ""
 
@@ -539,16 +536,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_reg_rel
 msgid "Registrant Relationships"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_tree
-msgid "Registrant's Phone Numbers"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_tree
-msgid "Registrant's Relationships"
 msgstr ""
 
 #. module: g2p_registry_base
