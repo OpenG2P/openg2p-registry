@@ -95,16 +95,24 @@ class G2PRegistry(models.Model):
                 )
                 if query_result:
                     # Update the compute fields and affected records
-                    for res in query_result:
-                        update_sql = (
-                            "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
-                        )
-                        update_params = (res["members_cnt"], res["id"])
-                        self._cr.execute(update_sql, update_params)
-                        _logger.info(
-                            "SQL DEBUG: _compute_count_and_set: update_sql:%s, update_params:%s"
-                            % (update_sql, update_params)
-                        )
+                    query_result = ", ".join(map(str, query_result))
+                    update_params = (field_name, query_result)
+                    update_sql = (
+                        """
+                        UPDATE res_partner AS p
+                            SET %s = r.members_cnt
+                        FROM (VALUES
+                            %s
+                        ) AS r(id, members_cnt)
+                        where r.id = p.id
+                    """
+                        % update_params
+                    )
+                    _logger.info(
+                        "SQL DEBUG: _compute_count_and_set: update_sql:%s, update_params:%s"
+                        % (update_sql, update_params)
+                    )
+                    self._cr.execute(update_sql, ())
 
         else:
             # Update compute fields in batch using job_queue
@@ -188,16 +196,36 @@ class G2PRegistry(models.Model):
                 % (field_name, query_result)
             )
             if query_result:
-                for res in query_result:
-                    update_sql = (
-                        "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
-                    )
-                    update_params = (res["members_cnt"], res["id"])
-                    self._cr.execute(update_sql, update_params)
-                    _logger.info(
-                        "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
-                        % (update_sql, update_params)
-                    )
+                # Update the compute fields and affected records
+                query_result = ", ".join(map(str, query_result))
+                update_params = (field_name, query_result)
+                update_sql = (
+                    """
+                    UPDATE res_partner AS p
+                        SET %s = r.members_cnt
+                    FROM (VALUES
+                        %s
+                    ) AS r(id, members_cnt)
+                    where r.id = p.id
+                """
+                    % update_params
+                )
+                _logger.info(
+                    "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
+                    % (update_sql, update_params)
+                )
+                self._cr.execute(update_sql, ())
+
+                # for res in query_result:
+                #    update_sql = (
+                #        "UPDATE res_partner SET " + field_name + " = %s WHERE id=%s"
+                #    )
+                #    update_params = (res["members_cnt"], res["id"])
+                #    self._cr.execute(update_sql, update_params)
+                #    _logger.info(
+                #        "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
+                #        % (update_sql, update_params)
+                #    )
 
             # Send message to admins via odoobot
             message = _("All compute fields are updated.")

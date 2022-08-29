@@ -122,6 +122,9 @@ class G2PMembershipGroup(models.Model):
         )
 
         self._cr.execute(select_query, select_params)
-        results = self._cr.dictfetchall()
+        # Generate result as dict
+        # results = self._cr.dictfetchall()
+        # Generate result as tuple
+        results = self._cr.fetchall()
         _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
         return results
