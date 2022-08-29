@@ -1,8 +1,9 @@
 import logging
 
-from odoo.addons.phone_validation.tools import phone_validation
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+
+from odoo.addons.phone_validation.tools import phone_validation
 
 _logger = logging.getLogger(__name__)
 
