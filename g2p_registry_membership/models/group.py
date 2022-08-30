@@ -132,6 +132,36 @@ class G2PMembershipGroup(models.Model):
         _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
         return results
 
+    def count_individuals_direct(self, relationship_kinds=None, domain=None):
+        self.ensure_one()
+        # Only count active groups
+
+        if self.group_membership_ids:
+            individual_domain = [("end_date", "=?", False), ("group", "=", self.id)]
+            # To filter the membership by kinds, we first need to find the ID of the kinds we are interested in
+            if relationship_kinds is not None:
+                kind_ids = (
+                    self.env["g2p.group.membership.kind"]
+                    .search([("name", "in", relationship_kinds)])
+                    .ids
+                )
+                individual_domain.extend([("kind", "in", kind_ids)])
+            # We can now filter the membership by this domain
+            group_membership_ids = self.group_membership_ids.search(
+                individual_domain
+            ).ids
+        else:
+            return 0
+
+        if len(group_membership_ids) == 0:
+            return 0
+
+        # Finally filter the res.partner that match the criteria and are related to the group
+        individual_domain = [("individual_membership_ids", "in", group_membership_ids)]
+        if domain is not None:
+            individual_domain.extend(domain)
+        return self.env["res.partner"].search_count(individual_domain)
+
     def compute_count_and_set_indicator(
         self, field_name, kinds, domain, presence_only=False
     ):
@@ -166,10 +196,17 @@ class G2PMembershipGroup(models.Model):
             )
             query_result = None
             if records:
+                query_result = []
+                for record in records:
+                    cnt = record.count_individuals_direct(
+                        relationship_kinds=kinds, domain=domain
+                    )
+                    query_result.append((record.id, cnt))
+
                 # Generate the SQL query
-                query_result = records.count_individuals(
-                    relationship_kinds=kinds, domain=domain
-                )
+                # query_result = records.count_individuals(
+                #    relationship_kinds=kinds, domain=domain
+                # )
                 _logger.info(
                     "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
                     % (field_name, query_result)
