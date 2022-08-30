@@ -16,8 +16,9 @@ export const displayNotificationAction = (env, action) => {
         messageIsHtml: true,
     };
     const links = (params.links || []).map((link) => {
-        console.log(link); // TODO: remove the need for it...
-        return `<a href="#" onClick="window.location.reload();return false;">Refresh Page</a>`;
+        return `<a href="${escape(
+            link.url
+        )}" onClick="window.location.reload();return false;">Refresh Page</a>`;
     });
     const message = sprintf(escape(params.message), ...links);
     env.services.notification.add(message, options);
