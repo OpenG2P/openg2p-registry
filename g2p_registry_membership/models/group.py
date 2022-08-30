@@ -14,9 +14,9 @@ class G2PMembershipGroup(models.Model):
         "g2p.group.membership", "group", "Group Members"
     )
 
-    def count_individuals(self, relationship_kinds=None, indicators=None):
+    def count_individuals(self, relationship_kinds=None, domain=None):
         """
-        Count the number of individuals in the group that match the kinds and indicators.
+        Count the number of individuals in the group that match the kinds and domain.
         """
         _logger.info("SQL DEBUG: count_individuals: records:%s" % self.ids)
         membership_kind_domain = None
@@ -27,8 +27,8 @@ class G2PMembershipGroup(models.Model):
         else:
             return 0
 
-        if indicators is not None:
-            individual_domain = indicators
+        if domain is not None:
+            individual_domain = domain
 
         query_result = self._query_members_aggregate(
             membership_kind_domain, individual_domain
@@ -133,13 +133,13 @@ class G2PMembershipGroup(models.Model):
         return results
 
     def compute_count_and_set_indicator(
-        self, field_name, kinds, indicators, presence_only=False
+        self, field_name, kinds, domain, presence_only=False
     ):
         """
         This method is used to compute the count then set it.
         :param field_name: The Field Name.
         :param kinds: The Kinds.
-        :param indicators: The indicators.
+        :param domain: The domain.
         :return: The count then set it on the Field Name.
         """
 
@@ -164,7 +164,7 @@ class G2PMembershipGroup(models.Model):
             if records:
                 # Generate the SQL query
                 query_result = records.count_individuals(
-                    relationship_kinds=kinds, indicators=indicators
+                    relationship_kinds=kinds, domain=domain
                 )
                 _logger.info(
                     "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
@@ -225,7 +225,7 @@ class G2PMembershipGroup(models.Model):
             # Todo: Divide recordset (self) to batches by batch_cnt
             # Run using Job Queue
             self.with_delay()._update_compute_fields(
-                self, field_name, kinds, indicators, presence_only=presence_only
+                self, field_name, kinds, domain, presence_only=presence_only
             )
 
             # # Send message to admins via odoobot
@@ -236,7 +236,7 @@ class G2PMembershipGroup(models.Model):
             # self._send_message_admins(message)
 
     def _update_compute_fields(
-        self, records, field_name, kinds, indicators, presence_only=False
+        self, records, field_name, kinds, domain, presence_only=False
     ):
         # Get groups only
         records = records.filtered(lambda a: a.is_group)
@@ -245,7 +245,7 @@ class G2PMembershipGroup(models.Model):
         if records:
             # Generate the SQL query using Job Queue
             query_result = records.count_individuals(
-                relationship_kinds=kinds, indicators=indicators
+                relationship_kinds=kinds, domain=domain
             )
             _logger.info(
                 "SQL DEBUG: job_queue->_update_compute_fields: field:%s, results:%s"
