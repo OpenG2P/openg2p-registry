@@ -140,6 +140,7 @@ class G2PMembershipGroup(models.Model):
         :param field_name: The Field Name.
         :param kinds: The Kinds.
         :param domain: The domain.
+        :param presence_only: True for boolean field, False for integer field.
         :return: The count then set it on the Field Name.
         """
 
@@ -160,6 +161,9 @@ class G2PMembershipGroup(models.Model):
         except Exception:
             max_rec = 200
         if tot_rec <= max_rec:
+            _logger.info(
+                "SQL DEBUG: compute_count_and_set_indicator: Update Compute Fields Directly"
+            )
             query_result = None
             if records:
                 # Generate the SQL query
@@ -211,6 +215,9 @@ class G2PMembershipGroup(models.Model):
                     self._cr.execute(update_sql, ())
 
         else:
+            _logger.info(
+                "SQL DEBUG: compute_count_and_set_indicator: Running Job Queue"
+            )
             # Update compute fields in batch using job_queue
             batch_cnt = (
                 self.env["ir.config_parameter"]

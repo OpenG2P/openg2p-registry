@@ -18,7 +18,6 @@ class G2PMembershipIndividual(models.Model):
         for line in records:
             if line.is_registrant and not line.is_group:
                 groups = line.individual_membership_ids.mapped("group")
-
                 for field in fields:
                     self.env.add_to_compute(field, groups)
 
@@ -27,7 +26,7 @@ class G2PMembershipIndividual(models.Model):
         fields = []
         for field_name, field in model_fields_id.items():
             els = field_name.split("_")
-            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "crt":
+            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
                 fields.append(field)
         return fields
 

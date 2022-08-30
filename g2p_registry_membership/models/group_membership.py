@@ -96,7 +96,7 @@ class G2PGroupMembership(models.Model):
         fields = []
         for field_name, field in model_fields_id.items():
             els = field_name.split("_")
-            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "crt":
+            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
                 fields.append(field)
         return fields
 
