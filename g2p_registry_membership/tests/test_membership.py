@@ -2,13 +2,13 @@
 
 import logging
 
-from odoo.tests import tagged
+# from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 _logger = logging.getLogger(__name__)
 
 
-@tagged("post_install", "-at_install")
+# @tagged("post_install", "-at_install")
 class MembershipTest(TransactionCase):
     @classmethod
     def setUpClass(cls):

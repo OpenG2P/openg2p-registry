@@ -3,7 +3,7 @@
 from .common import JobCommonCase
 
 
-class TestJobsOnComputeFieldMethod(JobCommonCase):
+class MembershipTest(JobCommonCase):
     """Test Job on Compute Fields"""
 
     def test_01_create_registrants(self):
