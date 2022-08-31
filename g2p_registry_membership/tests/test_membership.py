@@ -1,3 +1,5 @@
+# Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+
 import logging
 
 from odoo.tests import tagged
@@ -11,6 +13,12 @@ class MembershipTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(MembershipTest, cls).setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                test_queue_job_no_delay=True,
+            )
+        )
 
         # Initial Setup of Variables
         cls.registrant_1 = cls.env["res.partner"].create(
