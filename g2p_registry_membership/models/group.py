@@ -149,105 +149,99 @@ class G2PMembershipGroup(models.Model):
         # Check if we need to use job_queue
         # Get groups only
         records = self.filtered(lambda a: a.is_group)
-        tot_rec = len(records)
-        max_rec = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("g2p_registry.max_registrants_count_job_queue")
-        )
-        try:
-            max_rec = int(max_rec)
-        except Exception:
-            max_rec = 200
-        if tot_rec <= max_rec:
+        # tot_rec = len(records)
+        # max_rec = (
+        #    self.env["ir.config_parameter"]
+        #    .sudo()
+        #    .get_param("g2p_registry.max_registrants_count_job_queue")
+        # )
+        # try:
+        #    max_rec = int(max_rec)
+        # except Exception:
+        #    max_rec = 200
+        # if tot_rec <= max_rec:
+        #    _logger.info(
+        #        "SQL DEBUG: compute_count_and_set_indicator: Update Compute Fields Directly"
+        #    )
+        query_result = None
+        if records:
+            # Generate the SQL query
+            query_result = records.count_individuals(
+                relationship_kinds=kinds, domain=domain
+            )
             _logger.info(
-                "SQL DEBUG: compute_count_and_set_indicator: Update Compute Fields Directly"
-            )
-            query_result = None
-            if records:
-                # Generate the SQL query
-                query_result = records.count_individuals(
-                    relationship_kinds=kinds, domain=domain
-                )
-                _logger.info(
-                    "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
-                    % (field_name, query_result)
-                )
-
-                result_map = dict(query_result)
-                for record in records:
-                    if presence_only:
-                        record[field_name] = result_map.get(record.id, 0) > 0
-                    else:
-                        record[field_name] = result_map.get(record.id, 0)
-
-                # if query_result:
-                #     # Update the compute fields and affected records
-                #     query_result = ", ".join(map(str, query_result))
-                #     update_params = (field_name, query_result)
-                #     if not presence_only:
-                #         update_sql = (
-                #             """
-                #             UPDATE res_partner AS p
-                #                 SET %s = r.members_cnt
-                #             FROM (VALUES
-                #                 %s
-                #             ) AS r(id, members_cnt)
-                #             where r.id = p.id
-                #         """
-                #             % update_params
-                #         )
-                #     else:
-                #         update_sql = (
-                #             """
-                #             UPDATE res_partner AS p
-                #                 SET %s =
-                #                     CASE WHEN r.members_cnt > 0 THEN
-                #                         True
-                #                     ELSE
-                #                         False
-                #                     END
-                #             FROM (VALUES
-                #                 %s
-                #             ) AS r(id, members_cnt)
-                #             where r.id = p.id
-                #         """
-                #             % update_params
-                #         )
-                #
-                #     _logger.info(
-                #         "SQL DEBUG: compute_count_and_set_indicator: update_sql:%s, update_params:%s"
-                #         % (update_sql, update_params)
-                #     )
-                #     self._cr.execute(update_sql, ())
-
-        else:
-            _logger.info(
-                "SQL DEBUG: compute_count_and_set_indicator: Running Job Queue"
-            )
-            # Update compute fields in batch using job_queue
-            batch_cnt = (
-                self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("g2p_registry.batch_registrants_count_job_queue")
-            )
-            try:
-                batch_cnt = int(batch_cnt)
-            except Exception:
-                batch_cnt = 2000
-
-            # Todo: Divide recordset (self) to batches by batch_cnt
-            # Run using Job Queue
-            self.with_delay(eta=1)._update_compute_fields(
-                self, field_name, kinds, domain, presence_only=presence_only
+                "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
+                % (field_name, query_result)
             )
 
-            # # Send message to admins via odoobot
-            # message = _(
-            #     "The processing of the calculated field: %(field)s with %(cnt)s records "
-            #     + "was put on queue. You will be notified once the process is completed."
-            # ) % {"field": field_name, "cnt": tot_rec}
-            # self._send_message_admins(message)
+            result_map = dict(query_result)
+            for record in records:
+                if presence_only:
+                    record[field_name] = result_map.get(record.id, 0) > 0
+                else:
+                    record[field_name] = result_map.get(record.id, 0)
+
+            # if query_result:
+            #     # Update the compute fields and affected records
+            #     query_result = ", ".join(map(str, query_result))
+            #     update_params = (field_name, query_result)
+            #     if not presence_only:
+            #         update_sql = (
+            #             """
+            #             UPDATE res_partner AS p
+            #                 SET %s = r.members_cnt
+            #             FROM (VALUES
+            #                 %s
+            #             ) AS r(id, members_cnt)
+            #             where r.id = p.id
+            #         """
+            #             % update_params
+            #         )
+            #     else:
+            #         update_sql = (
+            #             """
+            #             UPDATE res_partner AS p
+            #                 SET %s =
+            #                     CASE WHEN r.members_cnt > 0 THEN
+            #                         True
+            #                     ELSE
+            #                         False
+            #                     END
+            #             FROM (VALUES
+            #                 %s
+            #             ) AS r(id, members_cnt)
+            #             where r.id = p.id
+            #         """
+            #             % update_params
+            #         )
+            #
+            #     _logger.info(
+            #         "SQL DEBUG: compute_count_and_set_indicator: update_sql:%s, update_params:%s"
+            #         % (update_sql, update_params)
+            #     )
+            #     self._cr.execute(update_sql, ())
+
+        # else:
+        #   _logger.info(
+        #       "SQL DEBUG: compute_count_and_set_indicator: Running Job Queue"
+        #   )
+        #   # Update compute fields in batch using job_queue
+        #   batch_cnt = (
+        #       self.env["ir.config_parameter"]
+        #       .sudo()
+        #       .get_param("g2p_registry.batch_registrants_count_job_queue")
+        #   )
+        #   # Run using Job Queue
+        #   self.with_delay(eta=1)._update_compute_fields(
+        #       self, field_name, kinds, domain, presence_only=presence_only
+        #   )
+
+        #   # Send message to admins via odoobot
+        #   message = _(
+        #       "The processing of the calculated field: %(field)s with %(cnt)s records "
+        #       + "was put on queue. You will be notified once the process is completed."
+        #   ) % {"field": field_name, "cnt": tot_rec}
+        #   self._send_message_admins(message)
 
     def _update_compute_fields(
         self, records, field_name, kinds, domain, presence_only=False
