@@ -146,108 +146,25 @@ class G2PMembershipGroup(models.Model):
         _logger.info(
             "SQL DEBUG: compute_count_and_set_indicator: total records:%s" % len(self)
         )
-        # Check if we need to use job_queue
         # Get groups only
         records = self.filtered(lambda a: a.is_group)
-        tot_rec = len(records)
-        max_rec = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("g2p_registry.max_registrants_count_job_queue")
-        )
-        try:
-            max_rec = int(max_rec)
-        except Exception:
-            max_rec = 200
-        if tot_rec <= max_rec:
+        query_result = None
+        if records:
+            # Generate the SQL query
+            query_result = records.count_individuals(
+                relationship_kinds=kinds, domain=domain
+            )
             _logger.info(
-                "SQL DEBUG: compute_count_and_set_indicator: Update Compute Fields Directly"
-            )
-            query_result = None
-            if records:
-                # Generate the SQL query
-                query_result = records.count_individuals(
-                    relationship_kinds=kinds, domain=domain
-                )
-                _logger.info(
-                    "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
-                    % (field_name, query_result)
-                )
-
-                result_map = dict(query_result)
-                for record in records:
-                    if presence_only:
-                        record[field_name] = result_map.get(record.id, 0) > 0
-                    else:
-                        record[field_name] = result_map.get(record.id, 0)
-
-                # if query_result:
-                #     # Update the compute fields and affected records
-                #     query_result = ", ".join(map(str, query_result))
-                #     update_params = (field_name, query_result)
-                #     if not presence_only:
-                #         update_sql = (
-                #             """
-                #             UPDATE res_partner AS p
-                #                 SET %s = r.members_cnt
-                #             FROM (VALUES
-                #                 %s
-                #             ) AS r(id, members_cnt)
-                #             where r.id = p.id
-                #         """
-                #             % update_params
-                #         )
-                #     else:
-                #         update_sql = (
-                #             """
-                #             UPDATE res_partner AS p
-                #                 SET %s =
-                #                     CASE WHEN r.members_cnt > 0 THEN
-                #                         True
-                #                     ELSE
-                #                         False
-                #                     END
-                #             FROM (VALUES
-                #                 %s
-                #             ) AS r(id, members_cnt)
-                #             where r.id = p.id
-                #         """
-                #             % update_params
-                #         )
-                #
-                #     _logger.info(
-                #         "SQL DEBUG: compute_count_and_set_indicator: update_sql:%s, update_params:%s"
-                #         % (update_sql, update_params)
-                #     )
-                #     self._cr.execute(update_sql, ())
-
-        else:
-            _logger.info(
-                "SQL DEBUG: compute_count_and_set_indicator: Running Job Queue"
-            )
-            # Update compute fields in batch using job_queue
-            batch_cnt = (
-                self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("g2p_registry.batch_registrants_count_job_queue")
-            )
-            try:
-                batch_cnt = int(batch_cnt)
-            except Exception:
-                batch_cnt = 2000
-
-            # Todo: Divide recordset (self) to batches by batch_cnt
-            # Run using Job Queue
-            self.with_delay(eta=1)._update_compute_fields(
-                self, field_name, kinds, domain, presence_only=presence_only
+                "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
+                % (field_name, query_result)
             )
 
-            # # Send message to admins via odoobot
-            # message = _(
-            #     "The processing of the calculated field: %(field)s with %(cnt)s records "
-            #     + "was put on queue. You will be notified once the process is completed."
-            # ) % {"field": field_name, "cnt": tot_rec}
-            # self._send_message_admins(message)
+            result_map = dict(query_result)
+            for record in records:
+                if presence_only:
+                    record[field_name] = result_map.get(record.id, 0) > 0
+                else:
+                    record[field_name] = result_map.get(record.id, 0)
 
     def _update_compute_fields(
         self, records, field_name, kinds, domain, presence_only=False
@@ -278,90 +195,3 @@ class G2PMembershipGroup(models.Model):
                     record[field_name] = result_map.get(record.id, 0) > 0
                 else:
                     record[field_name] = result_map.get(record.id, 0)
-
-                # query_result = ", ".join(map(str, query_result))
-                # update_params = (field_name, query_result)
-                # if not presence_only:
-                #     update_sql = (
-                #         """
-                #         UPDATE res_partner AS p
-                #             SET %s = r.members_cnt
-                #         FROM (VALUES
-                #             %s
-                #         ) AS r(id, members_cnt)
-                #         where r.id = p.id
-                #     """
-                #         % update_params
-                #     )
-                # else:
-                #     update_sql = (
-                #         """
-                #         UPDATE res_partner AS p
-                #             SET %s =
-                #                 CASE WHEN r.members_cnt > 0 THEN
-                #                     True
-                #                 ELSE
-                #                     False
-                #                 END
-                #         FROM (VALUES
-                #             %s
-                #         ) AS r(id, members_cnt)
-                #         where r.id = p.id
-                #     """
-                #         % update_params
-                #     )
-                #
-                # _logger.info(
-                #     "SQL DEBUG: job_queue->_update_compute_fields: update_sql:%s, update_params:%s"
-                #     % (update_sql, update_params)
-                # )
-                # self._cr.execute(update_sql, ())
-
-            # # Send message to admins via odoobot
-            # message = _("All compute fields are updated.")
-            # self._send_message_admins(message)
-
-    #
-    # def _send_message_admins(self, message):
-    #     """Adopt OdooBot Send a message to group g2p_registry_base.group_g2p_admin users
-    #
-    #     :param user: 'res.users'  object
-    #     :param message: str,  The message content
-    #     """
-    #     # Obtain the OdooBot ID
-    #     odoobot_id = self.env["ir.model.data"]._xmlid_to_res_id("base.partner_root")
-    #
-    #     # Obtain OdooBot Chat channels of g2p_registry_base.group_g2p_admin users
-    #     admin_group_id = self.env["ir.model.data"]._xmlid_to_res_id(
-    #         "g2p_registry_base.group_g2p_admin"
-    #     )
-    #     admin_group = (
-    #         self.env["res.groups"].sudo().search([("id", "=", admin_group_id)])
-    #     )
-    #     channel_users = admin_group.mapped("users")
-    #
-    #     for user in channel_users:
-    #         channel = (
-    #             self.env["mail.channel"]
-    #             .sudo()
-    #             .search(
-    #                 [
-    #                     ("channel_type", "=", "chat"),
-    #                     ("channel_partner_ids", "in", [user.partner_id.id]),
-    #                     ("channel_partner_ids", "in", [odoobot_id]),
-    #                 ],
-    #                 limit=1,
-    #             )
-    #         )
-    #
-    #         #  If it does not exist, initialize the chat channel
-    #         if not channel:
-    #             user.odoobot_state = "not_initialized"
-    #             channel = self.env["mail.channel"].with_user(user).init_odoobot()
-    #         #  Send a message
-    #         channel.sudo().message_post(
-    #             body=message,
-    #             author_id=odoobot_id,
-    #             message_type="comment",
-    #             subtype_xmlid="mail.mt_comment",
-    #         )

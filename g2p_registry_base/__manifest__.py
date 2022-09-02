@@ -20,7 +20,6 @@
         "views/reg_id_view.xml",
         "views/id_types_view.xml",
         "views/phone_number_view.xml",
-        "views/registry_config_view.xml",
     ],
     "assets": {
         "web.assets_backend": [
