@@ -166,7 +166,6 @@ class G2PMembershipGroup(models.Model):
                 else:
                     record[field_name] = result_map.get(record.id, 0)
 
-
     def _update_compute_fields(
         self, records, field_name, kinds, domain, presence_only=False
     ):
