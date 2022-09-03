@@ -9,7 +9,7 @@ from ..models.group_search_param import GroupSearchParam
 class GroupApiService(Component):
     _inherit = "base.rest.service"
     _name = "registrant_group.rest.service"
-    _usage = "registrant_group_rest"
+    _usage = "group"
     _collection = "base.rest.registry.services"
     _description = """
         Registrant Group API Services
@@ -25,7 +25,7 @@ class GroupApiService(Component):
             )
         ],
         output_param=PydanticModel(GroupInfo),
-        auth="public",
+        auth="user",
     )
     def get(self, _id):
         """
@@ -38,7 +38,7 @@ class GroupApiService(Component):
         [(["/", "/search"], "GET")],
         input_param=PydanticModel(GroupSearchParam),
         output_param=PydanticModelList(GroupShortInfo),
-        auth="public",
+        auth="user",
     )
     def search(self, partner_search_param):
         """

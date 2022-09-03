@@ -1,3 +1,8 @@
+from typing import List
+
+import pydantic
+
+from .group_membership import GroupMembersInfo
 from .registrant import RegistrantInfo
 
 
@@ -6,4 +11,4 @@ class GroupShortInfo(RegistrantInfo):
 
 
 class GroupInfo(RegistrantInfo):
-    pass
+    members: List[GroupMembersInfo] = pydantic.Field(..., alias="group_membership_ids")

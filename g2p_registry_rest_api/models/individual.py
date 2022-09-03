@@ -1,5 +1,5 @@
 from .registrant import RegistrantInfo
 
 
-class GroupInfo(RegistrantInfo):
+class IndividualInfo(RegistrantInfo):
     pass
