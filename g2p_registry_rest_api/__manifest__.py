@@ -15,6 +15,7 @@
         "contacts",
         "component",
         "base_rest",
+        "pydantic",
         "base_rest_pydantic",
         "extendable",
         "g2p_registry_group",
