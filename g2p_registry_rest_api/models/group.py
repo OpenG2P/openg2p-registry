@@ -12,3 +12,4 @@ class GroupShortInfo(RegistrantInfo):
 
 class GroupInfo(RegistrantInfo):
     members: List[GroupMembersInfo] = pydantic.Field(..., alias="group_membership_ids")
+    kind: str = pydantic.Field(..., alias="kind_as_str")

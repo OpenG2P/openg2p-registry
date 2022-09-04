@@ -19,6 +19,7 @@ class G2PRegistrantID(models.Model):
     value = fields.Char(size=100)
 
     expiry_date = fields.Date()
+    id_type_as_str = fields.Char(related="id_type.name")
 
     def name_get(self):
         res = super(G2PRegistrantID, self).name_get()

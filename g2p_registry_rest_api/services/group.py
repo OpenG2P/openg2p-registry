@@ -56,6 +56,15 @@ class GroupApiService(Component):
             res.append(GroupShortInfo.from_orm(p))
         return res
 
+    # @restapi.method(
+    #     [(["/"], "POST")],
+    #     input_param=PydanticModel(GroupInfo),
+    #     output_param=PydanticModel(GroupInfo),
+    #     auth="user",
+    # )
+    # def create(self):
+    #     """Create a group"""
+
     # The following method are 'private' and should be never never NEVER call
     # from the controller.
 
