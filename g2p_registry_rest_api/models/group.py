@@ -2,14 +2,23 @@ from typing import List
 
 import pydantic
 
-from .group_membership import GroupMembersInfo
-from .registrant import RegistrantInfo
+from .group_membership import GroupMembersInfoIn, GroupMembersInfoOut
+from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
 
-class GroupShortInfo(RegistrantInfo):
+class GroupShortInfoOut(RegistrantInfoOut):
     pass
 
 
-class GroupInfo(RegistrantInfo):
-    members: List[GroupMembersInfo] = pydantic.Field(..., alias="group_membership_ids")
+class GroupInfoOut(RegistrantInfoOut):
+    is_group = True
+    members: List[GroupMembersInfoOut] = pydantic.Field(
+        ..., alias="group_membership_ids"
+    )
     kind: str = pydantic.Field(..., alias="kind_as_str")
+
+
+class GroupInfoIn(RegistrantInfoIn):
+    is_group = True
+    members: List[GroupMembersInfoIn]
+    kind: str

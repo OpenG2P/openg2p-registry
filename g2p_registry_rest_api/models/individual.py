@@ -1,5 +1,9 @@
-from .registrant import RegistrantInfo
+from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
 
-class IndividualInfo(RegistrantInfo):
-    pass
+class IndividualInfoOut(RegistrantInfoOut):
+    is_group = False
+
+
+class IndividualInfoIn(RegistrantInfoIn):
+    is_group = False
