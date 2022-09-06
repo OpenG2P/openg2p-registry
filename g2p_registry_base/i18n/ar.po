@@ -6,24 +6,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-09-07 16:22+0000\n"
+"Last-Translator: Walid Khoury <walid@newlogic.com>\n"
+"Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
+"g2p_registry_base/ar/>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.14\n"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\"> تعطيل </span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
+#, fuzzy
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\"> تمكين </span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
@@ -31,116 +36,120 @@ msgid ""
 "<span class=\"o_stat_text\">Enable</span>\n"
 "                                <span class=\"o_stat_text\">Phone No.</span>"
 msgstr ""
+"<span class=\"o_stat_text\"> تمكين </span>\n"
+" <span class=\"o_stat_text\"> رقم الهاتف </span>"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction
+#, fuzzy
 msgid "Action Needed"
-msgstr ""
+msgstr "الإجراءات اللازمة"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
-msgstr ""
+msgstr "أضف علاقة صاحب التسجيل!"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_id
 msgid "Add a Registrant's ID!"
-msgstr ""
+msgstr "أضف هوية صاحب التسجيل!"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Add a Registrant's Phone Number!"
-msgstr ""
+msgstr "أضف رقم الهاتف لصاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_relationship
 msgid "Add a Relationship!"
-msgstr ""
+msgstr "أضف علاقة!"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Add an ID Type!"
-msgstr ""
+msgstr "أضف نوع الهوية!"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__address
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__address
 msgid "Address"
-msgstr ""
+msgstr "عنوان"
 
 #. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_admin
 msgid "Administrator"
-msgstr ""
+msgstr "مسؤول"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "عدد المرفقات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__bidirectional
 msgid "Bi-directional"
-msgstr ""
+msgstr "ثنائي الاتجاه"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Can't delete default ID Type"
-msgstr ""
+msgstr "لا يمكن حذف نوع الهوية الافتراضية"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Can't edit default ID Type"
-msgstr ""
+msgstr "لا يمكن تعديل نوع الهوية الافتراضية"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Click the create button to enter a new ID type."
-msgstr ""
+msgstr "إضغط على الزر \"إنشاء\" لإدخال نوع هوية جديد."
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_relationship
 msgid "Click the create button to enter a new relationship."
-msgstr ""
+msgstr "إضغط على الزر \"إنشاء\" لإدخال علاقة جديدة."
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Click the create button to enter a registrant's phone number."
-msgstr ""
+msgstr "إضغط على \"إنشاء\" لإدخال رقم الهاتف لصاحب التسجيل."
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_id
 msgid "Click the create button to enter the new registrant's ID information."
-msgstr ""
+msgstr "إضغط على الزر \"إنشاء\" لإدخال معلومات هوية صاحب التسجيل الجديد."
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid ""
 "Click the create button to enter the new registrant's relationship "
 "information."
-msgstr ""
+msgstr "إضغط على \"إنشاء\" لإدخال معلومات علاقة صاحب التسجيل الجديد."
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_configuration_menu_root
 msgid "Configuration"
-msgstr ""
+msgstr "التكوين"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_res_partner
+#, fuzzy
 msgid "Contact"
-msgstr ""
+msgstr "اتصال"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__country_id
 msgid "Country"
-msgstr ""
+msgstr "البلد"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_uid
@@ -149,8 +158,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
+#, fuzzy
 msgid "Created by"
-msgstr ""
+msgstr "انشأ من قبل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_date
@@ -159,18 +169,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
+#, fuzzy
 msgid "Created on"
-msgstr ""
+msgstr "تم إنشاؤها على"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_data_mgmt_menu_root
+#, fuzzy
 msgid "Data Management"
-msgstr ""
+msgstr "إدارة البيانات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__date_collected
+#, fuzzy
 msgid "Date Collected"
-msgstr ""
+msgstr "تم جمعه بتاريخ"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__disabled
@@ -178,37 +191,39 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled
 msgid "Date Disabled"
-msgstr ""
+msgstr "تاريخ التعطيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
+#, fuzzy
 msgid "Date Range"
-msgstr ""
+msgstr "الفترة"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_disable_registrant_wizard
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Disable"
-msgstr ""
+msgstr "تعطيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Disable Info"
-msgstr ""
+msgstr "تعطيل المعلومات"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_disable_registrant_wizard
 msgid "Disable Registrant Wizard"
-msgstr ""
+msgstr "تعطيل معالج صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_by
+#, fuzzy
 msgid "Disabled By"
-msgstr ""
+msgstr "تعطيل من"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__display_name
@@ -218,27 +233,28 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "اسم العرض"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__end_date
 msgid "End Date"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__expiry_date
 msgid "Expiry Date"
-msgstr ""
+msgstr "صالح لغاية"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_follower_ids
+#, fuzzy
 msgid "Followers"
-msgstr ""
+msgstr "متابع"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "المتابعون (الشركاء)"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
@@ -246,19 +262,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__is_group
 #, python-format
 msgid "Group"
-msgstr ""
+msgstr "مجموعة"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
+#, fuzzy
 msgid "Group By"
-msgstr ""
+msgstr "مجموعة حسب"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__has_message
+#, fuzzy
 msgid "Has Message"
-msgstr ""
+msgstr "رسالة موجودة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__id
@@ -268,58 +286,61 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
 msgid "ID"
-msgstr ""
+msgstr "‌الهوية"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_id_type
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type
 msgid "ID Type"
-msgstr ""
+msgstr "نوع الهوية"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_id_type
 #: model:ir.ui.menu,name:g2p_registry_base.menu_id_type
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 msgid "ID Types"
-msgstr ""
+msgstr "أنواع الهوية"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
+#, fuzzy
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "الرسائل الجديدة تتطلب انتباهك"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "إذا تم تحديده ، فإن بعض الرسائل بها خطأ في التسليم."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "Individual"
-msgstr ""
+msgstr "الفرد"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name_inverse
+#, fuzzy
 msgid "Inverse name"
-msgstr ""
+msgstr "اقلب الاسم"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "متابع"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_tree
+#, fuzzy
 msgid "Is Related to"
-msgstr ""
+msgstr "ذات صلة ل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Is Related to:"
-msgstr ""
+msgstr "ذات صلة ل:"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard____last_update
@@ -329,7 +350,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "تاريخ آخر تعديل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_uid
@@ -338,8 +359,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
+#, fuzzy
 msgid "Last Updated by"
-msgstr ""
+msgstr "صاحب التحديث"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_date
@@ -349,22 +371,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "آخر تحديث في"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "المرفق الرئيسي"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error
+#, fuzzy
 msgid "Message Delivery error"
-msgstr ""
+msgstr "فشلت تسليم الرسالة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "الرسائل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
@@ -373,55 +396,58 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
 msgid "Name"
-msgstr ""
+msgstr "الإسم"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
+#, fuzzy
 msgid "Number of Actions"
-msgstr ""
+msgstr "عدد الإجراءات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
+#, fuzzy
 msgid "Number of errors"
-msgstr ""
+msgstr "عدد الأخطاء"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "عدد الرسائل غير المقروءة"
 
 #. module: g2p_registry_base
 #: model:ir.module.category,name:g2p_registry_base.openg2p_module
 msgid "OpenG2P Module Access"
-msgstr ""
+msgstr "الوصول إلى OpenG2P"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_phone_number
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__phone_no
 msgid "Phone Number"
-msgstr ""
+msgstr "رقم الهاتف"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_phone_number
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__phone_number_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__phone_number_ids
 msgid "Phone Numbers"
-msgstr ""
+msgstr "أرقام الهواتف"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__phone_sanitized
+#, fuzzy
 msgid "Phone Sanitized"
-msgstr ""
+msgstr "تم تعقيم الهاتف"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__disabled_reason
@@ -429,7 +455,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_reason
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Reason for disabling"
-msgstr ""
+msgstr "سبب التعطيل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__partner_id
@@ -442,164 +468,168 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_tree
 msgid "Registrant"
-msgstr ""
+msgstr "صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__registrant1
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Registrant 1"
-msgstr ""
+msgstr "صاحب التسجيل 1"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "Registrant 1 and Registrant 2 cannot be the same."
-msgstr ""
+msgstr "لا يمكن أن يكون صاحب التسجيل 1 و صاحب التسجيل 2 متماثلين."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__registrant_type_1
 msgid "Registrant 1 partner type"
-msgstr ""
+msgstr "نوع شريك لصاحب التسجيل 1"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__registrant2
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Registrant 2"
-msgstr ""
+msgstr "صاحب التسجيل 2"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__registrant_type_2
 msgid "Registrant 2 partner type"
-msgstr ""
+msgstr "نوع شريك لصاحب التسجيل 2"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_reg_id
 msgid "Registrant ID"
-msgstr ""
+msgstr "هوية صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_reg_id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__reg_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__reg_ids
 msgid "Registrant IDs"
-msgstr ""
+msgstr "هويات صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 msgid "Registrant Phone Number"
-msgstr ""
+msgstr "رقم الهاتف لصاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_reg_rel
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
+#, fuzzy
 msgid "Registrant Relationship"
-msgstr ""
+msgstr "علاقة صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_reg_rel
 msgid "Registrant Relationships"
-msgstr ""
+msgstr "علاقات صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Registrant:"
-msgstr ""
+msgstr "صاحب التسجيل:"
 
 #. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_registrar
+#, fuzzy
 msgid "Registrar"
-msgstr ""
+msgstr "السجل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__registration_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__registration_date
 msgid "Registration Date"
-msgstr ""
+msgstr "تاريخ التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_main_menu_root
 msgid "Registry"
-msgstr ""
+msgstr "التسجيل"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__related_1_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__related_1_ids
 msgid "Related to registrant 1"
-msgstr ""
+msgstr "ذات الصلة بصاحب التسجيل 1"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__related_2_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__related_2_ids
 msgid "Related to registrant 2"
-msgstr ""
+msgstr "ذات الصلة بصاحب التسجيل 2"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
+#, fuzzy
 msgid "Relation"
-msgstr ""
+msgstr "علاقة"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Relation:"
-msgstr ""
+msgstr "علاقة:"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_relationship
 #: model:ir.model,name:g2p_registry_base.model_g2p_relationship
 msgid "Relationship"
-msgstr ""
+msgstr "صلة"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.menu_relationship
+#, fuzzy
 msgid "Relationships"
-msgstr ""
+msgstr "العلاقات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "فشل تسليم الرسائل القصيرة"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
-msgstr ""
+msgstr "ابحث رقم الهاتف"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 msgid "Search Registrant IDs"
-msgstr ""
+msgstr "ابحث هويات صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Search Registrant Relationships"
-msgstr ""
+msgstr "ابحث علاقات صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Registrant 1..."
-msgstr ""
+msgstr "إختار صاحب التسجيل 1"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Registrant 2..."
-msgstr ""
+msgstr "إختار صاحب التسجيل 2"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 msgid "Select Registrant..."
-msgstr ""
+msgstr "إختار صاحب التسجيل..."
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Relationship..."
-msgstr ""
+msgstr "إختر العلاقة..."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__start_date
 msgid "Start Date"
-msgstr ""
+msgstr "تاريخ الإبدأ"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
@@ -609,44 +639,46 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "The program is not ended yet. Please check in program: %s."
-msgstr ""
+msgstr "البرنامج لم ينته بعد. الرجاء معاودة المحاولة في:%s."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "The starting date cannot be after the ending date."
-msgstr ""
+msgstr "لا يمكن أن يكون تاريخ الإبدأ بعد تاريخ الانتهاء."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "There is already a similar relation with overlapping dates"
-msgstr ""
+msgstr "تم تعيين العلاقة مع تواريخ المتداخلة من قبل"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "This registrant is not applicable for this relation type."
-msgstr ""
+msgstr "صاحب التسجيل غير مناسب لهاذه العلاقة."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread
+#, fuzzy
 msgid "Unread Messages"
-msgstr ""
+msgstr "الرسائل الغير مقروءة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
+#, fuzzy
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "عداد الرسائل الغير المقروءة"
 
 #. module: g2p_registry_base
 #: model:ir.module.category,description:g2p_registry_base.openg2p_module
 msgid "User access level for the OpenG2P module"
-msgstr ""
+msgstr "مستوى وصول المستخدم لOpenG2P"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
-msgstr ""
+msgstr "قيمة"
