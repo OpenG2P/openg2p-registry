@@ -42,7 +42,11 @@ class G2PMembershipGroup(models.Model):
         _logger.info("SQL DEBUG: query_members_aggregate: records:%s" % self.ids)
         ids = self.ids
         partner_model = "res.partner"
-        domain = [("is_registrant", "=", True), ("is_group", "=", True)]
+        domain = [
+            ("is_registrant", "=", True),
+            ("is_group", "=", True),
+            ("disabled", "=", None),
+        ]
         query_obj = self.env[partner_model]._where_calc(domain)
 
         membership_alias = query_obj.left_join(
