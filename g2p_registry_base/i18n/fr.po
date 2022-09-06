@@ -6,25 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator:  <jeremi@newlogic.com>\n"
-"Language-Team: English\n"
+"PO-Revision-Date: 2022-09-06 09:24+0000\n"
+"Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
+"Language-Team: French <https://translate.openspp.org/projects/openg2p/"
+"g2p_registry_base/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"PO-Revision-Date: 2022-08-24 22:07+0700\n"
-"Language: en_US\n"
+"X-Generator: Weblate 4.14\n"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
-msgstr "<span class=\"o_stat_text\">Disable</span>"
+msgstr "<span class=\"o_stat_text\">Désactiver</span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr "<span class=\"o_stat_text\">Enable</span>"
+msgstr "<span class=\"o_stat_text\">Activer</span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
@@ -32,65 +34,65 @@ msgid ""
 "<span class=\"o_stat_text\">Enable</span>\n"
 "                                <span class=\"o_stat_text\">Phone No.</span>"
 msgstr ""
-"<span class=\"o_stat_text\">Enable</span>\n"
-"                                <span class=\"o_stat_text\">Phone No.</span>"
+"<span class=\"o_stat_text\">Activer</span> <span class=\"o_stat_text\">N° de "
+"téléphone</span>"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction
 msgid "Action Needed"
-msgstr "Action Needed"
+msgstr "Action nécessaire"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
-msgstr "Add a Registrant Relationship!"
+msgstr "Ajoutez une relation !"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_id
 msgid "Add a Registrant's ID!"
-msgstr "Add a Registrant's ID!"
+msgstr "Ajoutez un ID d'inscrit !"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Add a Registrant's Phone Number!"
-msgstr "Add a Registrant's Phone Number!"
+msgstr "Ajoutez le numéro de téléphone d&#39;un inscrit !"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_relationship
 msgid "Add a Relationship!"
-msgstr "Add a Relationship!"
+msgstr "Ajoutez une relation !"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Add an ID Type!"
-msgstr "Add an ID Type!"
+msgstr "Ajoutez un type d&#39;identifiant !"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__address
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__address
 msgid "Address"
-msgstr "Address"
+msgstr "Adresse"
 
 #. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_admin
 msgid "Administrator"
-msgstr "Administrator"
+msgstr "Administrateur"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
 msgid "Attachment Count"
-msgstr "Attachment Count"
+msgstr "Nombre de pièces jointes"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__bidirectional
 msgid "Bi-directional"
-msgstr "Bi-directional"
+msgstr "Bidirectionnel"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Can't delete default ID Type"
-msgstr "Can't delete default ID Type"
+msgstr "Impossible de supprimer le type d&#39;ID par défaut"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_id.py:0
