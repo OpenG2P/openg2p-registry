@@ -102,14 +102,14 @@ class G2PGroupMembership(models.Model):
 
     def write(self, vals):
         res = super(G2PGroupMembership, self).write(vals)
-        self.with_delay()._recompute_parent_groups(self)
+        self.sudo().with_delay()._recompute_parent_groups(self)
         return res
 
     @api.model_create_multi
     @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
         res = super(G2PGroupMembership, self).create(vals_list)
-        self.with_delay()._recompute_parent_groups(res)
+        self.sudo().with_delay()._recompute_parent_groups(res)
         return res
 
     def unlink(self):
