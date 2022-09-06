@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-06 09:24+0000\n"
+"PO-Revision-Date: 2022-09-07 16:22+0000\n"
 "Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/fr/>\n"
@@ -358,7 +358,7 @@ msgstr "Last Updated by"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Mise à jour le"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_main_attachment_id
