@@ -6,14 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-09-07 16:22+0000\n"
+"Last-Translator: Walid Khoury <walid@newlogic.com>\n"
+"Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
+"g2p_registry_membership/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.14\n"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_list_tree_membership
@@ -22,8 +25,9 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction
+#, fuzzy
 msgid "Action Needed"
-msgstr ""
+msgstr "الإجراءات اللازمة"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership_kind
@@ -38,7 +42,7 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "عدد المرفقات"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
@@ -64,31 +68,35 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model,name:g2p_registry_membership.model_res_partner
+#, fuzzy
 msgid "Contact"
-msgstr ""
+msgstr "اتصال"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_uid
+#, fuzzy
 msgid "Created by"
-msgstr ""
+msgstr "انشأ من قبل"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_date
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_date
+#, fuzzy
 msgid "Created on"
-msgstr ""
+msgstr "تم إنشاؤها على"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
+#, fuzzy
 msgid "Date Range"
-msgstr ""
+msgstr "الفترة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__display_name
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "اسم العرض"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
@@ -99,28 +107,30 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__end_date
 msgid "End Date"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_follower_ids
+#, fuzzy
 msgid "Followers"
-msgstr ""
+msgstr "متابع"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "المتابعون (الشركاء)"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Group"
-msgstr ""
+msgstr "مجموعة"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
+#, fuzzy
 msgid "Group By"
-msgstr ""
+msgstr "مجموعة حسب"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__group_membership_ids
@@ -159,32 +169,34 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__has_message
+#, fuzzy
 msgid "Has Message"
-msgstr ""
+msgstr "رسالة موجودة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__id
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__id
 msgid "ID"
-msgstr ""
+msgstr "‌الهوية"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread
+#, fuzzy
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "الرسائل الجديدة تتطلب انتباهك"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_error
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "إذا تم تحديده ، فإن بعض الرسائل بها خطأ في التسليم."
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Individual"
-msgstr ""
+msgstr "الفرد"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
@@ -194,7 +206,7 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "متابع"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__kind
@@ -211,24 +223,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "تاريخ آخر تعديل"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_uid
+#, fuzzy
 msgid "Last Updated by"
-msgstr ""
+msgstr "صاحب التحديث"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_date
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "آخر تحديث في"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "المرفق الرئيسي"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
@@ -248,38 +261,41 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_error
+#, fuzzy
 msgid "Message Delivery error"
-msgstr ""
+msgstr "فشلت تسليم الرسالة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "الرسائل"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
+#, fuzzy
 msgid "Number of Actions"
-msgstr ""
+msgstr "عدد الإجراءات"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_error_counter
+#, fuzzy
 msgid "Number of errors"
-msgstr ""
+msgstr "عدد الأخطاء"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "عدد الرسائل غير المقروءة"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
@@ -290,7 +306,7 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "فشل تسليم الرسائل القصيرة"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
@@ -310,7 +326,7 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__start_date
 msgid "Start Date"
-msgstr ""
+msgstr "تاريخ الإبدأ"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__is_unique
@@ -319,10 +335,12 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread
+#, fuzzy
 msgid "Unread Messages"
-msgstr ""
+msgstr "الرسائل الغير مقروءة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread_counter
+#, fuzzy
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "عداد الرسائل الغير المقروءة"
