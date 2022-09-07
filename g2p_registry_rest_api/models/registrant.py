@@ -21,7 +21,7 @@ class PhoneNumberOut(NaiveOrmModel):
     id: int
     phone_no: str
     phone_sanitized: str
-    date_collected: date
+    date_collected: date = None
     disabled: date = None
 
 

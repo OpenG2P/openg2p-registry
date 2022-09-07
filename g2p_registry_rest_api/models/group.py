@@ -2,7 +2,7 @@ from typing import List
 
 import pydantic
 
-from .group_membership import GroupMembersInfoIn
+from .group_membership import GroupMembersInfoIn, GroupMembersInfoOut
 from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
 
@@ -12,9 +12,9 @@ class GroupShortInfoOut(RegistrantInfoOut):
 
 class GroupInfoOut(RegistrantInfoOut):
     is_group = True
-    # members: List[GroupMembersInfoOut] = pydantic.Field(
-    #    ..., alias="group_membership_ids"
-    # )
+    members: List[GroupMembersInfoOut] = pydantic.Field(
+        ..., alias="group_membership_ids"
+    )
     kind: str = pydantic.Field(..., alias="kind_as_str")
 
 

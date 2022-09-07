@@ -113,71 +113,8 @@ class GroupApiService(Component):
         # TODO: create the group object
         logging.info("GROUP:")
         logging.info("Group Name: %s" % group_info.name)
-        grp_rec = {
-            "name": group_info.name,
-            "registration_date": group_info.registration_date,
-            "is_registrant": True,
-            "is_group": True,
-        }
-        # Add group's kind field
-        if group_info.kind:
-            # Search Kind
-            kind_id = (
-                self.env["g2p.group.kind"]
-                .sudo()
-                .search([("name", "=", group_info.kind)])
-            )
-            if kind_id:
-                kind_id = kind_id[0]
-            else:
-                # Create a new Kind
-                kind_id = (
-                    self.env["g2p.group.kind"].sudo().create({"name": group_info.kind})
-                )
-                kind_id = kind_id
-            grp_rec.update({"kind": kind_id.id})
 
-        grp_ids = []
-        for group_id in group_info.ids:
-            # Search ID Type
-            id_type_id = (
-                self.env["g2p.id.type"].sudo().search([("name", "=", group_id.id_type)])
-            )
-            if id_type_id:
-                id_type_id = id_type_id[0]
-            else:
-                # Create a new ID Type
-                id_type_id = (
-                    self.env["g2p.id.type"].sudo().create({"name": group_id.id_type})
-                )
-            grp_ids.append(
-                (
-                    0,
-                    0,
-                    {
-                        "id_type": id_type_id.id,
-                        "value": group_id.value,
-                        "expiry_date": group_id.expiry_date,
-                    },
-                )
-            )
-        if grp_ids:
-            grp_rec.update({"reg_ids": grp_ids})
-
-        phone_numbers = []
-        for phone in group_info.phone_numbers:
-            phone_numbers.append(
-                (
-                    0,
-                    0,
-                    {
-                        "phone_no": phone.phone_no,
-                        "date_collected": phone.date_collected,
-                    },
-                )
-            )
-        if phone_numbers:
-            grp_rec.update({"phone_number_ids": phone_numbers})
+        grp_rec = self._process_group(group_info)
 
         logging.info("Group Record to Create: %s" % grp_rec)
         grp_id = self.env["res.partner"].create(grp_rec)
@@ -255,3 +192,72 @@ class GroupApiService(Component):
             indv_rec.update({"phone_number_ids": phone_numbers})
 
         return indv_rec
+
+    def _process_group(self, group_info):
+        grp_rec = {
+            "name": group_info.name,
+            "registration_date": group_info.registration_date,
+            "is_registrant": True,
+            "is_group": True,
+        }
+        # Add group's kind field
+        if group_info.kind:
+            # Search Kind
+            kind_id = (
+                self.env["g2p.group.kind"]
+                .sudo()
+                .search([("name", "=", group_info.kind)])
+            )
+            if kind_id:
+                kind_id = kind_id[0]
+            else:
+                # Create a new Kind
+                kind_id = (
+                    self.env["g2p.group.kind"].sudo().create({"name": group_info.kind})
+                )
+                kind_id = kind_id
+            grp_rec.update({"kind": kind_id.id})
+
+        grp_ids = []
+        for group_id in group_info.ids:
+            # Search ID Type
+            id_type_id = (
+                self.env["g2p.id.type"].sudo().search([("name", "=", group_id.id_type)])
+            )
+            if id_type_id:
+                id_type_id = id_type_id[0]
+            else:
+                # Create a new ID Type
+                id_type_id = (
+                    self.env["g2p.id.type"].sudo().create({"name": group_id.id_type})
+                )
+            grp_ids.append(
+                (
+                    0,
+                    0,
+                    {
+                        "id_type": id_type_id.id,
+                        "value": group_id.value,
+                        "expiry_date": group_id.expiry_date,
+                    },
+                )
+            )
+        if grp_ids:
+            grp_rec.update({"reg_ids": grp_ids})
+
+        phone_numbers = []
+        for phone in group_info.phone_numbers:
+            phone_numbers.append(
+                (
+                    0,
+                    0,
+                    {
+                        "phone_no": phone.phone_no,
+                        "date_collected": phone.date_collected,
+                    },
+                )
+            )
+        if phone_numbers:
+            grp_rec.update({"phone_number_ids": phone_numbers})
+
+        return grp_rec
