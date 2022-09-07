@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-06 04:52+0000\n"
-"Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
+"PO-Revision-Date: 2022-09-07 16:22+0000\n"
+"Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_membership/fr/>\n"
 "Language: fr\n"
@@ -20,12 +20,12 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_list_tree_membership
 msgid "# Individuals"
-msgstr ""
+msgstr "# Individus"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Action nécessaire"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership_kind
@@ -35,29 +35,30 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership
 msgid "Add an individual to a group!"
-msgstr ""
+msgstr "Ajoutez un individu à un groupe !"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Nombre de pièces jointes"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Can't delete default kinds"
-msgstr ""
+msgstr "Impossible de supprimer les types par défaut"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Can't edit default kinds"
-msgstr ""
+msgstr "Impossible de modifier les types par défaut"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership
 msgid "Click the create button to enter the new group information."
 msgstr ""
+"Cliquez sur le bouton Créer pour saisir les informations du nouveau groupe."
 
 #. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership_kind
@@ -73,62 +74,62 @@ msgstr "Contact"
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_date
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé sur"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
 msgid "Date Range"
-msgstr ""
+msgstr "Plage de dates"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__display_name
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Afficher un nom"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Duplication of Member is not allowed "
-msgstr ""
+msgstr "La duplication de membre n'est pas autorisée "
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__end_date
 msgid "End Date"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Abonnés"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Abonnés (Partenaires)"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Group By"
-msgstr ""
+msgstr "Groupé par"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__group_membership_ids
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__group_membership_ids
 msgid "Group Members"
-msgstr ""
+msgstr "Membres du Groupes"
 
 #. module: g2p_registry_membership
 #: model:ir.actions.act_window,name:g2p_registry_membership.action_group_membership
@@ -147,17 +148,17 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
 msgid "Group Name"
-msgstr ""
+msgstr "Nom de Groupe"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
 msgid "Group:"
-msgstr ""
+msgstr "Groupe:"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
 msgid "Groups"
-msgstr ""
+msgstr "Groupes"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__has_message
@@ -175,51 +176,54 @@ msgstr ""
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
+"Si cette case est cochée, de nouveaux messages nécessitent votre attention."
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_error
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
+"Si cette case est cochée, certains messages présentent une erreur de "
+"livraison."
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Individual"
-msgstr ""
+msgstr "Individu"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
 msgid "Individual:"
-msgstr ""
+msgstr "Individu :"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Est Abonné"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__kind
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__name
 msgid "Kind"
-msgstr ""
+msgstr "Type"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
 msgid "Kind:"
-msgstr ""
+msgstr "Type :"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière mise à jour par"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_date
