@@ -89,7 +89,6 @@ class GroupApiService(Component):
 
             logging.info("Creating Individual Record")
             indv_id = self.env["res.partner"].create(indv_rec)
-            logging.info("membership_info %s" % membership_info)
             self._process_relationship(individual.relationships_1, indv_id, 1)
             self._process_relationship(individual.relationships_2, indv_id, 2)
 
@@ -122,7 +121,6 @@ class GroupApiService(Component):
         logging.info("Creating Group Record")
         grp_id = self.env["res.partner"].create(grp_rec)
 
-        logging.info("group_info %s" % group_info)
         self._process_relationship(group_info.relationships_1, grp_id, 1)
         self._process_relationship(group_info.relationships_2, grp_id, 2)
         for mbr in grp_membership_rec:
