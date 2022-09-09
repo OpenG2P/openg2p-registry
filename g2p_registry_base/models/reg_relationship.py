@@ -1,6 +1,11 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
+from odoo import (
+    _,
+    api,
+    fields,
+    models,
+)
 from odoo.exceptions import ValidationError
 
 
@@ -27,6 +32,9 @@ class G2PRegistrantRelationship(models.Model):
     disabled_by = fields.Many2one("res.users")
     start_date = fields.Datetime()
     end_date = fields.Datetime()
+    registrant1_as_str = fields.Char(related="registrant1.name")
+    registrant2_as_str = fields.Char(related="registrant2.name")
+    relation_as_str = fields.Char(related="relation.name")
 
     @api.constrains("registrant1", "registrant2")
     def _check_registrants(self):

@@ -5,6 +5,7 @@ from odoo.tests.common import TransactionCase
 
 from odoo.addons.phone_validation.tools import phone_validation
 
+
 _logger = logging.getLogger(__name__)
 
 

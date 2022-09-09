@@ -30,6 +30,18 @@ class PhoneNumberIn(NaiveOrmModel):
     date_collected: date = None
 
 
+class Relationship1Out(NaiveOrmModel):
+    id: int
+    registrant: str = pydantic.Field(..., alias="registrant1_as_str")
+    relation: str = pydantic.Field(..., alias="relation_as_str")
+
+
+class Relationship2Out(NaiveOrmModel):
+    id: int
+    registrant: str = pydantic.Field(..., alias="registrant2_as_str")
+    relation: str = pydantic.Field(..., alias="relation_as_str")
+
+
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
     name: str
@@ -49,4 +61,17 @@ class RegistrantInfoIn(NaiveOrmModel):
     name: str
     ids: List[RegistrantIDIn]
     registration_date: date = None
+    is_group: bool
     phone_numbers: List[PhoneNumberIn]
+
+
+class Relationship1In(NaiveOrmModel):
+    registrant: RegistrantInfoIn
+    relation: str
+    relation_inverse: str
+
+
+class Relationship2In(NaiveOrmModel):
+    registrant: RegistrantInfoIn
+    relation: str
+    relation_inverse: str
