@@ -31,7 +31,7 @@ class G2PPhoneNumber(models.Model):
     @api.depends("phone_no", "country_id")
     def _compute_phone_sanitized(self):
         for rec in self:
-            #self.ensure_one()
+            # self.ensure_one()
             rec.phone_sanitized = ""
             if rec.phone_no:
                 country_fname = "country_id"
