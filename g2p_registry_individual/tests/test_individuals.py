@@ -1,9 +1,6 @@
 import logging
 import random
-from datetime import (
-    date,
-    timedelta,
-)
+from datetime import date, timedelta
 
 from dateutil.relativedelta import relativedelta
 
@@ -11,7 +8,6 @@ from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 from odoo.addons.phone_validation.tools import phone_validation
-
 
 _logger = logging.getLogger(__name__)
 

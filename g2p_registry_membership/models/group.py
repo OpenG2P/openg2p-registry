@@ -1,12 +1,8 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import (
-    fields,
-    models,
-)
+from odoo import fields, models
 from odoo.osv import expression
-
 
 _logger = logging.getLogger(__name__)
 

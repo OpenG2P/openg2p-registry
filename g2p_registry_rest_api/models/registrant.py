@@ -32,13 +32,13 @@ class PhoneNumberIn(NaiveOrmModel):
 
 class Relationship1Out(NaiveOrmModel):
     id: int
-    registrant: str = pydantic.Field(..., alias="registrant1_as_str")
+    registrant: int = pydantic.Field(..., alias="registrant1")
     relation: str = pydantic.Field(..., alias="relation_as_str")
 
 
 class Relationship2Out(NaiveOrmModel):
     id: int
-    registrant: str = pydantic.Field(..., alias="registrant2_as_str")
+    registrant: int = pydantic.Field(..., alias="registrant2")
     relation: str = pydantic.Field(..., alias="relation_as_str")
 
 
@@ -66,12 +66,10 @@ class RegistrantInfoIn(NaiveOrmModel):
 
 
 class Relationship1In(NaiveOrmModel):
-    registrant: RegistrantInfoIn
+    registrant: int
     relation: str
-    relation_inverse: str
 
 
 class Relationship2In(NaiveOrmModel):
-    registrant: RegistrantInfoIn
+    registrant: int
     relation: str
-    relation_inverse: str

@@ -1,17 +1,10 @@
 import logging
 
 from odoo.addons.base_rest import restapi
-from odoo.addons.base_rest_pydantic.restapi import (
-    PydanticModel,
-    PydanticModelList,
-)
+from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
 
-from ..models.group import (
-    GroupInfoIn,
-    GroupInfoOut,
-    GroupShortInfoOut,
-)
+from ..models.group import GroupInfoIn, GroupInfoOut, GroupShortInfoOut
 from ..models.group_search_param import GroupSearchParam
 
 
@@ -60,8 +53,6 @@ class GroupApiService(Component):
             domain.append(("name", "like", partner_search_param.name))
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
-        if partner_search_param.is_group:
-            domain.append(("is_group", "=", True))
         res = []
         for p in self.env["res.partner"].search(domain):
             res.append(GroupShortInfoOut.from_orm(p))
@@ -242,10 +233,7 @@ class GroupApiService(Component):
         for relations in membership_info:
             # Process Registrant
             registrant_info = {
-                "name": relations.registrant.name,
-                "registration_date": relations.registrant.registration_date,
-                "is_registrant": True,
-                "is_group": relations.registrant.is_group,
+                "id": relations.registrant,
             }
             registrant_id = self._process_relationship_registrant(registrant_info)
 
@@ -253,49 +241,46 @@ class GroupApiService(Component):
 
             relation_type_info = {
                 "name": relations.relation,
-                "name_inverse": relations.relation_inverse,
             }
             relation_id = self._process_relationship_relation(relation_type_info)
-            if kind == 1:
-                relationship = [
-                    (
-                        0,
-                        0,
-                        {
-                            "registrant1": registrant_id.id,
-                            "registrant2": main_reg_id.id,
-                            "relation": relation_id.id,
-                        },
-                    )
-                ]
-                main_reg_id.write({"related_1_ids": relationship})
-            else:
-                relationship = [
-                    (
-                        0,
-                        0,
-                        {
-                            "registrant1": main_reg_id.id,
-                            "registrant2": registrant_id.id,
-                            "relation": relation_id.id,
-                        },
-                    )
-                ]
-                main_reg_id.write({"related_2_ids": relationship})
+            if registrant_id.id and relation_id.id:
+                if kind == 1:
+                    relationship = [
+                        (
+                            0,
+                            0,
+                            {
+                                "registrant1": registrant_id.id,
+                                "registrant2": main_reg_id.id,
+                                "relation": relation_id.id,
+                            },
+                        )
+                    ]
+                    main_reg_id.write({"related_1_ids": relationship})
+                else:
+                    relationship = [
+                        (
+                            0,
+                            0,
+                            {
+                                "registrant1": main_reg_id.id,
+                                "registrant2": registrant_id.id,
+                                "relation": relation_id.id,
+                            },
+                        )
+                    ]
+                    main_reg_id.write({"related_2_ids": relationship})
 
         return relationship
 
     def _process_relationship_registrant(self, registrant_info):
         # Search Registrant
         registrant = self.env["res.partner"].search(
-            [("name", "=", registrant_info["name"])]
+            [("id", "=", registrant_info["id"])]
         )
         registrant_id = 0
         if registrant:
             registrant_id = registrant[0]
-        else:
-            # Create a new Registrant
-            registrant_id = self.env["res.partner"].create(registrant_info)
         return registrant_id
 
     def _process_relationship_relation(self, relation_type_info):
@@ -306,7 +291,4 @@ class GroupApiService(Component):
         relation_id = 0
         if relation:
             relation_id = relation[0]
-        else:
-            # Create a new Relation Type
-            relation_id = self.env["g2p.relationship"].create(relation_type_info)
         return relation_id

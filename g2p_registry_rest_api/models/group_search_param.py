@@ -6,4 +6,3 @@ class GroupSearchParam(BaseModel, metaclass=ExtendableModelMeta):
 
     id: int = None
     name: str = None
-    is_group: bool = True

@@ -1,9 +1,6 @@
 from typing import List
 
-from .individual import (
-    IndividualInfoIn,
-    IndividualInfoOut,
-)
+from .individual import IndividualInfoIn, IndividualInfoOut
 from .naive_orm_model import NaiveOrmModel
 
 
