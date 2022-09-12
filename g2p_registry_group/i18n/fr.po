@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-09 01:23+0000\n"
+"PO-Revision-Date: 2022-09-13 08:22+0000\n"
 "Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_group/fr/>\n"
@@ -39,8 +39,9 @@ msgstr "<span class=\"o_stat_text\">Activer</span>"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
+#, fuzzy
 msgid "Add a group type!"
-msgstr ""
+msgstr "Ajoutez un type de groupe !"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
@@ -49,8 +50,9 @@ msgstr "Archivé"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
+#, fuzzy
 msgid "Click the create button to enter a new group type."
-msgstr ""
+msgstr "Cliquez sur le bouton Créer pour saisir un nouveau type de groupe."
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
@@ -66,12 +68,13 @@ msgstr "Contact"
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Contact Details"
-msgstr ""
+msgstr "Détails du contact"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
+#, fuzzy
 msgid "Create a new group registrant!"
-msgstr ""
+msgstr "Créez un nouveau groupe !"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__create_uid
@@ -91,27 +94,27 @@ msgstr "Afficher un nom"
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Enter name of group..."
-msgstr ""
+msgstr "Entrez le nom du groupe..."
 
 #. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_g2p_group_kind
 msgid "Group Kind"
-msgstr ""
+msgstr "Type de groupe"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Group Registrant"
-msgstr ""
+msgstr "Groupe inscrit"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_group_kind
 msgid "Group Types"
-msgstr ""
+msgstr "Types de groupe"
 
 #. module: g2p_registry_group
 #: model:ir.ui.menu,name:g2p_registry_group.menu_group_kind
 msgid "Group types"
-msgstr ""
+msgstr "Types de groupe"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_groups_list
@@ -122,7 +125,7 @@ msgstr "Groupes"
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
@@ -170,7 +173,7 @@ msgstr "Autres liés à cet inscrit :"
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_partner__is_partial_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__is_partial_group
 msgid "Partial Group"
-msgstr ""
+msgstr "Groupe partiel"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
