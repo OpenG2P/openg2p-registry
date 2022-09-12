@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-09 01:23+0000\n"
+"PO-Revision-Date: 2022-09-13 08:22+0000\n"
 "Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/fr/>\n"
@@ -298,19 +298,14 @@ msgstr "Types d'ID"
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
-#, fuzzy
 msgid "If checked, new messages require your attention."
-msgstr ""
-"Si cette case est cochée, de nouveaux messages nécessitent votre attention."
+msgstr "Si cochée, de nouveaux messages nécessitent votre attention."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-#, fuzzy
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-"Si cette case est cochée, certains messages présentent une erreur de "
-"livraison."
+msgstr "Si cochée, certains messages présentent une erreur de livraison."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
