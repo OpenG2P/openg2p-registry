@@ -49,6 +49,8 @@ class RegistrantInfoOut(NaiveOrmModel):
     is_group: bool
     registration_date: date = None
     phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
+    email: str
+    address: str
 
 
 class RegistrantIDIn(NaiveOrmModel):
@@ -63,6 +65,8 @@ class RegistrantInfoIn(NaiveOrmModel):
     registration_date: date = None
     is_group: bool
     phone_numbers: List[PhoneNumberIn]
+    email: str
+    address: str
 
 
 class Relationship1In(NaiveOrmModel):

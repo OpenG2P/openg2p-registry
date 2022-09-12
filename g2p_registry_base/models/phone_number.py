@@ -30,21 +30,22 @@ class G2PPhoneNumber(models.Model):
 
     @api.depends("phone_no", "country_id")
     def _compute_phone_sanitized(self):
-        self.ensure_one()
-        self.phone_sanitized = ""
-        if self.phone_no:
-            country_fname = "country_id"
-            number = self["phone_no"]
-            sanitized = str(
-                phone_validation.phone_sanitize_numbers_w_record(
-                    [number],
-                    self,
-                    record_country_fname=country_fname,
-                    force_format="E164",
-                )[number]["sanitized"]
-            )
-            _logger.debug(f"sanitized {sanitized}")
-            self.phone_sanitized = sanitized
+        for rec in self:
+            #self.ensure_one()
+            rec.phone_sanitized = ""
+            if rec.phone_no:
+                country_fname = "country_id"
+                number = rec["phone_no"]
+                sanitized = str(
+                    phone_validation.phone_sanitize_numbers_w_record(
+                        [number],
+                        rec,
+                        record_country_fname=country_fname,
+                        force_format="E164",
+                    )[number]["sanitized"]
+                )
+                _logger.debug(f"sanitized {sanitized}")
+                rec.phone_sanitized = sanitized
 
     @api.onchange("phone_no", "country_id")
     def _onchange_phone_validation(self):

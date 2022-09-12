@@ -13,7 +13,8 @@ from .registrant import Relationship2Out  # fmt: skip
 
 
 class GroupShortInfoOut(RegistrantInfoOut):
-    pass
+    relationships_1: List[Relationship1Out] = pydantic.Field(..., alias="related_1_ids")
+    relationships_2: List[Relationship2Out] = pydantic.Field(..., alias="related_2_ids")
 
 
 class GroupInfoOut(RegistrantInfoOut):
