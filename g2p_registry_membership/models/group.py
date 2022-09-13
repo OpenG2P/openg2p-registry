@@ -14,6 +14,32 @@ class G2PMembershipGroup(models.Model):
         "g2p.group.membership", "group", "Group Members"
     )
 
+    force_recompute_canary = fields.Datetime(
+        compute="_compute_force_recompute_group", store=True, readonly=True
+    )
+
+    def _compute_force_recompute_group(self):
+        _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
+
+        # We use this trick to have a consolidated list of groups to recompute
+        self.with_delay().recompute_indicators()
+        for group in self:
+            group.force_recompute_canary = fields.Datetime.now()
+
+    def recompute_indicators(self):
+        fields = self._get_calculated_group_fields()
+        for field in fields:
+            self.env.add_to_compute(field, self)
+
+    def _get_calculated_group_fields(self):
+        model_fields_id = self.env["res.partner"]._fields
+        fields = []
+        for field_name, field in model_fields_id.items():
+            els = field_name.split("_")
+            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
+                fields.append(field)
+        return fields
+
     def count_individuals(self, relationship_kinds=None, domain=None):
         """
         Count the number of individuals in the group that match the kinds and domain.
