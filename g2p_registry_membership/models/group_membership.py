@@ -86,39 +86,26 @@ class G2PGroupMembership(models.Model):
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
     def _recompute_parent_groups(self, records):
-        fields = self._get_calculated_group_fields()
-        for line in records:
-            for field in fields:
-                self.env.add_to_compute(field, line.group)
-
-    def _get_calculated_group_fields(self):
-        model_fields_id = self.env["res.partner"]._fields
-        fields = []
-        for field_name, field in model_fields_id.items():
-            els = field_name.split("_")
-            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
-                fields.append(field)
-        return fields
+        field = self.env["res.partner"]._fields["force_recompute_canary"]
+        groups = records.mapped("group")
+        self.env.add_to_compute(field, groups)
 
     def write(self, vals):
         res = super(G2PGroupMembership, self).write(vals)
-        self.sudo().with_delay()._recompute_parent_groups(self)
+        self._recompute_parent_groups(self)
         return res
 
     @api.model_create_multi
     @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
         res = super(G2PGroupMembership, self).create(vals_list)
-        self.sudo().with_delay()._recompute_parent_groups(res)
+        self._recompute_parent_groups(res)
         return res
 
     def unlink(self):
         groups = self.mapped("group")
         res = super(G2PGroupMembership, self).unlink()
-        fields = self._get_calculated_group_fields()
-        for group in groups:
-            for field in fields:
-                self.env.add_to_compute(field, group)
+        self._recompute_parent_groups(groups)
         return res
 
     def open_individual_form(self):
