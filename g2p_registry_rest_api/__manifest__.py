@@ -22,7 +22,10 @@
         "g2p_registry_individual",
     ],
     "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
-    "data": [],
+    "data": [
+        "security/g2p_security.xml",
+        "security/ir.model.access.csv",
+    ],
     "assets": {},
     "demo": [],
     "images": [],

@@ -54,6 +54,7 @@ class GroupApiService(Component):
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
         res = []
+
         for p in self.env["res.partner"].search(domain):
             res.append(GroupShortInfoOut.from_orm(p))
         return res
