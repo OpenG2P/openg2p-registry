@@ -14,8 +14,8 @@
                       <tree editable="top">
                           <field name="bank_id" options="{'no_quick_create':True}" />
                           <field name="acc_number" />
-                          <field name="acc_type" invisible="1"/>
-                          <field name="iban"/>
+                          <field name="acc_type" invisible="1" />
+                          <field name="iban" />
                       </tree>
                   </field>
               </page>
