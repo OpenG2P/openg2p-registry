@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2022-09-14 15:02+0000\n"
-"Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
+"Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/fr/>\n"
 "Language: fr\n"
@@ -55,7 +55,7 @@ msgstr "Ajoutez un ID d'inscrit !"
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Add a Registrant's Phone Number!"
-msgstr "Ajoutez le numéro de téléphone d&#39;un inscrit !"
+msgstr "Ajoutez le numéro de téléphone d'un inscrit !"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_relationship
@@ -65,7 +65,7 @@ msgstr "Ajoutez une relation !"
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Add an ID Type!"
-msgstr "Ajoutez un type d&#39;identifiant !"
+msgstr "Ajoutez un type d'identifiant !"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__address
@@ -92,7 +92,7 @@ msgstr "Bidirectionnel"
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Can't delete default ID Type"
-msgstr "Impossible de supprimer le type d&#39;ID par défaut"
+msgstr "Impossible de supprimer le type d'ID par défaut"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_id.py:0
