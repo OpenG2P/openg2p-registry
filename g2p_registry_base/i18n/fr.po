@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-14 15:02+0000\n"
+"PO-Revision-Date: 2022-09-14 16:26+0000\n"
 "Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
 "Language-Team: French <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/fr/>\n"
@@ -537,7 +537,7 @@ msgstr "Greffier"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__registration_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__registration_date
 msgid "Registration Date"
-msgstr "Date d&#39;inscription"
+msgstr "Date d'inscription"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_main_menu_root
@@ -548,13 +548,13 @@ msgstr "Registry"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__related_1_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__related_1_ids
 msgid "Related to registrant 1"
-msgstr "Related to registrant 1"
+msgstr "Lié à l'inscrit 1"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__related_2_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__related_2_ids
 msgid "Related to registrant 2"
-msgstr "Related to registrant 2"
+msgstr "Lié à l'inscrit 2"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation
@@ -565,58 +565,58 @@ msgstr "Relation"
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Relation:"
-msgstr "Relation:"
+msgstr "Relation :"
 
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_relationship
 #: model:ir.model,name:g2p_registry_base.model_g2p_relationship
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "Relation"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.menu_relationship
 msgid "Relationships"
-msgstr "Relationships"
+msgstr "Relations"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "SMS Delivery error"
+msgstr "Erreur de livraison SMS"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
-msgstr "Search Phone Number"
+msgstr "Rechercher un numéro de téléphone"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 msgid "Search Registrant IDs"
-msgstr "Search Registrant IDs"
+msgstr "Rechercher IDs d'inscrit"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Search Registrant Relationships"
-msgstr "Search Registrant Relationships"
+msgstr "Rechercher des relations"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Registrant 1..."
-msgstr "Select Registrant 1..."
+msgstr "Sélectionnez l'inscrit 1..."
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Registrant 2..."
-msgstr "Select Registrant 2..."
+msgstr "Sélectionnez l'inscrit 2..."
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 msgid "Select Registrant..."
-msgstr "Select Registrant..."
+msgstr "Sélectionnez un inscrit..."
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Relationship..."
-msgstr "Select Relationship..."
+msgstr "Sélectionnez une relation..."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__start_date
@@ -627,48 +627,50 @@ msgstr "Start Date"
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
 #, python-format
 msgid "Still part of group membership in: %s."
-msgstr "Still part of group membership in: %s."
+msgstr "Fait toujours partie de l'appartenance au groupe dans : %s."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
 #, python-format
 msgid "The program is not ended yet. Please check in program: %s."
-msgstr "The program is not ended yet. Please check in program: %s."
+msgstr ""
+"Le programme n'est pas encore terminé. Veuillez enregistrer le programme : "
+"%s."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "The starting date cannot be after the ending date."
-msgstr "The starting date cannot be after the ending date."
+msgstr "La date de début ne peut pas être postérieure à la date de fin."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "There is already a similar relation with overlapping dates"
-msgstr "There is already a similar relation with overlapping dates"
+msgstr "Il existe déjà une relation similaire avec des dates qui se chevauchent"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "This registrant is not applicable for this relation type."
-msgstr "This registrant is not applicable for this relation type."
+msgstr "Ce déclarant n'est pas applicable pour ce type de relation."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread
 msgid "Unread Messages"
-msgstr "Unread Messages"
+msgstr "Messages non lus"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr "Unread Messages Counter"
+msgstr "Compteur de messages non lus"
 
 #. module: g2p_registry_base
 #: model:ir.module.category,description:g2p_registry_base.openg2p_module
 msgid "User access level for the OpenG2P module"
-msgstr "User access level for the OpenG2P module"
+msgstr "Niveau d'accès utilisateur pour le module OpenG2P"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
-msgstr "Value"
+msgstr "Évaluer"
