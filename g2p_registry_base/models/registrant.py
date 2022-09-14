@@ -11,6 +11,9 @@ class G2PRegistrant(models.Model):
 
     # Custom Fields
     address = fields.Text()
+    district = fields.Char()
+    postal = fields.Char()
+    full_address = fields.Text(compute="_compute_address", string="Address")
     disabled = fields.Datetime("Date Disabled")
     disabled_reason = fields.Text("Reason for disabling")
     disabled_by = fields.Many2one("res.users")
@@ -33,6 +36,17 @@ class G2PRegistrant(models.Model):
     )
 
     registration_date = fields.Date()
+
+    @api.depends("address", "district", "postal")
+    def _compute_address(self):
+        for rec in self:
+            rec.full_address = ""
+            if rec.district:
+                rec.full_address = rec.district
+            if rec.address:
+                rec.full_address += " " + rec.address
+            if rec.postal:
+                rec.full_address += " " + rec.postal
 
     @api.onchange("phone_number_ids")
     def phone_number_ids_change(self):

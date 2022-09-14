@@ -121,10 +121,25 @@
                                     <span class="o_form_label o_td_label" name="address_name">
                                         <b>Address</b>
                                     </span>
-                                    <div class="o_address_format">
+                                    <div>
+                                        <field name="full_address" class="oe_read_only" />
+                                        <field
+                                            name="district"
+                                            placeholder="District"
+                                            attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
+                                        />
                                         <field
                                             name="address"
+                                            placeholder="Address"
                                             attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
+                                        />
+                                        <field
+                                            name="postal"
+                                            placeholder="Postal"
+                                            attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
                                         />
                                     </div>
                                 </group>
@@ -157,15 +172,15 @@
                             </group>
                         </page>
                         <page string="Banks" name="banks">
-                            <field name="bank_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
-                                <tree editable="top">
-                                    <field
-                                        name="acc_type"
-                                        options="{'no_open':True,'no_create_edit':True,'no_create':True}"
-                                    />
-                                    <field name="acc_number" />
-                                </tree>
-                            </field>
+                          <field name="bank_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
+                              <tree editable="top">
+                                  <field name="bank_id" options="{'no_quick_create':True}" />
+                                  <field name="account_code" />
+                                  <field name="account_number" invisible="1" />
+                                  <field name="acc_type" />
+                                  <field name="acc_number" />
+                              </tree>
+                          </field>
                         </page>
                         <page string="IDs" name="ids">
                             <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">

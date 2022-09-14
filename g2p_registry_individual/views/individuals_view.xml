@@ -137,10 +137,25 @@
                                     <span class="o_form_label o_td_label" name="address_name">
                                         <b>Address</b>
                                     </span>
-                                    <div class="o_address_format">
+                                    <div>
+                                        <field name="full_address" class="oe_read_only" />
+                                        <field
+                                            name="district"
+                                            placeholder="District"
+                                            attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
+                                        />
                                         <field
                                             name="address"
+                                            placeholder="Address"
                                             attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
+                                        />
+                                        <field
+                                            name="postal"
+                                            placeholder="Postal"
+                                            attrs="{'readonly':[('disabled','!=',False)]}"
+                                            class="oe_edit_only"
                                         />
                                     </div>
                                     <field
