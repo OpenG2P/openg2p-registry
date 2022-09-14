@@ -9,7 +9,7 @@
     "license": "Other OSI approved licence",
     "development_status": "Production/Stable",
     "maintainers": ["jeremi", "gonzalesedwin1123"],
-    "depends": ["base", "mail", "contacts", "web"],
+    "depends": ["base", "mail", "contacts", "web", "base_iban"],
     "data": [
         "security/g2p_security.xml",
         "security/ir.model.access.csv",

@@ -156,6 +156,17 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="Banks" name="banks">
+                            <field name="bank_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
+                                <tree editable="top">
+                                    <field
+                                        name="acc_type"
+                                        options="{'no_open':True,'no_create_edit':True,'no_create':True}"
+                                    />
+                                    <field name="acc_number" />
+                                </tree>
+                            </field>
+                        </page>
                         <page string="IDs" name="ids">
                             <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
                                 <tree editable="top">

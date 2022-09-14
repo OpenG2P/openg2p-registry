@@ -4,5 +4,6 @@ from . import registrant
 from . import reg_id
 from . import reg_relationship
 from . import phone_number
+from . import bank
 
 # from . import registry_config

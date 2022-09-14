@@ -187,6 +187,17 @@
                                 <field name="gender" attrs="{'readonly':[('disabled','!=',False)]}" />
                             </group>
                         </page>
+                        <page string="Banks" name="banks">
+                            <field name="bank_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
+                                <tree editable="top">
+                                    <field name="bank_id" options="{'no_quick_create':True}" />
+                                    <field name="account_code" />
+                                    <field name="account_number" invisible="1" />
+                                    <field name="acc_type" />
+                                    <field name="acc_number" />
+                                </tree>
+                            </field>
+                        </page>
                         <page string="IDs" name="ids">
                             <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
                                 <tree editable="top">
