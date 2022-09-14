@@ -25,6 +25,7 @@ class GroupInfoOut(RegistrantInfoOut):
     kind: str = pydantic.Field(..., alias="kind_as_str")
     relationships_1: List[Relationship1Out] = pydantic.Field(..., alias="related_1_ids")
     relationships_2: List[Relationship2Out] = pydantic.Field(..., alias="related_2_ids")
+    is_partial_group: bool
 
 
 class GroupInfoIn(RegistrantInfoIn):
@@ -33,3 +34,4 @@ class GroupInfoIn(RegistrantInfoIn):
     kind: str
     relationships_1: List[Relationship1In]
     relationships_2: List[Relationship2In]
+    is_partial_group: bool

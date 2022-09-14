@@ -141,7 +141,11 @@ class GroupApiService(Component):
             "is_registrant": True,
             "is_group": False,
             "email": individual.email,
-            "address": individual.address,
+            "given_name": individual.given_name,
+            "family_name": individual.family_name,
+            "gender": individual.gender or False,
+            "birthdate": individual.birthdate or False,
+            "birth_place": individual.birth_place or False,
         }
 
         ids = []
@@ -167,6 +171,7 @@ class GroupApiService(Component):
             "is_group": True,
             "email": group_info.email,
             "address": group_info.address,
+            "is_partial_group": group_info.is_partial_group,
         }
         # Add group's kind field
         if group_info.kind:

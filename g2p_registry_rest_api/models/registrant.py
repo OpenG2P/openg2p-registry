@@ -45,6 +45,12 @@ class Relationship2Out(NaiveOrmModel):
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
     name: str
+    given_name: str = None
+    family_name: str = None
+    gender: str = None
+    birthdate: date = None
+    age: str
+    birth_place: str = None
     ids: List[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
     is_group: bool
     registration_date: date = None
@@ -61,6 +67,11 @@ class RegistrantIDIn(NaiveOrmModel):
 
 class RegistrantInfoIn(NaiveOrmModel):
     name: str
+    given_name: str = None
+    family_name: str = None
+    gender: str = None
+    birthdate: date = None
+    birth_place: str = None
     ids: List[RegistrantIDIn]
     registration_date: date = None
     is_group: bool
