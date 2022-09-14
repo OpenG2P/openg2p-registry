@@ -1,5 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* g2p_registry_rest_api
 #
 msgid ""
 msgstr ""
@@ -11,3 +12,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: g2p_registry_rest_api
+#: model:res.groups,name:g2p_registry_rest_api.group_g2p_rest_api_get
+msgid "Rest API GET"
+msgstr ""
+
+#. module: g2p_registry_rest_api
+#: model:res.groups,name:g2p_registry_rest_api.group_g2p_rest_api_post
+msgid "Rest API POST"
+msgstr ""
