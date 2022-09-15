@@ -19,7 +19,7 @@ class G2PRegistrant(models.Model):
     is_registrant = fields.Boolean("Registrant")
     is_group = fields.Boolean("Group")
 
-    name = fields.Char(index=True, translate=True)
+    name = fields.Char(index=True)
 
     related_1_ids = fields.One2many(
         "g2p.reg.rel", "registrant2", "Related to registrant 1"
