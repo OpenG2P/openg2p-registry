@@ -1,7 +1,4 @@
 import logging
-import random
-
-from schwifty import IBAN
 
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
@@ -36,25 +33,21 @@ class BankTest(TransactionCase):
             vals = {"name": "Sample Bank", "bic": "1010101010"}
             bank_id = self.env["res.bank"].create(vals)
 
+        country = self.env["res.country"].search([("name", "=", "Germany")])
+        if country:
+            bank_id.country = country.id
+
         vals = []
 
         # Generate Number Account Number
-        random_acc = str(random.randint(1, 9999999999))
-
-        # Compute Expected IBAN
-        expected_iban = IBAN.generate(
-            bank_id.country.code,
-            bank_code=bank_id.bic,
-            account_code=random_acc,
-        )
 
         val = {
             "bank_id": bank_id.id,
-            "acc_number": random_acc,
+            "acc_number": "123456789",
         }
         vals.append([0, 0, val])
 
         # Save Random Account Number to Bank Details
         self.registrant_1.write({"bank_ids": vals})
 
-        self.assertEqual(self.registrant_1.bank_ids[0].iban, expected_iban)
+        self.assertEqual(self.registrant_1.bank_ids[0].iban, "DE77100100100123456789")
