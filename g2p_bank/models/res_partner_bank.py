@@ -14,9 +14,9 @@ class G2PBanks(models.Model):
     def _compute_account_number(self):
         for rec in self:
             rec.iban = ""
-            if rec.bank_id and rec.acc_number:
+            if rec.bank_id and rec.bank_id.country and rec.acc_number:
                 rec.iban = IBAN.generate(
-                    self.env.user.country_code,
+                    rec.bank_id.country.code,
                     bank_code=rec.bank_id.bic,
                     account_code=rec.acc_number,
                 )
