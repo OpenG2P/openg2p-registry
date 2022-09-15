@@ -30,10 +30,11 @@ class BankTest(TransactionCase):
         if bank:
             bank_id = bank[0]
         else:
-            vals = {"name": "Sample Bank", "bic": "1010101010"}
+            vals = {"name": "Sample Bank", "bic": "10010010"}
             bank_id = self.env["res.bank"].create(vals)
 
         country = self.env["res.country"].search([("name", "=", "Germany")])
+
         if country:
             bank_id.country = country.id
 
