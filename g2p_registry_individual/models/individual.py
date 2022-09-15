@@ -12,9 +12,9 @@ _logger = logging.getLogger(__name__)
 class G2PIndividual(models.Model):
     _inherit = "res.partner"
 
-    family_name = fields.Char(translate=True)
-    given_name = fields.Char(translate=True)
-    addl_name = fields.Char("Additional Name", translate=True)
+    family_name = fields.Char(translate=False)
+    given_name = fields.Char(translate=False)
+    addl_name = fields.Char("Additional Name", translate=False)
     birth_place = fields.Char()
     birthdate_not_exact = fields.Boolean()
     birthdate = fields.Date("Date of Birth")
