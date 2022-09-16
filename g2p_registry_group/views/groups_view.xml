@@ -183,7 +183,7 @@
                                             class="btn-success"
                                         />
                                         <field
-                                            name="registrant1"
+                                            name="source"
                                             domain="[('is_registrant','=',True),('id','!=',active_id)]"
                                             options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
                                             string="Registrant"
@@ -214,7 +214,7 @@
                                             class="btn-success"
                                         />
                                         <field
-                                            name="registrant2"
+                                            name="destination"
                                             domain="[('is_registrant','=',True),('id','!=',active_id)]"
                                             options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
                                             string="Registrant"

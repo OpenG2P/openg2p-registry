@@ -10,15 +10,13 @@ class G2PRegistrantRelationship(models.Model):
     _order = "id desc"
     _inherit = ["mail.thread"]
 
-    registrant1 = fields.Many2one(
+    source = fields.Many2one(
         "res.partner",
-        "Registrant 1",
         required=True,
         domain=[("is_registrant", "=", True)],
     )
-    registrant2 = fields.Many2one(
+    destination = fields.Many2one(
         "res.partner",
-        "Registrant 2",
         required=True,
         domain=[("is_registrant", "=", True)],
     )
@@ -28,13 +26,11 @@ class G2PRegistrantRelationship(models.Model):
     start_date = fields.Datetime()
     end_date = fields.Datetime()
 
-    @api.constrains("registrant1", "registrant2")
+    @api.constrains("source", "destination")
     def _check_registrants(self):
         for rec in self:
-            if rec.registrant1 == rec.registrant2:
-                raise ValidationError(
-                    _("Registrant 1 and Registrant 2 cannot be the same.")
-                )
+            if rec.source == rec.destination:
+                raise ValidationError(_("Source and Destination cannot be the same."))
 
     @api.constrains("start_date", "end_date")
     def _check_dates(self):
@@ -48,7 +44,7 @@ class G2PRegistrantRelationship(models.Model):
                     _("The starting date cannot be after the ending date.")
                 )
 
-    @api.constrains("registrant1", "relation", "registrant2", "start_date", "end_date")
+    @api.constrains("source", "relation", "destination", "start_date", "end_date")
     def _check_relation_uniqueness(self):
         """Forbid multiple active relations of the same type between the same
         partners
@@ -60,8 +56,8 @@ class G2PRegistrantRelationship(models.Model):
             domain = [
                 ("relation", "=", record.relation.id),
                 ("id", "!=", record.id),
-                ("registrant1", "=", record.registrant1.id),
-                ("registrant2", "=", record.registrant2.id),
+                ("source", "=", record.source.id),
+                ("destination", "=", record.destination.id),
             ]
             if record.start_date:
                 domain += [
@@ -80,19 +76,19 @@ class G2PRegistrantRelationship(models.Model):
                     _("There is already a similar relation with " "overlapping dates")
                 )
 
-    @api.constrains("registrant1", "relation")
-    def _check_registrant1(self):
-        self._check_partner("1")
+    @api.constrains("source", "relation")
+    def _check_source(self):
+        self._check_partner("source")
 
-    @api.constrains("registrant2", "relation")
-    def _check_registrant2(self):
-        self._check_partner("2")
+    @api.constrains("destination", "relation")
+    def _check_destination(self):
+        self._check_partner("destination")
 
     def _check_partner(self, side):
         for record in self:
-            assert side in ["1", "2"]
-            ptype = getattr(record.relation, "registrant_type_%s" % side)
-            partner = getattr(record, "registrant%s" % side)
+            assert side in ["source", "destination"]
+            ptype = getattr(record.relation, "%s_type" % side)
+            partner = getattr(record, "%s" % side)
             if (
                 not partner.is_registrant
                 or (ptype == "i" and partner.is_group)
@@ -106,10 +102,10 @@ class G2PRegistrantRelationship(models.Model):
         res = super(G2PRegistrantRelationship, self).name_get()
         for rec in self:
             name = ""
-            if rec.registrant1:
-                name += rec.registrant1.name
-            if rec.registrant2:
-                name += " / " + rec.registrant2.name
+            if rec.source:
+                name += rec.source.name
+            if rec.destination:
+                name += " / " + rec.destination.name
             res.append((rec.id, name))
         return res
 
@@ -121,8 +117,8 @@ class G2PRegistrantRelationship(models.Model):
         if name:
             args = [
                 "|",
-                ("registrant1", operator, name),
-                ("registrant2", operator, name),
+                ("source", operator, name),
+                ("destination", operator, name),
             ] + args
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
@@ -147,12 +143,12 @@ class G2PRegistrantRelationship(models.Model):
                 )
 
     def open_relationship1_form(self):
-        if self.registrant1.is_group:
+        if self.source.is_group:
             return {
                 "name": "Related Group",
                 "view_mode": "form",
                 "res_model": "res.partner",
-                "res_id": self.registrant1.id,
+                "res_id": self.source.id,
                 "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
@@ -162,19 +158,19 @@ class G2PRegistrantRelationship(models.Model):
                 "name": "Related Registrant",
                 "view_mode": "form",
                 "res_model": "res.partner",
-                "res_id": self.registrant1.id,
+                "res_id": self.source.id,
                 "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
 
     def open_relationship2_form(self):
-        if self.registrant2.is_group:
+        if self.destination.is_group:
             return {
                 "name": "Other Related Group",
                 "view_mode": "form",
                 "res_model": "res.partner",
-                "res_id": self.registrant2.id,
+                "res_id": self.destination.id,
                 "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
@@ -184,7 +180,7 @@ class G2PRegistrantRelationship(models.Model):
                 "name": "Other Related Registrant",
                 "view_mode": "form",
                 "res_model": "res.partner",
-                "res_id": self.registrant2.id,
+                "res_id": self.destination.id,
                 "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
@@ -199,11 +195,11 @@ class G2PRelationship(models.Model):
     name = fields.Char(translate=True)
     name_inverse = fields.Char(string="Inverse name", required=True, translate=True)
     bidirectional = fields.Boolean("Bi-directional", default=False)
-    registrant_type_1 = fields.Selection(
-        selection="get_partner_types", string="Registrant 1 partner type"
+    source_type = fields.Selection(
+        selection="get_partner_types", string="Source partner type"
     )
-    registrant_type_2 = fields.Selection(
-        selection="get_partner_types", string="Registrant 2 partner type"
+    destination_type = fields.Selection(
+        selection="get_partner_types", string="Destination partner type"
     )
 
     @api.model

@@ -471,7 +471,7 @@ msgid "Registrant"
 msgstr "صاحب التسجيل"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__registrant1
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__source
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Registrant 1"
 msgstr "صاحب التسجيل 1"
@@ -483,18 +483,18 @@ msgid "Registrant 1 and Registrant 2 cannot be the same."
 msgstr "لا يمكن أن يكون صاحب التسجيل 1 و صاحب التسجيل 2 متماثلين."
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__registrant_type_1
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__source_type
 msgid "Registrant 1 partner type"
 msgstr "نوع شريك لصاحب التسجيل 1"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__registrant2
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__destination
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Registrant 2"
 msgstr "صاحب التسجيل 2"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__registrant_type_2
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__destination_type
 msgid "Registrant 2 partner type"
 msgstr "نوع شريك لصاحب التسجيل 2"
 

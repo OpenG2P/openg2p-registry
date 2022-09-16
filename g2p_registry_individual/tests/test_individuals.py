@@ -164,16 +164,16 @@ class IndividualsTest(TransactionCase):
                 "name_inverse": "Friend",
             }
         )
-        vals2 = {"registrant2": self.registrant_2.id, "relation": rel_type.id}
+        vals2 = {"destination": self.registrant_2.id, "relation": rel_type.id}
 
         self.registrant_1.write({"related_2_ids": [(0, 0, vals2)]})
 
         message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
             self.registrant_2.id,
-            self.registrant_1.related_2_ids[0].registrant2.id,
+            self.registrant_1.related_2_ids[0].destination.id,
         )
         self.assertEqual(
-            self.registrant_1.related_2_ids[0].registrant2.id,
+            self.registrant_1.related_2_ids[0].destination.id,
             self.registrant_2.id,
             message,
         )

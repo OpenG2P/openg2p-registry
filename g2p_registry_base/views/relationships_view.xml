@@ -12,8 +12,8 @@
                 <field name="name" />
                 <field name="name_inverse" />
                 <field name="bidirectional" />
-                <field name="registrant_type_1" />
-                <field name="registrant_type_2" />
+                <field name="source_type" />
+                <field name="destination_type" />
             </tree>
         </field>
     </record>

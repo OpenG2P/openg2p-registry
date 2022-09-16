@@ -22,11 +22,9 @@ class G2PRegistrant(models.Model):
     name = fields.Char(index=True)
 
     related_1_ids = fields.One2many(
-        "g2p.reg.rel", "registrant2", "Related to registrant 1"
+        "g2p.reg.rel", "destination", "Related to registrant 1"
     )
-    related_2_ids = fields.One2many(
-        "g2p.reg.rel", "registrant1", "Related to registrant 2"
-    )
+    related_2_ids = fields.One2many("g2p.reg.rel", "source", "Related to registrant 2")
 
     phone_number_ids = fields.One2many(
         "g2p.phone.number", "partner_id", "Phone Numbers"
