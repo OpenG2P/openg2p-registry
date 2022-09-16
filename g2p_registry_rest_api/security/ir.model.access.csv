@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+g2p_rest_api_get_res_partner,Rest API Get Access res.partner,base.model_res_partner,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+g2p_rest_api_get_res_partner_reg_rel,Rest API Get Access res.partner Registrant Relationship,g2p_registry_base.model_g2p_reg_rel,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+g2p_rest_api_get_res_partner_reg_id,Rest API Get Access res.partner Registrant ID,g2p_registry_base.model_g2p_reg_id,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+g2p_rest_api_get_res_partner_id_type,Rest API Get Access res.partner Registrant ID Type,g2p_registry_base.model_g2p_id_type,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+g2p_rest_api_get_res_partner_relationship,Rest API Get Access res.partner Registrant Relationships,g2p_registry_base.model_g2p_relationship,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+g2p_rest_api_get_res_partner_phone_number,Rest API Get Access res.partner Registrant Phone Numbers,g2p_registry_base.model_g2p_phone_number,g2p_registry_rest_api.group_g2p_rest_api_get,1,0,0,0
+
+g2p_rest_api_post_res_partner,Rest API Post Access res.partner,base.model_res_partner,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0
+g2p_rest_api_post_res_partner_reg_rel,Rest API Post Access res.partner Registrant Relationship,g2p_registry_base.model_g2p_reg_rel,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0
+g2p_rest_api_post_res_partner_reg_id,Rest API Post Access res.partner Registrant ID,g2p_registry_base.model_g2p_reg_id,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0
+g2p_rest_api_post_res_partner_id_type,Rest API Post Access res.partner Registrant ID Type,g2p_registry_base.model_g2p_id_type,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0
+g2p_rest_api_post_res_partner_relationship,Rest API Post Access res.partner Registrant Relationships,g2p_registry_base.model_g2p_relationship,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0
+g2p_rest_api_post_res_partner_phone_number,Rest API Post Access res.partner Registrant Phone Numbers,g2p_registry_base.model_g2p_phone_number,g2p_registry_rest_api.group_g2p_rest_api_post,1,1,1,0

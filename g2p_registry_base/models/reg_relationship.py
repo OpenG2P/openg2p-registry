@@ -27,6 +27,7 @@ class G2PRegistrantRelationship(models.Model):
     disabled_by = fields.Many2one("res.users")
     start_date = fields.Datetime()
     end_date = fields.Datetime()
+    relation_as_str = fields.Char(related="relation.name")
 
     @api.constrains("registrant1", "registrant2")
     def _check_registrants(self):
@@ -153,7 +154,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.registrant1.id,
-                "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
+                "view_id": self.env.ref("g2p_registry_group.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -163,7 +164,9 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.registrant1.id,
-                "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
+                "view_id": self.env.ref(
+                    "g2p_registry_individual.view_individuals_form"
+                ).id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -175,7 +178,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.registrant2.id,
-                "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
+                "view_id": self.env.ref("g2p_registry_group.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -185,7 +188,9 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.registrant2.id,
-                "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
+                "view_id": self.env.ref(
+                    "g2p_registry_individual.view_individuals_form"
+                ).id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
