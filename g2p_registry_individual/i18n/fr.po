@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_registry_individual
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2022-09-14 16:26+0000\n"
+"Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
+"Language-Team: French <https://translate.openspp.org/projects/openg2p/"
+"g2p_registry_individual/fr/>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14\n"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                        <b>Address</b>\n"
+"                                    </span>"
+msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\"> <b>Adresse</"
+"b> </span>"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "<span class=\"o_stat_text\">Disable</span>"
+msgstr "<span class=\"o_stat_text\">Désactiver</span>"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "<span class=\"o_stat_text\">Enable</span>"
+msgstr "<span class=\"o_stat_text\">Activer</span>"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__addl_name
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__addl_name
+msgid "Additional Name"
+msgstr "Nom supplémentaire"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Additional Name..."
+msgstr "Nom supplémentaire..."
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__age
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__age
+msgid "Age"
+msgstr "Âge"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birth_place
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birth_place
+msgid "Birth Place"
+msgstr "Lieu de naissance"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate_not_exact
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate_not_exact
+msgid "Birthdate Not Exact"
+msgstr "Date de naissance non exacte"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_individuals_list
+msgid "Click the create button to enter the new registrant's information."
+msgstr ""
+"Cliquez sur le bouton Créer pour saisir les informations du nouvel inscrit."
+
+#. module: g2p_registry_individual
+#: model:ir.model,name:g2p_registry_individual.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_individuals_list
+msgid "Create a new individual registrant!"
+msgstr "Créez un nouvel inscrit individuel !"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate
+msgid "Date of Birth"
+msgstr "Date de naissance"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__family_name
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__family_name
+msgid "Family Name"
+msgstr "Nom de famille"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Family Name..."
+msgstr "Nom de famille..."
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__female
+msgid "Female"
+msgstr "Femme"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__gender
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__gender
+msgid "Gender"
+msgstr "Genre"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__given_name
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__given_name
+msgid "Given Name"
+msgstr "Prénom"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Given Name..."
+msgstr "Prénom..."
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "ID Number"
+msgstr "Numéro d&#39;identification"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "IDs"
+msgstr "Identifiants"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Individual Registrant"
+msgstr "Individu"
+
+#. module: g2p_registry_individual
+#: model:ir.actions.act_window,name:g2p_registry_individual.action_individuals_list
+#: model:ir.ui.menu,name:g2p_registry_individual.menu_individuals_list
+msgid "Individuals"
+msgstr "Personnes"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__male
+msgid "Male"
+msgstr "Homme"
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__other
+msgid "Other"
+msgstr "Autre"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Other Information"
+msgstr "Autres informations"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Others Related to this Registrant:"
+msgstr "Autres liés à cet inscrit :"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Personal Info"
+msgstr "Informations personnelles"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Phone Numbers"
+msgstr "Numéros de téléphone"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Registrant"
+msgstr "Inscrit"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Registrant is related to:"
+msgstr "Inscrit lié à :"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Relation"
+msgstr "Relation"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Relationships"
+msgstr "Relations"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_list_tree
+msgid "Tags"
+msgstr "Mots clés"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Tags..."
+msgstr "Mots clés..."
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Tags:"
+msgstr "Mots clés :"
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "| Company:"
+msgstr "| Compagnie :"

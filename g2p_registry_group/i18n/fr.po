@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_registry_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2022-09-14 16:26+0000\n"
+"Last-Translator: Corentin Madec <corentin@newlogic.com>\n"
+"Language-Team: French <https://translate.openspp.org/projects/openg2p/"
+"g2p_registry_group/fr/>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14\n"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                        <b>Address</b>\n"
+"                                    </span>"
+msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\"> <b>Adresse</"
+"b> </span>"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "<span class=\"o_stat_text\">Disable</span>"
+msgstr "<span class=\"o_stat_text\">Désactiver</span>"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "<span class=\"o_stat_text\">Enable</span>"
+msgstr "<span class=\"o_stat_text\">Activer</span>"
+
+#. module: g2p_registry_group
+#: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
+msgid "Add a group type!"
+msgstr "Ajoutez un type de groupe !"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: g2p_registry_group
+#: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
+msgid "Click the create button to enter a new group type."
+msgstr "Cliquez sur le bouton Créer pour saisir un nouveau type de groupe."
+
+#. module: g2p_registry_group
+#: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
+msgid "Click the create button to enter the new registrant's information."
+msgstr ""
+"Cliquez sur le bouton Créer pour saisir les informations du nouvel inscrit."
+
+#. module: g2p_registry_group
+#: model:ir.model,name:g2p_registry_group.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Contact Details"
+msgstr "Détails du contact"
+
+#. module: g2p_registry_group
+#: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
+msgid "Create a new group registrant!"
+msgstr "Créez un nouveau groupe !"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__create_date
+msgid "Created on"
+msgstr "Créé sur"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__display_name
+msgid "Display Name"
+msgstr "Afficher un nom"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Enter name of group..."
+msgstr "Entrez le nom du groupe..."
+
+#. module: g2p_registry_group
+#: model:ir.model,name:g2p_registry_group.model_g2p_group_kind
+msgid "Group Kind"
+msgstr "Type de groupe"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Group Registrant"
+msgstr "Groupe inscrit"
+
+#. module: g2p_registry_group
+#: model:ir.actions.act_window,name:g2p_registry_group.action_group_kind
+msgid "Group Types"
+msgstr "Types de groupe"
+
+#. module: g2p_registry_group
+#: model:ir.ui.menu,name:g2p_registry_group.menu_group_kind
+msgid "Group types"
+msgstr "Types de groupe"
+
+#. module: g2p_registry_group
+#: model:ir.actions.act_window,name:g2p_registry_group.action_groups_list
+#: model:ir.ui.menu,name:g2p_registry_group.menu_groups_list
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__id
+msgid "ID"
+msgstr "ID"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "ID Number"
+msgstr "Numéro d&#39;identification"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "IDs"
+msgstr "Identifiants"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__name
+#: model:ir.model.fields,field_description:g2p_registry_group.field_res_partner__kind
+#: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__kind
+msgid "Kind"
+msgstr "Type"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind____last_update
+msgid "Last Modified on"
+msgstr "Modification le"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_uid
+msgid "Last Updated by"
+msgstr "Mise à jour par"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_date
+msgid "Last Updated on"
+msgstr "Mise à jour le"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Other Information"
+msgstr "Autres informations"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Others Related to this Registrant:"
+msgstr "Autres liés à cet inscrit :"
+
+#. module: g2p_registry_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_res_partner__is_partial_group
+#: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__is_partial_group
+msgid "Partial Group"
+msgstr "Groupe partiel"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Phone Numbers"
+msgstr "Numéros de téléphone"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Registrant"
+msgstr "Inscrit"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Registrant is related to:"
+msgstr "Inscrit lié à :"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Relation"
+msgstr "Relation"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Relationships"
+msgstr "Relations"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_list_tree
+msgid "Tags"
+msgstr "Mots clés"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Tags..."
+msgstr "Mots clés..."
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Tags:"
+msgstr "Mots clés :"
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "| Company:"
+msgstr "| Compagnie :"
