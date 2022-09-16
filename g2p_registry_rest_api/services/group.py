@@ -260,8 +260,8 @@ class GroupApiService(Component):
                             0,
                             0,
                             {
-                                "registrant1": registrant_id.id,
-                                "registrant2": main_reg_id.id,
+                                "source": registrant_id.id,
+                                "destination": main_reg_id.id,
                                 "relation": relation_id.id,
                             },
                         )
@@ -273,8 +273,8 @@ class GroupApiService(Component):
                             0,
                             0,
                             {
-                                "registrant1": main_reg_id.id,
-                                "registrant2": registrant_id.id,
+                                "source": main_reg_id.id,
+                                "destination": registrant_id.id,
                                 "relation": relation_id.id,
                             },
                         )
