@@ -1,7 +1,6 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class G2PRegistrantID(models.Model):
