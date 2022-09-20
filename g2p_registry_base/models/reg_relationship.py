@@ -12,11 +12,13 @@ class G2PRegistrantRelationship(models.Model):
 
     source = fields.Many2one(
         "res.partner",
+        "Source",
         required=True,
         domain=[("is_registrant", "=", True)],
     )
     destination = fields.Many2one(
         "res.partner",
+        "Destination",
         required=True,
         domain=[("is_registrant", "=", True)],
     )
@@ -25,12 +27,15 @@ class G2PRegistrantRelationship(models.Model):
     disabled_by = fields.Many2one("res.users")
     start_date = fields.Datetime()
     end_date = fields.Datetime()
+    relation_as_str = fields.Char(related="relation.name")
 
     @api.constrains("source", "destination")
     def _check_registrants(self):
         for rec in self:
             if rec.source == rec.destination:
-                raise ValidationError(_("Source and Destination cannot be the same."))
+                raise ValidationError(
+                    _("Registrant 1 and Registrant 2 cannot be the same.")
+                )
 
     @api.constrains("start_date", "end_date")
     def _check_dates(self):
@@ -149,7 +154,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.source.id,
-                "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
+                "view_id": self.env.ref("g2p_registry_group.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -159,7 +164,9 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.source.id,
-                "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
+                "view_id": self.env.ref(
+                    "g2p_registry_individual.view_individuals_form"
+                ).id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -171,7 +178,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.destination.id,
-                "view_id": self.env.ref("g2p_registry_base.view_groups_form").id,
+                "view_id": self.env.ref("g2p_registry_group.view_groups_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -181,7 +188,9 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.destination.id,
-                "view_id": self.env.ref("g2p_registry_base.view_individuals_form").id,
+                "view_id": self.env.ref(
+                    "g2p_registry_individual.view_individuals_form"
+                ).id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
