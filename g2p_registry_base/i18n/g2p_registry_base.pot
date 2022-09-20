@@ -361,6 +361,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
