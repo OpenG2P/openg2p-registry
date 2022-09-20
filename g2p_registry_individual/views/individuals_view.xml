@@ -18,6 +18,7 @@
                     options="{'color_field': 'color', 'no_create_edit': True}"
                     string="Tags"
                 />
+                <field name="birthdate" />
                 <field name="registration_date" />
                 <field name="disabled" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
