@@ -1,7 +1,6 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class G2PRegistrantID(models.Model):
@@ -19,6 +18,7 @@ class G2PRegistrantID(models.Model):
     value = fields.Char(size=100)
 
     expiry_date = fields.Date()
+    id_type_as_str = fields.Char(related="id_type.name")
 
     def name_get(self):
         res = super(G2PRegistrantID, self).name_get()
@@ -45,22 +45,3 @@ class G2PIDType(models.Model):
     _order = "id desc"
 
     name = fields.Char()
-
-    def unlink(self):
-        for rec in self:
-            external_identifier = self.env["ir.model.data"].search(
-                [("res_id", "=", rec.id), ("model", "=", "g2p.id.type")]
-            )
-            if external_identifier.name == "id_type_idpass":
-                raise ValidationError(_("Can't delete default ID Type"))
-            else:
-                return super(G2PIDType, self).unlink()
-
-    def write(self, vals):
-        external_identifier = self.env["ir.model.data"].search(
-            [("res_id", "=", self.id), ("model", "=", "g2p.id.type")]
-        )
-        if external_identifier.name == "id_type_idpass":
-            raise ValidationError(_("Can't edit default ID Type"))
-        else:
-            return super(G2PIDType, self).write(vals)

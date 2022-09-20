@@ -192,6 +192,7 @@
                                             name="relation"
                                             options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
                                             string="Relation"
+                                            required="1"
                                         />
                                         <field name="start_date" />
                                         <field name="end_date" />
