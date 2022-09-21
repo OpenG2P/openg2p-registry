@@ -28,6 +28,8 @@ class G2PGroupMembership(models.Model):
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
     end_date = fields.Datetime()
     # TODO: Should rename `ended_date` add a check that the date is in the past
+    individual_birthdate = fields.Date(related="individual.birthdate")
+    individual_gender = fields.Selection(related="individual.gender")
 
     @api.onchange("kind")
     def _kind_onchange(self):

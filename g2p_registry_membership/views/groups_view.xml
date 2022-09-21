@@ -42,6 +42,8 @@
                                     string="Member Name"
                                     context="{'form_view_ref':'g2p_registry_individual.view_individuals_form'}"
                                 />
+                                <field name="individual_birthdate" string="Date of Birth" />
+                                <field name="individual_gender" string="Gender" />
                                 <field
                                     name="kind"
                                     widget="many2many_tags"

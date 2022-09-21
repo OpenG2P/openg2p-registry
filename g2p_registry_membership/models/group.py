@@ -19,7 +19,7 @@ class G2PMembershipGroup(models.Model):
     )
 
     def _compute_force_recompute_group(self):
-        _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
+        # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
         # We use this trick to have a consolidated list of groups to recompute
         self.with_delay().recompute_indicators()
@@ -44,7 +44,7 @@ class G2PMembershipGroup(models.Model):
         """
         Count the number of individuals in the group that match the kinds and domain.
         """
-        _logger.info("SQL DEBUG: count_individuals: records:%s" % self.ids)
+        # _logger.info("SQL DEBUG: count_individuals: records:%s" % self.ids)
         membership_kind_domain = None
         individual_domain = None
         if self.group_membership_ids:
@@ -65,7 +65,7 @@ class G2PMembershipGroup(models.Model):
     def _query_members_aggregate(
         self, membership_kind_domain=None, individual_domain=None
     ):
-        _logger.info("SQL DEBUG: query_members_aggregate: records:%s" % self.ids)
+        # _logger.info("SQL DEBUG: query_members_aggregate: records:%s" % self.ids)
         ids = self.ids
         partner_model = "res.partner"
         domain = [
@@ -150,15 +150,13 @@ class G2PMembershipGroup(models.Model):
         # In the absence of managing "GROUP BY" by Odoo Query object,
         # we will add the GROUP BY clause manually
         select_query += " GROUP BY " + partner_model.replace(".", "_") + ".id"
-        _logger.info(
-            "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
-        )
+        # _logger.info(
+        #     "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
+        # )
         self._cr.execute(select_query, select_params)
-        # Generate result as dict
-        # results = self._cr.dictfetchall()
         # Generate result as tuple
         results = self._cr.fetchall()
-        _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
+        # _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
         return results
 
     def compute_count_and_set_indicator(
@@ -173,9 +171,9 @@ class G2PMembershipGroup(models.Model):
         :return: The count then set it on the Field Name.
         """
 
-        _logger.info(
-            "SQL DEBUG: compute_count_and_set_indicator: total records:%s" % len(self)
-        )
+        # _logger.info(
+        #     "SQL DEBUG: compute_count_and_set_indicator: total records:%s" % len(self)
+        # )
         # Get groups only
         records = self.filtered(lambda a: a.is_group)
         query_result = None
@@ -184,10 +182,10 @@ class G2PMembershipGroup(models.Model):
             query_result = records.count_individuals(
                 relationship_kinds=kinds, domain=domain
             )
-            _logger.info(
-                "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
-                % (field_name, query_result)
-            )
+            # _logger.info(
+            #     "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
+            #     % (field_name, query_result)
+            # )
 
             result_map = dict(query_result)
             for record in records:
@@ -208,19 +206,19 @@ class G2PMembershipGroup(models.Model):
             query_result = records.count_individuals(
                 relationship_kinds=kinds, domain=domain
             )
-            _logger.info(
-                "SQL DEBUG: job_queue->_update_compute_fields: field:%s, results:%s"
-                % (field_name, query_result)
-            )
+            # _logger.info(
+            #     "SQL DEBUG: job_queue->_update_compute_fields: field:%s, results:%s"
+            #     % (field_name, query_result)
+            # )
             # if query_result:
             #     # Update the compute fields and affected records
 
             result_map = dict(query_result)
             for record in records:
-                _logger.info(
-                    "SQL DEBUG: XXX job_queue->_update_compute_fields: record.id:%s, results:%s"
-                    % (record.id, result_map.get(record.id, 0))
-                )
+                # _logger.info(
+                #     "SQL DEBUG: XXX job_queue->_update_compute_fields: record.id:%s, results:%s"
+                #     % (record.id, result_map.get(record.id, 0))
+                # )
                 if presence_only:
                     record[field_name] = result_map.get(record.id, 0) > 0
                 else:
