@@ -83,6 +83,12 @@ msgid "Date Range"
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual_birthdate
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Date of Birth"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__display_name
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__display_name
 msgid "Display Name"
@@ -113,6 +119,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__force_recompute_canary
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__force_recompute_canary
 msgid "Force Recompute Canary"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual_gender
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Gender"
 msgstr ""
 
 #. module: g2p_registry_membership
