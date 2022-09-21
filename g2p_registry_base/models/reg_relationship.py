@@ -12,13 +12,11 @@ class G2PRegistrantRelationship(models.Model):
 
     source = fields.Many2one(
         "res.partner",
-        "Source",
         required=True,
         domain=[("is_registrant", "=", True)],
     )
     destination = fields.Many2one(
         "res.partner",
-        "Destination",
         required=True,
         domain=[("is_registrant", "=", True)],
     )

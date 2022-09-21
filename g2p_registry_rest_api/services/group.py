@@ -202,22 +202,22 @@ class GroupApiService(Component):
 
     def _process_ids(self, ids_info):
         ids = []
-        for id in ids_info.ids:
+        for rec in ids_info.ids:
             # Search ID Type
-            id_type_id = self.env["g2p.id.type"].search([("name", "=", id.id_type)])
+            id_type_id = self.env["g2p.id.type"].search([("name", "=", rec.id_type)])
             if id_type_id:
                 id_type_id = id_type_id[0]
             else:
                 # Create a new ID Type
-                id_type_id = self.env["g2p.id.type"].create({"name": id.id_type})
+                id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
             ids.append(
                 (
                     0,
                     0,
                     {
                         "id_type": id_type_id.id,
-                        "value": id.value,
-                        "expiry_date": id.expiry_date,
+                        "value": rec.value,
+                        "expiry_date": rec.expiry_date,
                     },
                 )
             )
