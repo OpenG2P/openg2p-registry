@@ -22,7 +22,7 @@ class G2PPhoneNumber(models.Model):
         domain=[("is_registrant", "=", True)],
     )
     phone_no = fields.Char("Phone Number", required=True)
-    phone_sanitized = fields.Char(compute="_compute_phone_sanitized")
+    phone_sanitized = fields.Char(compute="_compute_phone_sanitized", store=True)
     date_collected = fields.Date(default=fields.Date.today)
     disabled = fields.Datetime("Date Disabled")
     disabled_by = fields.Many2one("res.users")
@@ -31,7 +31,6 @@ class G2PPhoneNumber(models.Model):
     @api.depends("phone_no", "country_id")
     def _compute_phone_sanitized(self):
         for rec in self:
-            # self.ensure_one()
             rec.phone_sanitized = ""
             if rec.phone_no:
                 country_fname = "country_id"

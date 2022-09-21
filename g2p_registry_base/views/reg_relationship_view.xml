@@ -9,8 +9,8 @@
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <tree decoration-danger="disabled != False">
-                <field name="registrant1" string="Registrant" />
-                <field name="registrant2" string="Is Related to" />
+                <field name="source" />
+                <field name="destination" />
                 <field name="relation" />
                 <field name="disabled" />
                 <field name="disabled_by" widget="many2one_avatar_user" />
@@ -52,22 +52,22 @@
                         </button>
                     </div>
                     <div class="oe_title mb24">
-                        <label for="registrant1" string="Registrant: " />
+                        <label for="source" string="Registrant: " />
                         <h1>
                             <field
-                                id="registrant1"
-                                name="registrant1"
-                                placeholder="Select Registrant 1..."
+                                id="source"
+                                name="source"
+                                placeholder="Select Source..."
                                 attrs="{'readonly':[('disabled','!=',False)]}"
                                 options="{'no_open':True,'no_create_edit':True,'no_create':True}"
                             />
                         </h1>
-                        <label for="registrant2" string="Is Related to: " />
+                        <label for="destination" string="Is Related to: " />
                         <h1>
                             <field
-                                id="registrant2"
-                                name="registrant2"
-                                placeholder="Select Registrant 2..."
+                                id="destination"
+                                name="destination"
+                                placeholder="Select Destination..."
                                 attrs="{'readonly':[('disabled','!=',False)]}"
                                 options="{'no_open':True,'no_create_edit':True,'no_create':True}"
                             />
@@ -111,21 +111,17 @@
         <field name="arch" type="xml">
             <search string="Search Registrant Relationships">
                 <field
-                    name="registrant1"
+                    name="source"
                     string="Registrant"
-                    filter_domain="['|', ('registrant1', 'ilike', self), ('registrant2', 'ilike', self)]"
+                    filter_domain="['|', ('source', 'ilike', self), ('destination', 'ilike', self)]"
                 />
                 <field name="relation" />
                 <group expand="0" string="Group By">
+                    <filter string="Source" name="grp_source" context="{'group_by': 'source'}" />
                     <filter
-                        string="Registrant 1"
-                        name="grp_registrant1"
-                        context="{'group_by': 'registrant1'}"
-                    />
-                    <filter
-                        string="Registrant 2"
-                        name="grp_registrant2"
-                        context="{'group_by': 'registrant2'}"
+                        string="Destination"
+                        name="grp_destination"
+                        context="{'group_by': 'destination'}"
                     />
                     <filter string="Relation" name="grp_relation" context="{'group_by': 'relation'}" />
                 </group>

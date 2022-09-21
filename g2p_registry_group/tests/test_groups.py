@@ -94,14 +94,14 @@ class GroupsTest(TransactionCase):
                 "name_inverse": "Friend",
             }
         )
-        vals2 = {"registrant2": self.group_2.id, "relation": rel_type.id}
+        vals2 = {"destination": self.group_2.id, "relation": rel_type.id}
 
         self.group_1.write({"related_2_ids": [(0, 0, vals2)]})
 
         message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
             self.group_2.id,
-            self.group_1.related_2_ids[0].registrant2.id,
+            self.group_1.related_2_ids[0].destination.id,
         )
         self.assertEqual(
-            self.group_1.related_2_ids[0].registrant2.id, self.group_2.id, message
+            self.group_1.related_2_ids[0].destination.id, self.group_2.id, message
         )
