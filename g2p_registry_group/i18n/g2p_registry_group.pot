@@ -38,6 +38,7 @@ msgstr ""
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_registry_groups_filter
 msgid "Archived"
 msgstr ""
 
@@ -190,6 +191,11 @@ msgstr ""
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Relationships"
+msgstr ""
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_registry_groups_filter
+msgid "Search Partner"
 msgstr ""
 
 #. module: g2p_registry_group
