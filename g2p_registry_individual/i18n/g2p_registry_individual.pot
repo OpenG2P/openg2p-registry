@@ -50,6 +50,7 @@ msgstr ""
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_registry_individuals_filter
 msgid "Archived"
 msgstr ""
 
@@ -188,6 +189,11 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Relationships"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_registry_individuals_filter
+msgid "Search Partner"
 msgstr ""
 
 #. module: g2p_registry_individual
