@@ -96,10 +96,20 @@ class G2PMembershipGroup(models.Model):
             "id",
         )
 
+        # Add INNER JOIN with VALUES (ids)
+        # TODO: In the absence of managing "INNER JOIN" by Odoo Query object,
+        # We will create the inner join manually
+        inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
+        inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
+        inner_join_query += ' ON ("%s"."group" = v and "%s"."end_date" IS NULL) ' % (
+            membership_alias,
+            membership_alias,
+        )
+
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
             model=self.env["g2p.group.membership"],
-            domain=[("end_date", "=", None), ("group", "in", ids)],
+            domain=[("end_date", "=", None)],  # ("group", "in", ids)],
             alias=membership_alias,
         ).query
         (
@@ -147,11 +157,16 @@ class G2PMembershipGroup(models.Model):
             "res_partner.id AS id", "count(*) AS members_cnt"
         )
 
-        # In the absence of managing "GROUP BY" by Odoo Query object,
+        # TODO: In the absence of managing "GROUP BY" by Odoo Query object,
         # we will add the GROUP BY clause manually
         select_query += " GROUP BY " + partner_model.replace(".", "_") + ".id"
+
+        # TODO: In the absence of managing "INNER JOIN" by Odoo Query object,
+        # Inject the prepared INNER JOIN manually
+        index = select_query.find("WHERE")
+        select_query = select_query[:index] + inner_join_query + select_query[index:]
         # _logger.info(
-        #     "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
+        #    "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
         # )
         self._cr.execute(select_query, select_params)
         # Generate result as tuple
