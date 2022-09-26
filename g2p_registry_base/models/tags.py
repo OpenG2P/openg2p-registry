@@ -14,3 +14,6 @@ class G2PRegistrantTags(models.Model):
 
     name = fields.Char("Tags", required=True)
     color = fields.Integer(string="Color", default=_get_default_color)
+    active = fields.Boolean(
+        default=True, help="Archive to hide the RegistrantTag without removing it."
+    )
