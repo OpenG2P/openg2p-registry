@@ -37,6 +37,11 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
 msgstr ""
@@ -49,6 +54,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Add a Registrant's Phone Number!"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
+msgid "Add a Registrant's Tags!"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -70,6 +80,16 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_admin
 msgid "Administrator"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,help:g2p_registry_base.field_g2p_registrant_tags__active
+msgid "Archive to hide the RegistrantTag without removing it."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
+msgid "Archived"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -108,10 +128,21 @@ msgid "Click the create button to enter the new registrant's ID information."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
+msgid ""
+"Click the create button to enter the new registrant's Tags information."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid ""
 "Click the create button to enter the new registrant's relationship "
 "information."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__color
+msgid "Color"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -135,6 +166,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
 msgid "Created by"
 msgstr ""
@@ -145,6 +177,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
 msgid "Created on"
 msgstr ""
@@ -214,6 +247,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
 msgid "Display Name"
 msgstr ""
@@ -264,6 +298,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
 msgid "ID"
 msgstr ""
@@ -320,6 +355,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel____last_update
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -330,6 +366,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -340,6 +377,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -472,6 +510,13 @@ msgid "Registrant Relationships"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_registrant_tags
+#: model:ir.model,name:g2p_registry_base.model_g2p_registrant_tags
+#: model:ir.ui.menu,name:g2p_registry_base.menu_registrant_tags
+msgid "Registrant Tags"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Registrant:"
@@ -548,6 +593,11 @@ msgid "Search Registrant Relationships"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
+msgid "Search Registrant Tags"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Select Destination..."
 msgstr ""
@@ -587,6 +637,13 @@ msgstr ""
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
 #, python-format
 msgid "Still part of group membership in: %s."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__tags_ids
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__tags_ids
+msgid "Tags"
 msgstr ""
 
 #. module: g2p_registry_base
