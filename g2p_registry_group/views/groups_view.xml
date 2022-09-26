@@ -8,7 +8,7 @@
         <field name="model">res.partner</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="disabled != False">
+            <tree decoration-danger="disabled != False" duplicate="0">
                 <field name="name" />
                 <field name="address" />
                 <field name="phone" />
@@ -31,7 +31,7 @@
         <field name="model">res.partner</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
-            <form string="Group Registrant">
+            <form string="Group Registrant" duplicate="0">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button
@@ -80,9 +80,9 @@
                             />
                         </h1>
                         <div class="o_row">
-                            <label for="category_id" string="Tags: " />
+                            <label for="tags_ids" string="Tags: " />
                             <field
-                                name="category_id"
+                                name="tags_ids"
                                 widget="many2many_tags"
                                 options="{'color_field': 'color', 'no_create_edit': True}"
                                 placeholder="Tags..."
@@ -264,11 +264,32 @@
         </field>
     </record>
 
+    <record id="view_registry_groups_filter" model="ir.ui.view">
+        <field name="name">view_registry_groups_filter</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+                <field
+                    name="name"
+                    filter_domain="['|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self)]"
+                />
+                <field name="email" filter_domain="[('email', 'ilike', self)]" />
+                <field
+                    name="phone"
+                    filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"
+                />
+                <separator />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
     <record id="action_groups_list" model="ir.actions.act_window">
         <field name="name">Groups</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_registry_groups_filter" />
         <field
             name="context"
         >{'default_is_registrant':True,'default_is_group':True,'registrant_form':True}</field>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_registrant_tags_tree" model="ir.ui.view">
+        <field name="name">view_registrant_tags_tree</field>
+        <field name="model">g2p.registrant.tags</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="registrant_tags_filter" model="ir.ui.view">
+        <field name="name">registrant_tags_filter</field>
+        <field name="model">g2p.registrant.tags</field>
+        <field name="priority" eval="1" />
+        <field name="arch" type="xml">
+            <search string="Search Registrant Tags">
+                <field name="name" />
+                <separator />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_registrant_tags" model="ir.actions.act_window">
+        <field name="name">Registrant Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">g2p.registrant.tags</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="registrant_tags_filter" />
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a Registrant's Tags!
+            </p><p>
+                Click the create button to enter the new registrant's Tags information.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_registrant_tags_tree_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_registrant_tags_tree" />
+        <field name="act_window_id" ref="action_registrant_tags" />
+    </record>
+
+    <menuitem
+        id="menu_registrant_tags"
+        name="Registrant Tags"
+        action="action_registrant_tags"
+        parent="g2p_registry_base.g2p_configuration_menu_root"
+        sequence="10"
+        groups="g2p_registry_base.group_g2p_admin"
+    />
+
+</odoo>

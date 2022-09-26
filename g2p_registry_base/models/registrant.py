@@ -31,6 +31,7 @@ class G2PRegistrant(models.Model):
     )
 
     registration_date = fields.Date()
+    tags_ids = fields.Many2many("g2p.registrant.tags", string="Tags")
 
     @api.onchange("phone_number_ids")
     def phone_number_ids_change(self):
