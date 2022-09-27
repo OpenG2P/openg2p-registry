@@ -49,6 +49,12 @@ msgid "Age"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate_not_exact
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate_not_exact
+msgid "Approximate Birthdate"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_registry_individuals_filter
 msgid "Archived"
@@ -58,12 +64,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birth_place
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birth_place
 msgid "Birth Place"
-msgstr ""
-
-#. module: g2p_registry_individual
-#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate_not_exact
-#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate_not_exact
-msgid "Birthdate Not Exact"
 msgstr ""
 
 #. module: g2p_registry_individual
