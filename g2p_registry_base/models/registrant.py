@@ -12,7 +12,7 @@ class G2PRegistrant(models.Model):
     # Custom Fields
     address = fields.Text()
     disabled = fields.Datetime("Date Disabled")
-    disabled_reason = fields.Text("Reason for disabling")
+    disabled_reason = fields.Text("Reason for Disabling")
     disabled_by = fields.Many2one("res.users")
 
     reg_ids = fields.One2many("g2p.reg.id", "partner_id", "Registrant IDs")
