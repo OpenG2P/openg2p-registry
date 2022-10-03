@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-07 16:22+0000\n"
-"Last-Translator: Walid Khoury <walid@newlogic.com>\n"
+"PO-Revision-Date: 2022-10-04 07:22+0000\n"
+"Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/ar/>\n"
 "Language: ar\n"
@@ -48,7 +48,7 @@ msgstr "الإجراءات اللازمة"
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
-msgstr "أضف علاقة صاحب التسجيل!"
+msgstr "أضف صلة صاحب التسجيل!"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_id
