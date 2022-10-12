@@ -196,6 +196,8 @@
                                         options="{'no_open':True,'no_create_edit':True,'no_create':True}"
                                     />
                                     <field name="value" string="ID Number" />
+                                    <field name="status" string="Status" readonly="True" />
+                                    <field name="error" string="Error" readonly="True" />
                                     <field name="expiry_date" />
                                 </tree>
                             </field>

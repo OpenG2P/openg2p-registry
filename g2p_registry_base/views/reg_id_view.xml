@@ -12,6 +12,8 @@
                 <field name="partner_id" options="{'no_open':True,'no_create_edit':True,'no_create':True}" />
                 <field name="id_type" options="{'no_open':True,'no_create_edit':True,'no_create':True}" />
                 <field name="value" />
+                <field name="status" readonly="True" />
+                <field name="error" readonly="True" />
             </tree>
         </field>
     </record>

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import List
 
 import pydantic
@@ -15,6 +15,8 @@ class RegistrantIDOut(NaiveOrmModel):
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
     value: str
     expiry_date: date = None
+    status: str
+    error: str
 
 
 class PhoneNumberOut(NaiveOrmModel):
@@ -63,6 +65,8 @@ class RegistrantIDIn(NaiveOrmModel):
     id_type: str
     value: str
     expiry_date: date = None
+    status: str
+    error: str
 
 
 class RegistrantInfoIn(NaiveOrmModel):
@@ -78,6 +82,13 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn]
     email: str = None
     address: str = None
+
+    @pydantic.validator("birthdate", pre=True)
+    def birthdate_parse_validate(cls, value):  # noqa: B902
+        try:
+            return datetime.strptime(value, "%Y/%m/%d").date()
+        except ValueError:
+            return datetime.strptime(value, "%Y-%m-%d").date()
 
 
 class Relationship1In(NaiveOrmModel):
