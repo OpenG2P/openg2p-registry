@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-07 16:22+0000\n"
-"Last-Translator: Walid Khoury <walid@newlogic.com>\n"
+"PO-Revision-Date: 2022-10-13 08:22+0000\n"
+"Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_individual/ar/>\n"
 "Language: ar\n"
@@ -25,6 +25,8 @@ msgid ""
 "                                        <b>Address</b>\n"
 "                                    </span>"
 msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\"> <b> العنوان </"
+"b> </span>"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -33,37 +35,37 @@ msgstr "<span class=\"o_stat_text\"> تعطيل </span>"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
-#, fuzzy
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr "<span class=\"o_stat_text\"> تمكين </span>"
+msgstr "<span class=\"o_stat_text\"> تفعيل </span>"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__addl_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__addl_name
 msgid "Additional Name"
-msgstr ""
+msgstr "اسم إضافي"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Additional Name..."
-msgstr ""
+msgstr "اسم إضافي"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__age
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__age
 msgid "Age"
-msgstr ""
+msgstr "العمر"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+#, fuzzy
 msgid "Archived"
-msgstr ""
+msgstr "مؤرشف"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birth_place
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birth_place
 msgid "Birth Place"
-msgstr ""
+msgstr "محل الولادة"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate_not_exact
@@ -90,51 +92,56 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate
+#, fuzzy
 msgid "Date of Birth"
-msgstr ""
+msgstr "تاريخ الولادة"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__family_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__family_name
+#, fuzzy
 msgid "Family Name"
-msgstr ""
+msgstr "اسم العائلة"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+#, fuzzy
 msgid "Family Name..."
-msgstr ""
+msgstr "اسم العائلة..."
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__female
 msgid "Female"
-msgstr ""
+msgstr "أنثى"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__gender
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__gender
 msgid "Gender"
-msgstr ""
+msgstr "الجنس"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__given_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__given_name
+#, fuzzy
 msgid "Given Name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+#, fuzzy
 msgid "Given Name..."
-msgstr ""
+msgstr "الاسم ..."
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "ID Number"
-msgstr ""
+msgstr "رقم الهوية"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "IDs"
-msgstr ""
+msgstr "المستمسكات التعريفية"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -145,22 +152,22 @@ msgstr ""
 #: model:ir.actions.act_window,name:g2p_registry_individual.action_individuals_list
 #: model:ir.ui.menu,name:g2p_registry_individual.menu_individuals_list
 msgid "Individuals"
-msgstr ""
+msgstr "الافراد"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__male
 msgid "Male"
-msgstr ""
+msgstr "ذكر"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__other
 msgid "Other"
-msgstr ""
+msgstr "آخر"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Other Information"
-msgstr ""
+msgstr "معلومات أخرى"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -170,7 +177,7 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Personal Info"
-msgstr ""
+msgstr "المعلومات الشخصية"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -189,15 +196,13 @@ msgstr ""
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
-#, fuzzy
 msgid "Relation"
-msgstr "علاقة"
+msgstr "الصلة"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
-#, fuzzy
 msgid "Relationships"
-msgstr "العلاقات"
+msgstr "صلات  القرابة"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
