@@ -20,6 +20,7 @@
         "extendable",
         "g2p_registry_group",
         "g2p_registry_individual",
+        "base_rest_auth_user_service",
     ],
     "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
     "data": [
