@@ -46,9 +46,9 @@ class Relationship2Out(NaiveOrmModel):
 
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
-    name: str
     given_name: str = None
     family_name: str = None
+    addl_name: str = None
     gender: str = None
     birthdate: date = None
     age: str
@@ -70,9 +70,9 @@ class RegistrantIDIn(NaiveOrmModel):
 
 
 class RegistrantInfoIn(NaiveOrmModel):
-    name: str
     given_name: str = None
     family_name: str = None
+    addl_name: str = None
     gender: str = None
     birthdate: date = None
     birth_place: str = None

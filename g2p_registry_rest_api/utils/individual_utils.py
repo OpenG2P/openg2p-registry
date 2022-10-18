@@ -10,13 +10,16 @@ class IndividualApiUtils:
 
     def process_individual(self, individual):
         indv_rec = {
-            "name": individual.name,
+            "name": self.process_name(
+                individual.family_name, individual.given_name, individual.addl_name
+            ),
             "registration_date": individual.registration_date,
             "is_registrant": True,
             "is_group": False,
             "email": individual.email,
             "given_name": individual.given_name,
             "family_name": individual.family_name,
+            "addl_name": individual.addl_name,
             "gender": individual.gender.capitalize() or False,
             "birthdate": individual.birthdate or False,
             "birth_place": individual.birth_place or False,
@@ -31,12 +34,24 @@ class IndividualApiUtils:
             indv_rec.update({"reg_ids": ids})
 
         phone_numbers = []
-        phone_numbers = self.process_phones(ids_info)
+        phone_numbers, primary_phone = self.process_phones(ids_info)
 
+        if primary_phone:
+            indv_rec.update({"phone": primary_phone})
         if phone_numbers:
             indv_rec.update({"phone_number_ids": phone_numbers})
 
         return indv_rec
+
+    def process_name(self, family_name, given_name, addl_name):
+        name = ""
+        if family_name:
+            name += family_name + ", "
+        if given_name:
+            name += given_name + " "
+        if addl_name:
+            name += addl_name + " "
+        return name.upper()
 
     def process_ids(self, ids_info):
         ids = []
@@ -64,8 +79,11 @@ class IndividualApiUtils:
         return ids
 
     def process_phones(self, ids_info):
+        primary_phone = None
         phone_numbers = []
         for phone in ids_info.phone_numbers:
+            if phone.phone_no and not primary_phone:
+                primary_phone = phone.phone_no
             phone_numbers.append(
                 (
                     0,
@@ -76,7 +94,7 @@ class IndividualApiUtils:
                     },
                 )
             )
-        return phone_numbers
+        return phone_numbers, primary_phone
 
     def process_relationship(self, membership_info, main_reg_id, kind):
         relationship = []
