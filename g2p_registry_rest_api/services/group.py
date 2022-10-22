@@ -88,22 +88,23 @@ class GroupApiService(Component):
             membership_kind = membership_info.kind
 
             indv_membership_kinds = []
-            for kind in membership_kind:
-                # Search Kind
-                kind_id = self.env["g2p.group.membership.kind"].search(
-                    [("name", "=", kind.name)]
-                )
-                if kind_id:
-                    kind_id = kind_id[0]
-                else:
-                    # Create a new Kind
-                    kind_id = self.env["g2p.group.membership.kind"].create(
-                        {"name": kind.name}
+            if membership_kind:
+                for kind in membership_kind:
+                    # Search Kind
+                    kind_id = self.env["g2p.group.membership.kind"].search(
+                        [("name", "=", kind.name)]
                     )
-                indv_membership_kinds.append((4, kind_id.id))
-            grp_membership_rec.append(
-                {"individual": indv_id.id, "kind": indv_membership_kinds}
-            )
+                    if kind_id:
+                        kind_id = kind_id[0]
+                    else:
+                        # Create a new Kind
+                        kind_id = self.env["g2p.group.membership.kind"].create(
+                            {"name": kind.name}
+                        )
+                    indv_membership_kinds.append((4, kind_id.id))
+                grp_membership_rec.append(
+                    {"individual": indv_id.id, "kind": indv_membership_kinds}
+                )
 
         # TODO: create the group object
         logging.info("GROUP:")
@@ -202,86 +203,91 @@ class GroupApiService(Component):
 
     def _process_ids(self, ids_info):
         ids = []
-        for rec in ids_info.ids:
-            # Search ID Type
-            id_type_id = self.env["g2p.id.type"].search([("name", "=", rec.id_type)])
-            if id_type_id:
-                id_type_id = id_type_id[0]
-            else:
-                # Create a new ID Type
-                id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
-            ids.append(
-                (
-                    0,
-                    0,
-                    {
-                        "id_type": id_type_id.id,
-                        "value": rec.value,
-                        "expiry_date": rec.expiry_date,
-                    },
+        if ids_info.ids:
+            for rec in ids_info.ids:
+                # Search ID Type
+                id_type_id = self.env["g2p.id.type"].search(
+                    [("name", "=", rec.id_type)]
                 )
-            )
-        return ids
+                if id_type_id:
+                    id_type_id = id_type_id[0]
+                else:
+                    # Create a new ID Type
+                    id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
+                ids.append(
+                    (
+                        0,
+                        0,
+                        {
+                            "id_type": id_type_id.id,
+                            "value": rec.value,
+                            "expiry_date": rec.expiry_date,
+                        },
+                    )
+                )
+            return ids
 
     def _process_phones(self, ids_info):
         phone_numbers = []
-        for phone in ids_info.phone_numbers:
-            phone_numbers.append(
-                (
-                    0,
-                    0,
-                    {
-                        "phone_no": phone.phone_no,
-                        "date_collected": phone.date_collected,
-                    },
+        if ids_info.phone_numbers:
+            for phone in ids_info.phone_numbers:
+                phone_numbers.append(
+                    (
+                        0,
+                        0,
+                        {
+                            "phone_no": phone.phone_no,
+                            "date_collected": phone.date_collected,
+                        },
+                    )
                 )
-            )
-        return phone_numbers
+            return phone_numbers
 
     def _process_relationship(self, membership_info, main_reg_id, kind):
         relationship = []
-        for relations in membership_info:
-            # Process Registrant
-            registrant_info = {
-                "id": relations.registrant,
-            }
-            registrant_id = self._process_relationship_registrant(registrant_info)
+        if membership_info:
+            for relations in membership_info:
+                # Process Registrant
+                registrant_info = {
+                    "id": relations.registrant,
+                }
+                registrant_id = self._process_relationship_registrant(registrant_info)
 
-            # Process Relation Type
+                # Process Relation Type
 
-            relation_type_info = {
-                "name": relations.relation,
-            }
-            relation_id = self._process_relationship_relation(relation_type_info)
-            if registrant_id.id and relation_id.id:
-                if kind == 1:
-                    relationship = [
-                        (
-                            0,
-                            0,
-                            {
-                                "source": registrant_id.id,
-                                "destination": main_reg_id.id,
-                                "relation": relation_id.id,
-                            },
-                        )
-                    ]
-                    main_reg_id.write({"related_1_ids": relationship})
-                else:
-                    relationship = [
-                        (
-                            0,
-                            0,
-                            {
-                                "source": main_reg_id.id,
-                                "destination": registrant_id.id,
-                                "relation": relation_id.id,
-                            },
-                        )
-                    ]
-                    main_reg_id.write({"related_2_ids": relationship})
+                relation_type_info = {
+                    "name": relations.relation,
+                }
+                relation_id = self._process_relationship_relation(relation_type_info)
+                if registrant_id.id and relation_id.id:
+                    if kind == 1:
+                        relationship = [
+                            (
+                                0,
+                                0,
+                                {
+                                    "source": registrant_id.id,
+                                    "destination": main_reg_id.id,
+                                    "relation": relation_id.id,
+                                },
+                            )
+                        ]
+                        main_reg_id.write({"related_1_ids": relationship})
+                    else:
+                        relationship = [
+                            (
+                                0,
+                                0,
+                                {
+                                    "source": main_reg_id.id,
+                                    "destination": registrant_id.id,
+                                    "relation": relation_id.id,
+                                },
+                            )
+                        ]
+                        main_reg_id.write({"related_2_ids": relationship})
 
-        return relationship
+            return relationship
 
     def _process_relationship_registrant(self, registrant_info):
         # Search Registrant

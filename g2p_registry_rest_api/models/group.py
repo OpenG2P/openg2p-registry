@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import pydantic
 
@@ -22,7 +22,7 @@ class GroupInfoOut(RegistrantInfoOut):
     members: List[GroupMembersInfoOut] = pydantic.Field(
         ..., alias="group_membership_ids"
     )
-    kind: str = pydantic.Field(..., alias="kind_as_str")
+    kind: Optional[str] = pydantic.Field(..., alias="kind_as_str")
     relationships_1: List[Relationship1Out] = pydantic.Field(..., alias="related_1_ids")
     relationships_2: List[Relationship2Out] = pydantic.Field(..., alias="related_2_ids")
     is_partial_group: bool
@@ -31,7 +31,7 @@ class GroupInfoOut(RegistrantInfoOut):
 class GroupInfoIn(RegistrantInfoIn):
     is_group = True
     members: List[GroupMembersInfoIn]
-    kind: str
-    relationships_1: List[Relationship1In]
-    relationships_2: List[Relationship2In]
-    is_partial_group: bool
+    kind: str = None
+    relationships_1: List[Relationship1In] = None
+    relationships_2: List[Relationship2In] = None
+    is_partial_group: bool = None

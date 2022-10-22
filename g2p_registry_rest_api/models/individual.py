@@ -1,3 +1,4 @@
+from datetime import date
 from typing import List
 
 import pydantic
@@ -13,12 +14,23 @@ from .registrant import (
 
 
 class IndividualInfoOut(RegistrantInfoOut):
+    given_name: str = None
+    family_name: str = None
+    gender: str = None
+    birthdate: date = None
+    age: str
+    birth_place: str = None
     is_group = False
     relationships_1: List[Relationship1Out] = pydantic.Field(..., alias="related_1_ids")
     relationships_2: List[Relationship2Out] = pydantic.Field(..., alias="related_2_ids")
 
 
 class IndividualInfoIn(RegistrantInfoIn):
+    given_name: str = None
+    family_name: str = None
+    gender: str = None
+    birthdate: date = None
+    birth_place: str = None
     is_group = False
-    relationships_1: List[Relationship1In]
-    relationships_2: List[Relationship2In]
+    relationships_1: List[Relationship1In] = None
+    relationships_2: List[Relationship2In] = None
