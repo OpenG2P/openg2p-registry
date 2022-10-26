@@ -56,7 +56,10 @@ class GroupApiService(Component):
         res = []
 
         for p in self.env["res.partner"].search(domain):
-            res.append(GroupShortInfoOut.from_orm(p))
+            if partner_search_param.include_members_full:
+                res.append(GroupInfoOut.from_orm(p))
+            else:
+                res.append(GroupShortInfoOut.from_orm(p))
         return res
 
     @restapi.method(
@@ -259,7 +262,7 @@ class GroupApiService(Component):
                     "name": relations.relation,
                 }
                 relation_id = self._process_relationship_relation(relation_type_info)
-                if registrant_id.id and relation_id.id:
+                if registrant_id and relation_id:
                     if kind == 1:
                         relationship = [
                             (
@@ -294,7 +297,7 @@ class GroupApiService(Component):
         registrant = self.env["res.partner"].search(
             [("id", "=", registrant_info["id"])]
         )
-        registrant_id = 0
+        registrant_id = None
         if registrant:
             registrant_id = registrant[0]
         return registrant_id
@@ -304,7 +307,7 @@ class GroupApiService(Component):
         relation = self.env["g2p.relationship"].search(
             [("name", "=", relation_type_info["name"])]
         )
-        relation_id = 0
+        relation_id = None
         if relation:
             relation_id = relation[0]
         return relation_id
