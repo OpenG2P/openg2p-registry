@@ -6,3 +6,4 @@ class GroupSearchParam(BaseModel, metaclass=ExtendableModelMeta):
 
     id: int = None
     name: str = None
+    include_members_full: bool = False
