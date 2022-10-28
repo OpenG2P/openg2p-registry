@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-13 08:22+0000\n"
-"Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
+"PO-Revision-Date: 2022-10-28 03:40+0000\n"
+"Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/ar/>\n"
 "Language: ar\n"
@@ -81,7 +81,6 @@ msgstr "مسؤول"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
-#, fuzzy
 msgid "Attachment Count"
 msgstr "عدد المرفقات"
 
@@ -141,7 +140,6 @@ msgstr "التكوين"
 
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_res_partner
-#, fuzzy
 msgid "Contact"
 msgstr "اتصال"
 
@@ -157,7 +155,6 @@ msgstr "البلد"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
-#, fuzzy
 msgid "Created by"
 msgstr "انشأ من قبل"
 
@@ -168,19 +165,16 @@ msgstr "انشأ من قبل"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
-#, fuzzy
 msgid "Created on"
 msgstr "تم إنشاؤها على"
 
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_data_mgmt_menu_root
-#, fuzzy
 msgid "Data Management"
 msgstr "إدارة البيانات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__date_collected
-#, fuzzy
 msgid "Date Collected"
 msgstr "تم جمعه بتاريخ"
 
@@ -194,7 +188,6 @@ msgstr "تاريخ التعطيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
-#, fuzzy
 msgid "Date Range"
 msgstr "الفترة"
 
@@ -220,7 +213,6 @@ msgstr "تعطيل معالج صاحب التسجيل"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_by
-#, fuzzy
 msgid "Disabled By"
 msgstr "تعطيل من"
 
@@ -231,7 +223,6 @@ msgstr "تعطيل من"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
-#, fuzzy
 msgid "Display Name"
 msgstr "اسم المعروض"
 
@@ -247,7 +238,6 @@ msgstr "صالح لغاية"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_follower_ids
-#, fuzzy
 msgid "Followers"
 msgstr "متابع"
 
@@ -268,13 +258,11 @@ msgstr "مجموعة"
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
-#, fuzzy
 msgid "Group By"
 msgstr "مجموعة بواسطة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__has_message
-#, fuzzy
 msgid "Has Message"
 msgstr "رسالة موجودة"
 
@@ -285,7 +273,6 @@ msgstr "رسالة موجودة"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
-#, fuzzy
 msgid "ID"
 msgstr "بطاقة تعريف"
 
@@ -305,7 +292,6 @@ msgstr "أنواع الهوية"
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
-#, fuzzy
 msgid "If checked, new messages require your attention."
 msgstr "الرسائل الجديدة تتطلب انتباهك"
 
@@ -323,7 +309,6 @@ msgstr "الفرد"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name_inverse
-#, fuzzy
 msgid "Inverse name"
 msgstr "اقلب الاسم"
 
@@ -360,7 +345,6 @@ msgstr "تاريخ آخر تعديل"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
-#, fuzzy
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
@@ -400,19 +384,16 @@ msgstr "الإسم"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
-#, fuzzy
 msgid "Number of Actions"
 msgstr "عدد الإجراءات"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
-#, fuzzy
 msgid "Number of errors"
 msgstr "عدد الأخطاء"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
-#, fuzzy
 msgid "Number of messages which requires an action"
 msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
 
@@ -446,7 +427,6 @@ msgstr "أرقام الهواتف"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__phone_sanitized
-#, fuzzy
 msgid "Phone Sanitized"
 msgstr "تم تعقيم الهاتف"
 
@@ -519,7 +499,6 @@ msgstr "رقم الهاتف لصاحب التسجيل"
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_reg_rel
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
-#, fuzzy
 msgid "Registrant Relationship"
 msgstr "علاقة صاحب التسجيل"
 
@@ -536,7 +515,6 @@ msgstr "صاحب التسجيل:"
 
 #. module: g2p_registry_base
 #: model:res.groups,name:g2p_registry_base.group_g2p_registrar
-#, fuzzy
 msgid "Registrar"
 msgstr "السجل"
 
@@ -638,19 +616,19 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "The program is not ended yet. Please check in program: %s."
 msgstr "البرنامج لم ينته بعد. الرجاء معاودة المحاولة في:%s."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "The starting date cannot be after the ending date."
 msgstr "لا يمكن أن يكون تاريخ الإبدأ بعد تاريخ الانتهاء."
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "There is already a similar relation with overlapping dates"
 msgstr "تم تعيين العلاقة مع تواريخ المتداخلة من قبل"
 
@@ -662,13 +640,11 @@ msgstr "صاحب التسجيل غير مناسب لهاذه العلاقة."
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread
-#, fuzzy
 msgid "Unread Messages"
 msgstr "الرسائل الغير مقروءة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
-#, fuzzy
 msgid "Unread Messages Counter"
 msgstr "عداد الرسائل الغير المقروءة"
 
