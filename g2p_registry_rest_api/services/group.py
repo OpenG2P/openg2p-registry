@@ -84,8 +84,6 @@ class GroupApiService(Component):
 
             logging.info("Creating Individual Record")
             indv_id = self.env["res.partner"].create(indv_rec)
-            self._process_relationship(individual.relationships_1, indv_id, 1)
-            self._process_relationship(individual.relationships_2, indv_id, 2)
 
             # Add individual's membership kind fields
             membership_kind = membership_info.kind
@@ -116,9 +114,6 @@ class GroupApiService(Component):
 
         logging.info("Creating Group Record")
         grp_id = self.env["res.partner"].create(grp_rec)
-
-        self._process_relationship(group_info.relationships_1, grp_id, 1)
-        self._process_relationship(group_info.relationships_2, grp_id, 2)
         for mbr in grp_membership_rec:
             mbr_rec = mbr
             mbr_rec.update({"group": grp_id.id})
@@ -245,69 +240,3 @@ class GroupApiService(Component):
                     )
                 )
             return phone_numbers
-
-    def _process_relationship(self, membership_info, main_reg_id, kind):
-        relationship = []
-        if membership_info:
-            for relations in membership_info:
-                # Process Registrant
-                registrant_info = {
-                    "id": relations.registrant,
-                }
-                registrant_id = self._process_relationship_registrant(registrant_info)
-
-                # Process Relation Type
-
-                relation_type_info = {
-                    "name": relations.relation,
-                }
-                relation_id = self._process_relationship_relation(relation_type_info)
-                if registrant_id and relation_id:
-                    if kind == 1:
-                        relationship = [
-                            (
-                                0,
-                                0,
-                                {
-                                    "source": registrant_id.id,
-                                    "destination": main_reg_id.id,
-                                    "relation": relation_id.id,
-                                },
-                            )
-                        ]
-                        main_reg_id.write({"related_1_ids": relationship})
-                    else:
-                        relationship = [
-                            (
-                                0,
-                                0,
-                                {
-                                    "source": main_reg_id.id,
-                                    "destination": registrant_id.id,
-                                    "relation": relation_id.id,
-                                },
-                            )
-                        ]
-                        main_reg_id.write({"related_2_ids": relationship})
-
-            return relationship
-
-    def _process_relationship_registrant(self, registrant_info):
-        # Search Registrant
-        registrant = self.env["res.partner"].search(
-            [("id", "=", registrant_info["id"])]
-        )
-        registrant_id = None
-        if registrant:
-            registrant_id = registrant[0]
-        return registrant_id
-
-    def _process_relationship_relation(self, relation_type_info):
-        # Search Relation Type
-        relation = self.env["g2p.relationship"].search(
-            [("name", "=", relation_type_info["name"])]
-        )
-        relation_id = None
-        if relation:
-            relation_id = relation[0]
-        return relation_id

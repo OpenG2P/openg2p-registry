@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from .individual import IndividualInfoOut
 from .naive_orm_model import NaiveOrmModel
-from .registrant import PhoneNumberIn, RegistrantIDIn, Relationship1In, Relationship2In
+from .registrant import PhoneNumberIn, RegistrantIDIn
 
 
 class GroupMembershipKindInfo(NaiveOrmModel):
@@ -31,8 +31,6 @@ class GroupMembersInfoIn(NaiveOrmModel):
     birthdate: date = None
     birth_place: str = None
     is_group = False
-    relationships_1: List[Relationship1In] = None
-    relationships_2: List[Relationship2In] = None
     kind: List[
         GroupMembershipKindInfo
     ] = None  # TODO: Would be nicer to have it as a list of str
