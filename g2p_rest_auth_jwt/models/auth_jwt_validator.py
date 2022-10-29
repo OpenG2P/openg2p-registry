@@ -67,9 +67,9 @@ class AuthJWTValidator(models.Model):
     issuer = fields.Char(required=True, help="To validate iss.")
 
     # JWT Decoder Options
-    # TODO: must be set to True
-    jwt_opt_verify_exp = fields.Boolean("Verify Token Expiration")
-    jwt_opt_verify_sig = fields.Boolean("Verify Token Signature")
+    # TODO: default to True
+    jwt_opt_verify_exp = fields.Boolean("Verify Token Expiration", default=False)
+    jwt_opt_verify_sig = fields.Boolean("Verify Token Signature", default=True)
 
     # User Fields
     default_user_id = fields.Many2one(
