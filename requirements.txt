@@ -1,4 +1,6 @@
 # generated from manifests external_dependencies
+apispec
 extendable-pydantic
+jwt
 pydantic
 schwifty

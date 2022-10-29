@@ -1,3 +1,4 @@
+# Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 from odoo.addons.base_rest.controllers import main
 
 
