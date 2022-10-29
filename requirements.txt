@@ -1,7 +1,7 @@
 # generated from manifests external_dependencies
 apispec
 extendable-pydantic
-jwt
+jwt>=2.4.0
 pydantic
 pyOpenSSL==22.0.0
 schwifty
