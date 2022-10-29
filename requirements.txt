@@ -3,4 +3,5 @@ apispec
 extendable-pydantic
 jwt
 pydantic
+pyOpenSSL==22.0.0
 schwifty

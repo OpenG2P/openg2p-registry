@@ -14,6 +14,7 @@
         "python": [
             "apispec",
             "jwt",
+            "pyOpenSSL==22.0.0",
         ]
     },
     "data": [
