@@ -78,7 +78,7 @@ class GroupApiService(Component):
         grp_membership_rec = []
         logging.info("INDIVIDUALS:")
         for membership_info in group_info.members:
-            individual = membership_info.individual
+            individual = membership_info
 
             indv_rec = self._process_individual(individual)
 
