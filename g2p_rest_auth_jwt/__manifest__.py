@@ -13,7 +13,7 @@
     "external_dependencies": {
         "python": [
             "apispec",
-            "jwt>=2.4.0",
+            "pyjwt>=2.4.0",
             "pyOpenSSL==22.0.0",
         ]
     },
