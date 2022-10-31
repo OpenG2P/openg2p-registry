@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-28 03:40+0000\n"
-"Last-Translator: Jeremi Joslin <jeremi@openspp.org>\n"
+"PO-Revision-Date: 2022-11-01 07:22+0000\n"
+"Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_group/ar/>\n"
 "Language: ar\n"
@@ -41,23 +41,22 @@ msgstr "<span class=\"o_stat_text\"> تفعيل </span>"
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
 msgid "Add a group type!"
-msgstr ""
+msgstr "أضف نوع المجموعة!"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
-#, fuzzy
 msgid "Archived"
 msgstr "مؤرشف"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
 msgid "Click the create button to enter a new group type."
-msgstr ""
+msgstr "إضغط على زر \"إنشاء\" لإدخال نوع مجموعة جديد"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
 msgid "Click the create button to enter the new registrant's information."
-msgstr ""
+msgstr "إضغط على الزر \"إنشاء\" لإدخال معلومات هوية صاحب التسجيل الجديد."
 
 #. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_res_partner
@@ -92,32 +91,31 @@ msgstr "اسم المعروض"
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Enter name of group..."
-msgstr ""
+msgstr "أدخل اسم المجموعة ..."
 
 #. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_g2p_group_kind
 msgid "Group Kind"
-msgstr ""
+msgstr "نوع المجموعة"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Group Registrant"
-msgstr ""
+msgstr "مسجل المجموعة"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_group_kind
 msgid "Group Types"
-msgstr ""
+msgstr "أنواع المجموعات"
 
 #. module: g2p_registry_group
 #: model:ir.ui.menu,name:g2p_registry_group.menu_group_kind
 msgid "Group types"
-msgstr ""
+msgstr "أنواع المجموعات"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_groups_list
 #: model:ir.ui.menu,name:g2p_registry_group.menu_groups_list
-#, fuzzy
 msgid "Groups"
 msgstr "مجاميع"
 
@@ -166,13 +164,13 @@ msgstr "معلومات أخرى"
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Others Related to this Registrant:"
-msgstr ""
+msgstr "الآخرون المرتبطون بهذا المسجل:"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_partner__is_partial_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__is_partial_group
 msgid "Partial Group"
-msgstr ""
+msgstr "مجموعة جزئية"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
