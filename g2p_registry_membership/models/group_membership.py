@@ -33,31 +33,39 @@ class G2PGroupMembership(models.Model):
 
     @api.onchange("kind")
     def _kind_onchange(self):
-        origin_length = len(self._origin.kind.ids)
-        new_length = len(self.kind.ids)
-        if new_length > origin_length:
-            unique_kinds = self.env["g2p.group.membership.kind"].search(
-                [("is_unique", "=", True)]
-            )
-            for unique_kind_id in unique_kinds:
-                unique_count = 0
-                for line in self.group.group_membership_ids:
+        for rec in self:
+            origin_length = len(rec._origin.kind.ids)
+            new_length = len(rec.kind.ids)
+            if new_length > origin_length:
+                unique_kinds = self.env["g2p.group.membership.kind"].search(
+                    [("is_unique", "=", True)]
+                )
 
-                    for rec_line in line.kind:
+                for unique_kind_id in unique_kinds:
+                    unique_count = 0
+                    for line in rec.group.group_membership_ids:
+                        members_id = str(line.id)
+                        members_str = ""
+                        if members_id.find("0x") < 0:
+                            for m in members_id:
+                                if m.isdigit():
+                                    members_str = members_str + m
+                        if members_str.isdigit():
+                            for rec_line in line.kind:
 
-                        kind_id = str(rec_line.id)
-                        kind_str = ""
-                        for m in kind_id:
-                            if m.isdigit():
-                                kind_str = kind_str + m
-                        if rec_line.id == unique_kind_id.id or kind_str == str(
-                            unique_kind_id.id
-                        ):
-                            unique_count += 1
-                if unique_count > 1:
-                    raise ValidationError(
-                        _("Only one %s is allowed per group") % unique_kind_id.name
-                    )
+                                kind_id = str(rec_line.id)
+                                kind_str = ""
+                                for m in kind_id:
+                                    if m.isdigit():
+                                        kind_str = kind_str + m
+                                if rec_line.id == unique_kind_id.id or kind_str == str(
+                                    unique_kind_id.id
+                                ):
+                                    unique_count += 1
+                    if unique_count > 1:
+                        raise ValidationError(
+                            _("Only one %s is allowed per group") % unique_kind_id.name
+                        )
 
     @api.constrains("individual")
     def _check_group_members(self):
