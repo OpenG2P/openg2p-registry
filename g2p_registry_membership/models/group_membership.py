@@ -40,28 +40,49 @@ class G2PGroupMembership(models.Model):
                 unique_kinds = self.env["g2p.group.membership.kind"].search(
                     [("is_unique", "=", True)]
                 )
-
+                # Loop on all unique kinds
                 for unique_kind_id in unique_kinds:
                     unique_count = 0
+
+                    # Loop on group memberships
                     for line in rec.group.group_membership_ids:
+                        # Get the id of group_membership then convert to string
                         members_id = str(line.id)
                         members_str = ""
+
+                        # For editing the kind with newly added member,
+                        # this will ignore the id with 0x as for newly added member has 2 ids
+                        # (1st is the virtual id of the member, 2nd is unique identifier).
+                        # This is used to not loop 2 times.
+
                         if members_id.find("0x") < 0:
                             for m in members_id:
+                                # Only get the digit part of the string member id
+                                # Newly added members has Neworigin prefix so this is used to remove that
                                 if m.isdigit():
                                     members_str = members_str + m
+
+                        # Loop only if the member_str is a digit
                         if members_str.isdigit():
                             for rec_line in line.kind:
-
+                                # Get the id of kind then convert to string
                                 kind_id = str(rec_line.id)
                                 kind_str = ""
+
                                 for m in kind_id:
                                     if m.isdigit():
+                                        # Only get the digit part of the string kind id
+                                        # Newly added kinds has Neworigin prefix so this is used to remove that
                                         kind_str = kind_str + m
+
+                                # If the rec_line which is the kind id is the same with the unique kind
+                                # then add unique count
                                 if rec_line.id == unique_kind_id.id or kind_str == str(
                                     unique_kind_id.id
                                 ):
                                     unique_count += 1
+
+                    # This will check if the unique count from the loop is greater than 1
                     if unique_count > 1:
                         raise ValidationError(
                             _("Only one %s is allowed per group") % unique_kind_id.name
