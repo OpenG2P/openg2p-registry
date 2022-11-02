@@ -8,7 +8,7 @@
     "website": "https://github.com/openg2p/openg2p-registry",
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
-    "maintainers": ["jeremi", "gonzalesedwin1123"],
+    "maintainers": ["jeremi", "gonzalesedwin1123", "emjay0921"],
     "depends": [
         "base",
         "mail",
