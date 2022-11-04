@@ -12,7 +12,6 @@ class G2PGroupMembership(models.Model):
     _name = "g2p.group.membership"
     _description = "Group Membership"
     _order = "id desc"
-    _inherit = ["mail.thread"]
 
     group = fields.Many2one(
         "res.partner",
