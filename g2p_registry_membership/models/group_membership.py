@@ -17,11 +17,13 @@ class G2PGroupMembership(models.Model):
         "res.partner",
         required=True,
         domain=[("is_group", "=", True), ("is_registrant", "=", True)],
+        auto_join=True,
     )
     individual = fields.Many2one(
         "res.partner",
         required=True,
         domain=[("is_group", "=", False), ("is_registrant", "=", True)],
+        auto_join=True,
     )
     kind = fields.Many2many("g2p.group.membership.kind")
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())

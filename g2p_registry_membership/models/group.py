@@ -11,7 +11,7 @@ class G2PMembershipGroup(models.Model):
     _inherit = "res.partner"
 
     group_membership_ids = fields.One2many(
-        "g2p.group.membership", "group", "Group Members"
+        "g2p.group.membership", "group", "Group Members"  # , auto_join=True
     )
 
     force_recompute_canary = fields.Datetime(
