@@ -12,17 +12,18 @@ class G2PGroupMembership(models.Model):
     _name = "g2p.group.membership"
     _description = "Group Membership"
     _order = "id desc"
-    _inherit = ["mail.thread"]
 
     group = fields.Many2one(
         "res.partner",
         required=True,
         domain=[("is_group", "=", True), ("is_registrant", "=", True)],
+        auto_join=True,
     )
     individual = fields.Many2one(
         "res.partner",
         required=True,
         domain=[("is_group", "=", False), ("is_registrant", "=", True)],
+        auto_join=True,
     )
     kind = fields.Many2many("g2p.group.membership.kind")
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
@@ -33,31 +34,60 @@ class G2PGroupMembership(models.Model):
 
     @api.onchange("kind")
     def _kind_onchange(self):
-        origin_length = len(self._origin.kind.ids)
-        new_length = len(self.kind.ids)
-        if new_length > origin_length:
-            unique_kinds = self.env["g2p.group.membership.kind"].search(
-                [("is_unique", "=", True)]
-            )
-            for unique_kind_id in unique_kinds:
-                unique_count = 0
-                for line in self.group.group_membership_ids:
+        for rec in self:
+            origin_length = len(rec._origin.kind.ids)
+            new_length = len(rec.kind.ids)
+            if new_length > origin_length:
+                unique_kinds = self.env["g2p.group.membership.kind"].search(
+                    [("is_unique", "=", True)]
+                )
+                # Loop on all unique kinds
+                for unique_kind_id in unique_kinds:
+                    unique_count = 0
 
-                    for rec_line in line.kind:
+                    # Loop on group memberships
+                    for line in rec.group.group_membership_ids:
+                        # Get the id of group_membership then convert to string
+                        members_id = str(line.id)
+                        members_str = ""
 
-                        kind_id = str(rec_line.id)
-                        kind_str = ""
-                        for m in kind_id:
-                            if m.isdigit():
-                                kind_str = kind_str + m
-                        if rec_line.id == unique_kind_id.id or kind_str == str(
-                            unique_kind_id.id
-                        ):
-                            unique_count += 1
-                if unique_count > 1:
-                    raise ValidationError(
-                        _("Only one %s is allowed per group") % unique_kind_id.name
-                    )
+                        # For editing the kind with newly added member,
+                        # this will ignore the id with 0x as for newly added member has 2 ids
+                        # (1st is the virtual id of the member, 2nd is unique identifier).
+                        # This is used to not loop 2 times.
+
+                        if members_id.find("0x") < 0:
+                            for m in members_id:
+                                # Only get the digit part of the string member id
+                                # Newly added members has Neworigin prefix so this is used to remove that
+                                if m.isdigit():
+                                    members_str = members_str + m
+
+                        # Loop only if the member_str is a digit
+                        if members_str.isdigit():
+                            for rec_line in line.kind:
+                                # Get the id of kind then convert to string
+                                kind_id = str(rec_line.id)
+                                kind_str = ""
+
+                                for m in kind_id:
+                                    if m.isdigit():
+                                        # Only get the digit part of the string kind id
+                                        # Newly added kinds has Neworigin prefix so this is used to remove that
+                                        kind_str = kind_str + m
+
+                                # If the rec_line which is the kind id is the same with the unique kind
+                                # then add unique count
+                                if rec_line.id == unique_kind_id.id or kind_str == str(
+                                    unique_kind_id.id
+                                ):
+                                    unique_count += 1
+
+                    # This will check if the unique count from the loop is greater than 1
+                    if unique_count > 1:
+                        raise ValidationError(
+                            _("Only one %s is allowed per group") % unique_kind_id.name
+                        )
 
     @api.constrains("individual")
     def _check_group_members(self):

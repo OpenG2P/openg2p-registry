@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-13 08:22+0000\n"
+"PO-Revision-Date: 2022-11-01 07:22+0000\n"
 "Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_individual/ar/>\n"
@@ -57,7 +57,6 @@ msgstr "العمر"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
-#, fuzzy
 msgid "Archived"
 msgstr "مؤرشف"
 
@@ -76,11 +75,10 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_individuals_list
 msgid "Click the create button to enter the new registrant's information."
-msgstr ""
+msgstr "إضغط على الزر \"إنشاء\" لإدخال معلومات هوية صاحب التسجيل الجديد."
 
 #. module: g2p_registry_individual
 #: model:ir.model,name:g2p_registry_individual.model_res_partner
-#, fuzzy
 msgid "Contact"
 msgstr "اتصال"
 
@@ -172,7 +170,7 @@ msgstr "معلومات أخرى"
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Others Related to this Registrant:"
-msgstr ""
+msgstr "الآخرون المرتبطون بهذا المسجل:"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form

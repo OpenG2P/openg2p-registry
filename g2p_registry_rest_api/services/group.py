@@ -117,7 +117,6 @@ class GroupApiService(Component):
 
         logging.info("Creating Group Record")
         grp_id = self.env["res.partner"].create(grp_rec)
-
         for mbr in grp_membership_rec:
             mbr_rec = mbr
             mbr_rec.update({"group": grp_id.id})

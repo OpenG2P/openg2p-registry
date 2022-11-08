@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-13 08:22+0000\n"
+"PO-Revision-Date: 2022-11-01 07:22+0000\n"
 "Last-Translator: Fawaz Nari <fawaz.t.nari@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_membership/ar/>\n"
@@ -40,7 +40,6 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_attachment_count
-#, fuzzy
 msgid "Attachment Count"
 msgstr "عدد المرفقات"
 
@@ -68,34 +67,29 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model,name:g2p_registry_membership.model_res_partner
-#, fuzzy
 msgid "Contact"
 msgstr "اتصال"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_uid
-#, fuzzy
 msgid "Created by"
 msgstr "انشأ من قبل"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__create_date
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__create_date
-#, fuzzy
 msgid "Created on"
 msgstr "تم إنشاؤها على"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
-#, fuzzy
 msgid "Date Range"
 msgstr "الفترة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__display_name
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__display_name
-#, fuzzy
 msgid "Display Name"
 msgstr "اسم المعروض"
 
@@ -112,7 +106,6 @@ msgstr "تاريخ الانتهاء"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_follower_ids
-#, fuzzy
 msgid "Followers"
 msgstr "متابع"
 
@@ -129,7 +122,6 @@ msgstr "مجموعة"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
-#, fuzzy
 msgid "Group By"
 msgstr "مجموعة بواسطة"
 
@@ -167,27 +159,23 @@ msgstr "مجموعة:"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
-#, fuzzy
 msgid "Groups"
 msgstr "مجاميع"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__has_message
-#, fuzzy
 msgid "Has Message"
 msgstr "رسالة موجودة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__id
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__id
-#, fuzzy
 msgid "ID"
 msgstr "بطاقة تعريف"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread
-#, fuzzy
 msgid "If checked, new messages require your attention."
 msgstr "الرسائل الجديدة تتطلب انتباهك"
 
@@ -235,7 +223,6 @@ msgstr "تاريخ آخر تعديل"
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_uid
-#, fuzzy
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
@@ -280,19 +267,16 @@ msgstr "الرسائل"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
-#, fuzzy
 msgid "Number of Actions"
 msgstr "عدد الإجراءات"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_error_counter
-#, fuzzy
 msgid "Number of errors"
 msgstr "عدد الأخطاء"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
-#, fuzzy
 msgid "Number of messages which requires an action"
 msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
 
@@ -344,12 +328,10 @@ msgstr "فريد"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread
-#, fuzzy
 msgid "Unread Messages"
 msgstr "الرسائل الغير مقروءة"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread_counter
-#, fuzzy
 msgid "Unread Messages Counter"
 msgstr "عداد الرسائل الغير المقروءة"
