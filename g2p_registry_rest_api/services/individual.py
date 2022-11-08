@@ -6,7 +6,6 @@ from odoo.addons.component.core import Component
 
 from ..models.individual import IndividualInfoIn, IndividualInfoOut
 from ..models.individual_search_param import IndividualSearchParam
-from ..utils.individual_utils import IndividualApiUtils
 
 
 class IndividualApiService(Component):
@@ -34,8 +33,8 @@ class IndividualApiService(Component):
         """
         Get partner's information
         """
-        indv_utils = IndividualApiUtils(self.env)
-        partner = indv_utils._get(_id)
+        indv_helper = self.env["registrant_individual.rest.service.helper"]
+        partner = indv_helper._get(_id)
         return IndividualInfoOut.from_orm(partner)
 
     @restapi.method(
@@ -75,14 +74,14 @@ class IndividualApiService(Component):
         :return: An instance of partner.info
         """
         # Create the individual Object
-        indv_utils = IndividualApiUtils(self.env)
-        indv_rec = indv_utils.process_individual(individual_info)
+        indv_helper = self.env["registrant_individual.rest.service.helper"]
+        indv_rec = indv_helper.process_individual(individual_info)
 
         logging.info("Individual Api: Creating Individual Record")
         indv_id = self.env["res.partner"].create(indv_rec)
-        indv_utils.process_relationship(individual_info.relationships_1, indv_id, 1)
-        indv_utils.process_relationship(individual_info.relationships_2, indv_id, 2)
+        indv_helper.process_relationship(individual_info.relationships_1, indv_id, 1)
+        indv_helper.process_relationship(individual_info.relationships_2, indv_id, 2)
 
         # TODO: Reload the new object from the DB
-        partner = indv_utils._get(indv_id.id)
+        partner = indv_helper._get(indv_id.id)
         return IndividualInfoOut.from_orm(partner)

@@ -1,9 +1,10 @@
 import json
 
+from odoo.addons.component.core import AbstractComponent
 
-class IndividualApiUtils:
-    def __init__(self, env):
-        self.env = env
+
+class IndividualApiHelper(AbstractComponent):
+    _name = "registrant_individual.rest.service.helper"
 
     def _get(self, _id):
         partner = self.env["res.partner"].browse(_id)
@@ -101,68 +102,3 @@ class IndividualApiUtils:
                 )
             )
         return phone_numbers, primary_phone
-
-    def process_relationship(self, membership_info, main_reg_id, kind):
-        relationship = []
-        for relations in membership_info:
-            # Process Registrant
-            registrant_info = {
-                "id": relations.registrant,
-            }
-            registrant_id = self.process_relationship_registrant(registrant_info)
-
-            # Process Relation Type
-
-            relation_type_info = {
-                "name": relations.relation,
-            }
-            relation_id = self.process_relationship_relation(relation_type_info)
-            if registrant_id.id and relation_id.id:
-                if kind == 1:
-                    relationship = [
-                        (
-                            0,
-                            0,
-                            {
-                                "source": registrant_id.id,
-                                "destination": main_reg_id.id,
-                                "relation": relation_id.id,
-                            },
-                        )
-                    ]
-                    main_reg_id.write({"related_1_ids": relationship})
-                else:
-                    relationship = [
-                        (
-                            0,
-                            0,
-                            {
-                                "source": main_reg_id.id,
-                                "destination": registrant_id.id,
-                                "relation": relation_id.id,
-                            },
-                        )
-                    ]
-                    main_reg_id.write({"related_2_ids": relationship})
-
-        return relationship
-
-    def process_relationship_registrant(self, registrant_info):
-        # Search Registrant
-        registrant = self.env["res.partner"].search(
-            [("id", "=", registrant_info["id"])]
-        )
-        registrant_id = 0
-        if registrant:
-            registrant_id = registrant[0]
-        return registrant_id
-
-    def process_relationship_relation(self, relation_type_info):
-        # Search Relation Type
-        relation = self.env["g2p.relationship"].search(
-            [("name", "=", relation_type_info["name"])]
-        )
-        relation_id = 0
-        if relation:
-            relation_id = relation[0]
-        return relation_id

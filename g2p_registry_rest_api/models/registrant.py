@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from typing import List
 
 import pydantic
@@ -32,27 +32,8 @@ class PhoneNumberIn(NaiveOrmModel):
     date_collected: date = None
 
 
-class Relationship1Out(NaiveOrmModel):
-    id: int
-    registrant: int = pydantic.Field(..., alias="source")
-    relation: str = pydantic.Field(..., alias="relation_as_str")
-
-
-class Relationship2Out(NaiveOrmModel):
-    id: int
-    registrant: int = pydantic.Field(..., alias="destination")
-    relation: str = pydantic.Field(..., alias="relation_as_str")
-
-
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
-    given_name: str = None
-    family_name: str = None
-    addl_name: str = None
-    gender: str = None
-    birthdate: date = None
-    age: str
-    birth_place: str = None
     ids: List[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
     is_group: bool
     registration_date: date = None
@@ -64,41 +45,18 @@ class RegistrantInfoOut(NaiveOrmModel):
 
 
 class RegistrantIDIn(NaiveOrmModel):
-    id_type: str
-    value: str
+    id_type: str = None
+    value: str = None
     expiry_date: date = None
-    status: str
-    error: str
+    status: str = None
+    error: str = None
 
 
 class RegistrantInfoIn(NaiveOrmModel):
-    given_name: str = None
-    family_name: str = None
-    addl_name: str = None
-    gender: str = None
-    birthdate: date = None
-    birth_place: str = None
-    ids: List[RegistrantIDIn]
+    ids: List[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
-    phone_numbers: List[PhoneNumberIn]
+    phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
     addl_info: dict = {}
-
-    @pydantic.validator("birthdate", pre=True)
-    def birthdate_parse_validate(cls, value):  # noqa: B902
-        try:
-            return datetime.strptime(value, "%Y/%m/%d").date()
-        except ValueError:
-            return datetime.strptime(value, "%Y-%m-%d").date()
-
-
-class Relationship1In(NaiveOrmModel):
-    registrant: int
-    relation: str
-
-
-class Relationship2In(NaiveOrmModel):
-    registrant: int
-    relation: str

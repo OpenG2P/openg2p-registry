@@ -19,7 +19,7 @@ class IndividualApiServiceUpdateId(Component):
     _inherit = "registrant_individual.rest.service"
 
     @restapi.method(
-        [("/updateIdentification", "PUT")],
+        [("/updateIdentification", "PATCH")],
         input_param=PydanticModel(RegistrantUpdateIDIn),
         output_param=PydanticModel(RegistrantUpdateIDOut),
         auth="user",
@@ -30,9 +30,10 @@ class IndividualApiServiceUpdateId(Component):
         :param reg_id: An instance of the partner.reg_id
         :return: An instance of partner.reg_id
         """
-        id_type_id = self.env["g2p.id.type"].search([("name", "=", reg_id.id_type)])
+        id_type_id = self.env["g2p.id.type"].search(
+            [("name", "=", reg_id.id_type)], limit=1
+        )
         if id_type_id:
-            id_type_id = id_type_id[0]
             registrant = self.env["res.partner"].search(
                 [("id", "=", reg_id.partner_id)]
             )

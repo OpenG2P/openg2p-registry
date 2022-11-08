@@ -8,7 +8,7 @@
     "website": "https://github.com/openg2p/openg2p-registry",
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
-    "maintainers": ["jeremi", "gonzalesedwin1123"],
+    "maintainers": ["jeremi", "gonzalesedwin1123", "emjay0921"],
     "depends": [
         "base",
         "mail",
@@ -21,6 +21,7 @@
         "g2p_registry_group",
         "g2p_registry_individual",
         "g2p_registry_addl_info",
+        "base_rest_auth_user_service",
     ],
     "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
     "data": [
