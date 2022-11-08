@@ -79,8 +79,6 @@ class IndividualApiService(Component):
 
         logging.info("Individual Api: Creating Individual Record")
         indv_id = self.env["res.partner"].create(indv_rec)
-        indv_helper.process_relationship(individual_info.relationships_1, indv_id, 1)
-        indv_helper.process_relationship(individual_info.relationships_2, indv_id, 2)
 
         # TODO: Reload the new object from the DB
         partner = indv_helper._get(indv_id.id)

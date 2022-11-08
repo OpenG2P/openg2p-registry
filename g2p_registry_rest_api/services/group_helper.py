@@ -1,9 +1,9 @@
 import json
 
-from odoo.addons.component.core import AbstractComponent
+from odoo import models
 
 
-class GroupApiHelper(AbstractComponent):
+class GroupApiHelper(models.AbstractModel):
     _name = "registrant_group.rest.service.helper"
 
     def _get(self, _id):

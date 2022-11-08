@@ -27,7 +27,7 @@ class GroupApiService(Component):
             )
         ],
         output_param=PydanticModel(GroupInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def get(self, _id):
         """
@@ -40,7 +40,7 @@ class GroupApiService(Component):
         [(["/", "/search"], "GET")],
         input_param=PydanticModel(GroupSearchParam),
         output_param=PydanticModelList(GroupShortInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def search(self, partner_search_param):
         """
@@ -67,7 +67,7 @@ class GroupApiService(Component):
         [(["/"], "POST")],
         input_param=PydanticModel(GroupInfoIn),
         output_param=PydanticModel(GroupInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def createGroup(self, group_info):
         """

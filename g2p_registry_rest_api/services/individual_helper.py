@@ -1,9 +1,9 @@
 import json
 
-from odoo.addons.component.core import AbstractComponent
+from odoo import models
 
 
-class IndividualApiHelper(AbstractComponent):
+class IndividualApiHelper(models.AbstractModel):
     _name = "registrant_individual.rest.service.helper"
 
     def _get(self, _id):
@@ -62,43 +62,47 @@ class IndividualApiHelper(AbstractComponent):
 
     def process_ids(self, ids_info):
         ids = []
-        for rec in ids_info.ids:
-            # Search ID Type
-            id_type_id = self.env["g2p.id.type"].search([("name", "=", rec.id_type)])
-            if id_type_id:
-                id_type_id = id_type_id[0]
-            else:
-                # Create a new ID Type
-                id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
-            ids.append(
-                (
-                    0,
-                    0,
-                    {
-                        "id_type": id_type_id.id,
-                        "value": rec.value,
-                        "expiry_date": rec.expiry_date,
-                        "status": rec.status,
-                        "error": rec.error,
-                    },
+        if ids_info.ids:
+            for rec in ids_info.ids:
+                # Search ID Type
+                id_type_id = self.env["g2p.id.type"].search(
+                    [("name", "=", rec.id_type)]
                 )
-            )
-        return ids
+                if id_type_id:
+                    id_type_id = id_type_id[0]
+                else:
+                    # Create a new ID Type
+                    id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
+                ids.append(
+                    (
+                        0,
+                        0,
+                        {
+                            "id_type": id_type_id.id,
+                            "value": rec.value,
+                            "expiry_date": rec.expiry_date,
+                            "status": rec.status,
+                            "error": rec.error,
+                        },
+                    )
+                )
+            return ids
 
     def process_phones(self, ids_info):
         primary_phone = None
         phone_numbers = []
-        for phone in ids_info.phone_numbers:
-            if phone.phone_no and not primary_phone:
-                primary_phone = phone.phone_no
-            phone_numbers.append(
-                (
-                    0,
-                    0,
-                    {
-                        "phone_no": phone.phone_no,
-                        "date_collected": phone.date_collected,
-                    },
+        if ids_info.phone_numbers:
+            for phone in ids_info.phone_numbers:
+                if phone.phone_no and not primary_phone:
+                    primary_phone = phone.phone_no
+                phone_numbers.append(
+                    (
+                        0,
+                        0,
+                        {
+                            "phone_no": phone.phone_no,
+                            "date_collected": phone.date_collected,
+                        },
+                    )
                 )
-            )
         return phone_numbers, primary_phone
