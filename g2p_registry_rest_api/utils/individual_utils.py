@@ -1,3 +1,6 @@
+import json
+
+
 class IndividualApiUtils:
     def __init__(self, env):
         self.env = env
@@ -24,6 +27,9 @@ class IndividualApiUtils:
             "birthdate": individual.birthdate or False,
             "birth_place": individual.birth_place or False,
             "address": individual.address or None,
+            "additional_g2p_info": json.dumps(
+                individual.addl_info, separators=(",", ":")
+            ),
         }
 
         ids = []

@@ -1,3 +1,4 @@
+import json
 import logging
 
 from odoo.addons.base_rest import restapi
@@ -153,6 +154,9 @@ class GroupApiService(Component):
             "email": group_info.email,
             "address": group_info.address,
             "is_partial_group": group_info.is_partial_group,
+            "additional_g2p_info": json.dumps(
+                group_info.addl_info, separators=(",", ":")
+            ),
         }
         # Add group's kind field
         if group_info.kind:
@@ -175,7 +179,11 @@ class GroupApiService(Component):
             grp_rec.update({"reg_ids": ids})
 
         phone_numbers = []
-        phone_numbers = IndividualApiUtils(self.env).process_phones(ids_info)
+        phone_numbers, primary_phone = IndividualApiUtils(self.env).process_phones(
+            ids_info
+        )
+        if primary_phone:
+            grp_rec.update({"phone": primary_phone})
         if phone_numbers:
             grp_rec.update({"phone_number_ids": phone_numbers})
 

@@ -59,6 +59,8 @@ class RegistrantInfoOut(NaiveOrmModel):
     phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
     email: str = None
     address: str = None
+    # TODO: Change the following to reflect addl_info json as dict than str
+    addl_info: str = pydantic.Field(..., alias="additional_g2p_info")
 
 
 class RegistrantIDIn(NaiveOrmModel):
@@ -82,6 +84,7 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn]
     email: str = None
     address: str = None
+    addl_info: dict = {}
 
     @pydantic.validator("birthdate", pre=True)
     def birthdate_parse_validate(cls, value):  # noqa: B902

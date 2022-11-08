@@ -20,6 +20,7 @@
         "extendable",
         "g2p_registry_group",
         "g2p_registry_individual",
+        "g2p_registry_addl_info",
     ],
     "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
     "data": [
