@@ -51,7 +51,7 @@ class G2PMembershipGroup(models.Model):
             if relationship_kinds:
                 membership_kind_domain = [("name", "in", relationship_kinds)]
         else:
-            return 0
+            return dict()
 
         if domain is not None:
             individual_domain = domain
