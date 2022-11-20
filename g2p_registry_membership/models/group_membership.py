@@ -27,8 +27,7 @@ class G2PGroupMembership(models.Model):
     )
     kind = fields.Many2many("g2p.group.membership.kind")
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
-    end_date = fields.Datetime()
-    # TODO: Should rename `ended_date` add a check that the date is in the past
+    ended_date = fields.Datetime()
     individual_birthdate = fields.Date(related="individual.birthdate")
     individual_gender = fields.Selection(related="individual.gender")
 
@@ -180,24 +179,21 @@ class G2PGroupMembershipKind(models.Model):
             external_identifier = self.env["ir.model.data"].search(
                 [("res_id", "=", rec.id), ("model", "=", "g2p.group.membership.kind")]
             )
-            if external_identifier.name in (
-                "group_membership_kind_head",
-                "group_membership_kind_principal",
-                "group_membership_kind_alternative",
-            ):
+            if external_identifier.name in self._get_protected_external_identifier():
                 raise ValidationError(_("Can't delete default kinds"))
             else:
                 return super(G2PGroupMembershipKind, self).unlink()
+
+    def _get_protected_external_identifier(self):
+        return [
+            "group_membership_kind_head",
+        ]
 
     def write(self, vals):
         external_identifier = self.env["ir.model.data"].search(
             [("res_id", "=", self.id), ("model", "=", "g2p.group.membership.kind")]
         )
-        if external_identifier.name in (
-            "group_membership_kind_head",
-            "group_membership_kind_principal",
-            "group_membership_kind_alternative",
-        ):
+        if external_identifier.name in self._get_protected_external_identifier():
             raise ValidationError(_("Can't edit default kinds"))
         else:
             return super(G2PGroupMembershipKind, self).write(vals)

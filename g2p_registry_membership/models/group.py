@@ -22,7 +22,9 @@ class G2PMembershipGroup(models.Model):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
         # We use this trick to have a consolidated list of groups to recompute
-        self.with_delay(priority=20).recompute_indicators()
+        self.with_delay(
+            priority=5, channel="root.recompute_indicators"
+        ).recompute_indicators()
         for group in self:
             group.force_recompute_canary = fields.Datetime.now()
 
@@ -101,7 +103,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and "%s"."end_date" IS NULL) ' % (
+        inner_join_query += ' ON ("%s"."group" = v and "%s"."ended_date" IS NULL) ' % (
             membership_alias,
             membership_alias,
         )
@@ -109,7 +111,7 @@ class G2PMembershipGroup(models.Model):
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
             model=self.env["g2p.group.membership"],
-            domain=[("end_date", "=", None)],  # ("group", "in", ids)],
+            domain=[("ended_date", "=", None)],  # ("group", "in", ids)],
             alias=membership_alias,
         ).query
         (

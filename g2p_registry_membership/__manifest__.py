@@ -25,6 +25,7 @@
         "views/individuals_view.xml",
         "views/group_membership_view.xml",
         "views/group_membership_kinds_view.xml",
+        "views/membership_rules.xml",
     ],
     "assets": {},
     "demo": [],
