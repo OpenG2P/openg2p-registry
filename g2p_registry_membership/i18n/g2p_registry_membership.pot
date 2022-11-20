@@ -91,8 +91,8 @@ msgid "Duplication of Member is not allowed "
 msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__end_date
-msgid "End Date"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__ended_date
+msgid "Ended Date"
 msgstr ""
 
 #. module: g2p_registry_membership
