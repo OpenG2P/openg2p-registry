@@ -21,6 +21,7 @@
         "security/ir.model.access.csv",
         "security/registrant_rule.xml",
         "data/group_membership_kinds.xml",
+        "data/queue_job_channel.xml",
         "views/groups_view.xml",
         "views/individuals_view.xml",
         "views/group_membership_view.xml",
