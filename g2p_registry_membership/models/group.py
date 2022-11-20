@@ -22,7 +22,7 @@ class G2PMembershipGroup(models.Model):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
         # We use this trick to have a consolidated list of groups to recompute
-        self.with_delay().recompute_indicators()
+        self.with_delay(priority=20).recompute_indicators()
         for group in self:
             group.force_recompute_canary = fields.Datetime.now()
 
