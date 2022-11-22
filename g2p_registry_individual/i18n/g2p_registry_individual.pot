@@ -88,6 +88,11 @@ msgid "Date of Birth"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Disabled"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__family_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__family_name
 msgid "Family Name"
