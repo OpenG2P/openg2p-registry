@@ -638,22 +638,10 @@ msgid "Start Date"
 msgstr ""
 
 #. module: g2p_registry_base
-#: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, python-format
-msgid "Still part of group membership in: %s."
-msgstr ""
-
-#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__tags_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__tags_ids
 msgid "Tags"
-msgstr ""
-
-#. module: g2p_registry_base
-#: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, python-format
-msgid "The program is not ended yet. Please check in program: %s."
 msgstr ""
 
 #. module: g2p_registry_base
