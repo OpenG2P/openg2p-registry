@@ -63,6 +63,13 @@
                         bg_color="bg-danger"
                         attrs="{'invisible': [('active', '=', True)]}"
                     />
+
+                    <widget
+                        name="web_ribbon"
+                        title="Disabled"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('disabled', '=', False)]}"
+                    />
                     <field
                         name="image_1920"
                         widget="image"
