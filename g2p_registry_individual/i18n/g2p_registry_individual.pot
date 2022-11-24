@@ -152,11 +152,6 @@ msgid "Male"
 msgstr ""
 
 #. module: g2p_registry_individual
-#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__other
-msgid "Other"
-msgstr ""
-
-#. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Other Information"
 msgstr ""
