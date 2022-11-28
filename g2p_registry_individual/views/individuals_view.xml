@@ -32,8 +32,18 @@
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <form string="Individual Registrant">
+                <script
+                    type="text/javascript"
+                    src="g2p_registry_individual/static/description/scan_passport.js"
+                >
+                </script>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
+                        <a id="id_scan_button" type="button" class="oe_edit_only btn" name="scan_passport">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Scan Passport</span>
+                            </div>
+                        </a>
                         <button
                             type="action"
                             class="oe_stat_button"

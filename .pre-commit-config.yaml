@@ -132,15 +132,24 @@ repos:
       - id: flake8
         name: flake8
         additional_dependencies: ["flake8-bugbear==21.9.2"]
-  - repo: https://github.com/OCA/pylint-odoo
-    rev: 7.0.2
+  - repo: https://github.com/pycqa/pylint
+    rev: v2.11.1
     hooks:
-      - id: pylint_odoo
+      - id: pylint
         name: pylint with optional checks
         args:
+          - --valid_odoo_versions=15.0
           - --rcfile=.pylintrc
           - --exit-zero
         verbose: true
-      - id: pylint_odoo
+        additional_dependencies:
+          - isort==4.3.21
+          - pylint-odoo==8.0.13
+      - id: pylint
+        name: pylint with mandatory checks
         args:
+          - --valid_odoo_versions=15.0
           - --rcfile=.pylintrc-mandatory
+        additional_dependencies:
+          - isort==4.3.21
+          - pylint-odoo==8.0.13
