@@ -1,12 +1,17 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
+import os
 from datetime import datetime
 
+import requests
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
+
+SCAN_PASSPORT_URL = os.environ.get("SCAN_PASSPORT_URL")
+SCAN_PASSPORT_PORT = os.environ.get("SCAN_PASSPORT_PORT")
 
 
 class G2PIndividual(models.Model):
@@ -52,3 +57,25 @@ class G2PIndividual(models.Model):
         else:
             years_months_days = "No Birthdate!"
         return years_months_days
+
+    def _scan_passport_initialize(self):
+        _logger.info("initializing.............")
+        url = f"{SCAN_PASSPORT_URL}:{SCAN_PASSPORT_PORT}/initialise"
+        requests.get(url=url)
+
+    def _scan_passport_read_document(self):
+        url = f"{SCAN_PASSPORT_URL}:{SCAN_PASSPORT_PORT}/readdocument"
+        return requests.get(url).json()
+
+    def _scan_passport_shutdown(self):
+        _logger.info("shutting down.............")
+        url = f"{SCAN_PASSPORT_URL}:{SCAN_PASSPORT_PORT}/shutdown"
+        requests.get(url=url)
+
+    @api.model
+    def scan_passport(self):
+        self._scan_passport_initialize()
+        data = self._scan_passport_read_document()
+        self._scan_passport_shutdown()
+
+        return data

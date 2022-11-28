@@ -138,7 +138,6 @@ repos:
       - id: pylint
         name: pylint with optional checks
         args:
-          - --valid_odoo_versions=15.0
           - --rcfile=.pylintrc
           - --exit-zero
         verbose: true
@@ -148,7 +147,6 @@ repos:
       - id: pylint
         name: pylint with mandatory checks
         args:
-          - --valid_odoo_versions=15.0
           - --rcfile=.pylintrc-mandatory
         additional_dependencies:
           - isort==4.3.21
