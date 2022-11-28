@@ -11,7 +11,12 @@
             <tree>
                 <field name="group" />
                 <field name="individual" />
-                <field name="kind" widget="many2many_tags" options="{'no_create_edit':True,'no_open':True}" />
+                <field
+                    name="kind"
+                    string="Role"
+                    widget="many2many_tags"
+                    options="{'no_create_edit':True,'no_open':True}"
+                />
                 <field name="start_date" />
                 <field name="ended_date" />
             </tree>
@@ -46,7 +51,7 @@
                             />
                         </h1>
                         <div class="o_row">
-                            <label for="kind" string="Kind:" />
+                            <label for="kind" string="Role:" />
                             <field
                                 name="kind"
                                 widget="many2many_tags"
