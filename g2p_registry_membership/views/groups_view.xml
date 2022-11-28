@@ -46,6 +46,7 @@
                                 <field name="individual_gender" string="Gender" />
                                 <field
                                     name="kind"
+                                    string="Role"
                                     widget="many2many_tags"
                                     options="{'no_open':True, 'no_create_edit':True, 'no_create':True, 'no_quick_create':True}"
                                 />
