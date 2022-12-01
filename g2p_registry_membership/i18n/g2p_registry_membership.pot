@@ -211,6 +211,12 @@ msgid "Membership to Groups"
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__z_ind_grp_num_individuals
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__z_ind_grp_num_individuals
+msgid "Number of individuals"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Only one %s is allowed per group"
