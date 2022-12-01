@@ -18,6 +18,12 @@ class G2PMembershipGroup(models.Model):
         compute="_compute_force_recompute_group", store=True, readonly=True
     )
 
+    z_ind_grp_num_individuals = fields.Integer(
+        "Number of individuals",
+        compute="_compute_ind_grp_num_individuals",
+        store=True,
+    )
+
     def _compute_force_recompute_group(self):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
@@ -27,6 +33,9 @@ class G2PMembershipGroup(models.Model):
         ).recompute_indicators()
         for group in self:
             group.force_recompute_canary = fields.Datetime.now()
+
+    def _compute_ind_grp_num_individuals(self):
+        self.compute_count_and_set_indicator("z_ind_grp_num_individuals", None, [])
 
     def recompute_indicators(self):
         fields = self._get_calculated_group_fields()
