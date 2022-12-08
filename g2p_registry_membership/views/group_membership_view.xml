@@ -11,9 +11,14 @@
             <tree>
                 <field name="group" />
                 <field name="individual" />
-                <field name="kind" widget="many2many_tags" options="{'no_create_edit':True,'no_open':True}" />
+                <field
+                    name="kind"
+                    string="Role"
+                    widget="many2many_tags"
+                    options="{'no_create_edit':True,'no_open':True}"
+                />
                 <field name="start_date" />
-                <field name="end_date" />
+                <field name="ended_date" />
             </tree>
         </field>
     </record>
@@ -46,7 +51,7 @@
                             />
                         </h1>
                         <div class="o_row">
-                            <label for="kind" string="Kind:" />
+                            <label for="kind" string="Role:" />
                             <field
                                 name="kind"
                                 widget="many2many_tags"
@@ -56,7 +61,7 @@
                     </div>
                     <group string="Date Range" colspan="4" col="4">
                         <field name="start_date" />
-                        <field name="end_date" />
+                        <field name="ended_date" />
                     </group>
                 </sheet>
             </form>

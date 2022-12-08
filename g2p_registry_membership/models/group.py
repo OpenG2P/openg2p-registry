@@ -18,13 +18,24 @@ class G2PMembershipGroup(models.Model):
         compute="_compute_force_recompute_group", store=True, readonly=True
     )
 
+    z_ind_grp_num_individuals = fields.Integer(
+        "Number of individuals",
+        compute="_compute_ind_grp_num_individuals",
+        store=True,
+    )
+
     def _compute_force_recompute_group(self):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
         # We use this trick to have a consolidated list of groups to recompute
-        self.with_delay().recompute_indicators()
+        self.with_delay(
+            priority=5, channel="root.recompute_indicators"
+        ).recompute_indicators()
         for group in self:
             group.force_recompute_canary = fields.Datetime.now()
+
+    def _compute_ind_grp_num_individuals(self):
+        self.compute_count_and_set_indicator("z_ind_grp_num_individuals", None, [])
 
     def recompute_indicators(self):
         fields = self._get_calculated_group_fields()
@@ -51,7 +62,7 @@ class G2PMembershipGroup(models.Model):
             if relationship_kinds:
                 membership_kind_domain = [("name", "in", relationship_kinds)]
         else:
-            return 0
+            return dict()
 
         if domain is not None:
             individual_domain = domain
@@ -101,7 +112,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and "%s"."end_date" IS NULL) ' % (
+        inner_join_query += ' ON ("%s"."group" = v and "%s"."ended_date" IS NULL) ' % (
             membership_alias,
             membership_alias,
         )
@@ -109,7 +120,7 @@ class G2PMembershipGroup(models.Model):
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
             model=self.env["g2p.group.membership"],
-            domain=[("end_date", "=", None)],  # ("group", "in", ids)],
+            domain=[("ended_date", "=", None)],  # ("group", "in", ids)],
             alias=membership_alias,
         ).query
         (

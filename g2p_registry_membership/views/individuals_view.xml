@@ -32,11 +32,12 @@
                             />
                             <field
                                 name="kind"
+                                string="Role"
                                 widget="many2many_tags"
                                 options="{'no_open':True, 'no_create_edit':True}"
                             />
                             <field name="start_date" />
-                            <field name="end_date" />
+                            <field name="ended_date" />
                         </tree>
                     </field>
                 </page>

@@ -91,8 +91,8 @@ msgid "Duplication of Member is not allowed "
 msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__end_date
-msgid "End Date"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__ended_date
+msgid "Ended Date"
 msgstr ""
 
 #. module: g2p_registry_membership
@@ -177,11 +177,6 @@ msgid "Kind"
 msgstr ""
 
 #. module: g2p_registry_membership
-#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
-msgid "Kind:"
-msgstr ""
-
-#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind____last_update
 msgid "Last Modified on"
@@ -216,9 +211,27 @@ msgid "Membership to Groups"
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__z_ind_grp_num_individuals
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__z_ind_grp_num_individuals
+msgid "Number of individuals"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Only one %s is allowed per group"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_tree
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
+msgid "Role"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
+msgid "Role:"
 msgstr ""
 
 #. module: g2p_registry_membership

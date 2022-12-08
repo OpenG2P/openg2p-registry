@@ -20,7 +20,7 @@ class G2PIndividual(models.Model):
     birthdate = fields.Date("Date of Birth")
     age = fields.Char(compute="_compute_calc_age", size=50, readonly=True)
     gender = fields.Selection(
-        [("Female", "Female"), ("Male", "Male"), ("Other", "Other")],
+        [("Female", "Female"), ("Male", "Male")],
     )
 
     @api.onchange("is_group", "family_name", "given_name", "addl_name")

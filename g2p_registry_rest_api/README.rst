@@ -66,10 +66,13 @@ Maintainers
 .. |maintainer-gonzalesedwin1123| image:: https://github.com/gonzalesedwin1123.png?size=40px
     :target: https://github.com/gonzalesedwin1123
     :alt: gonzalesedwin1123
+.. |maintainer-emjay0921| image:: https://github.com/emjay0921.png?size=40px
+    :target: https://github.com/emjay0921
+    :alt: emjay0921
 
 Current maintainers:
 
-|maintainer-jeremi| |maintainer-gonzalesedwin1123| 
+|maintainer-jeremi| |maintainer-gonzalesedwin1123| |maintainer-emjay0921| 
 
 This module is part of the `openg2p/openg2p-registry <https://github.com/openg2p/openg2p-registry/tree/15.0/g2p_registry_rest_api>`_ project on GitHub.
 
