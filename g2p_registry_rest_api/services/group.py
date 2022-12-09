@@ -1,5 +1,7 @@
 import logging
 
+from werkzeug.exceptions import NotFound
+
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
@@ -33,7 +35,10 @@ class GroupApiService(Component):
         """
         Get partner's information
         """
-        partner = self._get(_id)
+        grp_helper = self.env["registrant_group.rest.service.helper"]
+        partner = grp_helper._get(_id)
+        if not partner:
+            raise NotFound()
         return GroupInfoOut.from_orm(partner)
 
     @restapi.method(
@@ -61,6 +66,8 @@ class GroupApiService(Component):
                 res.append(GroupInfoOut.from_orm(p))
             else:
                 res.append(GroupShortInfoOut.from_orm(p))
+        if not res:
+            raise NotFound()
         return res
 
     @restapi.method(

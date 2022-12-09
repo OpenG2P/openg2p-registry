@@ -1,4 +1,4 @@
-from werkzeug.exceptions import BadRequest
+from werkzeug.exceptions import BadRequest, NotFound
 
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel
@@ -35,7 +35,11 @@ class IndividualApiServiceUpdateId(Component):
         )
         if id_type_id:
             registrant = self.env["res.partner"].search(
-                [("id", "=", reg_id.partner_id)]
+                [
+                    ("id", "=", reg_id.partner_id),
+                    ("is_registrant", "=", True),
+                    ("is_group", "=", False),
+                ]
             )
             if registrant:
                 reg_id_dict = reg_id.dict()
@@ -47,4 +51,7 @@ class IndividualApiServiceUpdateId(Component):
                 return RegistrantUpdateIDOut.from_orm(
                     self.env["g2p.reg.id"].create(reg_id_dict)
                 )
+            else:
+                raise NotFound()
+
         raise BadRequest()

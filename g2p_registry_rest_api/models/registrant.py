@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List
+from typing import List, Optional
 
 import pydantic
 
@@ -41,7 +41,7 @@ class RegistrantInfoOut(NaiveOrmModel):
     email: str = None
     address: str = None
     # TODO: Change the following to reflect addl_info json as dict than str
-    addl_info: str = pydantic.Field(..., alias="additional_g2p_info")
+    addl_info: Optional[str] = pydantic.Field(..., alias="additional_g2p_info")
 
 
 class RegistrantIDIn(NaiveOrmModel):
@@ -59,4 +59,4 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
-    addl_info: dict = {}
+    addl_info: Optional[dict] = {}

@@ -8,7 +8,7 @@ class GroupApiHelper(models.AbstractModel):
 
     def _get(self, _id):
         partner = self.env["res.partner"].browse(_id)
-        if partner and partner.is_group:
+        if partner and partner.is_registrant and partner.is_group:
             return partner
         return None
 

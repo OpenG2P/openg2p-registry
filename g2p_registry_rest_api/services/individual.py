@@ -1,5 +1,7 @@
 import logging
 
+from werkzeug.exceptions import NotFound
+
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
@@ -35,6 +37,8 @@ class IndividualApiService(Component):
         """
         indv_helper = self.env["registrant_individual.rest.service.helper"]
         partner = indv_helper._get(_id)
+        if not partner:
+            raise NotFound()
         return IndividualInfoOut.from_orm(partner)
 
     @restapi.method(
@@ -55,10 +59,13 @@ class IndividualApiService(Component):
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
         domain.append(("is_registrant", "=", True))
+        domain.append(("is_group", "=", False))
         res = []
 
         for p in self.env["res.partner"].search(domain):
             res.append(IndividualInfoOut.from_orm(p))
+        if not res:
+            raise NotFound()
         return res
 
     @restapi.method(
