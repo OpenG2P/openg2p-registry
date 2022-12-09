@@ -8,20 +8,30 @@ var G2PAdditionalInfoWidget = FieldText.extend({
     className: "o_field_g2p_addl_info",
     _render: function () {
         if (this.mode === "edit") {
-            this.value = JSON.stringify(JSON.parse(this.value), null, 2);
+            if (this.value) {
+                try {
+                    this.value = JSON.stringify(JSON.parse(this.value), null, 2);
+                } catch (err) {
+                    // Pass value as is, when error
+                }
+            }
             return this._super();
         }
-        const values_json = JSON.parse(this.value);
-        for (const key in values_json) {
-            if (typeof values_json[key] === "object") {
-                values_json[key] = JSON.stringify(values_json[key]);
+        try {
+            const values_json = JSON.parse(this.value);
+            for (const key in values_json) {
+                if (typeof values_json[key] === "object") {
+                    values_json[key] = JSON.stringify(values_json[key]);
+                }
             }
+            return this.$el.html(
+                qweb.render("g2p.addl.info.template", {
+                    value: values_json,
+                })
+            );
+        } catch (err) {
+            return this._super();
         }
-        this.$el.html(
-            qweb.render("g2p.addl.info.template", {
-                value: values_json,
-            })
-        );
     },
 });
 
