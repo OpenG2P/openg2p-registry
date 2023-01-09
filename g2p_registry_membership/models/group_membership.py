@@ -117,9 +117,11 @@ class G2PGroupMembership(models.Model):
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
     def _recompute_parent_groups(self, records):
-        field = self.env["res.partner"]._fields["force_recompute_canary"]
-        groups = records.mapped("group")
-        self.env.add_to_compute(field, groups)
+        # Check if group field is in records
+        if "group" in records._fields:
+            field = self.env["res.partner"]._fields["force_recompute_canary"]
+            groups = records.mapped("group")
+            self.env.add_to_compute(field, groups)
 
     def write(self, vals):
         res = super(G2PGroupMembership, self).write(vals)
