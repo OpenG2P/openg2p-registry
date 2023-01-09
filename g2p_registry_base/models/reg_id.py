@@ -16,6 +16,8 @@ class G2PRegistrantID(models.Model):
     )
     id_type = fields.Many2one("g2p.id.type", "ID Type", required=True)
     value = fields.Char(size=100)
+    status = fields.Char()
+    error = fields.Char()
 
     expiry_date = fields.Date()
     id_type_as_str = fields.Char(related="id_type.name")

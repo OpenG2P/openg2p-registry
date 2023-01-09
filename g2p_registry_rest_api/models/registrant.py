@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List
+from typing import List, Optional
 
 import pydantic
 
@@ -13,8 +13,10 @@ class IDType(NaiveOrmModel):
 class RegistrantIDOut(NaiveOrmModel):
     id: int
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
-    value: str
+    value: str = None
     expiry_date: date = None
+    status: str = None
+    error: str = None
 
 
 class PhoneNumberOut(NaiveOrmModel):
@@ -32,26 +34,29 @@ class PhoneNumberIn(NaiveOrmModel):
 
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
-    name: str
     ids: List[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
     is_group: bool
     registration_date: date = None
     phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
     email: str = None
     address: str = None
+    # TODO: Change the following to reflect addl_info json as dict than str
+    addl_info: Optional[str] = pydantic.Field(..., alias="additional_g2p_info")
 
 
 class RegistrantIDIn(NaiveOrmModel):
     id_type: str = None
     value: str = None
     expiry_date: date = None
+    status: str = None
+    error: str = None
 
 
 class RegistrantInfoIn(NaiveOrmModel):
-    name: str
     ids: List[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
     phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
+    addl_info: Optional[dict] = {}

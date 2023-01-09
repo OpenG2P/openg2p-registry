@@ -9,10 +9,11 @@ from .registrant import RegistrantInfoOut  # fmt: skip
 
 
 class GroupShortInfoOut(RegistrantInfoOut):
-    pass
+    name: str
 
 
 class GroupInfoOut(RegistrantInfoOut):
+    name: str
     is_group = True
     members: List[GroupMembersInfoOut] = pydantic.Field(
         ..., alias="group_membership_ids"
@@ -22,6 +23,7 @@ class GroupInfoOut(RegistrantInfoOut):
 
 
 class GroupInfoIn(RegistrantInfoIn):
+    name: str
     is_group = True
     members: List[GroupMembersInfoIn]
     kind: str = None
