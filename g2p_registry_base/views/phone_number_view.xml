@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
             <tree decoration-danger="disabled != False">
                 <field name="partner_id" />
-                <field name="phone_no" />
+                <field name="phone_no" widget="phone" />
                 <field name="date_collected" />
                 <field name="disabled" />
                 <field name="disabled_by" widget="many2one_avatar_user" />
@@ -70,8 +70,12 @@
                         </div>
                     </div>
                     <group colspan="4" col="4">
-                        <field name="phone_no" attrs="{'readonly':[('disabled','!=',False)]}" />
-                        <field name="phone_sanitized" />
+                        <field
+                            name="phone_no"
+                            attrs="{'readonly':[('disabled','!=',False)]}"
+                            widget="phone"
+                        />
+                        <field name="phone_sanitized" widget="phone" />
                         <field
                             name="country_id"
                             options="{'no_open':True, 'no_create_edit':True, 'no_create': True}"
