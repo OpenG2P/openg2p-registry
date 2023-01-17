@@ -12,7 +12,6 @@
                 <field name="name" />
                 <field name="address" />
                 <field name="phone" />
-                <field name="kind" />
                 <field
                     name="category_id"
                     widget="many2many_tags"

@@ -3,16 +3,6 @@
    Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 -->
 <odoo>
-    <record id="view_groups_list_tree_membership" model="ir.ui.view">
-        <field name="name">view_groups_list_tree_membership</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="g2p_registry_group.view_groups_list_tree" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='kind']" position="after">
-                <field name="group_membership_ids" string="# Individuals" />
-            </xpath>
-        </field>
-    </record>
 
     <record id="view_groups_form_membership" model="ir.ui.view">
         <field name="name">view_groups_form_membership</field>
