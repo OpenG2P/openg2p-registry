@@ -38,6 +38,11 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
 msgstr ""
@@ -50,6 +55,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_phone_number
 msgid "Add a Registrant's Phone Number!"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
+msgid "Add a Registrant's Tags!"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -74,6 +84,16 @@ msgid "Administrator"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,help:g2p_registry_base.field_g2p_registrant_tags__active
+msgid "Archive to hide the RegistrantTag without removing it."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
+msgid "Archived"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -81,18 +101,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__bidirectional
 msgid "Bi-directional"
-msgstr ""
-
-#. module: g2p_registry_base
-#: code:addons/g2p_registry_base/models/reg_id.py:0
-#, python-format
-msgid "Can't delete default ID Type"
-msgstr ""
-
-#. module: g2p_registry_base
-#: code:addons/g2p_registry_base/models/reg_id.py:0
-#, python-format
-msgid "Can't edit default ID Type"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -121,10 +129,20 @@ msgid "Click the create button to enter the new registrant's ID information."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
+msgid "Click the create button to enter the new registrant's Tags information."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid ""
 "Click the create button to enter the new registrant's relationship "
 "information."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__color
+msgid "Color"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -148,6 +166,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
 msgid "Created by"
 msgstr ""
@@ -158,6 +177,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
 msgid "Created on"
 msgstr ""
@@ -183,6 +203,17 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Date Range"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__destination
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
+msgid "Destination"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__destination_type
+msgid "Destination partner type"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -216,6 +247,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
 msgid "Display Name"
 msgstr ""
@@ -266,6 +298,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
 msgid "ID"
 msgstr ""
@@ -291,7 +324,6 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -312,11 +344,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_tree
-msgid "Is Related to"
-msgstr ""
-
-#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Is Related to:"
 msgstr ""
@@ -327,6 +354,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel____last_update
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -337,6 +365,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -347,6 +376,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -368,6 +398,8 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type_as_str
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
@@ -423,9 +455,13 @@ msgid "Phone Sanitized"
 msgstr ""
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__disabled_reason
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_reason
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_reason
+msgid "Reason for Disabling"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__disabled_reason
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Reason for disabling"
 msgstr ""
@@ -439,36 +475,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_tree
 msgid "Registrant"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__source
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
-msgid "Registrant 1"
 msgstr ""
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "Registrant 1 and Registrant 2 cannot be the same."
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__source_type
-msgid "Registrant 1 partner type"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__destination
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
-msgid "Registrant 2"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__destination_type
-msgid "Registrant 2 partner type"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -497,6 +510,13 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_reg_rel
 msgid "Registrant Relationships"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_registrant_tags
+#: model:ir.model,name:g2p_registry_base.model_g2p_registrant_tags
+#: model:ir.ui.menu,name:g2p_registry_base.menu_registrant_tags
+msgid "Registrant Tags"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -556,11 +576,6 @@ msgid "Relationships"
 msgstr ""
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr ""
-
-#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
 msgstr ""
@@ -576,13 +591,13 @@ msgid "Search Registrant Relationships"
 msgstr ""
 
 #. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
-msgid "Select Registrant 1..."
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
+msgid "Search Registrant Tags"
 msgstr ""
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
-msgid "Select Registrant 2..."
+msgid "Select Destination..."
 msgstr ""
 
 #. module: g2p_registry_base
@@ -596,20 +611,31 @@ msgid "Select Relationship..."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
+msgid "Select Source..."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__source
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
+msgid "Source"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__source_type
+msgid "Source partner type"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__start_date
 msgid "Start Date"
 msgstr ""
 
 #. module: g2p_registry_base
-#: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, python-format
-msgid "Still part of group membership in: %s."
-msgstr ""
-
-#. module: g2p_registry_base
-#: code:addons/g2p_registry_base/wizard/disable_registrant.py:0
-#, python-format
-msgid "The program is not ended yet. Please check in program: %s."
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__tags_ids
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__tags_ids
+msgid "Tags"
 msgstr ""
 
 #. module: g2p_registry_base
