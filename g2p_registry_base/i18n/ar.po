@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-18 12:56+0000\n"
-"Last-Translator: sajjad alkantale <sajjadjameel68@gmail.com>\n"
+"PO-Revision-Date: 2023-01-24 01:57+0000\n"
+"Last-Translator: Mohammed Alateya <mohammadalbaqer@gmail.com>\n"
 "Language-Team: Arabic <https://translate.openspp.org/projects/openg2p/"
 "g2p_registry_base/ar/>\n"
 "Language: ar\n"
@@ -46,7 +46,7 @@ msgstr "الإجراءات اللازمة"
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__active
 msgid "Active"
-msgstr ""
+msgstr "مفعل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
