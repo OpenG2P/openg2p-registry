@@ -11,7 +11,7 @@ G2P Registry: Base
     :target: https://odoo-community.org/page/development-status
     :alt: Production/Stable
 .. |badge2| image:: https://img.shields.io/badge/github-openg2p%2Fopeng2p--registry-lightgray.png?logo=github
-    :target: https://github.com/openg2p/openg2p-registry/tree/15.0/g2p_registry_base
+    :target: https://github.com/openg2p/openg2p-registry/tree/15.0-develop/g2p_registry_base
     :alt: openg2p/openg2p-registry
 
 |badge1| |badge2| 
@@ -29,7 +29,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/openg2p/openg2p-registry/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/openg2p/openg2p-registry/issues/new?body=module:%20g2p_registry_base%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/openg2p/openg2p-registry/issues/new?body=module:%20g2p_registry_base%0Aversion:%2015.0-develop%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -66,6 +66,6 @@ Current maintainers:
 
 |maintainer-jeremi| |maintainer-gonzalesedwin1123| 
 
-This module is part of the `openg2p/openg2p-registry <https://github.com/openg2p/openg2p-registry/tree/15.0/g2p_registry_base>`_ project on GitHub.
+This module is part of the `openg2p/openg2p-registry <https://github.com/openg2p/openg2p-registry/tree/15.0-develop/g2p_registry_base>`_ project on GitHub.
 
 You are welcome to contribute.
