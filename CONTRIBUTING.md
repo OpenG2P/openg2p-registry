@@ -1,2 +1,2 @@
-Refer [Contributing to OpenG2P](https://github.com/OpenG2P/documentation/blob/master/CONTRIBUTING.md) and
-[Code of Conduct](https://github.com/OpenG2P/documentation/blob/master/CODE-OF-CONDUCT.md).
+Refer to contribution guidelines
+[here](https://github.com/OpenG2P/openg2p-documentation/blob/1.0.0/community/contributing-to-openg2p.md).
