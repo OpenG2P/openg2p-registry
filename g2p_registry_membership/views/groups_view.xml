@@ -9,7 +9,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='basic_info']" position="after">
+            <xpath expr="//page[@name='ids']" position="before">
                 <page string="Members" name="members">
                     <group col="4" colspan="4">
                         <field
