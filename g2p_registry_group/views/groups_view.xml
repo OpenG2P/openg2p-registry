@@ -114,47 +114,6 @@
                         />
                     </group>
                     <notebook>
-                        <page name="basic_info" string="Contact Details">
-                            <group colspan="4" col="4">
-                                <group colspan="2">
-                                    <span class="o_form_label o_td_label" name="address_name">
-                                        <b>Address</b>
-                                    </span>
-                                    <div class="o_address_format">
-                                        <field
-                                            name="address"
-                                            attrs="{'readonly':[('disabled','!=',False)]}"
-                                        />
-                                    </div>
-                                </group>
-                                <group colspan="2">
-                                    <field
-                                        name="phone_number_ids"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
-                                        context="{'reg_form':True}"
-                                        nolabel="1"
-                                        colspan="2"
-                                    >
-                                        <tree decoration-danger="disabled != False">
-                                             <field
-                                                name="phone_no"
-                                                string="Phone Numbers"
-                                                widget="phone"
-                                                options="{'enable_sms': false}"
-                                            />
-                                            <field name="country_id" />
-                                            <field name="disabled" invisible="1" />
-                                        </tree>
-                                    </field>
-                                    <field
-                                        name="email"
-                                        widget="email"
-                                        context="{'gravatar_image': True}"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
-                                    />
-                                </group>
-                            </group>
-                        </page>
                         <page string="IDs" name="ids">
                             <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
                                 <tree editable="top">
@@ -230,6 +189,47 @@
                                         <field name="disabled_by" readonly="1" />
                                     </tree>
                                 </field>
+                            </group>
+                        </page>
+                        <page name="basic_info" string="Contact Details">
+                            <group colspan="4" col="4">
+                                <group colspan="2">
+                                    <span class="o_form_label o_td_label" name="address_name">
+                                        <b>Address</b>
+                                    </span>
+                                    <div class="o_address_format">
+                                        <field
+                                            name="address"
+                                            attrs="{'readonly':[('disabled','!=',False)]}"
+                                        />
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <field
+                                        name="phone_number_ids"
+                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                        context="{'reg_form':True}"
+                                        nolabel="1"
+                                        colspan="2"
+                                    >
+                                        <tree decoration-danger="disabled != False">
+                                             <field
+                                                name="phone_no"
+                                                string="Phone Numbers"
+                                                widget="phone"
+                                                options="{'enable_sms': false}"
+                                            />
+                                            <field name="country_id" />
+                                            <field name="disabled" invisible="1" />
+                                        </tree>
+                                    </field>
+                                    <field
+                                        name="email"
+                                        widget="email"
+                                        context="{'gravatar_image': True}"
+                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                    />
+                                </group>
                             </group>
                         </page>
                         <page name="other" string="Other Information">
