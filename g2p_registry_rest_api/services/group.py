@@ -9,7 +9,7 @@ from ..models.group_search_param import GroupSearchParam
 
 
 class GroupApiService(Component):
-    _inherit = "base.rest.service"
+    _inherit = ["base.rest.service", "process_individual.rest.mixin"]
     _name = "registrant_group.rest.service"
     _usage = "group"
     _collection = "base.rest.registry.services"
@@ -27,7 +27,7 @@ class GroupApiService(Component):
             )
         ],
         output_param=PydanticModel(GroupInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def get(self, _id):
         """
@@ -40,7 +40,7 @@ class GroupApiService(Component):
         [(["/", "/search"], "GET")],
         input_param=PydanticModel(GroupSearchParam),
         output_param=PydanticModelList(GroupShortInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def search(self, partner_search_param):
         """
@@ -53,6 +53,8 @@ class GroupApiService(Component):
             domain.append(("name", "like", partner_search_param.name))
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
+        domain.append(("is_registrant", "=", True))
+        domain.append(("is_group", "=", True))
         res = []
 
         for p in self.env["res.partner"].search(domain):
@@ -66,7 +68,7 @@ class GroupApiService(Component):
         [(["/"], "POST")],
         input_param=PydanticModel(GroupInfoIn),
         output_param=PydanticModel(GroupInfoOut),
-        auth="jwt",
+        auth="user",
     )
     def createGroup(self, group_info):
         """
@@ -133,35 +135,6 @@ class GroupApiService(Component):
             return partner
         return None
 
-    def _process_individual(self, individual):
-        indv_rec = {
-            "name": individual.name,
-            "registration_date": individual.registration_date,
-            "is_registrant": True,
-            "is_group": False,
-            "email": individual.email,
-            "given_name": individual.given_name,
-            "family_name": individual.family_name,
-            "gender": individual.gender or False,
-            "birthdate": individual.birthdate or False,
-            "birth_place": individual.birth_place or False,
-        }
-
-        ids = []
-        ids_info = individual
-        ids = self._process_ids(ids_info)
-
-        if ids:
-            indv_rec.update({"reg_ids": ids})
-
-        phone_numbers = []
-        phone_numbers = self._process_phones(ids_info)
-
-        if phone_numbers:
-            indv_rec.update({"phone_number_ids": phone_numbers})
-
-        return indv_rec
-
     def _process_group(self, group_info):
         grp_rec = {
             "name": group_info.name,
@@ -193,50 +166,10 @@ class GroupApiService(Component):
             grp_rec.update({"reg_ids": ids})
 
         phone_numbers = []
-        phone_numbers = self._process_phones(ids_info)
+        phone_numbers, primary_phone = self._process_phones(ids_info)
+        if primary_phone:
+            grp_rec.update({"phone": primary_phone})
         if phone_numbers:
             grp_rec.update({"phone_number_ids": phone_numbers})
 
         return grp_rec
-
-    def _process_ids(self, ids_info):
-        ids = []
-        if ids_info.ids:
-            for rec in ids_info.ids:
-                # Search ID Type
-                id_type_id = self.env["g2p.id.type"].search(
-                    [("name", "=", rec.id_type)]
-                )
-                if id_type_id:
-                    id_type_id = id_type_id[0]
-                else:
-                    # Create a new ID Type
-                    id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
-                ids.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "id_type": id_type_id.id,
-                            "value": rec.value,
-                            "expiry_date": rec.expiry_date,
-                        },
-                    )
-                )
-            return ids
-
-    def _process_phones(self, ids_info):
-        phone_numbers = []
-        if ids_info.phone_numbers:
-            for phone in ids_info.phone_numbers:
-                phone_numbers.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "phone_no": phone.phone_no,
-                            "date_collected": phone.date_collected,
-                        },
-                    )
-                )
-            return phone_numbers
