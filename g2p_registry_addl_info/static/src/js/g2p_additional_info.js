@@ -1,30 +1,36 @@
 /** @odoo-module **/
 
 import {FieldText} from "web.basic_fields";
+import field_utils from "web.field_utils";
 import fieldsRegistry from "web.field_registry";
 import {qweb} from "web.core";
 
+field_utils.format.json = function (value) {
+    return JSON.stringify(value, null, 2);
+};
+field_utils.parse.json = function (value) {
+    return JSON.parse(value);
+};
+
 var G2PAdditionalInfoWidget = FieldText.extend({
     className: "o_field_g2p_addl_info",
-    _render: function () {
-        if (this.mode === "edit") {
-            if (this.value) {
-                try {
-                    this.value = JSON.stringify(JSON.parse(this.value), null, 2);
-                } catch (err) {
-                    // Pass value as is, when error
-                    console.error(err);
-                }
-            }
-            return this._super();
-        }
+    supportedFieldTypes: ["json", "text", "html"],
+    tagName: "div",
+    _renderReadonly: function () {
         try {
-            const valuesJson = JSON.parse(this.value);
+            // Create deep clone
+            let valuesJsonOrig = this.value;
+
+            if (typeof valuesJsonOrig === "string" || valuesJsonOrig instanceof String) {
+                valuesJsonOrig = JSON.parse(this.value);
+            }
+            const valuesJson = {};
             let sections = {};
-            for (const key in valuesJson) {
-                if (typeof valuesJson[key] === "object") {
-                    sections[key] = this.flattenJson(valuesJson[key]);
-                    delete valuesJson[key];
+            for (const key in valuesJsonOrig) {
+                if (typeof valuesJsonOrig[key] === "object") {
+                    sections[key] = this.flattenJson(valuesJsonOrig[key]);
+                } else {
+                    valuesJson[key] = valuesJsonOrig[key];
                 }
             }
             if (Object.keys(sections).length === 0) {
@@ -40,8 +46,8 @@ var G2PAdditionalInfoWidget = FieldText.extend({
             );
         } catch (err) {
             console.error(err);
-            return this._super();
         }
+        return this._super();
     },
     flattenJson: function (jsonObject) {
         for (const key in jsonObject) {
@@ -50,6 +56,9 @@ var G2PAdditionalInfoWidget = FieldText.extend({
             }
         }
         return jsonObject;
+    },
+    _isSameValue: function (value) {
+        return _.isEqual(value, this.value);
     },
 });
 

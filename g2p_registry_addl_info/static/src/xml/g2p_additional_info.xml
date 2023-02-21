@@ -21,9 +21,9 @@
         </table>
     </t>
     <t t-name="addl_info_template">
-        <table style="width: 100%;">
+        <table>
             <t t-if="sections">
-                <td style="width: 50%;">
+                <td>
                     <t t-foreach="sections" t-as="key">
                         <div class="o_horizontal_separator">
                             <t t-esc="key" />
@@ -34,7 +34,7 @@
                 </td>
             </t>
             <t t-if="values">
-                <td style="width: 50%;">
+                <td>
                     <t t-set="flatJson" t-value="values" />
                     <t t-call="addl_info_each_table" />
                 </td>
