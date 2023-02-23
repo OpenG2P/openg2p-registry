@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_g2p_registrant_group_addl_info" model="ir.ui.view">
+        <field name="name">g2p.registry.group.addl.info</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other']" position="before">
+                <page name="addl" string="Additional Information">
+                    <field name="additional_g2p_info" widget="g2p_addl_info_widget" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

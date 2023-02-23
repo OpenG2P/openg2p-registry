@@ -55,3 +55,11 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
+
+
+class RegistrantUpdateIDIn(RegistrantIDIn):
+    partner_id: int
+
+
+class RegistrantUpdateIDOut(RegistrantIDOut):
+    partner_id: int
