@@ -29,6 +29,8 @@ addon | version | maintainers | summary
 [g2p_registry_membership](g2p_registry_membership/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Membership
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) [![emjay0921](https://github.com/emjay0921.png?size=30px)](https://github.com/emjay0921) | G2P Registry: Rest API
 [g2p_registry_rest_api_extension_demo](g2p_registry_rest_api_extension_demo/) | 15.0.0.0.1 | [![jeremi](https://github.com/jeremi.png?size=30px)](https://github.com/jeremi) [![gonzalesedwin1123](https://github.com/gonzalesedwin1123.png?size=30px)](https://github.com/gonzalesedwin1123) | G2P Registry: Rest API Extension Demo
+[g2p_registry_addl_info](g2p_registry_addl_info/) | 15.0.1.1.0 |  | G2P Registry: Additional Info
+[g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 15.0.1.1.0 |  | G2P Registry: Additional Info REST API
 
 [//]: # (end addons)
 

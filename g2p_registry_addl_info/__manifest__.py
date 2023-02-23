@@ -7,7 +7,12 @@
     "website": "https://github.com/openg2p/openg2p-registry",
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
-    "depends": ["g2p_registry_base", "g2p_registry_individual", "g2p_registry_group"],
+    "depends": [
+        "g2p_json_field",
+        "g2p_registry_base",
+        "g2p_registry_individual",
+        "g2p_registry_group",
+    ],
     "data": [
         "views/registrant_individual.xml",
         "views/registrant_group.xml",

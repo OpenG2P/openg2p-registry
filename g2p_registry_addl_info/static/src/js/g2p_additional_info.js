@@ -18,7 +18,6 @@ var G2PAdditionalInfoWidget = FieldText.extend({
     tagName: "div",
     _renderReadonly: function () {
         try {
-            // Create deep clone
             let valuesJsonOrig = this.value;
 
             if (typeof valuesJsonOrig === "string" || valuesJsonOrig instanceof String) {
@@ -49,7 +48,8 @@ var G2PAdditionalInfoWidget = FieldText.extend({
         }
         return this._super();
     },
-    flattenJson: function (jsonObject) {
+    flattenJson: function (object) {
+        const jsonObject = JSON.parse(JSON.stringify(object));
         for (const key in jsonObject) {
             if (typeof jsonObject[key] === "object") {
                 jsonObject[key] = JSON.stringify(jsonObject[key]);
