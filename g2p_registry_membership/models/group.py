@@ -37,9 +37,44 @@ class G2PMembershipGroup(models.Model):
     def _compute_ind_grp_num_individuals(self):
         self.compute_count_and_set_indicator("z_ind_grp_num_individuals", None, [])
 
-    def recompute_indicators(self):
-        fields = self._get_calculated_group_fields()
-        for field in fields:
+    def recompute_indicators_for_all_records(self, recomputed_fields=None):
+        # Set the batch size to 10000
+        batch_size = 10000
+        # Get the total number of records
+        total_records = self.env["res.partner"].search_count(
+            [
+                ("is_group", "=", True),
+                ("is_registrant", "=", True),
+                ("disabled", "=", None),
+            ]
+        )
+
+        # Iterate through the records in batches of 10000
+        for i in range(0, total_records, batch_size):
+            self.with_delay(
+                priority=5, channel="root.recompute_indicators"
+            ).recompute_indicators_for_batch(
+                i, batch_size, recomputed_fields=recomputed_fields
+            )
+
+    def recompute_indicators_for_batch(self, offset, limit, recomputed_fields=None):
+        # Get the records
+        partners = self.env["res.partner"].search(
+            [
+                ("is_group", "=", True),
+                ("is_registrant", "=", True),
+                ("disabled", "=", None),
+            ],
+            offset=offset,
+            limit=limit,
+            order="id",
+        )
+        partners.recompute_indicators(recomputed_fields=recomputed_fields)
+
+    def recompute_indicators(self, recomputed_fields=None):
+        if recomputed_fields is None:
+            recomputed_fields = self._get_calculated_group_fields()
+        for field in recomputed_fields:
             self.env.add_to_compute(field, self)
 
     def _get_calculated_group_fields(self):
