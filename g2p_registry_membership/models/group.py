@@ -52,7 +52,7 @@ class G2PMembershipGroup(models.Model):
         # Iterate through the records in batches of 10000
         for i in range(0, total_records, batch_size):
             self.with_delay(
-                priority=5, channel="root.recompute_indicators"
+                priority=20, channel="root.recompute_indicators"
             ).recompute_indicators_for_batch(
                 i, batch_size, recomputed_fields=recomputed_fields
             )
@@ -72,18 +72,27 @@ class G2PMembershipGroup(models.Model):
         partners.recompute_indicators(recomputed_fields=recomputed_fields)
 
     def recompute_indicators(self, recomputed_fields=None):
-        if recomputed_fields is None:
+        if recomputed_fields is not None and len(recomputed_fields) > 0:
+            if type(recomputed_fields[0]) is str:
+                recomputed_fields = self._get_calculated_group_fields(recomputed_fields)
+        else:
             recomputed_fields = self._get_calculated_group_fields()
         for field in recomputed_fields:
             self.env.add_to_compute(field, self)
 
-    def _get_calculated_group_fields(self):
+    def _get_calculated_group_fields(self, field_names=None):
         model_fields_id = self.env["res.partner"]._fields
         fields = []
         for field_name, field in model_fields_id.items():
-            els = field_name.split("_")
-            if field.compute and len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
-                fields.append(field)
+            if not field.compute or not field.store:
+                continue
+            if field_names is not None and len(field_names):
+                if field_name in field_names:
+                    fields.append(field)
+            else:
+                els = field_name.split("_")
+                if len(els) >= 3 and els[2] == "grp" and els[1] == "ind":
+                    fields.append(field)
         return fields
 
     def count_individuals(self, relationship_kinds=None, domain=None):
