@@ -19,28 +19,27 @@ var G2PAdditionalInfoWidget = FieldText.extend({
     _renderReadonly: function () {
         try {
             let valuesJsonOrig = this.value;
-
             if (typeof valuesJsonOrig === "string" || valuesJsonOrig instanceof String) {
                 valuesJsonOrig = JSON.parse(this.value);
             }
-            const valuesJson = {};
-            let sections = {};
-            for (const key in valuesJsonOrig) {
-                if (typeof valuesJsonOrig[key] === "object") {
-                    sections[key] = this.flattenJson(valuesJsonOrig[key]);
-                } else {
-                    valuesJson[key] = valuesJsonOrig[key];
-                }
+
+            if (Array.isArray(valuesJsonOrig)) {
+                const sectionsJson = {};
+                var self = this;
+                valuesJsonOrig.forEach((element) => {
+                    sectionsJson[element.name] = self.flattenJson(element.data);
+                });
+                return this.$el.html(
+                    qweb.render("addl_info_template", {
+                        sections: sectionsJson,
+                    })
+                );
             }
-            if (Object.keys(sections).length === 0) {
-                sections = false;
-            }
-            console.debug(sections);
-            console.debug(valuesJson);
+
+            const valuesJson = this.flattenJson(valuesJsonOrig);
             return this.$el.html(
-                qweb.render("addl_info_template", {
-                    sections: sections,
-                    values: valuesJson,
+                qweb.render("addl_info_each_table", {
+                    flatJson: valuesJson,
                 })
             );
         } catch (err) {

@@ -21,24 +21,14 @@
         </table>
     </t>
     <t t-name="addl_info_template">
-        <table>
-            <t t-if="sections">
-                <td>
-                    <t t-foreach="sections" t-as="key">
-                        <div class="o_horizontal_separator">
-                            <t t-esc="key" />
-                        </div>
-                        <t t-set="flatJson" t-value="sections[key]" />
-                        <t t-call="addl_info_each_table" />
-                    </t>
-                </td>
+        <t t-if="sections">
+            <t t-foreach="sections" t-as="key">
+                <div class="o_horizontal_separator">
+                    <t t-esc="key" />
+                </div>
+                <t t-set="flatJson" t-value="sections[key]" />
+                <t t-call="addl_info_each_table" />
             </t>
-            <t t-if="values">
-                <td>
-                    <t t-set="flatJson" t-value="values" />
-                    <t t-call="addl_info_each_table" />
-                </td>
-            </t>
-        </table>
+        </t>
     </t>
 </templates>
