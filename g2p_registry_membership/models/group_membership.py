@@ -117,14 +117,21 @@ class G2PGroupMembership(models.Model):
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
     def _recompute_parent_groups(self, records):
+        field = self.env["res.partner"]._fields["force_recompute_canary"]
         # Check if group field is in records
         if "group" in records._fields:
-            field = self.env["res.partner"]._fields["force_recompute_canary"]
             groups = records.mapped("group")
-            self.env.add_to_compute(field, groups)
+        else:
+            groups = records
+        self.env.add_to_compute(field, groups)
+        _logger.debug(
+            "OpenG2P Registry: _recompute_parent_groups: Field: %s - %s"
+            % (field, groups.ids)
+        )
 
     def write(self, vals):
         res = super(G2PGroupMembership, self).write(vals)
+        _logger.debug("OpenG2P Registry: write")
         self._recompute_parent_groups(self)
         return res
 
@@ -132,12 +139,14 @@ class G2PGroupMembership(models.Model):
     @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
         res = super(G2PGroupMembership, self).create(vals_list)
+        _logger.debug("OpenG2P Registry: create")
         self._recompute_parent_groups(res)
         return res
 
     def unlink(self):
         groups = self.mapped("group")
         res = super(G2PGroupMembership, self).unlink()
+        _logger.debug("OpenG2P Registry: unlink: %s - %s" % (self.ids, groups.ids))
         self._recompute_parent_groups(groups)
         return res
 
