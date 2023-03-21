@@ -224,12 +224,18 @@ class G2PMembershipGroup(models.Model):
         self, field_name, kinds, domain, presence_only=False
     ):
         """
-        This method is used to compute the count then set it.
-        :param field_name: The Field Name.
-        :param kinds: The Kinds.
-        :param domain: The domain.
-        :param presence_only: True for boolean field, False for integer field.
-        :return: The count then set it on the Field Name.
+        This method computes the count matching a domain, then sets the indicator on the field name.
+
+        :param field_name: The name of the field.
+        :type field_name: str
+        :param kinds: The kinds of roles in the group
+        :type kinds: array
+        :param domain: The domain to filter group members.
+        :type domain: array
+        :param presence_only: A boolean value to define if we return a boolean instead of the count
+        :type presence_only: bool
+        :return: The count of the specified field, then sets the indicator on the field name.
+        :rtype: int, bool
         """
 
         # _logger.info(
