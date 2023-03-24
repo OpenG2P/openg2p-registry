@@ -21,6 +21,7 @@ class GroupMembersInfoOut(NaiveOrmModel):
 class GroupMembersInfoIn(NaiveOrmModel):
     name: str
     given_name: str = None
+    addl_name: str = None
     family_name: str = None
     ids: List[RegistrantIDIn] = None
     registration_date: date = None

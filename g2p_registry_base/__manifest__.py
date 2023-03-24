@@ -2,12 +2,12 @@
 {
     "name": "G2P Registry: Base",
     "category": "G2P",
-    "version": "15.0.1.0.1",
+    "version": "15.0.1.1.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://github.com/openg2p/openg2p-registry",
     "license": "Other OSI approved licence",
-    "development_status": "Production/Stable",
+    "development_status": "Alpha",
     "maintainers": ["jeremi", "gonzalesedwin1123"],
     "depends": ["base", "mail", "contacts", "web"],
     "data": [

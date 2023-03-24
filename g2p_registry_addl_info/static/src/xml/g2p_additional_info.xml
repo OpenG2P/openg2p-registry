@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="addl_info_each_table">
+        <table class="o_group o_inner_group">
+            <tbody>
+                <t t-foreach="flatJson" t-as="key">
+                    <tr>
+                        <td class="o_td_label">
+                            <label class="o_form_label o_quick_editable">
+                                <t t-esc="key" />
+                            </label>
+                        </td>
+                        <td>
+                            <span class="o_field_widget o_quick_editable">
+                                <t t-esc="flatJson[key]" />
+                            </span>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+    <t t-name="addl_info_template">
+        <t t-if="sections">
+            <t t-foreach="sections" t-as="key">
+                <div class="o_horizontal_separator">
+                    <t t-esc="key" />
+                </div>
+                <t t-set="flatJson" t-value="sections[key]" />
+                <t t-call="addl_info_each_table" />
+            </t>
+        </t>
+    </t>
+</templates>
