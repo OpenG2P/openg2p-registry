@@ -5,7 +5,6 @@ from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
 class IndividualInfoOut(RegistrantInfoOut):
     given_name: str = None
-    addl_name: str = None
     family_name: str = None
     gender: str = None
     birthdate: date = None
@@ -16,7 +15,6 @@ class IndividualInfoOut(RegistrantInfoOut):
 
 class IndividualInfoIn(RegistrantInfoIn):
     given_name: str = None
-    addl_name: str = None
     family_name: str = None
     gender: str = None
     birthdate: date = None
