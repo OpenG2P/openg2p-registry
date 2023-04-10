@@ -14,11 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: g2p_registry_membership
-#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_list_tree_membership
-msgid "# Individuals"
-msgstr ""
-
-#. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership_kind
 msgid "Add a group membership kind!"
 msgstr ""

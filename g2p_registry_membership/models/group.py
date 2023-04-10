@@ -37,9 +37,44 @@ class G2PMembershipGroup(models.Model):
     def _compute_ind_grp_num_individuals(self):
         self.compute_count_and_set_indicator("z_ind_grp_num_individuals", None, [])
 
-    def recompute_indicators(self):
-        fields = self._get_calculated_group_fields()
-        for field in fields:
+    def recompute_indicators_for_all_records(self, recomputed_fields=None):
+        # Set the batch size to 10000
+        batch_size = 10000
+        # Get the total number of records
+        total_records = self.env["res.partner"].search_count(
+            [
+                ("is_group", "=", True),
+                ("is_registrant", "=", True),
+                ("disabled", "=", None),
+            ]
+        )
+
+        # Iterate through the records in batches of 10000
+        for i in range(0, total_records, batch_size):
+            self.with_delay(
+                priority=5, channel="root.recompute_indicators"
+            ).recompute_indicators_for_batch(
+                i, batch_size, recomputed_fields=recomputed_fields
+            )
+
+    def recompute_indicators_for_batch(self, offset, limit, recomputed_fields=None):
+        # Get the records
+        partners = self.env["res.partner"].search(
+            [
+                ("is_group", "=", True),
+                ("is_registrant", "=", True),
+                ("disabled", "=", None),
+            ],
+            offset=offset,
+            limit=limit,
+            order="id",
+        )
+        partners.recompute_indicators(recomputed_fields=recomputed_fields)
+
+    def recompute_indicators(self, recomputed_fields=None):
+        if recomputed_fields is None:
+            recomputed_fields = self._get_calculated_group_fields()
+        for field in recomputed_fields:
             self.env.add_to_compute(field, self)
 
     def _get_calculated_group_fields(self):
@@ -189,12 +224,18 @@ class G2PMembershipGroup(models.Model):
         self, field_name, kinds, domain, presence_only=False
     ):
         """
-        This method is used to compute the count then set it.
-        :param field_name: The Field Name.
-        :param kinds: The Kinds.
-        :param domain: The domain.
-        :param presence_only: True for boolean field, False for integer field.
-        :return: The count then set it on the Field Name.
+        This method computes the count matching a domain, then sets the indicator on the field name.
+
+        :param field_name: The name of the field.
+        :type field_name: str
+        :param kinds: The kinds of roles in the group
+        :type kinds: list
+        :param domain: The domain to filter group members.
+        :type domain: list
+        :param presence_only: A boolean value to define if we return a boolean instead of the count
+        :type presence_only: bool
+        :return: The count of the specified field, then sets the indicator on the field name.
+        :rtype: int, bool
         """
 
         # _logger.info(
