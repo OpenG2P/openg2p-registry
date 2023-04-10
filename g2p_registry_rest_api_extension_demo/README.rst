@@ -10,9 +10,9 @@ G2P Registry: Rest API Extension Demo
 .. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
     :alt: Alpha
-.. |badge2| image:: https://img.shields.io/badge/github-openg2p%2Fopeng2p--registry-lightgray.png?logo=github
-    :target: https://github.com/openg2p/openg2p-registry/tree/15.0-1.0.1-rc1/g2p_registry_rest_api_extension_demo
-    :alt: openg2p/openg2p-registry
+.. |badge2| image:: https://img.shields.io/badge/github-OpenG2P%2Fopeng2p--registry-lightgray.png?logo=github
+    :target: https://github.com/OpenG2P/openg2p-registry/tree/15.0-develop/g2p_registry_rest_api_extension_demo
+    :alt: OpenG2P/openg2p-registry
 
 |badge1| |badge2| 
 
@@ -31,10 +31,10 @@ OpenG2P Registry REST API Extension Demo
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/openg2p/openg2p-registry/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OpenG2P/openg2p-registry/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/openg2p/openg2p-registry/issues/new?body=module:%20g2p_registry_rest_api_extension_demo%0Aversion:%2015.0-1.0.1-rc1%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OpenG2P/openg2p-registry/issues/new?body=module:%20g2p_registry_rest_api_extension_demo%0Aversion:%2015.0-develop%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -60,17 +60,6 @@ Contributors include:
 Maintainers
 ~~~~~~~~~~~
 
-.. |maintainer-jeremi| image:: https://github.com/jeremi.png?size=40px
-    :target: https://github.com/jeremi
-    :alt: jeremi
-.. |maintainer-gonzalesedwin1123| image:: https://github.com/gonzalesedwin1123.png?size=40px
-    :target: https://github.com/gonzalesedwin1123
-    :alt: gonzalesedwin1123
-
-Current maintainers:
-
-|maintainer-jeremi| |maintainer-gonzalesedwin1123| 
-
-This module is part of the `openg2p/openg2p-registry <https://github.com/openg2p/openg2p-registry/tree/15.0-1.0.1-rc1/g2p_registry_rest_api_extension_demo>`_ project on GitHub.
+This module is part of the `OpenG2P/openg2p-registry <https://github.com/OpenG2P/openg2p-registry/tree/15.0-develop/g2p_registry_rest_api_extension_demo>`_ project on GitHub.
 
 You are welcome to contribute.

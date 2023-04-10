@@ -33,7 +33,7 @@ repos:
       # update the NOT INSTALLABLE ADDONS section above
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
-        args: ["https://github.com/openg2p/openg2p-registry"]
+        args: ["https://openg2p.org"]
       - id: oca-gen-addon-readme
         args:
           - --addons-dir=.
