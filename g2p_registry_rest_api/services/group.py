@@ -105,9 +105,9 @@ class GroupApiService(Component):
                             {"name": kind.name}
                         )
                     indv_membership_kinds.append((4, kind_id.id))
-                grp_membership_rec.append(
-                    {"individual": indv_id.id, "kind": indv_membership_kinds}
-                )
+            grp_membership_rec.append(
+                {"individual": indv_id.id, "kind": indv_membership_kinds}
+            )
 
         # TODO: create the group object
         logging.info("GROUP:")
