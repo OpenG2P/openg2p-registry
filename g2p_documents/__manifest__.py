@@ -16,7 +16,7 @@
     "data": [
         "views/g2p_document_store.xml",
         "views/g2p_document_files.xml",
-        # "security/ir.model.access.csv",
+        "data/storage_backend.xml",
     ],
     "external_dependencies": {
         "python": ["Wkhtmltopdf", "boto3<=1.15.18", "python_slugify"]
