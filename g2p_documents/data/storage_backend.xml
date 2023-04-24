@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="storage_file.ir_cron_clean_storage_file" model="ir.cron">
+        <field name="active" eval="False" />
+    </record>
+    <record id="storage_backend.default_storage_backend" model="storage.backend">
+        <field name="name">Default S3 Document Store</field>
+        <field name="is_public" eval="True" />
+        <field name="backend_type">amazon_s3</field>
+        <field name="aws_host">http://minio.minio:9000</field>
+        <field name="aws_region">other</field>
+        <field name="aws_bucket">documents</field>
+        <field name="aws_access_key_id">admin</field>
+        <field name="aws_cache_control">max-age=31536000, public</field>
+    </record>
+</odoo>
