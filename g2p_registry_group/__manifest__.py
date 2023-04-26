@@ -2,7 +2,7 @@
 {
     "name": "G2P Registry: Groups",
     "category": "G2P",
-    "version": "15.0.0.0.0",
+    "version": "15.0.1.0.6",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://github.com/openg2p/openg2p-registry",
