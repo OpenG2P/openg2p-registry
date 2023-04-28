@@ -213,6 +213,12 @@ msgid "Tags:"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: code:addons/g2p_registry_individual/models/individual.py:0
+#, python-format
+msgid "You can't select a date of birth greater than today"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "| Company:"
 msgstr ""
