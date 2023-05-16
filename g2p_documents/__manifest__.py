@@ -14,6 +14,7 @@
         "storage_file",
     ],
     "data": [
+        "views/main_view.xml",
         "views/g2p_document_store.xml",
         "views/g2p_document_files.xml",
         "data/storage_backend.xml",

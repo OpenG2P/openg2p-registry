@@ -15,6 +15,7 @@ class G2PDcoumentStore(models.Model):
             "view_id": self.env.ref("g2p_documents.view_g2p_document_files_tree").id,
             "type": "ir.actions.act_window",
             "domain": [("backend_id", "=", self.id)],
+            "context": {"hide_backend": 1},
         }
 
     def add_file(self, data, name=None, extension=None):
