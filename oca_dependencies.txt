@@ -1,1 +1,6 @@
 queue
+connector
+rest-framework
+server-auth
+server-env
+storage

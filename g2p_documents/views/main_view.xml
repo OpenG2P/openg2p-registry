@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="g2p_documents_main_menu_root" name="Documents" active="True" sequence="1" />
+</odoo>
