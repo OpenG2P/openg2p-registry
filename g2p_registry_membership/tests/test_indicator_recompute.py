@@ -1,3 +1,6 @@
+from datetime import datetime
+from unittest.mock import patch
+
 from odoo.tests import TransactionCase
 
 
@@ -108,4 +111,40 @@ class TestIndicatorRecompute(TransactionCase):
             bool(self._partners - records_to_compute),
             "Other fields recompute record should not include all the Canary Force Recompute field "
             "since the len of compute record is 11!",
+        )
+
+    @patch("odoo.fields.Datetime.now")
+    def test_03_compute_canary_less_than_10_partners(self, mock_time):
+        res_partner_related_jobs_count = self.env["queue.job"].search_count(
+            [("func_string", "like", "res.partner")]
+        )
+        mock_time.return_value = datetime(2023, 5, 18, 0, 0)
+        self.env.add_to_compute(self.field_canary, self._partners[:5])
+        new_res_partner_related_jobs_count = self.env["queue.job"].search_count(
+            [("func_string", "like", "res.partner")]
+        )
+        self.assertEqual(
+            res_partner_related_jobs_count,
+            new_res_partner_related_jobs_count,
+            "Number of jobs should be the same since the number of records is 5!",
+        )
+        for partner in self._partners[:5]:
+            self.assertEqual(
+                partner.force_recompute_canary,
+                datetime(2023, 5, 18, 0, 0),
+                "force_recompute_canary should return mock time for now()!",
+            )
+
+    def test_04_compute_canary_more_than_10_partners(self):
+        res_partner_related_jobs_count = self.env["queue.job"].search_count(
+            [("func_string", "like", "res.partner")]
+        )
+        self._partners._compute_force_recompute_group()
+        new_res_partner_related_jobs_count = self.env["queue.job"].search_count(
+            [("func_string", "like", "res.partner")]
+        )
+        self.assertNotEqual(
+            res_partner_related_jobs_count,
+            new_res_partner_related_jobs_count,
+            "Number of jobs should not be the same since the number of records is 11!",
         )
