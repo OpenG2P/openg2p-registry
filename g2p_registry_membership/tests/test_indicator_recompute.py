@@ -1,7 +1,7 @@
 from odoo.tests import TransactionCase
 
 
-class TestEnvironment(TransactionCase):
+class TestIndicatorRecompute(TransactionCase):
     def setUp(self):
         super().setUp()
         self._partners = self.env["res.partner"].create(
@@ -54,7 +54,7 @@ class TestEnvironment(TransactionCase):
         )
         self.field_canary = self._partners._fields["force_recompute_canary"]
 
-    def test_01_records_to_compute(self):
+    def test_01_fields_to_compute(self):
         self.env.add_to_compute(self.field_canary, self._partners[:5])
         fields_to_compute = self.env.fields_to_compute()
         self.assertNotIn(
