@@ -236,7 +236,8 @@ class MembershipTest(TransactionCase):
 
         grp_rec = self.group_2.group_membership_ids[0]
         _logger.info(
-            "Test 5: End membership of individual: %s" % grp_rec.individual.name
+            "Test 5: End membership of individual: %s - %s"
+            % (grp_rec.individual.name, curr_date)
         )
         grp_rec.update(
             {
