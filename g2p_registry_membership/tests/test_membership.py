@@ -119,6 +119,7 @@ class MembershipTest(TransactionCase):
         Disable an individual
         :return:
         """
+        _logger.info("Test 3: Set individual: %s to disabled." % self.registrant_3.name)
         curr_date = fields.Datetime.now()
         self.registrant_3.update(
             {
@@ -129,4 +130,25 @@ class MembershipTest(TransactionCase):
         )
         self.assertEqual(
             self.registrant_3.disabled, curr_date, "Error disabling an individual"
+        )
+
+    def test_04_modify_disabled_individual_data(self):
+        """
+        Modify data of disabled individual
+        :return:
+        """
+        _logger.info(
+            "Test 4: Modify disabled individual: %s information. %s"
+            % (self.registrant_3.name, self.registrant_3.disabled)
+        )
+        fields.Datetime.now()
+        self.registrant_3.update(
+            {
+                "family_name": "Burito",
+            }
+        )
+        self.assertEqual(
+            self.registrant_3.family_name,
+            "Burito",
+            "Error modifying information of disabled individual",
         )
