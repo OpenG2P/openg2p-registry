@@ -2,13 +2,14 @@
 
 import logging
 
+from odoo import fields
+
 # from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 _logger = logging.getLogger(__name__)
 
 
-# @tagged("post_install", "-at_install")
 class MembershipTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
@@ -111,4 +112,20 @@ class MembershipTest(TransactionCase):
             self.registrant_2.individual_membership_ids[0].group.id,
             self.group_2.id,
             message,
+        )
+
+    def test_03_set_individual_to_disabled(self):
+        """
+        Disable an individual
+        :return:
+        """
+        self.registrant_3.update(
+            {
+                "disabled": fields.Datetime.now(),
+                "disabled_reason": "Disable reason",
+                "disabled_by": self.env.user,
+            }
+        )
+        self.assertEqual(
+            self.registrant_3.disabled, True, "Error disabling an individual"
         )
