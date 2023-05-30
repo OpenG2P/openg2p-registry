@@ -116,7 +116,9 @@ class MembershipTest(TransactionCase):
 
     def test_03_set_individual_to_disabled(self):
         """
-        Disable an individual
+        Disable an individual and modify its data.
+        The test will run the write method of res.partner and execute the _recompute_parent_groups function.
+        Modifying the disabled individual should raise an exception.
         :return:
         """
         _logger.info("Test 3: Set individual: %s to disabled." % self.registrant_3.name)
@@ -132,16 +134,10 @@ class MembershipTest(TransactionCase):
             self.registrant_3.disabled, curr_date, "Error disabling an individual"
         )
 
-    def test_04_modify_disabled_individual_data(self):
-        """
-        Modify data of disabled individual
-        :return:
-        """
         _logger.info(
             "Test 4: Modify disabled individual: %s information. %s"
             % (self.registrant_3.name, self.registrant_3.disabled)
         )
-        fields.Datetime.now()
         self.registrant_3.update(
             {
                 "family_name": "Burito",
