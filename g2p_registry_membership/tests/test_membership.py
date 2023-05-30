@@ -218,8 +218,8 @@ class MembershipTest(TransactionCase):
         self.group_2.write(
             {
                 "group_membership_ids": [
-                    (4, self.registrant_3.id),
-                    (4, self.registrant_4.id),
+                    (0, 0, {"individual": self.registrant_3.id}),
+                    (0, 0, {"individual": self.registrant_4.id}),
                 ]
             }
         )
