@@ -233,6 +233,18 @@ class MembershipTest(TransactionCase):
             "The total number of members in the group is incorrect!",
         )
 
+        _logger.info("Test 5: Modify individual: %s" % self.registrant_3.name)
+        self.registrant_3.update(
+            {
+                "name": "Test 4 Individual",
+            }
+        )
+        self.assertEqual(
+            self.registrant_3.name,
+            "Test 4 Individual",
+            "Error modifying information of individual in group!",
+        )
+
         _logger.info(
             "Test 5: Check group: %s indicator field z_ind_grp_num_individuals: %s."
             % (self.group_2.name, self.group_2.z_ind_grp_num_individuals)
