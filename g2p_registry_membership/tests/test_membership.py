@@ -121,6 +121,19 @@ class MembershipTest(TransactionCase):
         Modifying the disabled individual should raise an exception.
         :return:
         """
+        _logger.info(
+            "Test 3: Add individual: %s to group: %s."
+            % (self.registrant_3.name, self.group_2.name)
+        )
+        self.registrant_3.write(
+            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
+        )
+        self.assertEqual(
+            self.registrant_3.individual_membership_ids[0].group.id,
+            self.group_2.id,
+            "Cannot add individual to group!",
+        )
+
         _logger.info("Test 3: Set individual: %s to disabled." % self.registrant_3.name)
         curr_date = fields.Datetime.now()
         self.registrant_3.update(
@@ -131,11 +144,11 @@ class MembershipTest(TransactionCase):
             }
         )
         self.assertEqual(
-            self.registrant_3.disabled, curr_date, "Error disabling an individual"
+            self.registrant_3.disabled, curr_date, "Error disabling an individual!"
         )
 
         _logger.info(
-            "Test 4: Modify disabled individual: %s information. %s"
+            "Test 3: Modify disabled individual: %s information. %s"
             % (self.registrant_3.name, self.registrant_3.disabled)
         )
         self.registrant_3.update(
@@ -146,5 +159,5 @@ class MembershipTest(TransactionCase):
         self.assertEqual(
             self.registrant_3.family_name,
             "Burito",
-            "Error modifying information of disabled individual",
+            "Error modifying information of disabled individual!",
         )
