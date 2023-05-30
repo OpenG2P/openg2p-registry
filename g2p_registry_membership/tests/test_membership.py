@@ -119,13 +119,14 @@ class MembershipTest(TransactionCase):
         Disable an individual
         :return:
         """
+        curr_date = fields.Datetime.now()
         self.registrant_3.update(
             {
-                "disabled": fields.Datetime.now(),
+                "disabled": curr_date,
                 "disabled_reason": "Disable reason",
                 "disabled_by": self.env.user,
             }
         )
         self.assertEqual(
-            self.registrant_3.disabled, True, "Error disabling an individual"
+            self.registrant_3.disabled, curr_date, "Error disabling an individual"
         )
