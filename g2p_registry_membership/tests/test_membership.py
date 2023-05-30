@@ -211,7 +211,6 @@ class MembershipTest(TransactionCase):
         Add members to a group and check if the indicator field z_ind_grp_num_individuals is updating.
         :return:
         """
-        curr_date = fields.Datetime.now()
         _logger.info(
             "Test 5: Add individual: %s and %s to group: %s."
             % (self.registrant_3.name, self.registrant_4.name, self.group_2.name)
@@ -234,20 +233,17 @@ class MembershipTest(TransactionCase):
             "The total number of members in the group is incorrect!",
         )
 
-        grp_rec = self.group_2.group_membership_ids[0]
+        grp_rec = self.group_2.group_membership_ids[1]
+        curr_date = fields.Datetime.now()
         _logger.info(
             "Test 5: End membership of individual: %s - %s"
             % (grp_rec.individual.name, curr_date)
         )
-        grp_rec.update(
-            {
-                "ended_date": curr_date,
-            }
-        )
+        grp_rec.update({"ended_date": curr_date})
         self.assertEqual(
             grp_rec.is_ended,
             True,
-            "Error ending the membership of individual from group!",
+            "Error ending the individual's membership with the group!",
         )
 
         _logger.info(
