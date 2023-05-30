@@ -121,7 +121,7 @@ class G2PGroupMembership(models.Model):
     def _compute_is_ended(self):
         for rec in self:
             is_ended = False
-            if rec.ended_date <= fields.Datetime.now():
+            if rec.ended_date and rec.ended_date <= fields.Datetime.now():
                 is_ended = True
 
             rec.is_ended = is_ended
