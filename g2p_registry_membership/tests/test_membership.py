@@ -114,11 +114,11 @@ class MembershipTest(TransactionCase):
             message,
         )
 
-    def test_03_set_individual_to_disabled(self):
+    def test_03_disabled_individual(self):
         """
         Disable an individual and modify its data.
         The test will run the write method of res.partner and execute the _recompute_parent_groups function.
-        Modifying the disabled individual should raise an exception.
+        Modifying the disabled individual should not call the add_to_compute function.
         :return:
         """
         _logger.info(
@@ -160,4 +160,50 @@ class MembershipTest(TransactionCase):
             self.registrant_3.family_name,
             "Burito",
             "Error modifying information of disabled individual!",
+        )
+
+    def test_04_individual_with_ended_membership(self):
+        """
+        End an individual's membership with a group and modify its data.
+        The test will run the write method of res.partner and execute the _recompute_parent_groups function.
+        Modifying the individual with ended membership should raise an exception.
+        :return:
+        """
+        _logger.info(
+            "Test 4: Add individual: %s to group: %s."
+            % (self.registrant_4.name, self.group_1.name)
+        )
+        self.registrant_4.write(
+            {"individual_membership_ids": [(0, 0, {"group": self.group_1.id})]}
+        )
+        self.assertEqual(
+            self.registrant_4.individual_membership_ids[0].group.id,
+            self.group_1.id,
+            "Cannot add individual to group!",
+        )
+
+        grp_rec = self.group_1.group_membership_ids[0]
+        _logger.info(
+            "Test 4: End membership of individual: %s membership with group: %s."
+            % (grp_rec.individual.name, grp_rec.group.name)
+        )
+        curr_date = fields.Datetime.now()
+        grp_rec.update({"ended_date": curr_date})
+        self.assertEqual(
+            grp_rec.is_ended, True, "Error ending the individual's membership to group!"
+        )
+
+        _logger.info(
+            "Test 4: Modify individual with ended membership: %s information. %s"
+            % (grp_rec.individual.name, grp_rec.is_ended)
+        )
+        grp_rec.individual.update(
+            {
+                "name": "Test 4 Individual",
+            }
+        )
+        self.assertEqual(
+            grp_rec.individual.name,
+            "Test 4 Individual",
+            "Error modifying information of individual with ended membership!",
         )
