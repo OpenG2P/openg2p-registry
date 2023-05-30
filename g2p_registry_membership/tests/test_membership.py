@@ -212,31 +212,6 @@ class MembershipTest(TransactionCase):
         :return:
         """
         _logger.info(
-            "Test 5: Add individual: %s to group: %s."
-            % (self.registrant_3.name, self.group_2.name)
-        )
-        self.registrant_3.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
-        self.assertEqual(
-            self.registrant_3.individual_membership_ids[0].group.id,
-            self.group_2.id,
-            "Cannot add individual to group!",
-        )
-        _logger.info(
-            "Test 5: Add individual: %s to group: %s."
-            % (self.registrant_4.name, self.group_2.name)
-        )
-        self.registrant_4.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
-        self.assertEqual(
-            self.registrant_4.individual_membership_ids[0].group.id,
-            self.group_2.id,
-            "Cannot add individual to group!",
-        )
-
-        _logger.info(
             "Test 5: Add individual: %s and %s to group: %s."
             % (self.registrant_3.name, self.registrant_4.name, self.group_2.name)
         )
