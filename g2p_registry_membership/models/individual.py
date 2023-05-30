@@ -16,7 +16,7 @@ class G2PMembershipIndividual(models.Model):
     def _recompute_parent_groups(self, records):
         field = self.env["res.partner"]._fields["force_recompute_canary"]
         for line in records:
-            if line.is_registrant and not line.is_group and not line.disabled:
+            if line.is_registrant and not line.is_group:
                 try:
                     groups = line.individual_membership_ids.mapped("group")
                 except Exception as e:
