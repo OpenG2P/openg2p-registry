@@ -237,6 +237,18 @@ class MembershipTest(TransactionCase):
         )
 
         _logger.info(
+            "Test 5: Add individual: %s and %s to group: %s."
+            % (self.registrant_3.name, self.registrant_4.name, self.group_2.name)
+        )
+        self.group_2.write(
+            {
+                "group_membership_ids": [
+                    (4, self.registrant_3.id),
+                    (4, self.registrant_4.id),
+                ]
+            }
+        )
+        _logger.info(
             "Test 5: Check group: %s total membership: %s."
             % (self.group_2.name, len(self.group_2.group_membership_ids))
         )
