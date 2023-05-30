@@ -118,7 +118,6 @@ class MembershipTest(TransactionCase):
         """
         Disable an individual and modify its data.
         The test will run the write method of res.partner and execute the _recompute_parent_groups function.
-        Modifying the disabled individual should not call the add_to_compute function.
         :return:
         """
         _logger.info(
@@ -166,7 +165,6 @@ class MembershipTest(TransactionCase):
         """
         End an individual's membership with a group and modify its data.
         The test will run the write method of res.partner and execute the _recompute_parent_groups function.
-        Modifying the individual with ended membership should raise an exception.
         :return:
         """
         _logger.info(
@@ -206,4 +204,54 @@ class MembershipTest(TransactionCase):
             grp_rec.individual.name,
             "Test 4 Individual",
             "Error modifying information of individual with ended membership!",
+        )
+
+    def test_05_group_indicators(self):
+        """
+        Add members to a group and check if the indicator field z_ind_grp_num_individuals is updating.
+        :return:
+        """
+        _logger.info(
+            "Test 5: Add individual: %s to group: %s."
+            % (self.registrant_3.name, self.group_2.name)
+        )
+        self.registrant_3.write(
+            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
+        )
+        self.assertEqual(
+            self.registrant_3.individual_membership_ids[0].group.id,
+            self.group_2.id,
+            "Cannot add individual to group!",
+        )
+        _logger.info(
+            "Test 5: Add individual: %s to group: %s."
+            % (self.registrant_4.name, self.group_2.name)
+        )
+        self.registrant_4.write(
+            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
+        )
+        self.assertEqual(
+            self.registrant_4.individual_membership_ids[0].group.id,
+            self.group_2.id,
+            "Cannot add individual to group!",
+        )
+
+        _logger.info(
+            "Test 5: Check group: %s total membership: %s."
+            % (self.group_2.name, len(self.group_2.group_membership_ids))
+        )
+        self.assertEqual(
+            len(self.group_2.group_membership_ids),
+            2,
+            "The total number of members in the group is incorrect!",
+        )
+
+        _logger.info(
+            "Test 5: Check group: %s indicator field z_ind_grp_num_individuals: %s."
+            % (self.group_2.name, self.group_2.z_ind_grp_num_individuals)
+        )
+        self.assertEqual(
+            self.group_2.z_ind_grp_num_individuals,
+            2,
+            "The total number of individuals in indicator field: z_ind_grp_num_individuals is incorrect!",
         )
