@@ -156,7 +156,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and "%s"."ended_date" IS NULL) ' % (
+        inner_join_query += ' ON ("%s"."group" = v and not "%s"."is_ended") ' % (
             membership_alias,
             membership_alias,
         )
@@ -164,8 +164,23 @@ class G2PMembershipGroup(models.Model):
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
             model=self.env["g2p.group.membership"],
-            domain=[("ended_date", "=", None)],  # ("group", "in", ids)],
+            domain=[("is_ended", "=", False)],  # ("group", "in", ids)],
             alias=membership_alias,
+        ).query
+        (
+            membership_from_clause,
+            membership_where_clause,
+            membership_where_params,
+        ) = membership_query_obj.get_sql()
+        # _logger.info("SQL DEBUG: Membership Kind Query: From:%s, Where:%s, Params:%s" %
+        #   (membership_from_clause,membership_where_clause,membership_where_params))
+        query_obj.add_where(membership_where_clause, membership_where_params)
+
+        # Build where clause for the individual_alias
+        membership_query_obj = expression.expression(
+            model=self.env["res.partner"],
+            domain=[("disabled", "=", None)],
+            alias=individual_alias,
         ).query
         (
             membership_from_clause,
@@ -221,7 +236,7 @@ class G2PMembershipGroup(models.Model):
         index = select_query.find("WHERE")
         select_query = select_query[:index] + inner_join_query + select_query[index:]
         # _logger.info(
-        #    "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
+        #   "SQL DEBUG: SQL query: %s, params: %s" % (select_query, select_params)
         # )
         self._cr.execute(select_query, select_params)
         # Generate result as tuple
