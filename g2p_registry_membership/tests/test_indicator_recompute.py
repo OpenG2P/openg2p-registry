@@ -3,6 +3,8 @@ from unittest.mock import patch
 
 from odoo.tests import TransactionCase
 
+from ..patching import MIN_RECORDS_FOR_ASYNC_RECOMPUTE
+
 
 class TestIndicatorRecompute(TransactionCase):
     def setUp(self):
@@ -120,6 +122,13 @@ class TestIndicatorRecompute(TransactionCase):
         )
         mock_time.return_value = datetime(2023, 5, 18, 0, 0)
         self.env.add_to_compute(self.field_canary, self._partners[:5])
+        self.assertNotIn(
+            self.field_canary,
+            self.env.fields_to_compute(),
+            f"Field Canary should not be in fields to compute since number of record is: "
+            f"{len(self._partners[:5])} and minimum record for async recompute is: "
+            f"{MIN_RECORDS_FOR_ASYNC_RECOMPUTE}!",
+        )
         new_res_partner_related_jobs_count = self.env["queue.job"].search_count(
             [("func_string", "like", "res.partner")]
         )
@@ -139,7 +148,16 @@ class TestIndicatorRecompute(TransactionCase):
         res_partner_related_jobs_count = self.env["queue.job"].search_count(
             [("func_string", "like", "res.partner")]
         )
-        self._partners._compute_force_recompute_group()
+        self.env.add_to_compute(self.field_canary, self._partners)
+        self.assertIn(
+            self.field_canary,
+            self.env.fields_to_compute(),
+            "Field Canary should be in fields to compute since number of record is: "
+            f"{len(self._partners)} and minimum record for async recompute is: "
+            f"{MIN_RECORDS_FOR_ASYNC_RECOMPUTE}!",
+        )
+        # calling compute field value for execution of compute function
+        self._partners._compute_field_value(self.field_canary)
         new_res_partner_related_jobs_count = self.env["queue.job"].search_count(
             [("func_string", "like", "res.partner")]
         )
