@@ -67,6 +67,11 @@ msgid "Birth Place"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "CivilState"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_individuals_list
 msgid "Click the create button to enter the new registrant's information."
 msgstr ""
@@ -90,6 +95,11 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Disabled"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "District"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -137,6 +147,11 @@ msgstr ""
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Income"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Individual Registrant"
 msgstr ""
 
@@ -149,6 +164,11 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__male
 msgid "Male"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Occupation"
 msgstr ""
 
 #. module: g2p_registry_individual
