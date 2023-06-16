@@ -1,1 +1,3 @@
 queue
+connector
+rest-framework

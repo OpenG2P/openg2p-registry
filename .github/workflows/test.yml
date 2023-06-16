@@ -6,8 +6,7 @@ on:
       - "15.0*"
   push:
     branches:
-      - "15.0"
-      - "15.0-ocabot-*"
+      - "15.0*"
 env:
   OCA_GIT_USER_NAME: openg2p
   OCA_GIT_USER_EMAIL: bot@openg2p.org

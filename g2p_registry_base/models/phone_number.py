@@ -43,7 +43,6 @@ class G2PPhoneNumber(models.Model):
                         force_format="E164",
                     )[number]["sanitized"]
                 )
-                _logger.debug(f"sanitized {sanitized}")
                 rec.phone_sanitized = sanitized
 
     @api.onchange("phone_no", "country_id")

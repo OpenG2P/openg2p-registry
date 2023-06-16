@@ -12,7 +12,7 @@ field_utils.parse.json = function (value) {
     return JSON.parse(value);
 };
 
-var G2PAdditionalInfoWidget = FieldText.extend({
+var G2PRegAdditionalInfoWidget = FieldText.extend({
     className: "o_field_g2p_addl_info",
     supportedFieldTypes: ["json", "text", "html"],
     tagName: "div",
@@ -61,6 +61,6 @@ var G2PAdditionalInfoWidget = FieldText.extend({
     },
 });
 
-fieldsRegistry.add("g2p_addl_info_widget", G2PAdditionalInfoWidget);
+fieldsRegistry.add("g2p_registry_addl_info_widget", G2PRegAdditionalInfoWidget);
 
-export {G2PAdditionalInfoWidget};
+export {G2PRegAdditionalInfoWidget};
