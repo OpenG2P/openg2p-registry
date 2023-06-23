@@ -61,3 +61,14 @@ class G2PRegistrant(models.Model):
                         "disabled_reason": None,
                     }
                 )
+
+    @api.onchange("income")
+    def _onchange_negative_restrict(self):
+        res = {}
+        if self.income < 0:
+            res["warning"] = {
+                "title": "Warning Title",
+                "message": "Negative values are not allowed.",
+            }
+            res["value"] = {"income": 0}
+        return res
