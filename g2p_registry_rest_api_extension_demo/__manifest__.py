@@ -13,7 +13,7 @@
         "base",
         "g2p_registry_rest_api",
     ],
-    "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
+    "external_dependencies": {"python": ["extendable-pydantic", "pydantic==1.10.10"]},
     "data": [],
     "assets": {},
     "demo": [],

@@ -22,7 +22,7 @@
         "g2p_registry_individual",
         "base_rest_auth_user_service",
     ],
-    "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
+    "external_dependencies": {"python": ["extendable-pydantic", "pydantic==1.10.10"]},
     "data": [
         "security/g2p_security.xml",
         "security/ir.model.access.csv",
