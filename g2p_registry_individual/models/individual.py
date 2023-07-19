@@ -57,6 +57,6 @@ class G2PIndividual(models.Model):
     @api.constrains("birthdate")
     def _check_birthdate(self):
         for record in self:
-            if record.birthdate and record.birthdate >= date.today():
-                error_message = "Birth date must be before the current date."
+            if record.birthdate and record.birthdate > date.today():
+                error_message = "Birth date must be on or before the current date."
                 raise ValidationError(error_message)
