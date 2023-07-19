@@ -5,6 +5,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -52,3 +53,10 @@ class G2PIndividual(models.Model):
         else:
             years_months_days = "No Birthdate!"
         return years_months_days
+
+    @api.constrains("birthdate")
+    def _check_birthdate(self):
+        for record in self:
+            if record.birthdate and record.birthdate >= date.today():
+                error_message = "Birth date must be before the current date."
+                raise ValidationError(error_message)
