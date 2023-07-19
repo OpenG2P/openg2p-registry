@@ -81,6 +81,6 @@ class G2PRegistrant(models.Model):
             if record.registration_date > date.today():
                 error_message = "Registration date must be less than the current date."
                 raise ValidationError(error_message)
-            elif record.registration_date < record.birthdate:
+            elif record.birthdate and record.registration_date < record.birthdate:
                 error_message = "Registration date must be less than the birth date."
                 raise ValidationError(error_message)
