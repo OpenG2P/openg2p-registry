@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-17 10:24+0000\n"
-"Last-Translator: Ruwaidah Salman <ruwaidah.salman@wfp.org>\n"
+"PO-Revision-Date: 2023-07-21 11:24+0000\n"
+"Last-Translator: mansour rehman <mansour.rehman@gmail.com>\n"
 "Language-Team: Kurdish (Central) <https://translate.openspp.org/projects/"
 "openg2p/g2p_registry_individual/ckb/>\n"
 "Language: ckb\n"
@@ -31,12 +31,12 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
-msgstr "<span class=\"o_stat_text\"> ناچالاک</span>"
+msgstr "<span class=\"o_stat_text\"> ناکارا</span>"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr "<span class=\"o_stat_text\">ممكن</span>"
+msgstr "<span class=\"o_stat_text\">کارایە</span>"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__addl_name
@@ -65,7 +65,7 @@ msgstr "ڕێکەوتی لەدایکبوون"
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_registry_individuals_filter
 msgid "Archived"
-msgstr "پاشەکەوتکرا"
+msgstr "ئەرشیڤکرا"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birth_place
@@ -97,7 +97,7 @@ msgstr "ڕێکەوتی لەدایکبوون"
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Disabled"
-msgstr "کەم ئەندام"
+msgstr "ناکارایە"
 
 #. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__family_name
@@ -166,12 +166,12 @@ msgstr "زانیاری دیکە"
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Others Related to this Registrant:"
-msgstr "ئەوانەی دیکە کە پەیوەندییان بەم تۆمارکراوە هەیە:"
+msgstr "ئەوانەی دیکە کە پەیوەندییان بەم تۆمارکەرە هەیە:"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Personal Info"
-msgstr "زانیاری تاکەکەسی"
+msgstr "زانیاری کەسێتی"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -181,12 +181,12 @@ msgstr "ژماره‌ی په‌یوه‌ندی"
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Registrant"
-msgstr "تۆمارکراو"
+msgstr "تۆمارکەر"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Registrant is related to:"
-msgstr "ناو تۆمارکەر پەیوەندی بە:"
+msgstr "تۆمارکەر پەیوەندیدارە بە:"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
@@ -223,7 +223,7 @@ msgstr "تاگەکان:"
 #: code:addons/g2p_registry_individual/models/individual.py:0
 #, python-format
 msgid "You can't select a date of birth greater than today"
-msgstr "ناتوانیت بەرواری لەدایکبوون لە ئەمڕۆ گەورەتر هەڵبژێریت"
+msgstr "ناتوانیت ڕێکەوتی لەدایکبوون لە ئەمڕۆ ئەولاتر هەڵبژێریت"
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
