@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-17 10:24+0000\n"
-"Last-Translator: Ruwaidah Salman <ruwaidah.salman@wfp.org>\n"
+"PO-Revision-Date: 2023-07-21 11:24+0000\n"
+"Last-Translator: mansour rehman <mansour.rehman@gmail.com>\n"
 "Language-Team: Kurdish (Central) <https://translate.openspp.org/projects/"
 "openg2p/g2p_registry_base/ckb/>\n"
 "Language: ckb\n"
@@ -21,12 +21,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
-msgstr "<span class=\"o_stat_text\"> ناچالاک</span>"
+msgstr "<span class=\"o_stat_text\"> ناکارا</span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr "<span class=\"o_stat_text\">ممكن</span>"
+msgstr "<span class=\"o_stat_text\">کارایە</span>"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
@@ -97,7 +97,7 @@ msgstr "ئەرشیف بۆ شاردنەوەی تاگی تۆمارکەر بەبێ 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
 msgid "Archived"
-msgstr "پاشەکەوتکرا"
+msgstr "ئەرشیڤکرا"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_attachment_count
@@ -487,7 +487,7 @@ msgstr "هۆکاری لەکارخستنی"
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Registrant"
-msgstr "تۆمارکراو"
+msgstr "تۆمارکەر"
 
 #. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
