@@ -2,6 +2,7 @@ from datetime import date
 from typing import List
 
 import pydantic
+from pydantic import validator
 
 from .naive_orm_model import NaiveOrmModel
 
@@ -45,6 +46,12 @@ class RegistrantIDIn(NaiveOrmModel):
     id_type: str = None
     value: str = None
     expiry_date: date = None
+
+    @validator("id_type")
+    def validate_id_type_no_spaces(cls, value):
+        if value and " " in value:
+            raise ValueError("ID type cannot contain spaces.")
+        return value
 
 
 class RegistrantInfoIn(NaiveOrmModel):
