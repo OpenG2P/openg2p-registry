@@ -30,8 +30,12 @@ class G2PRegistrant(models.Model):
         "g2p.phone.number", "partner_id", "Phone Numbers"
     )
 
-    registration_date = fields.Date()
+    registration_date = fields.Date(default=lambda self: fields.Date.today())
     tags_ids = fields.Many2many("g2p.registrant.tags", string="Tags")
+    civil_status = fields.Char(string="CivilState")
+    occupation = fields.Char()
+    income = fields.Float()
+    district = fields.Char()
 
     @api.onchange("phone_number_ids")
     def phone_number_ids_change(self):
@@ -57,3 +61,14 @@ class G2PRegistrant(models.Model):
                         "disabled_reason": None,
                     }
                 )
+
+    @api.onchange("income")
+    def _onchange_negative_restrict(self):
+        res = {}
+        if self.income < 0:
+            res["warning"] = {
+                "title": "Warning Title",
+                "message": "Negative values are not allowed.",
+            }
+            res["value"] = {"income": 0}
+        return res

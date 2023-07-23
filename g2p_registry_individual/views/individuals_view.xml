@@ -157,6 +157,7 @@
                                         context="{'gravatar_image': True}"
                                         attrs="{'readonly':[('disabled','!=',False)]}"
                                     />
+                                    <field name="district" string="District" />
                                 </group>
                                 <group colspan="2">
                                     <field
@@ -193,6 +194,9 @@
                                 />
                                 <field name="age" attrs="{'readonly':[('disabled','!=',False)]}" />
                                 <field name="gender" attrs="{'readonly':[('disabled','!=',False)]}" />
+                                <field name="civil_status" string="CivilState" />
+                                <field name="occupation" string="Occupation" />
+                               <field name="income" string="Income" />
                             </group>
                         </page>
                         <page string="IDs" name="ids">

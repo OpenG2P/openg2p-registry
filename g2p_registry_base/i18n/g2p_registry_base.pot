@@ -108,6 +108,12 @@ msgid "Cancel"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__civil_status
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__civil_status
+msgid "CivilState"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Click the create button to enter a new ID type."
 msgstr ""
@@ -253,6 +259,12 @@ msgid "Display Name"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__district
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__district
+msgid "District"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__end_date
 msgid "End Date"
 msgstr ""
@@ -326,6 +338,12 @@ msgstr ""
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__income
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__income
+msgid "Income"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -430,6 +448,12 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
 msgid "Number of unread messages"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__occupation
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__occupation
+msgid "Occupation"
 msgstr ""
 
 #. module: g2p_registry_base

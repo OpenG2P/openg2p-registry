@@ -49,21 +49,17 @@ class ProcessIndividualMixin(AbstractComponent):
                     [("name", "=", rec.id_type)]
                 )
                 if id_type_id:
-                    id_type_id = id_type_id[0]
-                else:
-                    # Create a new ID Type
-                    id_type_id = self.env["g2p.id.type"].create({"name": rec.id_type})
-                ids.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "id_type": id_type_id.id,
-                            "value": rec.value,
-                            "expiry_date": rec.expiry_date,
-                        },
+                    ids.append(
+                        (
+                            0,
+                            0,
+                            {
+                                "id_type": id_type_id[0].id,
+                                "value": rec.value,
+                                "expiry_date": rec.expiry_date,
+                            },
+                        )
                     )
-                )
             return ids
 
     def _process_phones(self, ids_info):
