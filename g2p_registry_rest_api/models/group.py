@@ -30,6 +30,11 @@ class GroupInfoIn(RegistrantInfoIn):
 
     @validator("kind")
     def validate_kind_no_spaces(cls, value):
-        if value and " " in value:
-            raise ValueError("Kind field cannot contain spaces.")
+        # Using lstrip() to remove leading spaces from the value
+        value = value.lstrip() if value else value
+
+        # Checking if the length of the cleaned value is less than 1
+        if len(value) < 1:
+            raise ValueError("Kind field cannot be empty or contain only spaces.")
+
         return value
