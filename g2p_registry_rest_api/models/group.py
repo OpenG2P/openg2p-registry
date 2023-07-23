@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 import pydantic
+from pydantic import validator
 
 from .group_membership import GroupMembersInfoIn  # fmt: skip
 from .group_membership import GroupMembersInfoOut  # fmt: skip
@@ -26,3 +27,9 @@ class GroupInfoIn(RegistrantInfoIn):
     members: List[GroupMembersInfoIn]
     kind: str = None
     is_partial_group: bool = None
+
+    @validator("kind")
+    def validate_kind_no_spaces(cls, value):
+        if value and " " in value:
+            raise ValueError("Kind field cannot contain spaces.")
+        return value
