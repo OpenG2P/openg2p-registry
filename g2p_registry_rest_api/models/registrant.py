@@ -49,8 +49,12 @@ class RegistrantIDIn(NaiveOrmModel):
 
     @validator("id_type")
     def validate_id_type_no_spaces(cls, value):
-        if value and " " in value:
-            raise ValueError("ID type cannot contain spaces.")
+        # Using lstrip() to remove leading spaces from the value
+        value = value.lstrip() if value else value
+
+        # Checking if the length of the cleaned value is less than 1
+        if len(value) < 1:
+            raise ValueError("ID type cannot be empty or contain only spaces.")
         return value
 
 
