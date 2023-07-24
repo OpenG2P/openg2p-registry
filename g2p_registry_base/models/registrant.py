@@ -67,7 +67,7 @@ class G2PRegistrant(models.Model):
         res = {}
         if self.income < 0:
             res["warning"] = {
-                "title": "Warning Title",
+                "title": "Warning",
                 "message": "Negative values are not allowed.",
             }
             res["value"] = {"income": 0}
