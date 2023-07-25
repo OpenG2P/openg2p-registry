@@ -20,6 +20,7 @@
         "views/id_types_view.xml",
         "views/phone_number_view.xml",
         "views/tags_view.xml",
+        "views/res_config_view.xml",
     ],
     "assets": {
         "web.assets_qweb": [
