@@ -9,7 +9,7 @@ from odoo.tools.config import config
 from odoo.addons.base_rest.core import _rest_services_routes
 from odoo.addons.base_rest.http import HttpRestRequest, JSONEncoder, wrapJsonException
 
-from .exceptions.base_exception import G2PReSTException, G2PReSTValidationError
+from .exceptions.base_exception import G2PApiException, G2PApiValidationError
 from .models.error_response import G2PErrorResponse
 
 
@@ -17,7 +17,7 @@ def g2pFixException(exception, original_exception=None):
     get_original_headers = HTTPException(exception).get_headers
 
     def get_body(environ=None, scope=None):
-        if original_exception and isinstance(original_exception, G2PReSTException):
+        if original_exception and isinstance(original_exception, G2PApiException):
             res = G2PErrorResponse(
                 errorCode=original_exception.error_code,
                 errorMessage=original_exception.error_message,
@@ -52,10 +52,10 @@ def g2pFixException(exception, original_exception=None):
 class G2PHttpRestRequest(HttpRestRequest):
     def _handle_exception(self, exception):
         res = super()._handle_exception(exception)
-        if isinstance(exception, G2PReSTValidationError):
+        if isinstance(exception, G2PApiValidationError):
             res = wrapJsonException(BadRequest(exception.args[0]))
             g2pFixException(res, exception)
-        elif isinstance(exception, G2PReSTException):
+        elif isinstance(exception, G2PApiException):
             res = wrapJsonException(InternalServerError(exception.args[0]))
             g2pFixException(res, exception)
 

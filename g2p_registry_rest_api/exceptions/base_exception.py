@@ -1,7 +1,7 @@
 from odoo.exceptions import UserError, ValidationError
 
 
-class G2PReSTException(UserError):
+class G2PApiException(UserError):
     def __init__(
         self, error_message, error_code=None, error_description=None, **kwargs
     ):
@@ -11,7 +11,7 @@ class G2PReSTException(UserError):
         super().__init__(error_message, **kwargs)
 
 
-class G2PReSTValidationError(G2PReSTException, ValidationError):
+class G2PApiValidationError(G2PApiException, ValidationError):
     def __init__(
         self, error_message, error_code=None, error_description=None, **kwargs
     ):

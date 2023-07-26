@@ -4,7 +4,7 @@ from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
 
-from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from ..models.group import GroupInfoIn, GroupInfoOut, GroupShortInfoOut
 from ..models.group_search_param import GroupSearchParam
@@ -102,7 +102,7 @@ class GroupApiService(Component):
                     if kind_id:
                         kind_id = kind_id[0]
                     else:
-                        raise G2PReSTValidationError(
+                        raise G2PApiValidationError(
                             error_message=G2PErrorCodes.G2P_REQ_004.get_error_message(),
                             error_code=G2PErrorCodes.G2P_REQ_004.get_error_code(),
                             error_description="Membership Kind is not present in the databse.",

@@ -1,6 +1,6 @@
 from odoo.addons.component.core import AbstractComponent
 
-from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 
 
@@ -30,7 +30,7 @@ class ProcessGroupMixin(AbstractComponent):
             if kind_id:
                 kind_id = kind_id[0]
             else:
-                raise G2PReSTValidationError(
+                raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_003.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_003.get_error_code(),
                     error_description="Group Type is not present in the databse.",

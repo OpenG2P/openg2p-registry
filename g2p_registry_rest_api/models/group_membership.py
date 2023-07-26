@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from pydantic import validator
 
-from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from .individual import IndividualInfoOut
 from .naive_orm_model import NaiveOrmModel
@@ -20,7 +20,7 @@ class GroupMembershipKindInfo(NaiveOrmModel):
 
         # Checking if the length of the cleaned value is less than 1
         if len(value) < 1:
-            raise G2PReSTValidationError(
+            raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
                 error_description="Member's Kind field cannot be empty.",

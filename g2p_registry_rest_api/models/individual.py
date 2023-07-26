@@ -2,7 +2,7 @@ from datetime import date
 
 from pydantic import validator
 
-from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
@@ -30,7 +30,7 @@ class IndividualInfoIn(RegistrantInfoIn):
     @validator("given_name")
     def validate_given_name(cls, v):
         if v is None or v.strip() == "":
-            raise G2PReSTValidationError(
+            raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_002.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_002.get_error_code(),
                 error_description="Given name is mandatory",
@@ -40,7 +40,7 @@ class IndividualInfoIn(RegistrantInfoIn):
     @validator("family_name")
     def validate_family_name(cls, v):
         if v is None or v.strip() == "":
-            raise G2PReSTValidationError(
+            raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_002.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_002.get_error_code(),
                 error_description="Family name is mandatory",
