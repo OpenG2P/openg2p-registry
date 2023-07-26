@@ -33,7 +33,7 @@ class ProcessGroupMixin(AbstractComponent):
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_003.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_003.get_error_code(),
-                    error_description="Group Type is not present in the databse.",
+                    error_description="Group type is not present in the database.",
                 )
             grp_rec.update({"kind": kind_id.id})
 

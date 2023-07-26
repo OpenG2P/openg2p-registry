@@ -105,7 +105,7 @@ class GroupApiService(Component):
                         raise G2PApiValidationError(
                             error_message=G2PErrorCodes.G2P_REQ_004.get_error_message(),
                             error_code=G2PErrorCodes.G2P_REQ_004.get_error_code(),
-                            error_description="Membership Kind is not present in the databse.",
+                            error_description="Membership kind is not present in the database.",
                         )
                     indv_membership_kinds.append((4, kind_id.id))
             grp_membership_rec.append(

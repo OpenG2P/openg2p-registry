@@ -23,7 +23,7 @@ class GroupMembershipKindInfo(NaiveOrmModel):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
-                error_description="Member's Kind field cannot be empty.",
+                error_description="Member's kind field cannot be empty.",
             )
         return value
 

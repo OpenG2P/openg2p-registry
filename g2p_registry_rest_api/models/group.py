@@ -40,6 +40,6 @@ class GroupInfoIn(RegistrantInfoIn):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
-                error_description="Group Type (kind) field cannot be empty.",
+                error_description="Group type (kind) field cannot be empty.",
             )
         return value
