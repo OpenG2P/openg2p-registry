@@ -3,6 +3,8 @@ from typing import List, Optional
 
 from pydantic import validator
 
+from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.error_codes import G2PErrorCodes
 from .individual import IndividualInfoOut
 from .naive_orm_model import NaiveOrmModel
 from .registrant import PhoneNumberIn, RegistrantIDIn
@@ -18,8 +20,11 @@ class GroupMembershipKindInfo(NaiveOrmModel):
 
         # Checking if the length of the cleaned value is less than 1
         if len(value) < 1:
-            raise ValueError("Name cannot be empty or contain only spaces.")
-
+            raise G2PReSTValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
+                error_description="Member's Kind field cannot be empty.",
+            )
         return value
 
 

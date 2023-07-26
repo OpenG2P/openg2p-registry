@@ -1,5 +1,8 @@
 from odoo.addons.component.core import AbstractComponent
 
+from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.error_codes import G2PErrorCodes
+
 
 class ProcessGroupMixin(AbstractComponent):
     _name = "process_group.rest.mixin"
@@ -27,9 +30,11 @@ class ProcessGroupMixin(AbstractComponent):
             if kind_id:
                 kind_id = kind_id[0]
             else:
-                # Create a new Kind
-                kind_id = self.env["g2p.group.kind"].create({"name": group_info.kind})
-                kind_id = kind_id
+                raise G2PReSTValidationError(
+                    error_message=G2PErrorCodes.G2P_REQ_003.get_error_message(),
+                    error_code=G2PErrorCodes.G2P_REQ_003.get_error_code(),
+                    error_description="Group Type is not present in the databse.",
+                )
             grp_rec.update({"kind": kind_id.id})
 
         ids = []

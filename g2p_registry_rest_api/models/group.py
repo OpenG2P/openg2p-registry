@@ -3,6 +3,8 @@ from typing import List, Optional
 import pydantic
 from pydantic import validator
 
+from ..exceptions.base_exception import G2PReSTValidationError
+from ..exceptions.error_codes import G2PErrorCodes
 from .group_membership import GroupMembersInfoIn  # fmt: skip
 from .group_membership import GroupMembersInfoOut  # fmt: skip
 from .registrant import RegistrantInfoIn  # fmt: skip
@@ -35,6 +37,9 @@ class GroupInfoIn(RegistrantInfoIn):
 
         # Checking if the length of the cleaned value is less than 1
         if len(value) < 1:
-            raise ValueError("Kind field cannot be empty or contain only spaces.")
-
+            raise G2PReSTValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
+                error_description="Group Type (kind) field cannot be empty.",
+            )
         return value
