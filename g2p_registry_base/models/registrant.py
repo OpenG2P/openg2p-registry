@@ -1,7 +1,8 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
+import re
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -67,8 +68,19 @@ class G2PRegistrant(models.Model):
         res = {}
         if self.income < 0:
             res["warning"] = {
-                "title": "Warning Title",
+                "title": "Warning",
                 "message": "Negative values are not allowed.",
             }
             res["value"] = {"income": 0}
         return res
+
+    @api.constrains("phone_number_ids")
+    def _check_phone_number_validation(self):
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
+            "g2p_registry.phone_regex"
+        )
+        if not PHONE_REGEX:
+            return
+        for rec in self.phone_number_ids:
+            if rec.phone_no and not re.match(PHONE_REGEX, rec.phone_no):
+                raise models.ValidationError(_("Invalid phone number!"))
