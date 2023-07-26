@@ -78,9 +78,14 @@ class G2PRegistrant(models.Model):
     @api.constrains("registration_date")
     def _check_registration_date(self):
         for record in self:
-            if record.registration_date > date.today():
-                error_message = "Registration date must be less than the current date."
-                raise ValidationError(error_message)
-            elif record.birthdate and record.registration_date < record.birthdate:
-                error_message = "Registration date must be less than the birth date."
-                raise ValidationError(error_message)
+            if record.registration_date:
+                if record.registration_date > date.today():
+                    error_message = (
+                        "Registration date must be less than the current date."
+                    )
+                    raise ValidationError(error_message)
+                elif record.birthdate and record.registration_date < record.birthdate:
+                    error_message = (
+                        "Registration date must be less than the birth date."
+                    )
+                    raise ValidationError(error_message)
