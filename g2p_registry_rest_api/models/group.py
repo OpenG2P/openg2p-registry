@@ -5,10 +5,8 @@ from pydantic import validator
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
-from .group_membership import GroupMembersInfoIn  # fmt: skip
-from .group_membership import GroupMembersInfoOut  # fmt: skip
-from .registrant import RegistrantInfoIn  # fmt: skip
-from .registrant import RegistrantInfoOut  # fmt: skip
+from .group_membership import GroupMembersInfoIn, GroupMembersInfoOut
+from .registrant import RegistrantInfoIn, RegistrantInfoOut
 
 
 class GroupShortInfoOut(RegistrantInfoOut):
@@ -31,7 +29,7 @@ class GroupInfoIn(RegistrantInfoIn):
     is_partial_group: bool = None
 
     @validator("kind")
-    def validate_kind_no_spaces(cls, value):
+    def validate_kind_no_spaces(cls, value):  # noqa: B902
         # Using lstrip() to remove leading spaces from the value
         value = value.lstrip() if value else value
 

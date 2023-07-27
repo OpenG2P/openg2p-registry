@@ -50,7 +50,7 @@ class RegistrantIDIn(NaiveOrmModel):
     expiry_date: date = None
 
     @validator("id_type")
-    def validate_id_type_no_spaces(cls, value):
+    def validate_id_type_no_spaces(cls, value):  # noqa: B902
         # Using lstrip() to remove leading spaces from the value
         value = value.lstrip() if value else value
 

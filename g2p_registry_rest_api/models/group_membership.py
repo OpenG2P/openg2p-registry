@@ -14,7 +14,7 @@ class GroupMembershipKindInfo(NaiveOrmModel):
     name: str
 
     @validator("name")
-    def validate_name_no_spaces(cls, value):
+    def validate_name_no_spaces(cls, value):  # noqa: B902
         # Using lstrip() to remove leading spaces from the value
         value = value.lstrip() if value else value
 
