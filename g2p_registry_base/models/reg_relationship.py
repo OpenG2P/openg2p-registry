@@ -219,5 +219,5 @@ class G2PRelationship(models.Model):
     def _check_name(self):
         for record in self:
             if not record.name:
-                error_message = "Name should not contain only spaces."
+                error_message = "Name should not be empty."
                 raise ValidationError(error_message)

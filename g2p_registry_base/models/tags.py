@@ -22,5 +22,5 @@ class G2PRegistrantTags(models.Model):
     def _check_name(self):
         for record in self:
             if not record.name:
-                error_message = "Tag name should not contain only spaces."
+                error_message = "Tag name should not empty."
                 raise ValidationError(error_message)

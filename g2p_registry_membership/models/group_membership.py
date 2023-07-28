@@ -213,5 +213,5 @@ class G2PGroupMembershipKind(models.Model):
     def _check_name(self):
         for record in self:
             if not record.name:
-                error_message = "Name should not contain only spaces."
+                error_message = "Name should not empty."
                 raise ValidationError(error_message)
