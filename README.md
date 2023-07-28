@@ -1,8 +1,8 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=15.0)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3A15.0)
-[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=15.0)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3A15.0)
-[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/15.0/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
+[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=15.0-1.1.0)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3A15.0-1.1.0)
+[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=15.0-1.1.0)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3A15.0-1.1.0)
+[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/15.0-1.1.0/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 [![Translation Status](https://translate.openspp.org/widgets/openg2p/-/svg-badge.svg)](https://translate.openspp.org/engage/openg2p/?utm_source=widget)
 
