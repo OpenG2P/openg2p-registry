@@ -10,7 +10,7 @@
 
 # OpenG2P Registry
 
-OpenG2P Registry is an open source project that provides a social registry that can be used on top of Odoo.
+OpenG2P Registry is an open source project that provides a social registry that can be used on top of Odoo. Refer to the documentation [here](https://docs.openg2p.org/secure-registry/registry).
 
 <!-- /!\ do not modify below this line -->
 
