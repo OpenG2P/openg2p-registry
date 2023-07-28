@@ -1,1 +1,1 @@
-git+https://github.com/OpenG2P/odoo-json-field@15.0-develop#subdirectory=setup/g2p_json_field
+git+https://github.com/OpenG2P/odoo-json-field@15.0-1.1.0#subdirectory=setup/g2p_json_field
