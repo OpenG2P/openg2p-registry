@@ -1,5 +1,4 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
-import re
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -49,16 +48,8 @@ class G2PIDType(models.Model):
     name = fields.Char()
 
     @api.constrains("name")
-    def _check_name_no_special_characters(self):
+    def _check_name(self):
         for record in self:
-            # Define a regular expression pattern to allow only alphanumeric characters and underscores
-            if record.name:
-                pattern = r"^[a-zA-Z0-9_]+$"
-                if not re.match(pattern, record.name):
-                    error_message = "Name should contain only alphanumeric characters and underscores."
-                    raise ValidationError(error_message)
-            else:
-                error_message = (
-                    "Name should contain only alphanumeric characters and underscores."
-                )
+            if not record.name:
+                error_message = "Name should not contain only spaces."
                 raise ValidationError(error_message)
