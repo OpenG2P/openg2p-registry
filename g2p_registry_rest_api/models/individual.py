@@ -28,7 +28,7 @@ class IndividualInfoIn(RegistrantInfoIn):
     is_group = False
 
     @validator("given_name")
-    def validate_given_name(cls, v):
+    def validate_given_name(cls, v):  # noqa: B902
         if v is None or v.strip() == "":
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_002.get_error_message(),
@@ -38,7 +38,7 @@ class IndividualInfoIn(RegistrantInfoIn):
         return v
 
     @validator("family_name")
-    def validate_family_name(cls, v):
+    def validate_family_name(cls, v):  # noqa: B902
         if v is None or v.strip() == "":
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_002.get_error_message(),
