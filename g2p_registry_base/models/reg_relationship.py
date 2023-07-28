@@ -214,3 +214,10 @@ class G2PRelationship(models.Model):
         """A partner can be an organisation or an individual."""
         # pylint: disable=no-self-use
         return [("g", _("Group")), ("i", _("Individual"))]
+
+    @api.constrains("name")
+    def _check_name(self):
+        for record in self:
+            if not record.name:
+                error_message = "Name should not be empty."
+                raise ValidationError(error_message)

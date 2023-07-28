@@ -1,6 +1,7 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class G2PRegistrantID(models.Model):
@@ -45,3 +46,10 @@ class G2PIDType(models.Model):
     _order = "id desc"
 
     name = fields.Char()
+
+    @api.constrains("name")
+    def _check_name(self):
+        for record in self:
+            if not record.name:
+                error_message = "Name should not empty."
+                raise ValidationError(error_message)
