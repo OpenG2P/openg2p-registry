@@ -373,6 +373,7 @@ msgid "Individual"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/phone_number.py:0
 #: code:addons/g2p_registry_base/models/registrant.py:0
 #, python-format
 msgid "Invalid phone number!"
