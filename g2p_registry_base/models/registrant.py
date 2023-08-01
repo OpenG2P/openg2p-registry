@@ -1,8 +1,10 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
 import re
+from datetime import date
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -73,6 +75,21 @@ class G2PRegistrant(models.Model):
             }
             res["value"] = {"income": 0}
         return res
+
+    @api.constrains("registration_date")
+    def _check_registration_date(self):
+        for record in self:
+            if record.registration_date:
+                if record.registration_date > date.today():
+                    error_message = (
+                        "Registration date must be less than the current date."
+                    )
+                    raise ValidationError(error_message)
+                elif record.birthdate and record.registration_date < record.birthdate:
+                    error_message = (
+                        "Registration date must be less than the birth date."
+                    )
+                    raise ValidationError(error_message)
 
     @api.constrains("phone_number_ids")
     def _check_phone_number_validation(self):

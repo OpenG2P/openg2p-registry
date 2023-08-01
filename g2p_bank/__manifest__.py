@@ -7,7 +7,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Alpha",
+    "development_status": "Production/Stable",
     "depends": [
         "base",
         "mail",

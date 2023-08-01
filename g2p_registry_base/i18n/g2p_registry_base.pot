@@ -32,6 +32,11 @@ msgid ""
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
+msgid "<span class=\"text-muted\">Set up phone regex based on country.</span>"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction
 msgid "Action Needed"
 msgstr ""
@@ -152,8 +157,18 @@ msgid "Color"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_configuration_menu_root
 msgid "Configuration"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
+msgid "Configure the country based phone regex"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -285,6 +300,11 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
+msgid "G2P Registry Settings"
+msgstr ""
+
+#. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__is_group
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__is_group
@@ -353,6 +373,12 @@ msgid "Individual"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/registrant.py:0
+#, python-format
+msgid "Invalid phone number!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name_inverse
 msgid "Inverse name"
 msgstr ""
@@ -406,6 +432,11 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_config_settings__max_registrants_count_job_queue
+msgid "Maximum Registrants Before Using Job Queue"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -428,6 +459,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
 msgid "Number of Actions"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_config_settings__batch_registrants_count_job_queue
+msgid "Number of Registrants Per Batch"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -475,8 +511,18 @@ msgid "Phone Numbers"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_config_settings__phone_regex
+msgid "Phone Regex"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__phone_sanitized
 msgid "Phone Sanitized"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
+msgid "Phone number validation"
 msgstr ""
 
 #. module: g2p_registry_base

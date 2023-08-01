@@ -3,3 +3,4 @@ from . import registrant
 from . import group
 from . import individual
 from . import group_membership
+from . import error_response

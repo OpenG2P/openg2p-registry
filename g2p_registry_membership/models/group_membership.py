@@ -208,3 +208,10 @@ class G2PGroupMembershipKind(models.Model):
             raise ValidationError(_("Can't edit default kinds"))
         else:
             return super(G2PGroupMembershipKind, self).write(vals)
+
+    @api.constrains("name")
+    def _check_name(self):
+        for record in self:
+            if not record.name:
+                error_message = "Name should not empty."
+                raise ValidationError(error_message)

@@ -5,9 +5,11 @@ g2p_reg_rel_admin,Registrant Relationship Admin Access,g2p_registry_base.model_g
 g2p_reg_id_admin,Registrant ID Admin Access,g2p_registry_base.model_g2p_reg_id,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_id_type_admin,ID Type Admin Access,g2p_registry_base.model_g2p_id_type,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_relationship_admin,Relationship Admin Access,g2p_registry_base.model_g2p_relationship,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_relationship_user,Relationship User Access,g2p_registry_base.model_g2p_relationship,base.group_user,1,0,0,0
 g2p_phone_number_admin,Phone Number Admin Access,g2p_registry_base.model_g2p_phone_number,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_disable_registrant_wizard_admin,Disable Registrant Wizard Admin Access,g2p_registry_base.model_g2p_disable_registrant_wizard,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_registrant_tags_admin,Registrant Tags Admin Access,g2p_registry_base.model_g2p_registrant_tags,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_registrant_tags_all,Registrant Tags All Users Access,g2p_registry_base.model_g2p_registrant_tags,,1,0,0,0
 
 g2p_ir_module_module_admin,Odoo Module Model Admin Access,base.model_ir_module_module,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_ir_model_fields_selection_admin,Odoo Field Selections Model Admin Access,base.model_ir_model_fields_selection,g2p_registry_base.group_g2p_admin,1,1,1,1
