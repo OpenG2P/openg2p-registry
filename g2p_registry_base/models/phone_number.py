@@ -1,8 +1,9 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
 import logging
+import re
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 from odoo.addons.phone_validation.tools import phone_validation
 
@@ -47,9 +48,16 @@ class G2PPhoneNumber(models.Model):
 
     @api.onchange("phone_no", "country_id")
     def _onchange_phone_validation(self):
-        if self.phone_no:
-            self.phone_no = self._phone_format(self.phone_no)
-            _logger.debug(f"phone_no: {self.phone_no}")
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
+            "g2p_registry.phone_regex"
+        )
+        if not self.phone_no:
+            return
+        self.phone_no = self._phone_format(self.phone_no)
+        _logger.debug(f"phone_no: {self.phone_no}")
+        if PHONE_REGEX:
+            if not re.match(PHONE_REGEX, self.phone_no):
+                raise models.ValidationError(_("Invalid phone number!"))
 
     def _phone_format(self, number, country=None):
         country = country or self.country_id or self.env.company.country_id
