@@ -1,5 +1,8 @@
 from odoo.addons.component.core import AbstractComponent
 
+from ..exceptions.base_exception import G2PApiValidationError
+from ..exceptions.error_codes import G2PErrorCodes
+
 
 class ProcessIndividualMixin(AbstractComponent):
     _name = "process_individual.rest.mixin"
@@ -60,6 +63,17 @@ class ProcessIndividualMixin(AbstractComponent):
                             },
                         )
                     )
+
+                elif rec.id_type:
+                    raise G2PApiValidationError(
+                        error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
+                        error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
+                        error_description=(
+                            ("ID type - %s is not present in the database.")
+                            % rec.id_type
+                        ),
+                    )
+
             return ids
 
     def _process_phones(self, ids_info):

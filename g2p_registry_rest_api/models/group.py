@@ -31,10 +31,10 @@ class GroupInfoIn(RegistrantInfoIn):
     @validator("kind")
     def validate_kind_no_spaces(cls, value):  # noqa: B902
         # Using lstrip() to remove leading spaces from the value
-        value = value.lstrip() if value else value
+        new_val = value.lstrip() if value else value
 
         # Checking if the length of the cleaned value is less than 1
-        if len(value) < 1:
+        if value and len(new_val) < 1:
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
