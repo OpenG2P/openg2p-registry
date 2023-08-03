@@ -55,7 +55,7 @@ class RegistrantIDIn(NaiveOrmModel):
         value = value.lstrip() if value else value
 
         # Checking if the length of the cleaned value is less than 1
-        if len(value) < 1:
+        if value and len(value) < 1:
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
