@@ -16,10 +16,10 @@ class GroupMembershipKindInfo(NaiveOrmModel):
     @validator("name")
     def validate_name_no_spaces(cls, value):  # noqa: B902
         # Using lstrip() to remove leading spaces from the value
-        value = value.lstrip() if value else value
+        new_value = value.lstrip() if value else value
 
         # Checking if the length of the cleaned value is less than 1
-        if len(value) < 1:
+        if value and len(new_value) < 1:
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_001.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_001.get_error_code(),
@@ -53,3 +53,13 @@ class GroupMembersInfoIn(NaiveOrmModel):
     kind: List[
         GroupMembershipKindInfo
     ] = None  # TODO: Would be nicer to have it as a list of str
+
+    @validator('gender')
+    def validate_gender(cls, value):
+        if value and value not in ('Male', 'Female'):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
+                error_description="Invalid gender-it should be either 'Male' or 'Female'."
+            )
+        return value
