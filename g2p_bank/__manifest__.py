@@ -2,12 +2,12 @@
 {
     "name": "G2P Registry: Bank Details",
     "category": "G2P",
-    "version": "15.0.1.1.0",
+    "version": "15.0.1.2.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Production/Stable",
+    "development_status": "Alpha",
     "depends": [
         "base",
         "mail",
