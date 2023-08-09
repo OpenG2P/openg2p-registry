@@ -54,12 +54,12 @@ class GroupMembersInfoIn(NaiveOrmModel):
         GroupMembershipKindInfo
     ] = None  # TODO: Would be nicer to have it as a list of str
 
-    @validator('gender')
+    @validator("gender")
     def validate_gender(cls, value):
-        if value and value not in ('Male', 'Female'):
+        if value and value not in ("Male", "Female"):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description="Invalid gender-it should be either 'Male' or 'Female'."
+                error_description="Invalid gender-it should be either 'Male' or 'Female'.",
             )
         return value
