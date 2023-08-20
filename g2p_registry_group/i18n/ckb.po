@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-16 07:24+0000\n"
+"PO-Revision-Date: 2023-08-21 13:24+0000\n"
 "Last-Translator: mansour rehman <mansour.rehman@gmail.com>\n"
 "Language-Team: Kurdish (Central) <https://translate.openspp.org/projects/"
 "openg2p/g2p_registry_group/ckb/>\n"
@@ -147,17 +147,17 @@ msgstr "جۆر"
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind____last_update
 msgid "Last Modified on"
-msgstr "دواجار دەستکاری کراوە لە"
+msgstr "دوا دەستکاریکردن لە"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_uid
 msgid "Last Updated by"
-msgstr "دوایین نوێکردنەوە لەلایەن"
+msgstr "دوا نوێکردنەوە لەلایەن"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_date
 msgid "Last Updated on"
-msgstr "دوایین نوێکردنەوە لە"
+msgstr "دوا نوێکردنەوە لە"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
