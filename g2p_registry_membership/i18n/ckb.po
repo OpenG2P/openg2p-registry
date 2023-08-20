@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-16 07:24+0000\n"
+"PO-Revision-Date: 2023-08-21 13:24+0000\n"
 "Last-Translator: mansour rehman <mansour.rehman@gmail.com>\n"
 "Language-Team: Kurdish (Central) <https://translate.openspp.org/projects/"
 "openg2p/g2p_registry_membership/ckb/>\n"
@@ -122,7 +122,7 @@ msgstr "گروپ"
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Group By"
-msgstr "گرووپ بەپێی"
+msgstr "گروپ بەپێی"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__group_membership_ids
@@ -186,7 +186,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Individual"
-msgstr "تاکە کەسی"
+msgstr "تاکەکەسی"
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
@@ -213,19 +213,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind____last_update
 msgid "Last Modified on"
-msgstr "دواجار دەستکاری کراوە لە"
+msgstr "دوا دەستکاریکردن لە"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_uid
 msgid "Last Updated by"
-msgstr "دوایین نوێکردنەوە لەلایەن"
+msgstr "دوا نوێکردنەوە لەلایەن"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_date
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_date
 msgid "Last Updated on"
-msgstr "دوایین نوێکردنەوە لە"
+msgstr "دوا نوێکردنەوە لە"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_main_attachment_id
@@ -312,7 +312,7 @@ msgstr "تاکێک هەڵبژێرە..."
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__start_date
 msgid "Start Date"
-msgstr "بەرواری دەسپێكردن"
+msgstr "ڕێکەوتی دەستپێكردن"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__is_unique
