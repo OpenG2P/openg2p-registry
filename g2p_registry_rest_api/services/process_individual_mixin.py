@@ -20,7 +20,7 @@ class ProcessIndividualMixin(AbstractComponent):
             "given_name": individual.given_name,
             "family_name": individual.family_name,
             "addl_name": individual.addl_name,
-            "gender": individual.gender.capitalize() if individual.gender else False,
+            "gender": individual.gender if individual.gender else False,
             "birthdate": individual.birthdate or False,
             "birth_place": individual.birth_place or False,
             "address": individual.address or None,

@@ -5,7 +5,7 @@ from pydantic import validator
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
-from .individual import IndividualInfoOut
+from .individual import IndividualInfoIn, IndividualInfoOut
 from .naive_orm_model import NaiveOrmModel
 from .registrant import PhoneNumberIn, RegistrantIDIn
 
@@ -56,10 +56,5 @@ class GroupMembersInfoIn(NaiveOrmModel):
 
     @validator("gender")
     def validate_gender(cls, value):
-        if value and value not in ("Male", "Female"):
-            raise G2PApiValidationError(
-                error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
-                error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description="Invalid gender-it should be either 'Male' or 'Female'.",
-            )
-        return value
+        res = IndividualInfoIn.validate_gender(value)
+        return res

@@ -9,9 +9,7 @@
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
     "depends": ["base", "mail", "contacts", "g2p_registry_base"],
-    "data": [
-        "views/individuals_view.xml",
-    ],
+    "data": ["views/individuals_view.xml", "views/res_config_view.xml"],
     "assets": {},
     "demo": [],
     "images": [],
