@@ -2,8 +2,6 @@ from datetime import date
 
 from pydantic import validator
 
-from odoo.http import request
-
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from .registrant import RegistrantInfoIn, RegistrantInfoOut
@@ -48,19 +46,3 @@ class IndividualInfoIn(RegistrantInfoIn):
                 error_description="Family name is mandatory",
             )
         return v
-
-    @validator("gender")
-    def validate_gender(cls, value):
-        gender_type = request.env["ir.config_parameter"].get_param(
-            "g2p_registry.gender_config"
-        )
-        gender_type = [item.strip() for item in gender_type.split(",")]
-        if value and value not in gender_type:
-            raise G2PApiValidationError(
-                error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
-                error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description=(
-                    "Invalid Gender - %s gender should be - %s" % (value, gender_type)
-                ),
-            )
-        return value

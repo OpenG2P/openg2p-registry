@@ -62,13 +62,3 @@ class G2PIndividual(models.Model):
             if record.birthdate and record.birthdate > date.today():
                 error_message = "Birth date must be on or before the current date."
                 raise ValidationError(error_message)
-
-    def get_gender_selection(self):
-        gender_options = self.env["ir.config_parameter"].get_param(
-            "g2p_registry.gender_config"
-        )
-        if gender_options:
-            get_value = gender_options.split(",")
-            return [(opt, opt.capitalize()) for opt in get_value]
-        else:
-            return []
