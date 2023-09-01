@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+g2p_gender_type_registrar,Gender Type Accesss,g2p_registry_individual.model_gender_type,,1,1,1,1
