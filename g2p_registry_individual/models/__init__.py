@@ -1,4 +1,3 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
-
 from . import individual
-from . import registry_config
+from . import gender
