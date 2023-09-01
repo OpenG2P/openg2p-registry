@@ -32,6 +32,16 @@ msgid "<span class=\"o_stat_text\">Enable</span>"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_gender_type
+msgid "Add an Gender Type!"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__addl_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__addl_name
 msgid "Additional Name"
@@ -72,8 +82,18 @@ msgid "CivilState"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_gender_type
+msgid "Click the create button to enter a new gender type."
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model_terms:ir.actions.act_window,help:g2p_registry_individual.action_individuals_list
 msgid "Click the create button to enter the new registrant's information."
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__code
+msgid "Code"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -87,6 +107,16 @@ msgid "Create a new individual registrant!"
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__birthdate
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__birthdate
 msgid "Date of Birth"
@@ -95,6 +125,11 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Disabled"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__display_name
+msgid "Display Name"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -114,14 +149,15 @@ msgid "Family Name..."
 msgstr ""
 
 #. module: g2p_registry_individual
-#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__female
-msgid "Female"
-msgstr ""
-
-#. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__gender
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__gender
 msgid "Gender"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.actions.act_window,name:g2p_registry_individual.action_gender_type
+#: model:ir.ui.menu,name:g2p_registry_individual.menu_gender_type
+msgid "Gender Types"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -133,6 +169,11 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Given Name..."
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__id
+msgid "ID"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -162,8 +203,18 @@ msgid "Individuals"
 msgstr ""
 
 #. module: g2p_registry_individual
-#: model:ir.model.fields.selection,name:g2p_registry_individual.selection__res_partner__gender__male
-msgid "Male"
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: g2p_registry_individual
@@ -230,6 +281,16 @@ msgstr ""
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Tags:"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_gender_type__value
+msgid "Value"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model,name:g2p_registry_individual.model_gender_type
+msgid "gender.type"
 msgstr ""
 
 #. module: g2p_registry_individual
