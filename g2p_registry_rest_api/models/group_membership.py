@@ -3,6 +3,8 @@ from typing import List, Optional
 
 from pydantic import validator
 
+from odoo.http import request
+
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from .individual import IndividualInfoOut
@@ -56,10 +58,12 @@ class GroupMembersInfoIn(NaiveOrmModel):
 
     @validator("gender")
     def validate_gender(cls, value):
-        if value and value not in ("Male", "Female"):
+        options = request.env["gender.type"].search([("active", "=", True)])
+        if value and not options.search([("code", "=", value)]):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description="Invalid gender-it should be either 'Male' or 'Female'.",
+                error_description="Invalid gender-%s. It should be %s"
+                % (value, [option.code for option in options]),
             )
         return value
