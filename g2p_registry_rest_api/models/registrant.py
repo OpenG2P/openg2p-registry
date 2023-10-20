@@ -1,8 +1,12 @@
+import re
 from datetime import date
 from typing import List
 
 import pydantic
 from pydantic import validator
+
+from odoo import tools
+from odoo.http import request
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
@@ -31,6 +35,19 @@ class PhoneNumberOut(NaiveOrmModel):
 class PhoneNumberIn(NaiveOrmModel):
     phone_no: str
     date_collected: date = None
+
+    @validator("phone_no")
+    def validate_phone_number(cls, value):
+        phone_number_pattern = request.env["ir.config_parameter"].get_param(
+            "g2p_registry.phone_regex"
+        )
+        if value and not re.match(phone_number_pattern, value):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_006.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_006.get_error_code(),
+                error_description=("Please provide a valid phone number"),
+            )
+        return value
 
 
 class RegistrantInfoOut(NaiveOrmModel):
@@ -72,6 +89,16 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
+
+    @validator("email")
+    def validate_email(cls, value):
+        if value and not tools.single_email_re.match(value):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_007.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_007.get_error_code(),
+                error_description=("Please provide a valid email address"),
+            )
+        return value
 
 
 class RegistrantUpdateIDIn(RegistrantIDIn):

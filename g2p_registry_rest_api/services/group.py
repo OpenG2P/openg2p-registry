@@ -100,14 +100,14 @@ class GroupApiService(Component):
                         [("name", "=", kind.name)]
                     )
                     if kind_id:
-                        kind_id = kind_id[0]
-                    else:
+                        indv_membership_kinds.append((4, kind_id[0].id))
+                    elif kind.name:
                         raise G2PApiValidationError(
                             error_message=G2PErrorCodes.G2P_REQ_004.get_error_message(),
                             error_code=G2PErrorCodes.G2P_REQ_004.get_error_code(),
-                            error_description="Membership kind is not present in the database.",
+                            error_description="Membership kind - %s is not present in the database."
+                            % kind.name,
                         )
-                    indv_membership_kinds.append((4, kind_id.id))
             grp_membership_rec.append(
                 {"individual": indv_id.id, "kind": indv_membership_kinds}
             )
