@@ -28,6 +28,11 @@ class G2PGroupMembership(models.Model):
     kind = fields.Many2many("g2p.group.membership.kind")
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
     ended_date = fields.Datetime()
+    status = fields.Selection(
+        [("inactive", "Inactive"), ("active", "")],
+        compute="_compute_status",
+        store=True,
+    )
     individual_birthdate = fields.Date(related="individual.birthdate")
     individual_gender = fields.Selection(related="individual.gender")
 
@@ -176,6 +181,20 @@ class G2PGroupMembership(models.Model):
             "flags": {"mode": "readonly"},
         }
 
+    @api.depends("ended_date")
+    def _compute_status(self):
+        for record in self:
+            # check if memebership end date available and less than current date
+            if record.ended_date and record.ended_date <= fields.Datetime.now():
+                record.status = "inactive"
+            else:
+                record.status = "active"
+
+    @api.constrains("ended_date")
+    def _check_ended_date(self):
+        for record in self:
+            if record.ended_date and record.ended_date < record.start_date:
+                raise ValidationError(_("End Date cannot be earlier than Start Date"))
 
 class G2PGroupMembershipKind(models.Model):
     _name = "g2p.group.membership.kind"
