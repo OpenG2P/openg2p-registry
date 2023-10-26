@@ -100,7 +100,10 @@
                         </div>
                     </div>
                     <group colspan="4" col="4">
-                        <field name="registration_date" attrs="{'readonly':[('disabled','!=',False)]}" />
+                        <field
+                            name="registration_date"
+                            attrs="{'readonly':['|', ('disabled','!=',False), ('registration_date', '!=', False)]}"
+                        />
                         <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}" />
                         <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
                             <field name="lang" attrs="{'readonly':[('disabled','!=',False)]}" />
