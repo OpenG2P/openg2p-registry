@@ -4,7 +4,7 @@ from datetime import date, datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -56,9 +56,14 @@ class G2PIndividual(models.Model):
             years_months_days = "No Birthdate!"
         return years_months_days
 
-    @api.constrains("birthdate")
-    def _check_birthdate(self):
-        for record in self:
-            if record.birthdate and record.birthdate > date.today():
-                error_message = "Birth date must be on or before the current date."
-                raise ValidationError(error_message)
+    @api.onchange("birthdate")
+    def _birthdate_onchange(self):
+        """
+        This function are used to raise a validation error in case the
+        birthdate date is being set greater than the date today
+        """
+        for rec in self:
+            if rec.birthdate and rec.birthdate > fields.date.today():
+                raise ValidationError(
+                    _("You can't select a date of birth greater than today")
+                )

@@ -181,6 +181,11 @@ msgid "Individual:"
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__is_ended
+msgid "Is Ended"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__kind
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__name
 msgid "Kind"
