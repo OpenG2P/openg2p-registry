@@ -43,13 +43,11 @@ class G2PRegistrantID(models.Model):
 class G2PIDType(models.Model):
     _name = "g2p.id.type"
     _description = "ID Type"
-    _order = "id desc"
-
-    name = fields.Char()
-
-    @api.constrains("name")
-    def _check_name(self):
-        for record in self:
-            if not record.name:
-                error_message = "Name should not empty."
-                raise ValidationError(error_message)
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin",
+    ]
+    _order = "name ASC"
+    
+    name = fields.Char(tracking=True)
+    id_validation = fields.Char(tracking=True)
