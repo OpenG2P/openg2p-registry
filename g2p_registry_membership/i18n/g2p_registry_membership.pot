@@ -86,6 +86,17 @@ msgid "Duplication of Member is not allowed "
 msgstr ""
 
 #. module: g2p_registry_membership
+#: code:addons/g2p_registry_membership/models/group_membership.py:0
+#, python-format
+msgid "End Date cannot be earlier than Start Date"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "End date"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__ended_date
 msgid "Ended Date"
 msgstr ""
@@ -98,7 +109,6 @@ msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual_gender
-#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
 msgid "Gender"
 msgstr ""
 
@@ -155,6 +165,11 @@ msgid "ID"
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields.selection,name:g2p_registry_membership.selection__g2p_group_membership__status__inactive
+msgid "Inactive"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
 msgid "Individual"
@@ -163,6 +178,11 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
 msgid "Individual:"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__is_ended
+msgid "Is Ended"
 msgstr ""
 
 #. module: g2p_registry_membership
@@ -245,8 +265,18 @@ msgid "Select an Individual..."
 msgstr ""
 
 #. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Sex"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__start_date
 msgid "Start Date"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__status
+msgid "Status"
 msgstr ""
 
 #. module: g2p_registry_membership
