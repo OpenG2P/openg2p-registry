@@ -37,7 +37,7 @@ class PhoneNumberIn(NaiveOrmModel):
     date_collected: date = None
 
     @validator("phone_no")
-    def validate_phone_number(cls, value):
+    def validate_phone_number(cls, value):  # noqa: B902
         phone_number_pattern = request.env["ir.config_parameter"].get_param(
             "g2p_registry.phone_regex"
         )
@@ -91,7 +91,7 @@ class RegistrantInfoIn(NaiveOrmModel):
     address: str = None
 
     @validator("email")
-    def validate_email(cls, value):
+    def validate_email(cls, value):  # noqa: B902
         if value and not tools.single_email_re.match(value):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_007.get_error_message(),

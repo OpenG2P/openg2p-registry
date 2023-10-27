@@ -1,7 +1,6 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
 
 
 class G2PRegistrantID(models.Model):
@@ -48,6 +47,6 @@ class G2PIDType(models.Model):
         "mail.activity.mixin",
     ]
     _order = "name ASC"
-    
+
     name = fields.Char(tracking=True)
     id_validation = fields.Char(tracking=True)

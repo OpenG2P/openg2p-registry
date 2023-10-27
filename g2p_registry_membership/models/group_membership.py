@@ -206,6 +206,7 @@ class G2PGroupMembership(models.Model):
             if record.ended_date and record.ended_date < record.start_date:
                 raise ValidationError(_("End Date cannot be earlier than Start Date"))
 
+
 class G2PGroupMembershipKind(models.Model):
     _name = "g2p.group.membership.kind"
     _description = "Group Membership Kind"
