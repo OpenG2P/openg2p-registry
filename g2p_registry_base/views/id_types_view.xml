@@ -9,8 +9,8 @@
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="name" required="1"/>
-                <field name="id_validation" string="ID Type Validation"/>
+                <field name="name" required="1" />
+                <field name="id_validation" string="ID Type Validation" />
             </tree>
         </field>
     </record>
