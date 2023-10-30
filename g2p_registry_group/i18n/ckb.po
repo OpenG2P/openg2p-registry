@@ -6,13 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-08-23 08:24+0000\n"
+"Last-Translator: mansour rehman <mansour.rehman@gmail.com>\n"
+"Language-Team: Kurdish (Central) <https://translate.openspp.org/projects/"
+"openg2p/g2p_registry_group/ckb/>\n"
 "Language: ckb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14\n"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
@@ -21,113 +24,116 @@ msgid ""
 "                                        <b>Address</b>\n"
 "                                    </span>"
 msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                        <b>ناونیشان</b>\n"
+"                                    </span>"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\"> ناکارا</span>"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "<span class=\"o_stat_text\">Enable</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">کارایە</span>"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
 msgid "Add a group type!"
-msgstr ""
+msgstr "module: g2p_تۆمارکردن_group"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_registry_groups_filter
 msgid "Archived"
-msgstr ""
+msgstr "ئەرشیڤکرا"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_group_kind
 msgid "Click the create button to enter a new group type."
-msgstr ""
+msgstr "بۆ داخڵکردنی جۆرێکی نوێی گروپ کلیک لە دوگمەی دروستکردن بکە."
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
 msgid "Click the create button to enter the new registrant's information."
-msgstr ""
+msgstr "کرتە لەسەر دوگمەی دروستکردن بکە بۆ چوونەناو زانیاری تازەتۆمارکراوەکان."
 
 #. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "پەیوەندی"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Contact Details"
-msgstr ""
+msgstr "وردەکاریی پەیوەندی"
 
 #. module: g2p_registry_group
 #: model_terms:ir.actions.act_window,help:g2p_registry_group.action_groups_list
 msgid "Create a new group registrant!"
-msgstr ""
+msgstr "تۆمارکەری گروپی نوێ دروست بکە!"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "دروست کراوە لەلایەن"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__create_date
 msgid "Created on"
-msgstr ""
+msgstr "دروستکراوە لەناو"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "ناوی پێشاندراو"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Enter name of group..."
-msgstr ""
+msgstr "ناوی گروپەکە بنووسە..."
 
 #. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_g2p_group_kind
 msgid "Group Kind"
-msgstr ""
+msgstr "جۆری گروپ"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Group Registrant"
-msgstr ""
+msgstr "تۆمارکەری گروپ"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_group_kind
 msgid "Group Types"
-msgstr ""
+msgstr "جۆرەکانی گروپ"
 
 #. module: g2p_registry_group
 #: model:ir.ui.menu,name:g2p_registry_group.menu_group_kind
 msgid "Group types"
-msgstr ""
+msgstr "جۆرەکانی گروپ"
 
 #. module: g2p_registry_group
 #: model:ir.actions.act_window,name:g2p_registry_group.action_groups_list
 #: model:ir.ui.menu,name:g2p_registry_group.menu_groups_list
 msgid "Groups"
-msgstr ""
+msgstr "گروپەکان"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__id
 msgid "ID"
-msgstr ""
+msgstr "ناسنامە"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "ID Number"
-msgstr ""
+msgstr "ژمارەی ناسنامە"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "IDs"
-msgstr ""
+msgstr "ناسنامەکان"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__name
@@ -136,86 +142,86 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__kind
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__kind_as_str
 msgid "Kind"
-msgstr ""
+msgstr "جۆر"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "دوا دەستکاریکردن لە"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "دوا نوێکردنەوە لەلایەن"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "دوا نوێکردنەوە لە"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Other Information"
-msgstr ""
+msgstr "زانیاری دیکە"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Others Related to this Registrant:"
-msgstr ""
+msgstr "ئەوانەی دیکە کە پەیوەندییان بەم تۆمارکەرە هەیە:"
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_partner__is_partial_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__is_partial_group
 msgid "Partial Group"
-msgstr ""
+msgstr "گروپی بەشەکی"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Phone Numbers"
-msgstr ""
+msgstr "ژماره‌ی په‌یوه‌ندی"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Registrant"
-msgstr ""
+msgstr "تۆمارکەر"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Registrant is related to:"
-msgstr ""
+msgstr "تۆمارکەر پەیوەندیدارە بە:"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Relation"
-msgstr ""
+msgstr "پەیوەندی"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Relationships"
-msgstr ""
+msgstr "پەیوەندییەکان"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_registry_groups_filter
 msgid "Search Partner"
-msgstr ""
+msgstr "هاوبەشی گەڕان"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_list_tree
 msgid "Tags"
-msgstr ""
+msgstr "تاگەکان"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Tags..."
-msgstr ""
+msgstr "تاگەکان..."
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Tags:"
-msgstr ""
+msgstr "تاگەکان:"
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "| Company:"
-msgstr ""
+msgstr "| کۆمپانیا:"

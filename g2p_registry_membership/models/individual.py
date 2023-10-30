@@ -17,8 +17,12 @@ class G2PMembershipIndividual(models.Model):
         field = self.env["res.partner"]._fields["force_recompute_canary"]
         for line in records:
             if line.is_registrant and not line.is_group:
-                groups = line.individual_membership_ids.mapped("group")
-                self.env.add_to_compute(field, groups)
+                try:
+                    groups = line.individual_membership_ids.mapped("group")
+                except Exception as e:
+                    _logger.info("_recompute_parent_groups: exception: %s" % e)
+                else:
+                    self.env.add_to_compute(field, groups)
 
     def write(self, vals):
         res = super(G2PMembershipIndividual, self).write(vals)
