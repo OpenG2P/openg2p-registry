@@ -57,7 +57,7 @@ class GroupMembersInfoIn(NaiveOrmModel):
     ] = None  # TODO: Would be nicer to have it as a list of str
 
     @validator("gender")
-    def validate_gender(cls, value):
+    def validate_gender(cls, value):  # noqa: B902
         options = request.env["gender.type"].search([("active", "=", True)])
         if value and not options.search([("code", "=", value)]):
             raise G2PApiValidationError(
