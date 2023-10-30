@@ -226,11 +226,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: g2p_registry_base
-#: model:ir.model,name:g2p_registry_base.model_base_partner_merge_automatic_wizard
-msgid "Custom Partner Merge Wizard"
-msgstr ""
-
-#. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_data_mgmt_menu_root
 msgid "Data Management"
 msgstr ""
