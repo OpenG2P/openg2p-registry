@@ -3,6 +3,7 @@
 import re
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class G2PRegistrantID(models.Model):
@@ -67,4 +68,3 @@ class G2PIDType(models.Model):
             "Name of the ID types should be unique",
         ),
     ]
-
