@@ -67,4 +67,3 @@ class G2PIDType(models.Model):
             "Name of the ID types should be unique",
         ),
     ]
-
