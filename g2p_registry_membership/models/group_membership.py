@@ -33,6 +33,7 @@ class G2PGroupMembership(models.Model):
         compute="_compute_status",
         store=True,
     )
+    is_ended = fields.Boolean(default=False, compute="_compute_is_ended", store=True)
     individual_birthdate = fields.Date(related="individual.birthdate")
     individual_gender = fields.Selection(related="individual.gender")
 
@@ -120,6 +121,15 @@ class G2PGroupMembership(models.Model):
         if name:
             args = [("group", operator, name)] + args
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+
+    @api.depends("ended_date")
+    def _compute_is_ended(self):
+        for rec in self:
+            is_ended = False
+            if rec.ended_date and rec.ended_date <= fields.Datetime.now():
+                is_ended = True
+
+            rec.is_ended = is_ended
 
     def _recompute_parent_groups(self, records):
         field = self.env["res.partner"]._fields["force_recompute_canary"]
