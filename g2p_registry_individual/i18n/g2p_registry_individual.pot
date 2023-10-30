@@ -289,11 +289,14 @@ msgid "Value"
 msgstr ""
 
 #. module: g2p_registry_individual
-#: model:ir.model,name:g2p_registry_individual.model_gender_type
-msgid "gender.type"
 #: code:addons/g2p_registry_individual/models/individual.py:0
 #, python-format
 msgid "You can't select a date of birth greater than today"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model:ir.model,name:g2p_registry_individual.model_gender_type
+msgid "gender.type"
 msgstr ""
 
 #. module: g2p_registry_individual
