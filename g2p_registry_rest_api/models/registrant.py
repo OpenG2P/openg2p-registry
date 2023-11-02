@@ -116,6 +116,16 @@ class RegistrantInfoIn(NaiveOrmModel):
             )
         return value
 
+    @validator("registration_date")
+    def validate_registration_date(cls, value):
+        if value is not None and value > date.today():
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_011.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_011.get_error_code(),
+                error_description="Registration date cannot be in the future",
+            )
+        return value
+
 
 class RegistrantUpdateIDIn(RegistrantIDIn):
     partner_id: int
