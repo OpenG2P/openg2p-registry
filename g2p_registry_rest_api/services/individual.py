@@ -7,6 +7,8 @@ from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
 
+from ..exceptions.base_exception import G2PApiValidationError
+from ..exceptions.error_codes import G2PErrorCodes
 from ..models.individual import IndividualInfoIn, IndividualInfoOut
 from ..models.individual_search_param import IndividualSearchParam
 from ..models.registrant import RegistrantUpdateIDIn, RegistrantUpdateIDOut
@@ -55,14 +57,22 @@ class IndividualApiService(Component):
         domain = []
         if partner_search_param.name:
             domain.append(("name", "like", partner_search_param.name))
+
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
+
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", False))
         res = []
 
         for p in self.env["res.partner"].search(domain):
             res.append(IndividualInfoOut.from_orm(p))
+        if not len(res):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=("Record is not present in the database."),
+            )
         return res
 
     @restapi.method(
