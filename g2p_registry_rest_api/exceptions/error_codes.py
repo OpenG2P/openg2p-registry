@@ -12,7 +12,8 @@ class G2PErrorCodes(Enum):
     G2P_REQ_008 = "Invalid gender."
     G2P_REQ_009 = "Invalid account number."
     G2P_REQ_010 = "ID/Name not present."
-    G2P_REQ_011 = "Future Date"
+    G2P_REQ_011 = "Future Date."
+    G2P_REQ_012 = "Required field."
 
     # Add more error codes and messages as needed
 

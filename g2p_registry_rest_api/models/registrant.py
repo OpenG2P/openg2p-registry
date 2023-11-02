@@ -3,7 +3,7 @@ from datetime import date
 from typing import List
 
 import pydantic
-from pydantic import validator
+from pydantic import Field, validator
 
 from odoo import tools
 from odoo.http import request
@@ -98,7 +98,7 @@ class RegistrantIDIn(NaiveOrmModel):
 
 
 class RegistrantInfoIn(NaiveOrmModel):
-    name: str
+    name: str = Field(..., description="Mandatory field")
     ids: List[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
@@ -123,6 +123,16 @@ class RegistrantInfoIn(NaiveOrmModel):
                 error_message=G2PErrorCodes.G2P_REQ_011.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_011.get_error_code(),
                 error_description="Registration date cannot be in the future",
+            )
+        return value
+
+    @validator("name")
+    def validate_name_presence(cls, value):
+        if value is None or value.strip() == "":
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_012.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_012.get_error_code(),
+                error_description="Name should not be empty. Please provide a valid name.",
             )
         return value
 
