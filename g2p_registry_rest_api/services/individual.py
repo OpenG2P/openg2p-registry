@@ -55,18 +55,14 @@ class IndividualApiService(Component):
         :return: List of partner.info
         """
         domain = []
-        error_description = []
+        error_description = ""
         if partner_search_param.name:
             domain.append(("name", "like", partner_search_param.name))
-            error_description.append(
-                "This Name does not exist. Please enter a valid Name."
-            )
+            error_description = "This Name does not exist. Please enter a valid Name."
 
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
-            error_description.append(
-                "The ID Number you have entered does not exist. Please enter a valid ID Number."
-            )
+            error_description = "The ID Number you have entered does not exist. Please enter a valid ID Number."
 
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", False))
@@ -77,14 +73,10 @@ class IndividualApiService(Component):
         if not len(res):
             if partner_search_param.name and partner_search_param.id:
                 error_description = "The ID Number or Name entered does not exist."
-            else:
-                error_description = " and ".join(error_description)
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
-                error_description=(
-                    f"Record is not present in the database.{error_description}"
-                ),
+                error_description=error_description,
             )
         return res
 
