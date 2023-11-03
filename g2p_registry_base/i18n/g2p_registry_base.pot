@@ -342,10 +342,20 @@ msgid "ID Type"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_id_type_tree
+msgid "ID Type Validation"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_id_type
 #: model:ir.ui.menu,name:g2p_registry_base.menu_id_type
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
 msgid "ID Types"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__id_validation
+msgid "Id Validation"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -455,6 +465,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
 msgid "Name"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_id_type_name_unique
+msgid "Name of the ID types should be unique"
 msgstr ""
 
 #. module: g2p_registry_base

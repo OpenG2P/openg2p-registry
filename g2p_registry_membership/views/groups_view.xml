@@ -18,7 +18,7 @@
                             nolabel="1"
                             colspan="4"
                         >
-                            <tree editable="top">
+                            <tree editable="top" default_order='status asc,ended_date asc'>
                                 <button
                                     name="open_individual_form"
                                     type="object"
@@ -33,7 +33,7 @@
                                     context="{'form_view_ref':'g2p_registry_individual.view_individuals_form'}"
                                 />
                                 <field name="individual_birthdate" string="Date of Birth" />
-                                <field name="individual_gender" string="Gender" />
+                                <field name="individual_gender" string="Sex" />
                                 <field
                                     name="kind"
                                     string="Role"
@@ -41,7 +41,8 @@
                                     options="{'no_open':True, 'no_create_edit':True, 'no_create':True, 'no_quick_create':True}"
                                 />
                                 <field name="start_date" />
-                                <field name="ended_date" />
+                                <field name="ended_date" string="End date" />
+                                <field name="status" />
                             </tree>
                         </field>
                     </group>
@@ -49,5 +50,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

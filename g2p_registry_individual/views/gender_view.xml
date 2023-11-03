@@ -5,8 +5,8 @@
         <field name="model">gender.type</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="code" />
-                <field name="value" />
+                <field name="code" required="1" />
+                <field name="value" required="1" />
             </tree>
         </field>
     </record>

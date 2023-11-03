@@ -1,8 +1,12 @@
+import re
 from datetime import date
 from typing import List
 
 import pydantic
 from pydantic import validator
+
+from odoo import tools
+from odoo.http import request
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
@@ -31,6 +35,19 @@ class PhoneNumberOut(NaiveOrmModel):
 class PhoneNumberIn(NaiveOrmModel):
     phone_no: str
     date_collected: date = None
+
+    @validator("phone_no")
+    def validate_phone_number(cls, value):  # noqa: B902
+        phone_number_pattern = request.env["ir.config_parameter"].get_param(
+            "g2p_registry.phone_regex"
+        )
+        if value and not re.match(phone_number_pattern, value):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_006.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_006.get_error_code(),
+                error_description=("Please provide a valid phone number"),
+            )
+        return value
 
 
 class RegistrantInfoOut(NaiveOrmModel):
@@ -63,6 +80,22 @@ class RegistrantIDIn(NaiveOrmModel):
             )
         return value
 
+    @validator("value")
+    def validate_id_value(cls, value, values):
+        id_type = values.get("id_type")
+        if id_type:
+            id_type_id = request.env["g2p.id.type"].search(
+                [("name", "=", id_type)], limit=1
+            )
+            if not re.match(id_type_id.id_validation, value):
+                raise G2PApiValidationError(
+                    error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
+                    error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
+                    error_description=f"The provided {id_type_id.name} ID '{value}' is invalid.",
+                )
+
+        return value
+
 
 class RegistrantInfoIn(NaiveOrmModel):
     name: str
@@ -72,6 +105,16 @@ class RegistrantInfoIn(NaiveOrmModel):
     phone_numbers: List[PhoneNumberIn] = None
     email: str = None
     address: str = None
+
+    @validator("email")
+    def validate_email(cls, value):  # noqa: B902
+        if value and not tools.single_email_re.match(value):
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_007.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_007.get_error_code(),
+                error_description=("Please provide a valid email address"),
+            )
+        return value
 
 
 class RegistrantUpdateIDIn(RegistrantIDIn):

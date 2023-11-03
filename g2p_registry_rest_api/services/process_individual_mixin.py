@@ -20,7 +20,6 @@ class ProcessIndividualMixin(AbstractComponent):
             "given_name": individual.given_name,
             "family_name": individual.family_name,
             "addl_name": individual.addl_name,
-            "gender": individual.gender.capitalize() if individual.gender else False,
             "birthdate": individual.birthdate or False,
             "birth_place": individual.birth_place or False,
             "address": individual.address or None,
@@ -41,6 +40,9 @@ class ProcessIndividualMixin(AbstractComponent):
         if phone_numbers:
             indv_rec.update({"phone_number_ids": phone_numbers})
 
+        gender = self._process_gender(ids_info)
+        if gender:
+            indv_rec.update({"gender": gender})
         return indv_rec
 
     def _process_ids(self, ids_info):
@@ -94,3 +96,12 @@ class ProcessIndividualMixin(AbstractComponent):
                     )
                 )
         return phone_numbers, primary_phone
+
+    def _process_gender(self, ids_info):
+        if ids_info.gender:
+            gender = self.env["gender.type"].search(
+                [("active", "=", True), ("code", "=", ids_info.gender)], limit=1
+            )
+            if gender:
+                return gender.value
+        return None

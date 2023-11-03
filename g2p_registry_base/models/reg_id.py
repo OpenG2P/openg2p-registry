@@ -1,5 +1,7 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 
+import re
+
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -39,17 +41,30 @@ class G2PRegistrantID(models.Model):
             args = [("partner_id", operator, name)] + args
         return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
+    @api.constrains("value")
+    @api.onchange("value")
+    def _onchange_id_validation(self):
+        if not self.value:
+            return
+        if self.id_type.id_validation:
+            if not re.match(self.id_type.id_validation, self.value):
+                raise ValidationError(
+                    f"The provided {self.id_type.name} ID '{self.value}' is invalid."
+                )
+
 
 class G2PIDType(models.Model):
     _name = "g2p.id.type"
     _description = "ID Type"
-    _order = "id desc"
+    _order = "name ASC"
 
     name = fields.Char()
+    id_validation = fields.Char()
 
-    @api.constrains("name")
-    def _check_name(self):
-        for record in self:
-            if not record.name:
-                error_message = "Name should not empty."
-                raise ValidationError(error_message)
+    _sql_constraints = [
+        (
+            "name_unique",
+            "unique (name)",
+            "Name of the ID types should be unique",
+        ),
+    ]
