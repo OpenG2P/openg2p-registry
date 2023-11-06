@@ -18,16 +18,6 @@ msgstr ""
 "X-Generator: Weblate 4.14\n"
 
 #. module: g2p_registry_membership
-#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_list_tree_membership
-msgid "# Individuals"
-msgstr "# Individus"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction
-msgid "Action Needed"
-msgstr "Action nécessaire"
-
-#. module: g2p_registry_membership
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership_kind
 msgid "Add a group membership kind!"
 msgstr "Ajoutez un type d'appartenance de groupe !"
@@ -36,11 +26,6 @@ msgstr "Ajoutez un type d'appartenance de groupe !"
 #: model_terms:ir.actions.act_window,help:g2p_registry_membership.action_group_membership
 msgid "Add an individual to a group!"
 msgstr "Ajoutez un individu à un groupe !"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_attachment_count
-msgid "Attachment Count"
-msgstr "Nombre de pièces jointes"
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
@@ -90,6 +75,12 @@ msgid "Date Range"
 msgstr "Plage de dates"
 
 #. module: g2p_registry_membership
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual_birthdate
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Date of Birth"
+msgstr ""
+
+#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__display_name
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__display_name
 msgid "Display Name"
@@ -102,19 +93,21 @@ msgid "Duplication of Member is not allowed "
 msgstr "La duplication de membre n'est pas autorisée "
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__end_date
-msgid "End Date"
-msgstr "Date de fin"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__ended_date
+msgid "Ended Date"
+msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_follower_ids
-msgid "Followers"
-msgstr "Abonnés"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__force_recompute_canary
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__force_recompute_canary
+msgid "Force Recompute Canary"
+msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_partner_ids
-msgid "Followers (Partners)"
-msgstr "Abonnés (Partenaires)"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual_gender
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Gender"
+msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__group
@@ -163,30 +156,10 @@ msgid "Groups"
 msgstr "Groupes"
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__has_message
-msgid "Has Message"
-msgstr "A un message"
-
-#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__id
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__id
 msgid "ID"
 msgstr "ID"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread
-msgid "If checked, new messages require your attention."
-msgstr ""
-"Si cette case est cochée, de nouveaux messages nécessitent votre attention."
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_error
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_sms_error
-msgid "If checked, some messages have a delivery error."
-msgstr ""
-"Si cette case est cochée, certains messages présentent une erreur de "
-"livraison."
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__individual
@@ -200,20 +173,15 @@ msgid "Individual:"
 msgstr "Individu :"
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_is_follower
-msgid "Is Follower"
-msgstr "Est Abonné"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__is_ended
+msgid "Is Ended"
+msgstr ""
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__kind
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__name
 msgid "Kind"
 msgstr "Type"
-
-#. module: g2p_registry_membership
-#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
-msgid "Kind:"
-msgstr "Type :"
 
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
@@ -234,11 +202,6 @@ msgid "Last Updated on"
 msgstr "Mise à jour le"
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Pièce jointe principale"
-
-#. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
 msgid "Member Name"
 msgstr "Nom de membre"
@@ -255,39 +218,10 @@ msgid "Membership to Groups"
 msgstr "Appartenance à des groupes"
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_error
-msgid "Message Delivery error"
-msgstr "Erreur de livraison du message"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_ids
-msgid "Messages"
-msgstr "Messages"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
-msgid "Number of Actions"
-msgstr "Nombre d'actions"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_error_counter
-msgid "Number of errors"
-msgstr "Nombre d'erreurs"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Nombre de messages nécessitant une action"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_has_error_counter
-msgid "Number of messages with delivery error"
-msgstr "Nombre de messages avec erreur de livraison"
-
-#. module: g2p_registry_membership
-#: model:ir.model.fields,help:g2p_registry_membership.field_g2p_group_membership__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Nombre de messages non lus"
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__z_ind_grp_num_individuals
+#: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__z_ind_grp_num_individuals
+msgid "Number of individuals"
+msgstr ""
 
 #. module: g2p_registry_membership
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
@@ -296,9 +230,16 @@ msgid "Only one %s is allowed per group"
 msgstr "Un seul %s est autorisé par groupe"
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Erreur de livraison SMS"
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_tree
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
+msgid "Role"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_group_membership_form
+msgid "Role:"
+msgstr ""
 
 #. module: g2p_registry_membership
 #: model_terms:ir.ui.view,arch_db:g2p_registry_membership.group_membership_filter
@@ -325,12 +266,72 @@ msgstr "Date de début"
 msgid "Unique"
 msgstr "Unique"
 
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread
-msgid "Unread Messages"
-msgstr "Messages non lus"
+#~ msgid "# Individuals"
+#~ msgstr "# Individus"
 
-#. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Compteur de messages non lus"
+#~ msgid "Action Needed"
+#~ msgstr "Action nécessaire"
+
+#~ msgid "Attachment Count"
+#~ msgstr "Nombre de pièces jointes"
+
+#~ msgid "End Date"
+#~ msgstr "Date de fin"
+
+#~ msgid "Followers"
+#~ msgstr "Abonnés"
+
+#~ msgid "Followers (Partners)"
+#~ msgstr "Abonnés (Partenaires)"
+
+#~ msgid "Has Message"
+#~ msgstr "A un message"
+
+#~ msgid "If checked, new messages require your attention."
+#~ msgstr ""
+#~ "Si cette case est cochée, de nouveaux messages nécessitent votre "
+#~ "attention."
+
+#~ msgid "If checked, some messages have a delivery error."
+#~ msgstr ""
+#~ "Si cette case est cochée, certains messages présentent une erreur de "
+#~ "livraison."
+
+#~ msgid "Is Follower"
+#~ msgstr "Est Abonné"
+
+#~ msgid "Kind:"
+#~ msgstr "Type :"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Pièce jointe principale"
+
+#~ msgid "Message Delivery error"
+#~ msgstr "Erreur de livraison du message"
+
+#~ msgid "Messages"
+#~ msgstr "Messages"
+
+#~ msgid "Number of Actions"
+#~ msgstr "Nombre d'actions"
+
+#~ msgid "Number of errors"
+#~ msgstr "Nombre d'erreurs"
+
+#~ msgid "Number of messages which requires an action"
+#~ msgstr "Nombre de messages nécessitant une action"
+
+#~ msgid "Number of messages with delivery error"
+#~ msgstr "Nombre de messages avec erreur de livraison"
+
+#~ msgid "Number of unread messages"
+#~ msgstr "Nombre de messages non lus"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "Erreur de livraison SMS"
+
+#~ msgid "Unread Messages"
+#~ msgstr "Messages non lus"
+
+#~ msgid "Unread Messages Counter"
+#~ msgstr "Compteur de messages non lus"

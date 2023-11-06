@@ -66,7 +66,6 @@ msgstr "أضف رقم الهاتف لصاحب التسجيل"
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
 #, fuzzy
-#| msgid "Add a Registrant's ID!"
 msgid "Add a Registrant's Tags!"
 msgstr "أضف هوية صاحب التسجيل!"
 
@@ -139,8 +138,6 @@ msgstr "إضغط على الزر \"إنشاء\" لإدخال معلومات هو
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
 #, fuzzy
-#| msgid ""
-#| "Click the create button to enter the new registrant's ID information."
 msgid "Click the create button to enter the new registrant's Tags information."
 msgstr "إضغط على الزر \"إنشاء\" لإدخال معلومات هوية صاحب التسجيل الجديد."
 
@@ -220,14 +217,12 @@ msgstr "الفترة"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__destination
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 #, fuzzy
-#| msgid "Relation"
 msgid "Destination"
 msgstr "الصلة"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__destination_type
 #, fuzzy
-#| msgid "Registrant 1 partner type"
 msgid "Destination partner type"
 msgstr "نوع شريك لصاحب التسجيل 1"
 
@@ -339,7 +334,6 @@ msgstr "الرسائل الجديدة تتطلب انتباهك"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "إذا تم تحديده ، فإن بعض الرسائل بها خطأ في التسليم."
 
@@ -474,7 +468,6 @@ msgstr "تم تعقيم الهاتف"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_reason
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_reason
 #, fuzzy
-#| msgid "Reason for disabling"
 msgid "Reason for Disabling"
 msgstr "سبب التعطيل"
 
@@ -535,7 +528,6 @@ msgstr "علاقات صاحب التسجيل"
 #: model:ir.model,name:g2p_registry_base.model_g2p_registrant_tags
 #: model:ir.ui.menu,name:g2p_registry_base.menu_registrant_tags
 #, fuzzy
-#| msgid "Registrant IDs"
 msgid "Registrant Tags"
 msgstr "هويات صاحب التسجيل"
 
@@ -596,11 +588,6 @@ msgid "Relationships"
 msgstr "صلات  القرابة"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "فشل تسليم الرسائل القصيرة"
-
-#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
 msgstr "ابحث رقم الهاتف"
@@ -618,14 +605,12 @@ msgstr "ابحث علاقات صاحب التسجيل"
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
 #, fuzzy
-#| msgid "Search Registrant IDs"
 msgid "Search Registrant Tags"
 msgstr "ابحث هويات صاحب التسجيل"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 #, fuzzy
-#| msgid "Select Relationship..."
 msgid "Select Destination..."
 msgstr "إختر العلاقة..."
 
@@ -642,7 +627,6 @@ msgstr "إختر العلاقة..."
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 #, fuzzy
-#| msgid "Select Registrant..."
 msgid "Select Source..."
 msgstr "إختار صاحب التسجيل..."
 
@@ -655,7 +639,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__source_type
 #, fuzzy
-#| msgid "Registrant 1 partner type"
 msgid "Source partner type"
 msgstr "نوع شريك لصاحب التسجيل 1"
 
@@ -708,6 +691,9 @@ msgstr "مستوى وصول المستخدم لOpenG2P"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
 msgstr "قيمة"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "فشل تسليم الرسائل القصيرة"
 
 #, python-format
 #~ msgid "Can't delete default ID Type"

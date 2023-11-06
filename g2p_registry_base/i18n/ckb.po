@@ -35,8 +35,8 @@ msgid ""
 "                                <span class=\"o_stat_text\">Phone No.</span>"
 msgstr ""
 "<span class=\"o_stat_text\">چالاککردن</span>\n"
-"                                 <span class=\"o_stat_text\">ژمارەی "
-"تەلەفۆن.</span>"
+"                                 <span class=\"o_stat_text\">ژمارەی تەلەفۆن."
+"</span>"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_needaction
@@ -334,7 +334,6 @@ msgstr "سەیر بکە، پەیامە نوێیەکان سەرنجی تۆیان 
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "سەیر بکە، هەندێک لە پەیامەکان نەگەیشتوون."
 
@@ -587,11 +586,6 @@ msgid "Relationships"
 msgstr "پەیوەندییەکان"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "کورتەنامە نەگەیشت"
-
-#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
 msgstr "گەڕان بە ژمارەی تەلەفۆن"
@@ -691,3 +685,6 @@ msgstr "ئاستی دەستڕاگەیشتن بە بەکارهێنەر بۆ مۆ�
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
 msgstr "بەها"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "کورتەنامە نەگەیشت"

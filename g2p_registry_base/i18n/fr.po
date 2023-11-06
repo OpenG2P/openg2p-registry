@@ -65,7 +65,6 @@ msgstr "Ajoutez le numéro de téléphone d'un inscrit !"
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
 #, fuzzy
-#| msgid "Add a Registrant's ID!"
 msgid "Add a Registrant's Tags!"
 msgstr "Ajoutez un ID d'inscrit !"
 
@@ -141,8 +140,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_registrant_tags
 #, fuzzy
-#| msgid ""
-#| "Click the create button to enter the new registrant's ID information."
 msgid "Click the create button to enter the new registrant's Tags information."
 msgstr ""
 "Cliquez sur le bouton Créer pour saisir les informations d'identification du "
@@ -226,14 +223,12 @@ msgstr "Plage de dates"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__destination
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 #, fuzzy
-#| msgid "Relation"
 msgid "Destination"
 msgstr "Relation"
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__destination_type
 #, fuzzy
-#| msgid "Registrant 1 partner type"
 msgid "Destination partner type"
 msgstr "Inscrit 1 type de partenaire"
 
@@ -260,7 +255,6 @@ msgstr "Désactiver l'assistant d'inscription"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_by
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_by
 #, fuzzy
-#| msgid "Disabled by"
 msgid "Disabled By"
 msgstr "Désactivé par"
 
@@ -348,7 +342,6 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si cochée, certains messages présentent une erreur de livraison."
 
@@ -483,7 +476,6 @@ msgstr "Téléphone désinfecté"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__disabled_reason
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__disabled_reason
 #, fuzzy
-#| msgid "Reason for disabling"
 msgid "Reason for Disabling"
 msgstr "Raison de la désactivation"
 
@@ -544,7 +536,6 @@ msgstr "Relations de l'inscrit"
 #: model:ir.model,name:g2p_registry_base.model_g2p_registrant_tags
 #: model:ir.ui.menu,name:g2p_registry_base.menu_registrant_tags
 #, fuzzy
-#| msgid "Registrant IDs"
 msgid "Registrant Tags"
 msgstr "IDs de l'inscrit"
 
@@ -605,11 +596,6 @@ msgid "Relationships"
 msgstr "Relations"
 
 #. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Erreur de livraison SMS"
-
-#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.phone_number_filter
 msgid "Search Phone Number"
 msgstr "Rechercher un numéro de téléphone"
@@ -627,14 +613,12 @@ msgstr "Rechercher des relations"
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.registrant_tags_filter
 #, fuzzy
-#| msgid "Search Registrant IDs"
 msgid "Search Registrant Tags"
 msgstr "Rechercher IDs d'inscrit"
 
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 #, fuzzy
-#| msgid "Select Relationship..."
 msgid "Select Destination..."
 msgstr "Sélectionnez une relation..."
 
@@ -651,7 +635,6 @@ msgstr "Sélectionnez une relation..."
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 #, fuzzy
-#| msgid "Select Registrant..."
 msgid "Select Source..."
 msgstr "Sélectionnez un inscrit..."
 
@@ -664,7 +647,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__source_type
 #, fuzzy
-#| msgid "Registrant 1 partner type"
 msgid "Source partner type"
 msgstr "Inscrit 1 type de partenaire"
 
@@ -718,6 +700,9 @@ msgstr "Niveau d'accès utilisateur pour le module OpenG2P"
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
 msgstr "Évaluer"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "Erreur de livraison SMS"
 
 #, python-format
 #~ msgid "Can't delete default ID Type"

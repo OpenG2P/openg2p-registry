@@ -324,7 +324,6 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -574,11 +573,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.menu_relationship
 msgid "Relationships"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: g2p_registry_base
