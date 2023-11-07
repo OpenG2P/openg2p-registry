@@ -20,7 +20,7 @@ class IDType(NaiveOrmModel):
 class RegistrantIDOut(NaiveOrmModel):
     id: int
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
-    value: str
+    value: str = None
     expiry_date: date = None
 
 
