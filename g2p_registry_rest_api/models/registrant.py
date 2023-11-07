@@ -87,7 +87,9 @@ class RegistrantIDIn(NaiveOrmModel):
             id_type_id = request.env["g2p.id.type"].search(
                 [("name", "=", id_type)], limit=1
             )
-            if not re.match(id_type_id.id_validation, value):
+            if id_type_id.id_validation and not re.match(
+                id_type_id.id_validation, value
+            ):
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),

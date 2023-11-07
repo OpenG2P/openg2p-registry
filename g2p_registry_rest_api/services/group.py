@@ -36,7 +36,14 @@ class GroupApiService(Component):
         Get partner's information
         """
         partner = self._get(_id)
-        return GroupInfoOut.from_orm(partner)
+        if partner:
+            return GroupInfoOut.from_orm(partner)
+        else:
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=("Record is not present in the database."),
+            )
 
     @restapi.method(
         [(["/", "/search"], "GET")],
@@ -146,7 +153,7 @@ class GroupApiService(Component):
     # from the controller.
 
     def _get(self, _id):
-        partner = self.env["res.partner"].browse(_id)
+        partner = self.env["res.partner"].search([("id", "=", _id)])
         if partner and partner.is_group:
             return partner
         return None
