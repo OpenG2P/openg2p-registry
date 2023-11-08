@@ -13,7 +13,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
-          repository: OpenG2P/openg2p-packaging
+          repository: gaganamadival/openg2p-packaging
           workflow: package_docker.yml
           inputs: |
             {
