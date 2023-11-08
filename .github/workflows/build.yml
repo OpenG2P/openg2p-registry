@@ -19,8 +19,8 @@ jobs:
           node-version: 14  # Adjust the Node.js version as needed
 
       - name: Change working directory to the appropriate folder
-        run: cd openg2p-registry  # Replace with the actual folder structure
-        working-directory: ./openg2p-registry
+        run: cd openg2p-registry/openg2p-registry  # Adjust the path to your package.json file
+        working-directory: ./openg2p-registry/openg2p-registry
 
       - name: Install dependencies
         run: npm install
