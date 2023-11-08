@@ -12,10 +12,10 @@ jobs:
         run: |
           echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
       - name: Invoke workflow in another repo with inputs
-        uses: aurelien-baudet/workflow-dispatch@v2
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
-          token: ${{ secrets.PAT }}
-          repo: gaganamadival/openg2p-packaging
-          workflow: OpenG2P Odoo Package Dockers build
-          input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
-          ref: main
+          github_token: ${{ secrets.PAT }}
+          owner: gaganamadival
+          repo: openg2p-packaging
+          workflow_filename: OpenG2P Odoo Package Dockers build
+          client_payload: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
