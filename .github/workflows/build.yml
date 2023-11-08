@@ -17,4 +17,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
-          input:'{"packageName": "${{ env.BRANCH_NAME }}"}'
+          input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
