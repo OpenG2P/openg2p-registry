@@ -3,7 +3,7 @@ name: Trigger OpenG2P Packaging Workflow
 on:
   push:
     branches:
-      - main
+      - 15.0-develop
 
 jobs:
   trigger-packaging:
@@ -15,4 +15,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
           workflow: package_docker.yml
-          inputs: '{ "packageName": "15.0-develop" }'
+          inputs: '{ "packageName": "main" }'
