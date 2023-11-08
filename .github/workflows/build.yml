@@ -18,3 +18,4 @@ jobs:
           repo: gaganamadival/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
           input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
+          ref: main
