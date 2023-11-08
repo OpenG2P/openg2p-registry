@@ -13,6 +13,6 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
-          repository: gaganamadival/openg2p-packaging
+          repo: gaganamadival/openg2p-packaging
           workflow: package_docker.yml
           inputs: '{ "packageName": "15.0-develop" }'
