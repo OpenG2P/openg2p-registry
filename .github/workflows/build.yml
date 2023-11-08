@@ -1,37 +1,18 @@
-name: Build & Test
+name: Trigger OpenG2P Packaging Workflow
 
 on:
   push:
-    branches:
-      - 15.0-develop
-  workflow_dispatch:
+    branches: [ 15.0-develop ]
+      workflow_dispatch:
 
 jobs:
-  build:
+  trigger-packaging:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14  # Adjust the Node.js version as needed
-
-      - name: Change working directory to the appropriate folder
-        run: cd openg2p-registry/openg2p-registry  # Adjust the path to your package.json file
-        working-directory: ./openg2p-registry/openg2p-registry
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build with ncc
-        run: npm run build
-
       - name: Invoke workflow in another repo with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
-          ref: 15.0-develop
+          ref: master
