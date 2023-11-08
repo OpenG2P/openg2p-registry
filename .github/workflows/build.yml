@@ -15,4 +15,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
-          ref: master
+          ref: 15.0-develop
