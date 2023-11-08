@@ -9,13 +9,10 @@ jobs:
   trigger-packaging:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Packaging Workflow
-        uses: peter-evans/repository-dispatch@v1
+      - name: Invoke workflow in another repo with inputs
+        uses: benc-uk/workflow-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
           repository: gaganamadival/openg2p-packaging
           workflow: package_docker.yml
-          inputs: |
-            {
-              "packageName": "15.0-develop"
-            }
+          inputs: '{ "packageName": "15.0-develop" }'
