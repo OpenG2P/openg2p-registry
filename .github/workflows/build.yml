@@ -2,7 +2,8 @@ name: Build & Test
 
 on:
   push:
-    branches: [ 15.0-develop]
+    branches:
+      - 15.0-develop
   workflow_dispatch:
 
 jobs:
@@ -12,10 +13,20 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14  # Adjust the Node.js version as needed
+
+      - name: Change working directory to the appropriate folder
+        run: cd openg2p-registry  # Replace with the actual folder structure
+        working-directory: ./openg2p-registry
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build with ncc
-        run: |
-          npm install
-          npm run build
+        run: npm run build
 
       - name: Invoke workflow in another repo with inputs
         uses: benc-uk/workflow-dispatch@v1
