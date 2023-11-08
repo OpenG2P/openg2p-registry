@@ -12,7 +12,7 @@ jobs:
         run: |
           echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
       - name: Invoke workflow in another repo with inputs
-        uses: benc-uk/workflow-dispatch@v1
+        uses: aurelien-baudet/workflow-dispatch@v2
         with:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
