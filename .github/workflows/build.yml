@@ -1,0 +1,21 @@
+name: Trigger OpenG2P Packaging Workflow
+
+on:
+  push:
+    branches:
+      - 15.0-develop
+
+jobs:
+  trigger-packaging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Packaging Workflow
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PAT }}
+          repository: openg2p/openg2p-packaging
+          workflow: package_docker.yml
+          inputs: |
+            {
+              "packageName": "15.0-develop"
+            }
