@@ -1,19 +1,27 @@
-name: Trigger OpenG2P Packaging Workflow
+name: Build & Test
 
 on:
   push:
-    branches:
-      - main
-      - 15.0-develop
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  trigger-packaging:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Build with ncc
+        run: |
+          npm install
+          npm run build
+
       - name: Invoke workflow in another repo with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
           repo: gaganamadival/openg2p-packaging
-          workflow: package_docker.yml
+          workflow: OpenG2P Odoo Package Dockers build
           inputs: '{ "packageName": "main" }'
+          ref: master
