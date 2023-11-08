@@ -3,7 +3,7 @@ name: Trigger OpenG2P Packaging Workflow
 on:
   push:
     branches:
-      - main
+      -15.0-develop
 
 jobs:
   trigger-packaging:
