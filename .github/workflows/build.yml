@@ -17,5 +17,5 @@ jobs:
           github_token: ${{ secrets.PAT }}
           owner: gaganamadival
           repo: openg2p-packaging
-          workflow_filename: OpenG2P Odoo Package Dockers build
+          workflow_file_name: package_docker.yml
           client_payload: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
