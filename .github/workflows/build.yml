@@ -2,7 +2,7 @@ name: Trigger OpenG2P Packaging Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [15.0-develop ]
   workflow_dispatch:
 
 jobs:
@@ -13,6 +13,6 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           token: ${{ secrets.PAT }}
-          repo: gaganamadival/openg2p-registry
+          repo: gaganamadival/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
           ref: 15.0-develop
