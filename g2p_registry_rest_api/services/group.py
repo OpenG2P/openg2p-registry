@@ -36,7 +36,14 @@ class GroupApiService(Component):
         Get partner's information
         """
         partner = self._get(_id)
-        return GroupInfoOut.from_orm(partner)
+        if partner:
+            return GroupInfoOut.from_orm(partner)
+        else:
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=("Record is not present in the database."),
+            )
 
     @restapi.method(
         [(["/", "/search"], "GET")],
@@ -51,10 +58,15 @@ class GroupApiService(Component):
         :return: List of partner.short.info
         """
         domain = []
+        error_description = ""
         if partner_search_param.name:
             domain.append(("name", "like", partner_search_param.name))
+            error_description = "This Name does not exist. Please enter a valid Name."
+
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
+            error_description = "The ID Number you have entered does not exist. Please enter a valid ID Number."
+
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", True))
         res = []
@@ -64,6 +76,14 @@ class GroupApiService(Component):
                 res.append(GroupInfoOut.from_orm(p))
             else:
                 res.append(GroupShortInfoOut.from_orm(p))
+        if not len(res):
+            if partner_search_param.name and partner_search_param.id:
+                error_description = "The ID Number or Name entered does not exist."
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=error_description,
+            )
         return res
 
     @restapi.method(
@@ -133,7 +153,7 @@ class GroupApiService(Component):
     # from the controller.
 
     def _get(self, _id):
-        partner = self.env["res.partner"].browse(_id)
+        partner = self.env["res.partner"].search([("id", "=", _id)])
         if partner and partner.is_group:
             return partner
         return None
