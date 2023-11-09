@@ -8,7 +8,7 @@
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
-    "depends": ["base", "mail", "contacts", "web"],
+    "depends": ["base", "mail", "contacts", "web", "portal"],
     "data": [
         "security/g2p_security.xml",
         "security/ir.model.access.csv",

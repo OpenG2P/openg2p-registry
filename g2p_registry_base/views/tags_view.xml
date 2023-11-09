@@ -58,7 +58,7 @@
         action="action_registrant_tags"
         parent="g2p_registry_base.g2p_configuration_menu_root"
         sequence="10"
-        groups="g2p_registry_base.group_g2p_admin"
+        groups="g2p_registry_base.group_g2p_admin,g2p_registry_base.group_g2p_registrar"
     />
 
 </odoo>
