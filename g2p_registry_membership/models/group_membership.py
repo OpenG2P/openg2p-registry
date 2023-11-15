@@ -239,9 +239,10 @@ class G2PGroupMembershipKind(models.Model):
         else:
             return super(G2PGroupMembershipKind, self).write(vals)
 
-    @api.constrains("name")
-    def _check_name(self):
-        for record in self:
-            if not record.name:
-                error_message = "Name should not empty."
-                raise ValidationError(error_message)
+    _sql_constraints = [
+        (
+            "name_unique",
+            "unique (name)",
+            "Name of the kind should be unique",
+        ),
+    ]
