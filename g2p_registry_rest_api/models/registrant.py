@@ -3,7 +3,7 @@ from datetime import date
 from typing import List
 
 import pydantic
-from pydantic import validator
+from pydantic import Field, validator
 
 from odoo import tools
 from odoo.http import request
@@ -20,7 +20,7 @@ class IDType(NaiveOrmModel):
 class RegistrantIDOut(NaiveOrmModel):
     id: int
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
-    value: str
+    value: str = None
     expiry_date: date = None
 
 
@@ -87,7 +87,9 @@ class RegistrantIDIn(NaiveOrmModel):
             id_type_id = request.env["g2p.id.type"].search(
                 [("name", "=", id_type)], limit=1
             )
-            if not re.match(id_type_id.id_validation, value):
+            if id_type_id.id_validation and not re.match(
+                id_type_id.id_validation, value
+            ):
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
@@ -98,7 +100,7 @@ class RegistrantIDIn(NaiveOrmModel):
 
 
 class RegistrantInfoIn(NaiveOrmModel):
-    name: str
+    name: str = Field(..., description="Mandatory field")
     ids: List[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
@@ -113,6 +115,26 @@ class RegistrantInfoIn(NaiveOrmModel):
                 error_message=G2PErrorCodes.G2P_REQ_007.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_007.get_error_code(),
                 error_description=("Please provide a valid email address"),
+            )
+        return value
+
+    @validator("registration_date")
+    def validate_registration_date(cls, value):
+        if value is not None and value > date.today():
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_011.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_011.get_error_code(),
+                error_description="Registration date cannot be in the future",
+            )
+        return value
+
+    @validator("name")
+    def validate_name_presence(cls, value):
+        if value is None or value.strip() == "":
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_012.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_012.get_error_code(),
+                error_description="Name should not be empty. Please provide a valid name.",
             )
         return value
 

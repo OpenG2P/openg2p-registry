@@ -1,12 +1,11 @@
 import logging
 
-from werkzeug.exceptions import BadRequest
-from werkzeug.wrappers import Response
-
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
 
+from ..exceptions.base_exception import G2PApiValidationError
+from ..exceptions.error_codes import G2PErrorCodes
 from ..models.individual import IndividualInfoIn, IndividualInfoOut
 from ..models.individual_search_param import IndividualSearchParam
 from ..models.registrant import RegistrantUpdateIDIn, RegistrantUpdateIDOut
@@ -38,7 +37,14 @@ class IndividualApiService(Component):
         Get partner's information
         """
         partner = self._get(_id)
-        return IndividualInfoOut.from_orm(partner)
+        if partner:
+            return IndividualInfoOut.from_orm(partner)
+        else:
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=("Record is not present in the database."),
+            )
 
     @restapi.method(
         [(["/", "/search"], "GET")],
@@ -53,16 +59,29 @@ class IndividualApiService(Component):
         :return: List of partner.info
         """
         domain = []
+        error_description = ""
         if partner_search_param.name:
             domain.append(("name", "like", partner_search_param.name))
+            error_description = "This Name does not exist. Please enter a valid Name."
+
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
+            error_description = "The ID Number you have entered does not exist. Please enter a valid ID Number."
+
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", False))
         res = []
 
         for p in self.env["res.partner"].search(domain):
             res.append(IndividualInfoOut.from_orm(p))
+        if not len(res):
+            if partner_search_param.name and partner_search_param.id:
+                error_description = "The ID Number or Name entered does not exist."
+            raise G2PApiValidationError(
+                error_message=G2PErrorCodes.G2P_REQ_010.get_error_message(),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                error_description=error_description,
+            )
         return res
 
     @restapi.method(
@@ -88,7 +107,7 @@ class IndividualApiService(Component):
         return IndividualInfoOut.from_orm(partner)
 
     def _get(self, _id):
-        partner = self.env["res.partner"].browse(_id)
+        partner = self.env["res.partner"].search([("id", "=", _id)])
         if partner and partner.is_registrant and not partner.is_group:
             return partner
         return None
@@ -127,6 +146,14 @@ class IndividualApiService(Component):
                     self.env["g2p.reg.id"].create(reg_id_dict)
                 )
             else:
-                return Response(status=204)
+                raise G2PApiValidationError(
+                    error_message=G2PErrorCodes.G2P_REQ_013.get_error_message(),
+                    error_code=G2PErrorCodes.G2P_REQ_013.get_error_code(),
+                    error_description=f"The partner ID - {reg_id.partner_id} does not exist.",
+                )
 
-        raise BadRequest()
+        raise G2PApiValidationError(
+            error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
+            error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
+            error_description=f"The provided ID type - {reg_id.id_type} is Invalid.",
+        )
