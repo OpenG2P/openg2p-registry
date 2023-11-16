@@ -389,7 +389,14 @@ msgid "Individual"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/registrant.py:0
+#, python-format
+msgid "Invalid mobile number!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/phone_number.py:0
+#: code:addons/g2p_registry_base/models/registrant.py:0
 #: code:addons/g2p_registry_base/models/registrant.py:0
 #, python-format
 msgid "Invalid phone number!"
@@ -476,6 +483,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_id_type_name_unique
 msgid "Name of the ID types should be unique"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_registrant_tags_name_unique
+msgid "Name of the tags should be unique"
 msgstr ""
 
 #. module: g2p_registry_base
