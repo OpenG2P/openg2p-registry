@@ -100,4 +100,19 @@ class G2PRegistrant(models.Model):
             return
         for rec in self.phone_number_ids:
             if rec.phone_no and not re.match(PHONE_REGEX, rec.phone_no):
-                raise models.ValidationError(_("Invalid phone number!"))
+                raise ValidationError(_("Invalid phone number!"))
+
+    @api.onchange("phone")
+    def _onchange_phone_validation(self):
+        self._validate_phone(self.phone, _("Invalid phone number!"))
+
+    @api.onchange("mobile")
+    def _onchange_mobile_validation(self):
+        self._validate_phone(self.mobile, _("Invalid mobile number!"))
+
+    def _validate_phone(self, number, error_message):
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
+            "g2p_registry.phone_regex"
+        )
+        if number and PHONE_REGEX and not re.match(PHONE_REGEX, number):
+            raise ValidationError(error_message)
