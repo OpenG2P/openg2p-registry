@@ -22,7 +22,7 @@ g2p_reg_rel_registrar,Registrant Relationship Registrar Access,g2p_registry_base
 g2p_phone_number_registrar,Phone Number Registrar Access,g2p_registry_base.model_g2p_phone_number,g2p_registry_base.group_g2p_registrar,1,1,1,0
 g2p_reg_id_registrar,Registrant ID Registrar Access,g2p_registry_base.model_g2p_reg_id,g2p_registry_base.group_g2p_registrar,1,1,1,0
 g2p_id_type_registrar,ID Type Registrar Access,g2p_registry_base.model_g2p_id_type,g2p_registry_base.group_g2p_registrar,1,0,0,0
-g2p_district_registrar,District Registrar Access,g2p_registry_base.model_g2p_district,g2p_registry_base.group_g2p_registrar,1,0,0,0
+g2p_district_registrar,District Registrar Access,g2p_registry_base.model_g2p_district,g2p_registry_base.group_g2p_registrar,1,1,1,0
 
 "access_portal_wizard","access.portal.wizard","portal.model_portal_wizard",,1,1,1,0
 "access_portal_wizard_user","access.portal.wizard.user","portal.model_portal_wizard_user",,1,1,1,0
