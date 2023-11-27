@@ -72,6 +72,11 @@ msgid "Add a Relationship!"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
+msgid "Add a district!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Add an ID Type!"
 msgstr ""
@@ -121,6 +126,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Click the create button to enter a new ID type."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
+msgid "Click the create button to enter a new district."
 msgstr ""
 
 #. module: g2p_registry_base
@@ -183,6 +193,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
@@ -194,6 +205,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
@@ -270,6 +282,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
@@ -283,6 +296,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__district
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__district
 msgid "District"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_district_config
+#: model:ir.ui.menu,name:g2p_registry_base.menu_district_config
+msgid "District Configuration"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -303,6 +322,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_g2p_district
+msgid "G2P District"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -332,6 +356,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
@@ -419,6 +444,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard____last_update
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id____last_update
@@ -430,6 +456,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
@@ -441,6 +468,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
@@ -471,6 +499,7 @@ msgid "Messages"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation_as_str
@@ -739,6 +768,12 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__start_date
 msgid "Start Date"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__state_id
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_district_config_tree
+msgid "State"
 msgstr ""
 
 #. module: g2p_registry_base
