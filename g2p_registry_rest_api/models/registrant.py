@@ -1,5 +1,5 @@
 import re
-from datetime import date
+from datetime import date, datetime
 from typing import List
 
 import pydantic
@@ -59,6 +59,8 @@ class RegistrantInfoOut(NaiveOrmModel):
     phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
     email: str = None
     address: str = None
+    create_date: datetime = None
+    write_date: datetime = None
 
 
 class RegistrantIDIn(NaiveOrmModel):
