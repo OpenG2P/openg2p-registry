@@ -38,7 +38,7 @@ class G2PRegistrant(models.Model):
     civil_status = fields.Char(string="CivilState")
     occupation = fields.Char()
     income = fields.Float()
-    district = fields.Char()
+    district = fields.Many2one("g2p.district")
 
     @api.onchange("phone_number_ids")
     def phone_number_ids_change(self):

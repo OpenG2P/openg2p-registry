@@ -21,6 +21,7 @@
         "views/phone_number_view.xml",
         "views/tags_view.xml",
         "views/res_config_view.xml",
+        "views/district_config.xml",
     ],
     "assets": {
         "web.assets_qweb": [
