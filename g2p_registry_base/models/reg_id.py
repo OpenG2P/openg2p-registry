@@ -2,7 +2,7 @@
 
 import re
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -61,10 +61,13 @@ class G2PIDType(models.Model):
     name = fields.Char()
     id_validation = fields.Char()
 
-    _sql_constraints = [
-        (
-            "name_unique",
-            "unique (name)",
-            "Name of the ID types should be unique",
-        ),
-    ]
+    @api.constrains("name")
+    def _check_name(self):
+        id_types = self.search([])
+        for record in self:
+            if not record.name:
+                error_message = _("Id type should not empty.")
+                raise ValidationError(error_message)
+        for record in id_types:
+            if self.name.lower() == record.name.lower() and self.id != record.id:
+                raise ValidationError(_("Id type already exists"))

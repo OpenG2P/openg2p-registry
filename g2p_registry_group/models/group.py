@@ -1,7 +1,8 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -21,10 +22,13 @@ class G2PGroupKind(models.Model):
 
     name = fields.Char("Kind")
 
-    _sql_constraints = [
-        (
-            "name_unique",
-            "unique (name)",
-            "Name of the kind should be unique",
-        ),
-    ]
+    @api.constrains("name")
+    def _check_name(self):
+        group_types = self.search([])
+        for record in self:
+            if not record.name:
+                error_message = _("kind should not empty.")
+                raise ValidationError(error_message)
+        for record in group_types:
+            if self.name.lower() == record.name.lower() and self.id != record.id:
+                raise ValidationError(_("kind already exists"))
