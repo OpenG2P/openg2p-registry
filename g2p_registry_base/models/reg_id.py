@@ -44,13 +44,14 @@ class G2PRegistrantID(models.Model):
     @api.constrains("value")
     @api.onchange("value")
     def _onchange_id_validation(self):
-        if not self.value:
-            return
-        if self.id_type.id_validation:
-            if not re.match(self.id_type.id_validation, self.value):
-                raise ValidationError(
-                    f"The provided {self.id_type.name} ID '{self.value}' is invalid."
-                )
+        for rec in self:
+            if not rec.value:
+                return
+            if rec.id_type.id_validation:
+                if not re.match(rec.id_type.id_validation, rec.value):
+                    raise ValidationError(
+                        f"The provided {rec.id_type.name} ID '{rec.value}' is invalid."
+                    )
 
 
 class G2PIDType(models.Model):
