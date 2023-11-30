@@ -161,8 +161,15 @@ msgid "Gender Types"
 msgstr ""
 
 #. module: g2p_registry_individual
-#: model:ir.model.constraint,message:g2p_registry_individual.constraint_gender_type_code_unique
+#: code:addons/g2p_registry_individual/models/gender.py:0
+#, python-format
 msgid "Gender type should be unique"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: code:addons/g2p_registry_individual/models/gender.py:0
+#, python-format
+msgid "Gender type should not empty."
 msgstr ""
 
 #. module: g2p_registry_individual
