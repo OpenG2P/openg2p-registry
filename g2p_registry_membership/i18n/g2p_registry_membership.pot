@@ -226,11 +226,6 @@ msgid "Membership to Groups"
 msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.constraint,message:g2p_registry_membership.constraint_g2p_group_membership_kind_name_unique
-msgid "Name of the kind should be unique"
-msgstr ""
-
-#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_partner__z_ind_grp_num_individuals
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_res_users__z_ind_grp_num_individuals
 msgid "Number of individuals"
@@ -287,4 +282,16 @@ msgstr ""
 #. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__is_unique
 msgid "Unique"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: code:addons/g2p_registry_membership/models/group_membership.py:0
+#, python-format
+msgid "kind already exists"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: code:addons/g2p_registry_membership/models/group_membership.py:0
+#, python-format
+msgid "kind should not empty."
 msgstr ""
