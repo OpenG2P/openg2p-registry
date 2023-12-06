@@ -2,7 +2,8 @@ name: Trigger OpenG2P Packaging Workflow
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   trigger-packaging:
@@ -11,10 +12,10 @@ jobs:
       - name: set variables
         run: |
           echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
-      - name: Invoke workflow in another repo with inputs
-        uses: aurelien-baudet/workflow-dispatch@v2
-        with:
-          repo: gaganamadival/openg2p-packaging
-          workflow: OpenG2P Odoo Package Dockers build
-          input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
-          ref: main
+      - name: Trigger workflow in another repository
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/gaganamadival/openg2p-packaging/dispatches" \
+            -d '{"event_type": "trigger-packaging", "client_payload": {"packageName": "${{ env.BRANCH_NAME }}"}}'
