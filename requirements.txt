@@ -1,4 +1,0 @@
-# generated from manifests external_dependencies
-extendable-pydantic
-pydantic==1.10.10
-schwifty
