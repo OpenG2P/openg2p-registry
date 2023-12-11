@@ -101,15 +101,15 @@ class G2PRegistrantRelationship(models.Model):
                     _("This registrant is not applicable for this " "relation type.")
                 )
 
-    def name_get(self):
-        res = super(G2PRegistrantRelationship, self).name_get()
+    def _compute_display_name(self):
+        res = super()._compute_display_name()
         for rec in self:
             name = ""
             if rec.source:
                 name += rec.source.name
             if rec.destination:
                 name += " / " + rec.destination.name
-            res.append((rec.id, name))
+            res.display_name = name
         return res
 
     @api.model

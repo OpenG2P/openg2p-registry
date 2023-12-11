@@ -39,7 +39,7 @@ repos:
           - --addons-dir=.
           - --org-name=openg2p
           - --repo-name=openg2p-registry
-          - --branch=15.0
+          - --branch=17.0
         stages: [manual]
       - id: oca-gen-addons-table
         stages: [manual]

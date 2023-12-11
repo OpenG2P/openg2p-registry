@@ -23,8 +23,8 @@ class G2PRegistrantID(models.Model):
     expiry_date = fields.Date()
     id_type_as_str = fields.Char(related="id_type.name")
 
-    def name_get(self):
-        res = super(G2PRegistrantID, self).name_get()
+    def _compute_display_name(self):
+        res = super()._compute_display_name()
         for rec in self:
             name = ""
             if rec.partner_id:
