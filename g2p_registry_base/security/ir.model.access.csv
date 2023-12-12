@@ -9,7 +9,8 @@ g2p_relationship_user,Relationship User Access,g2p_registry_base.model_g2p_relat
 g2p_phone_number_admin,Phone Number Admin Access,g2p_registry_base.model_g2p_phone_number,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_disable_registrant_wizard_admin,Disable Registrant Wizard Admin Access,g2p_registry_base.model_g2p_disable_registrant_wizard,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_registrant_tags_admin,Registrant Tags Admin Access,g2p_registry_base.model_g2p_registrant_tags,g2p_registry_base.group_g2p_admin,1,1,1,1
-g2p_registrant_tags_all,Registrant Tags All Users Access,g2p_registry_base.model_g2p_registrant_tags,,1,0,0,0
+g2p_registrant_tags_all,Registrant Tags All Users Access,g2p_registry_base.model_g2p_registrant_tags,g2p_registry_base.group_g2p_registrar,1,0,0,0
+g2p_district_admin_registrar,Admin District Registrar Access,g2p_registry_base.model_g2p_district,g2p_registry_base.group_g2p_admin,1,1,1,1
 
 g2p_ir_module_module_admin,Odoo Module Model Admin Access,base.model_ir_module_module,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_ir_model_fields_selection_admin,Odoo Field Selections Model Admin Access,base.model_ir_model_fields_selection,g2p_registry_base.group_g2p_admin,1,1,1,1
@@ -20,4 +21,9 @@ g2p_res_partner_registrar,Registrant Registrar Access,g2p_registry_base.model_re
 g2p_reg_rel_registrar,Registrant Relationship Registrar Access,g2p_registry_base.model_g2p_reg_rel,g2p_registry_base.group_g2p_registrar,1,1,1,0
 g2p_phone_number_registrar,Phone Number Registrar Access,g2p_registry_base.model_g2p_phone_number,g2p_registry_base.group_g2p_registrar,1,1,1,0
 g2p_reg_id_registrar,Registrant ID Registrar Access,g2p_registry_base.model_g2p_reg_id,g2p_registry_base.group_g2p_registrar,1,1,1,0
-g2p_id_type_registrar,ID Type Registrar Access,g2p_registry_base.model_g2p_id_type,g2p_registry_base.group_g2p_registrar,1,1,1,0
+g2p_id_type_registrar,ID Type Registrar Access,g2p_registry_base.model_g2p_id_type,g2p_registry_base.group_g2p_registrar,1,0,0,0
+g2p_district_registrar,District Registrar Access,g2p_registry_base.model_g2p_district,,1,0,0,0
+
+"access_portal_wizard","access.portal.wizard","portal.model_portal_wizard",,1,1,1,0
+"access_portal_wizard_user","access.portal.wizard.user","portal.model_portal_wizard_user",,1,1,1,0
+"access_ir_config_parameter_system","ir_config_parameter_system","base.model_ir_config_parameter",,1,1,1,1

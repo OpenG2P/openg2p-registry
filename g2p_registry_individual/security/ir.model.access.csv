@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-g2p_gender_type_registrar,Gender Type Accesss,g2p_registry_individual.model_gender_type,,1,1,1,1
+g2p_gender_type_registrar_admin,Gender Type Accesss Admin,g2p_registry_individual.model_gender_type,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_gender_type_registrar_registrar,Gender Type Accesss,g2p_registry_individual.model_gender_type,,1,0,0,0

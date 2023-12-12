@@ -2,13 +2,13 @@
 {
     "name": "G2P Registry: Base",
     "category": "G2P",
-    "version": "15.0.1.2.0",
+    "version": "17.0.1.0.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
-    "depends": ["base", "mail", "contacts", "web"],
+    "depends": ["base", "mail", "contacts", "web", "portal"],
     "data": [
         "security/g2p_security.xml",
         "security/ir.model.access.csv",
@@ -21,14 +21,13 @@
         "views/phone_number_view.xml",
         "views/tags_view.xml",
         "views/res_config_view.xml",
+        "views/district_config.xml",
     ],
     "assets": {
-        "web.assets_qweb": [
-            "g2p_registry_base/static/src/xml/custom_web.xml",
+        "web.assets_common": [
+            "/g2p_registry_base/static/src/xml/custom_web.xml",
         ],
     },
-    "demo": [],
-    "images": [],
     "application": False,
     "installable": True,
     "auto_install": False,

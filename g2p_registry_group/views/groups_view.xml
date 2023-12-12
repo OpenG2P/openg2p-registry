@@ -111,7 +111,7 @@
                         <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
                             <field name="lang" readonly="disabled" />
                         </div>
-                        <field name="is_partial_group" readonly="disabled" />
+                        <!-- <field name="is_partial_group" attrs="{'readonly':[('disabled','!=',False)]}" /> -->
                         <field
                             name="kind"
                             colspan="2"

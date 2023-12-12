@@ -72,6 +72,11 @@ msgid "Add a Relationship!"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
+msgid "Add a district!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Add an ID Type!"
 msgstr ""
@@ -121,6 +126,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_id_type
 msgid "Click the create button to enter a new ID type."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
+msgid "Click the create button to enter a new district."
 msgstr ""
 
 #. module: g2p_registry_base
@@ -183,6 +193,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
@@ -194,6 +205,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
@@ -224,6 +236,12 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Date Range"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/phone_number.py:0
+#, python-format
+msgid "Date collected cannot be in the future."
 msgstr ""
 
 #. module: g2p_registry_base
@@ -264,6 +282,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
@@ -277,6 +296,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__district
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__district
 msgid "District"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_district_config
+#: model:ir.ui.menu,name:g2p_registry_base.menu_district_config
+msgid "District Configuration"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -297,6 +322,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_g2p_district
+msgid "G2P District"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -326,6 +356,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
@@ -359,6 +390,18 @@ msgid "Id Validation"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/reg_id.py:0
+#, python-format
+msgid "Id type already exists"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/reg_id.py:0
+#, python-format
+msgid "Id type should not empty."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
 msgid "If checked, new messages require your attention."
@@ -383,7 +426,14 @@ msgid "Individual"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/registrant.py:0
+#, python-format
+msgid "Invalid mobile number!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: code:addons/g2p_registry_base/models/phone_number.py:0
+#: code:addons/g2p_registry_base/models/registrant.py:0
 #: code:addons/g2p_registry_base/models/registrant.py:0
 #, python-format
 msgid "Invalid phone number!"
@@ -406,6 +456,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard____last_update
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id____last_update
@@ -417,6 +468,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
@@ -428,6 +480,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
@@ -458,6 +511,7 @@ msgid "Messages"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation_as_str
@@ -465,11 +519,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
 msgid "Name"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_id_type_name_unique
-msgid "Name of the ID types should be unique"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -724,6 +773,24 @@ msgid "Start Date"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__state_id
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_district_config_tree
+msgid "State"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/tags.py:0
+#, python-format
+msgid "Tag already Exists"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/tags.py:0
+#, python-format
+msgid "Tag name should not empty."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__tags_ids
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__tags_ids
@@ -766,4 +833,14 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
 msgid "Value"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__website_message_ids
+msgid "Website communication history"
 msgstr ""

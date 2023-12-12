@@ -3,7 +3,7 @@
 import logging
 import re
 
-from odoo import _, api, fields, models
+from odoo import _, api, exceptions, fields, models
 
 from odoo.addons.phone_validation.tools import phone_validation
 
@@ -24,10 +24,20 @@ class G2PPhoneNumber(models.Model):
     )
     phone_no = fields.Char("Phone Number", required=True)
     phone_sanitized = fields.Char(compute="_compute_phone_sanitized", store=True)
-    date_collected = fields.Date(default=fields.Date.today)
+    date_collected = fields.Date(
+        default=fields.Date.today,
+    )
     disabled = fields.Datetime("Date Disabled")
     disabled_by = fields.Many2one("res.users")
     country_id = fields.Many2one("res.country", "Country")
+
+    @api.onchange("date_collected")
+    def _check_date_collected(self):
+        for record in self:
+            if record.date_collected and record.date_collected > fields.Date.today():
+                raise exceptions.ValidationError(
+                    _("Date collected cannot be in the future.")
+                )
 
     @api.depends("phone_no", "country_id")
     def _compute_phone_sanitized(self):

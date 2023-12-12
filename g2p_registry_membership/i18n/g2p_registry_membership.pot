@@ -283,3 +283,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__is_unique
 msgid "Unique"
 msgstr ""
+
+#. module: g2p_registry_membership
+#: code:addons/g2p_registry_membership/models/group_membership.py:0
+#, python-format
+msgid "kind already exists"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: code:addons/g2p_registry_membership/models/group_membership.py:0
+#, python-format
+msgid "kind should not empty."
+msgstr ""

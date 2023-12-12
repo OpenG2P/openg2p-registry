@@ -2,7 +2,7 @@
 
 import re
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -23,8 +23,8 @@ class G2PRegistrantID(models.Model):
     expiry_date = fields.Date()
     id_type_as_str = fields.Char(related="id_type.name")
 
-    def name_get(self):
-        res = super(G2PRegistrantID, self).name_get()
+    def _compute_display_name(self):
+        res = super()._compute_display_name()
         for rec in self:
             name = ""
             if rec.partner_id:
@@ -62,10 +62,13 @@ class G2PIDType(models.Model):
     name = fields.Char()
     id_validation = fields.Char()
 
-    _sql_constraints = [
-        (
-            "name_unique",
-            "unique (name)",
-            "Name of the ID types should be unique",
-        ),
-    ]
+    @api.constrains("name")
+    def _check_name(self):
+        id_types = self.search([])
+        for record in self:
+            if not record.name:
+                error_message = _("Id type should not empty.")
+                raise ValidationError(error_message)
+        for record in id_types:
+            if self.name.lower() == record.name.lower() and self.id != record.id:
+                raise ValidationError(_("Id type already exists"))
