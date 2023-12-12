@@ -19,7 +19,7 @@
                     string="Tags"
                 />
                 <field name="registration_date" />
-                <field name="disabled" invisible="1" />
+                <field name="disabled" column_invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
             </tree>
         </field>
@@ -38,7 +38,8 @@
                             class="oe_stat_button"
                             icon="fa-ban"
                             name="%(g2p_registry_base.action_disable_registrant_wizard)d"
-                            attrs="{'invisible':[('disabled','!=',False)]}"
+                            invisible="disabled"
+                            title="Disable"
                         >
                             <div class="o_form_field o_stat_info">
                                 <span class="o_stat_text">Disable</span>
@@ -49,24 +50,20 @@
                             class="oe_stat_button"
                             icon="fa-check"
                             name="enable_registrant"
-                            attrs="{'invisible':[('disabled','=',False)]}"
+                            invisible="not disabled"
+                            title="Enable"
                         >
                             <div class="o_form_field o_stat_info">
                                 <span class="o_stat_text">Enable</span>
                             </div>
                         </button>
                     </div>
-                    <widget
-                        name="web_ribbon"
-                        title="Archived"
-                        bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
-                    />
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active" />
                     <widget
                         name="web_ribbon"
                         title="Disabled"
                         bg_color="bg-warning"
-                        attrs="{'invisible': [('disabled', '=', False)]}"
+                        invisible="not disabled"
                     />
                     <field
                         name="image_1920"
@@ -81,7 +78,7 @@
                                 name="name"
                                 placeholder="Enter name of group..."
                                 required="1"
-                                attrs="{'readonly':[('disabled','!=',False)]}"
+                                readonly="disabled"
                             />
                         </h1>
                         <div class="o_row">
@@ -93,14 +90,14 @@
                                 placeholder="Tags..."
                                 colspan="4"
                                 string="Tags"
-                                attrs="{'readonly':[('disabled','!=',False)]}"
+                                readonly="disabled"
                             />
                             <label for="company_id" string=" | Company: " groups="base.group_multi_company" />
                             <field
                                 name="company_id"
                                 groups="base.group_multi_company"
                                 options="{'no_create': True}"
-                                attrs="{'readonly': [('parent_id', '!=', False)]}"
+                                readonly="parent_id"
                                 force_save="1"
                             />
                         </div>
@@ -112,19 +109,19 @@
                         />
                         <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}" />
                         <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
-                            <field name="lang" attrs="{'readonly':[('disabled','!=',False)]}" />
+                            <field name="lang" readonly="disabled" />
                         </div>
-                        <field name="is_partial_group" attrs="{'readonly':[('disabled','!=',False)]}" />
+                        <field name="is_partial_group" readonly="disabled" />
                         <field
                             name="kind"
                             colspan="2"
                             options="{'no_open':True, 'no_create_edit':True,'no_create':True}"
-                            attrs="{'readonly':[('disabled','!=',False)]}"
+                            readonly="disabled"
                         />
                     </group>
                     <notebook>
                         <page string="IDs" name="ids">
-                            <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
+                            <field name="reg_ids" readonly="disabled" nolabel="1">
                                 <tree editable="top">
                                     <field
                                         name="id_type"
@@ -137,21 +134,18 @@
                         </page>
                         <page string="Relationships" name="relationships">
                             <group colspan="4" col="4" string="Registrant is related to:">
-                                <field
-                                    name="related_1_ids"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                    nolabel="1"
-                                >
+                                <field name="related_1_ids" readonly="disabled" nolabel="1">
                                     <tree editable="top" decoration-danger="disabled != False">
                                         <button
                                             name="open_relationship1_form"
                                             type="object"
                                             icon="fa-external-link"
                                             class="btn-success"
+                                            title="Click to open the relationship form"
                                         />
                                         <field
                                             name="source"
-                                            domain="[('is_registrant','=',True),('id','!=',active_id)]"
+                                            domain="[('is_registrant','=',True),('id','!=',id)]"
                                             options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
                                             string="Registrant"
                                         />
@@ -169,21 +163,18 @@
                                 </field>
                             </group>
                             <group colspan="4" col="4" string="Others Related to this Registrant:">
-                                <field
-                                    name="related_2_ids"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                    nolabel="1"
-                                >
+                                <field name="related_2_ids" readonly="disabled" nolabel="1">
                                     <tree editable="top" decoration-danger="disabled != False">
                                         <button
                                             name="open_relationship2_form"
                                             type="object"
                                             icon="fa-external-link"
                                             class="btn-success"
+                                            title="Click to open the relationship form"
                                         />
                                         <field
                                             name="destination"
-                                            domain="[('is_registrant','=',True),('id','!=',active_id)]"
+                                            domain="[('is_registrant','=',True),('id','!=',id)]"
                                             options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
                                             string="Registrant"
                                         />
@@ -207,16 +198,13 @@
                                         <b>Address</b>
                                     </span>
                                     <div class="o_address_format">
-                                        <field
-                                            name="address"
-                                            attrs="{'readonly':[('disabled','!=',False)]}"
-                                        />
+                                        <field name="address" readonly="disabled" />
                                     </div>
                                 </group>
                                 <group colspan="2">
                                     <field
                                         name="phone_number_ids"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                        readonly="disabled"
                                         context="{'reg_form':True}"
                                         nolabel="1"
                                         colspan="2"
@@ -229,14 +217,14 @@
                                                 options="{'enable_sms': false}"
                                             />
                                             <field name="country_id" />
-                                            <field name="disabled" invisible="1" />
+                                            <field name="disabled" column_invisible="1" />
                                         </tree>
                                     </field>
                                     <field
                                         name="email"
                                         widget="email"
                                         context="{'gravatar_image': True}"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                        readonly="disabled"
                                     />
                                 </group>
                             </group>
@@ -253,15 +241,15 @@
                             </group>
                         </page>
                     </notebook>
-                    <field name="avatar_128" invisible="1" />
-                    <field name="active" invisible="1" />
-                    <field name="country_code" invisible="1" />
-                    <field name="is_registrant" invisible="1" />
-                    <field name="parent_id" invisible="1" />
-                    <field name="is_group" invisible="1" />
-                    <field name="phone" invisible="1" />
-                    <field name="active_lang_count" invisible="1" />
-                    <field name="user_ids" invisible="1" />
+                    <field name="avatar_128" column_invisible="1" />
+                    <field name="active" column_invisible="1" />
+                    <field name="country_code" column_invisible="1" />
+                    <field name="is_registrant" column_invisible="1" />
+                    <field name="parent_id" column_invisible="1" />
+                    <field name="is_group" column_invisible="1" />
+                    <field name="phone" column_invisible="1" />
+                    <field name="active_lang_count" column_invisible="1" />
+                    <field name="user_ids" column_invisible="1" />
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
