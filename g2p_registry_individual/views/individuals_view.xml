@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!--
-   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
--->
 <odoo>
     <record id="view_individuals_list_tree" model="ir.ui.view">
         <field name="name">view_individuals_list_tree</field>
         <field name="model">res.partner</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="disabled != False">
+            <tree decoration-danger="disabled">
                 <field name="name" />
                 <field name="address" />
                 <field name="phone" />
@@ -20,7 +17,7 @@
                 />
                 <field name="birthdate" />
                 <field name="registration_date" />
-                <field name="disabled" invisible="1" />
+                <field name="disabled" column_invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
             </tree>
         </field>
@@ -39,7 +36,7 @@
                             class="oe_stat_button"
                             icon="fa-ban"
                             name="%(g2p_registry_base.action_disable_registrant_wizard)d"
-                            attrs="{'invisible':[('disabled','!=',False)]}"
+                            invisible="disabled"
                         >
                             <div class="o_form_field o_stat_info">
                                 <span class="o_stat_text">Disable</span>
@@ -50,25 +47,20 @@
                             class="oe_stat_button"
                             icon="fa-check"
                             name="enable_registrant"
-                            attrs="{'invisible':[('disabled','=',False)]}"
+                            invisible="not disabled"
                         >
                             <div class="o_form_field o_stat_info">
                                 <span class="o_stat_text">Enable</span>
                             </div>
                         </button>
                     </div>
-                    <widget
-                        name="web_ribbon"
-                        title="Archived"
-                        bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
-                    />
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active" />
 
                     <widget
                         name="web_ribbon"
                         title="Disabled"
                         bg_color="bg-warning"
-                        attrs="{'invisible': [('disabled', '=', False)]}"
+                        invisible="not disabled"
                     />
                     <field
                         name="image_1920"
@@ -88,7 +80,7 @@
                                     default_focus="1"
                                     required="1"
                                     class="oe_edit_only"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
+                                    readonly="disabled"
                                 />
                             </h2>
                             <h2>
@@ -97,7 +89,7 @@
                                     placeholder="Given Name..."
                                     required="1"
                                     class="oe_edit_only"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
+                                    readonly="disabled"
                                 />
                             </h2>
                             <h2>
@@ -106,7 +98,7 @@
                                     placeholder="Additional Name..."
                                     required="0"
                                     class="oe_edit_only"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
+                                    readonly="disabled"
                                 />
                             </h2>
                         </div>
@@ -119,58 +111,52 @@
                                 placeholder="Tags..."
                                 colspan="4"
                                 string="Tags"
-                                attrs="{'readonly':[('disabled','!=',False)]}"
+                                readonly="disabled"
                             />
                             <label for="company_id" string=" | Company: " groups="base.group_multi_company" />
                             <field
                                 name="company_id"
                                 groups="base.group_multi_company"
                                 options="{'no_create': True}"
-                                attrs="{'readonly': [('parent_id', '!=', False)]}"
+                                readonly="parent_id"
                                 force_save="1"
                             />
                         </div>
                     </div>
                     <group colspan="4" col="4">
-                        <field
-                            name="registration_date"
-                            attrs="{'readonly':['|', ('disabled','!=',False), ('registration_date', '!=', False)]}"
-                        />
-                        <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}" />
-                        <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
-                            <field name="lang" attrs="{'readonly':[('disabled','!=',False)]}" />
+                        <field name="registration_date" readonly="disabled or registration_date" />
+                        <label for="lang" invisible="active_lang_count &lt;= 1" />
+                        <div class="o_row" invisible="active_lang_count &lt;= 1">
+                            <field name="lang" readonly="disabled" />
                         </div>
                     </group>
                     <notebook name="individual_detail">
                         <page name="basic_info" string="Personal Info">
-                            <group colspan="4" col="4">
-                                <group colspan="2">
+                            <group col="6" colspan="6">
+                                <group colspan="3">
                                     <span class="o_form_label o_td_label" name="address_name">
                                         <b>Address</b>
                                     </span>
                                     <div class="o_address_format">
-                                        <field
-                                            name="address"
-                                            attrs="{'readonly':[('disabled','!=',False)]}"
-                                        />
+                                        <field name="address" readonly="disabled" />
                                     </div>
                                     <field
                                         name="email"
                                         widget="email"
                                         context="{'gravatar_image': True}"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                        readonly="disabled"
                                     />
                                     <field name="district" string="District" />
                                 </group>
-                                <group colspan="2">
+                                <group colspan="3">
                                     <field
                                         name="phone_number_ids"
-                                        attrs="{'readonly':[('disabled','!=',False)]}"
+                                        readonly="disabled"
                                         context="{'reg_form':True}"
                                         nolabel="1"
                                         colspan="2"
                                     >
-                                        <tree decoration-danger="disabled != False">
+                                        <tree decoration-danger="disabled">
                                              <field
                                                 name="phone_no"
                                                 string="Phone Numbers"
@@ -179,31 +165,30 @@
                                             />
                                             <field name="country_id" />
                                             <field name="date_collected" />
-                                            <field name="disabled" invisible="1" />
+                                            <field name="disabled" column_invisible="1" />
                                         </tree>
                                     </field>
                                 </group>
                             </group>
                             <group col="6" colspan="6">
-                                <field
-                                    name="birth_place"
-                                    colspan="6"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                />
-                                <field name="birthdate" attrs="{'readonly':[('disabled','!=',False)]}" />
-                                <field
-                                    name="birthdate_not_exact"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                />
-                                <field name="age" attrs="{'readonly':[('disabled','!=',False)]}" />
-                                <field name="gender" attrs="{'readonly':[('disabled','!=',False)]}" />
-                                <field name="civil_status" string="CivilState" />
-                                <field name="occupation" string="Occupation" />
-                               <field name="income" string="Income" />
+                                <group colspan="6">
+                                    <field name="birth_place" readonly="disabled" />
+                                </group>
+                                <group colspan="3">
+                                    <field name="birthdate" readonly="disabled" colspan="2" />
+                                    <field name="birthdate_not_exact" readonly="disabled" />
+                                    <field name="age" readonly="disabled" />
+                                    <field name="gender" readonly="disabled" />
+                                </group>
+                                <group colspan="3">
+                                    <field name="civil_status" string="CivilState" />
+                                    <field name="occupation" string="Occupation" />
+                                    <field name="income" string="Income" />
+                                </group>
                             </group>
                         </page>
                         <page string="IDs" name="ids">
-                            <field name="reg_ids" attrs="{'readonly':[('disabled','!=',False)]}" nolabel="1">
+                            <field name="reg_ids" readonly="disabled" nolabel="1">
                                 <tree editable="top">
                                     <field
                                         name="id_type"
@@ -216,79 +201,79 @@
                         </page>
 
                         <page string="Relationships" name="relationships">
-                            <group colspan="4" col="4" string="Registrant is related to:">
-                                <field
-                                    name="related_1_ids"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                    nolabel="1"
-                                >
-                                    <tree editable="top" decoration-danger="disabled != False">
-                                        <button
-                                            name="open_relationship1_form"
-                                            type="object"
-                                            icon="fa-external-link"
-                                            class="btn-success"
-                                        />
-                                        <field
-                                            name="source"
-                                            domain="[('is_registrant','=',True),('id','!=',active_id)]"
-                                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
-                                            string="Registrant"
-                                        />
-                                        <field
-                                            name="relation"
-                                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
-                                            string="Relation"
-                                            required="1"
-                                        />
-                                        <field name="start_date" />
-                                        <field name="end_date" />
-                                        <field name="disabled" />
-                                        <field name="disabled_by" readonly="1" />
-                                    </tree>
-                                </field>
-                            </group>
-                            <group colspan="4" col="4" string="Others Related to this Registrant:">
-                                <field
-                                    name="related_2_ids"
-                                    attrs="{'readonly':[('disabled','!=',False)]}"
-                                    nolabel="1"
-                                >
-                                    <tree editable="top" decoration-danger="disabled != False">
-                                        <button
-                                            name="open_relationship2_form"
-                                            type="object"
-                                            icon="fa-external-link"
-                                            class="btn-success"
-                                        />
-                                        <field
-                                            name="destination"
-                                            domain="[('is_registrant','=',True),('id','!=',active_id)]"
-                                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
-                                            string="Registrant"
-                                        />
-                                        <field
-                                            name="relation"
-                                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
-                                            string="Relation"
-                                        />
-                                        <field name="start_date" />
-                                        <field name="end_date" />
-                                        <field name="disabled" readonly="1" />
-                                        <field name="disabled_by" readonly="1" />
-                                    </tree>
-                                </field>
+                            <group>
+                                <group string="Registrant is related to:" colspan="12">
+                                    <field name="related_1_ids" readonly="disabled" nolabel="1" colspan="2">
+                                        <tree editable="top" decoration-danger="disabled">
+                                            <button
+                                                name="open_relationship1_form"
+                                                type="object"
+                                                icon="fa-external-link"
+                                                class="btn-success"
+                                                title="Click to open the relationship form"
+                                            />
+                                            <field
+                                                name="source"
+                                                domain="[('is_registrant','=',True),('id','!=',id)]"
+                                                options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                                string="Registrant"
+                                            />
+                                            <field
+                                                name="relation"
+                                                options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                                string="Relation"
+                                                required="1"
+                                            />
+                                            <field name="start_date" />
+                                            <field name="end_date" />
+                                            <field name="disabled" />
+                                            <field name="disabled_by" readonly="1" />
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Others Related to this Registrant:" colspan="12">
+                                    <field name="related_2_ids" readonly="disabled" nolabel="1" colspan="2">
+                                        <tree editable="top" decoration-danger="disabled">
+                                            <button
+                                                name="open_relationship2_form"
+                                                type="object"
+                                                icon="fa-external-link"
+                                                class="btn-success"
+                                                title="Click to open the relationship form"
+                                            />
+                                            <field
+                                                name="destination"
+                                                domain="[('is_registrant','=',True),('id','!=',id)]"
+                                                options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                                string="Registrant"
+                                            />
+                                            <field
+                                                name="relation"
+                                                options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                                string="Relation"
+                                            />
+                                            <field name="start_date" />
+                                            <field name="end_date" />
+                                            <field name="disabled" readonly="1" />
+                                            <field name="disabled_by" readonly="1" />
+                                        </tree>
+                                    </field>
+                                </group>
                             </group>
                         </page>
                         <page name="other" string="Other Information">
-                            <group col="4" colspan="4">
-                                <field name="create_date" />
-                                <field name="create_uid" />
-                                <field name="write_date" />
-                                <field name="write_uid" />
-                                <field name="disabled" readonly="1" />
-                                <field name="disabled_by" readonly="1" />
-                                <field name="disabled_reason" readonly="1" colspan="4" />
+                            <group>
+                                <group>
+                                    <field name="create_date" />
+                                    <field name="create_uid" />
+                                    <field name="write_date" />
+                                    <field name="write_uid" />
+                                </group>
+                                <group>
+                                    <field name="disabled" readonly="1" />
+                                    <field name="disabled_by" readonly="1" />
+                                    <field name="disabled_reason" readonly="1" />
+                                </group>
                             </group>
                         </page>
                     </notebook>

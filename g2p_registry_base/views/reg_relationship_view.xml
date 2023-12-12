@@ -8,7 +8,7 @@
         <field name="model">g2p.reg.rel</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="disabled != False">
+            <tree decoration-danger="disabled">
                 <field name="source" />
                 <field name="destination" />
                 <field name="relation" />
