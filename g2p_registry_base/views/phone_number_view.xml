@@ -8,7 +8,7 @@
         <field name="model">g2p.phone.number</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="disabled != False">
+            <tree decoration-danger="disabled">
                 <field name="partner_id" />
                 <field name="phone_no" widget="phone" />
                 <field name="date_collected" />
