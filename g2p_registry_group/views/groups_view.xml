@@ -8,7 +8,7 @@
         <field name="model">res.partner</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="disabled != False" duplicate="0">
+            <tree decoration-danger="disabled" duplicate="0">
                 <field name="name" />
                 <field name="address" />
                 <field name="phone" />
@@ -103,12 +103,9 @@
                         </div>
                     </div>
                     <group colspan="4" col="4">
-                        <field
-                            name="registration_date"
-                            attrs="{'readonly':['|', ('disabled','!=',False), ('registration_date', '!=', False)]}"
-                        />
-                        <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}" />
-                        <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
+                        <field name="registration_date" readonly="disabled or registration_date" />
+                        <label for="lang" invisible="active_lang_count &lt;=1" />
+                        <div class="o_row" invisible="active_lang_count &lt;= 1">
                             <field name="lang" readonly="disabled" />
                         </div>
                         <!-- <field name="is_partial_group" attrs="{'readonly':[('disabled','!=',False)]}" /> -->
@@ -133,9 +130,9 @@
                             </field>
                         </page>
                         <page string="Relationships" name="relationships">
-                            <group colspan="4" col="4" string="Registrant is related to:">
-                                <field name="related_1_ids" readonly="disabled" nolabel="1">
-                                    <tree editable="top" decoration-danger="disabled != False">
+                            <group colspan="12" string="Registrant is related to:">
+                                <field name="related_1_ids" readonly="disabled" nolabel="1" colspan="2">
+                                    <tree editable="top" decoration-danger="disabled">
                                         <button
                                             name="open_relationship1_form"
                                             type="object"
@@ -162,9 +159,9 @@
                                     </tree>
                                 </field>
                             </group>
-                            <group colspan="4" col="4" string="Others Related to this Registrant:">
-                                <field name="related_2_ids" readonly="disabled" nolabel="1">
-                                    <tree editable="top" decoration-danger="disabled != False">
+                            <group colspan="12" string="Others Related to this Registrant:">
+                                <field name="related_2_ids" readonly="disabled" nolabel="1" colspan="2">
+                                    <tree editable="top" decoration-danger="disabled">
                                         <button
                                             name="open_relationship2_form"
                                             type="object"
@@ -209,7 +206,7 @@
                                         nolabel="1"
                                         colspan="2"
                                     >
-                                        <tree decoration-danger="disabled != False">
+                                        <tree decoration-danger="disabled">
                                              <field
                                                 name="phone_no"
                                                 string="Phone Numbers"
@@ -230,26 +227,30 @@
                             </group>
                         </page>
                         <page name="other" string="Other Information">
-                            <group col="4" colspan="4">
-                                <field name="create_date" />
-                                <field name="create_uid" />
-                                <field name="write_date" />
-                                <field name="write_uid" />
-                                <field name="disabled" readonly="1" />
-                                <field name="disabled_by" readonly="1" />
-                                <field name="disabled_reason" colspan="4" readonly="1" />
+                            <group>
+                                <group>
+                                    <field name="create_date" />
+                                    <field name="create_uid" />
+                                    <field name="write_date" />
+                                    <field name="write_uid" />
+                                </group>
+                                <group>
+                                    <field name="disabled" readonly="1" />
+                                    <field name="disabled_by" readonly="1" />
+                                    <field name="disabled_reason" readonly="1" />
+                                </group>
                             </group>
                         </page>
                     </notebook>
-                    <field name="avatar_128" column_invisible="1" />
-                    <field name="active" column_invisible="1" />
-                    <field name="country_code" column_invisible="1" />
-                    <field name="is_registrant" column_invisible="1" />
-                    <field name="parent_id" column_invisible="1" />
-                    <field name="is_group" column_invisible="1" />
-                    <field name="phone" column_invisible="1" />
-                    <field name="active_lang_count" column_invisible="1" />
-                    <field name="user_ids" column_invisible="1" />
+                    <field name="avatar_128" invisible="1" />
+                    <field name="active" invisible="1" />
+                    <field name="country_code" invisible="1" />
+                    <field name="is_registrant" invisible="1" />
+                    <field name="parent_id" invisible="1" />
+                    <field name="is_group" invisible="1" />
+                    <field name="phone" invisible="1" />
+                    <field name="active_lang_count" invisible="1" />
+                    <field name="user_ids" invisible="1" />
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
