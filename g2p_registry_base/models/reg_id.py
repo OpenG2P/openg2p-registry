@@ -33,13 +33,11 @@ class G2PRegistrantID(models.Model):
         return res
 
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
-        args = args or []
+    def _name_search(self, name, domain=None, operator="ilike", limit=100, order=None):
+        domain = domain or []
         if name:
-            args = [("partner_id", operator, name)] + args
-        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+            domain = [("partner_id", operator, name)] + domain
+        return self._search(domain, limit=limit, order=order)
 
     @api.constrains("value")
     @api.onchange("value")
