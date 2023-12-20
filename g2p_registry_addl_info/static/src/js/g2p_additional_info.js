@@ -1,18 +1,11 @@
 /** @odoo-module **/
 
-import {FieldText} from "web.basic_fields";
-import field_utils from "web.field_utils";
-import fieldsRegistry from "web.field_registry";
+import {textField} from "@web/views/fields/text/text_field";
+import {registry} from "@web/core/registry";
 import {qweb} from "web.core";
 
-field_utils.format.json = function (value) {
-    return JSON.stringify(value, null, 2);
-};
-field_utils.parse.json = function (value) {
-    return JSON.parse(value);
-};
-
-var G2PRegAdditionalInfoWidget = FieldText.extend({
+// TODO: Have to changes this widget to odoo17 verison
+var G2PRegAdditionalInfoWidget = textField.extend({
     className: "o_field_g2p_addl_info",
     supportedFieldTypes: ["json", "text", "html"],
     tagName: "div",
@@ -61,6 +54,4 @@ var G2PRegAdditionalInfoWidget = FieldText.extend({
     },
 });
 
-fieldsRegistry.add("g2p_registry_addl_info_widget", G2PRegAdditionalInfoWidget);
-
-export {G2PRegAdditionalInfoWidget};
+registry.category("fields").add("g2p_registry_addl_info_widget", G2PRegAdditionalInfoWidget);

@@ -20,8 +20,6 @@
     "assets": {
         "web.assets_backend": [
             "/g2p_registry_addl_info/static/src/js/g2p_additional_info.js",
-        ],
-        "web.assets_qweb": [
             "/g2p_registry_addl_info/static/src/xml/g2p_additional_info.xml",
         ],
     },
