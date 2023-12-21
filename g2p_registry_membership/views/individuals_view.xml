@@ -10,18 +10,14 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='basic_info']" position="after">
                 <page string="Groups">
-                    <field
-                        name="individual_membership_ids"
-                        attrs="{'readonly':[('disabled','!=',False)]}"
-                        nolabel="1"
-                        colspan="4"
-                    >
+                    <field name="individual_membership_ids" readonly="disabled" nolabel="1" colspan="4">
                         <tree editable="top">
                             <button
                                 name="open_group_form"
                                 type="object"
                                 icon="fa-external-link"
                                 class="btn-success"
+                                string="Open Group Form"
                             />
                             <field
                                 name="group"
