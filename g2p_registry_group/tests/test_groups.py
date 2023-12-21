@@ -1,5 +1,6 @@
 import logging
 
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -34,6 +35,48 @@ class GroupsTest(TransactionCase):
                 "is_group": True,
             }
         )
+        # New setup for Group Kinds
+        cls.group_kind_1 = cls.env["g2p.group.kind"].create(
+            {
+                "name": "Kind 1",
+            }
+        )
+        cls.group_kind_2 = cls.env["g2p.group.kind"].create(
+            {
+                "name": "Kind 2",
+            }
+        )
+
+    def test_01_check_name_constraint(self):
+        # Create a group kind with an empty name
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.env["g2p.group.kind"].create({"name": ""})
+
+        # Create a group kind with a non-unique name
+        group_kind_1 = self.env["g2p.group.kind"].create({"name": "Test Kind"})
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.env["g2p.group.kind"].create({"name": "test kind"})
+
+        # Create a group kind with a unique name
+        self.env["g2p.group.kind"].create({"name": "Unique Kind"})
+
+    def test_04_create_group_kind(self):
+        # Test case to create a new group kind
+        new_group_kind = self.env["g2p.group.kind"].create(
+            {
+                "name": "New Kind",
+            }
+        )
+        self.assertTrue(new_group_kind)
+
+    def test_05_duplicate_group_kind(self):
+        # Test case to ensure that a duplicate group kind cannot be created
+        with self.assertRaises(ValidationError):
+            self.env["g2p.group.kind"].create(
+                {
+                    "name": "Kind 1",
+                }
+            )
 
     def test_01_add_phone_check_sanitized(self):
         phone_number = "09123456789"
@@ -48,11 +91,11 @@ class GroupsTest(TransactionCase):
             self.group_1.phone_number_ids[0].phone_no, phone_number, message
         )
         expected_sanitized = ""
-        country_fname = "country_id"
+        country_fname = self.group_1.phone_number_ids[0].country_id
         number = phone_number
         sanitized = str(
             self.env.user._phone_format(
-                number=[number],
+                number=number,
                 country=country_fname,
                 force_format="E164",
             )

@@ -118,11 +118,11 @@ class IndividualsTest(TransactionCase):
             self.registrant_1.phone_number_ids[0].phone_no, phone_number, message
         )
         expected_sanitized = ""
-        country_fname = "country_id"
+        country_fname = self.registrant_1.phone_number_ids[0].country_id
         number = phone_number
         sanitized = str(
             self.env.user._phone_format(
-                number=[number],
+                number=number,
                 country=country_fname,
                 force_format="E164",
             )
