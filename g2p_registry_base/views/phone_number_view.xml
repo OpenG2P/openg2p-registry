@@ -69,22 +69,30 @@
                         <div class="o_row">
                         </div>
                     </div>
-                    <group colspan="4" col="4">
-                        <field name="phone_no" readonly="disabled" widget="phone" />
-                        <field name="phone_sanitized" widget="phone" />
-                        <field
-                            name="country_id"
-                            options="{'no_open':True, 'no_create_edit':True, 'no_create': True}"
-                        />
-                        <field name="date_collected" readonly="disabled" />
+                    <group>
+                        <group>
+                            <field name="phone_no" readonly="disabled" widget="phone" />
+                            <field
+                                name="country_id"
+                                options="{'no_open':True, 'no_create_edit':True, 'no_create': True}"
+                            />
+                        </group>
+                        <group>
+                            <field name="phone_sanitized" widget="phone" />
+                            <field name="date_collected" readonly="disabled" />
+                        </group>
                     </group>
-                    <group string="Disable Info" colspan="4" col="4">
-                        <field name="disabled" readonly="1" />
-                        <field
-                            name="disabled_by"
-                            readonly="1"
-                            options="{'no_open':True,'no_create_edit':True,'no_create':True}"
-                        />
+                    <group string="Disable Info">
+                        <group>
+                            <field name="disabled" readonly="1" />
+                        </group>
+                        <group>
+                            <field
+                                name="disabled_by"
+                                readonly="1"
+                                options="{'no_open':True,'no_create_edit':True,'no_create':True}"
+                            />
+                        </group>
                     </group>
                 </sheet>
             </form>
