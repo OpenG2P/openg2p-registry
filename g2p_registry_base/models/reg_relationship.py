@@ -9,6 +9,7 @@ class G2PRegistrantRelationship(models.Model):
     _description = "Registrant Relationship"
     _order = "id desc"
     _inherit = ["mail.thread"]
+    _rec_names_search = ["source", "destination"]
 
     source = fields.Many2one(
         "res.partner",
@@ -111,19 +112,6 @@ class G2PRegistrantRelationship(models.Model):
                 name += " / " + rec.destination.name
             res.display_name = name
         return res
-
-    @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
-        args = args or []
-        if name:
-            args = [
-                "|",
-                ("source", operator, name),
-                ("destination", operator, name),
-            ] + args
-        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
     def disable_relationship(self):
         for rec in self:
