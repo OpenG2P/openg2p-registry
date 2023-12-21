@@ -1,7 +1,7 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 {
     "name": "G2P Registry: Base",
-    "category": "G2P",
+    "category": "G2P/",
     "version": "17.0.1.0.0",
     "sequence": 1,
     "author": "OpenG2P",
