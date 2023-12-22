@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 
 class G2PGender(models.Model):
     _name = "gender.type"
+    _description = "Gender Type"
     _rec_name = "code"
 
     code = fields.Char()

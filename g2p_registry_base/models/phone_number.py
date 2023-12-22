@@ -44,13 +44,12 @@ class G2PPhoneNumber(models.Model):
             if rec.phone_no:
                 country_fname = "country_id"
                 number = rec["phone_no"]
-                sanitized = str(
-                    self.env.user._phone_format(
-                        number=[number],
-                        country=country_fname,
-                        force_format="E164",
-                    )
+                sanitized = self.env.user._phone_format(
+                    number=[number],
+                    country=country_fname,
+                    force_format="E164",
                 )
+
                 rec.phone_sanitized = sanitized
 
     @api.onchange("phone_no", "country_id")
