@@ -42,14 +42,14 @@ class G2PPhoneNumber(models.Model):
         for rec in self:
             rec.phone_sanitized = ""
             if rec.phone_no:
-                country_fname = "country_id"
                 number = rec["phone_no"]
-                sanitized = self.env.user._phone_format(
-                    number=[number],
-                    country=country_fname,
-                    force_format="E164",
+                sanitized = str(
+                    self.env.user._phone_format(
+                        number=number,
+                        country=rec.country_id,
+                        force_format="E164",
+                    )
                 )
-
                 rec.phone_sanitized = sanitized
 
     @api.onchange("phone_no", "country_id")
@@ -61,7 +61,7 @@ class G2PPhoneNumber(models.Model):
             return
         self.phone_no = (
             self._phone_format(fname="phone", force_format="INTERNATIONAL")
-            or self.phone
+            or self.phone_no
         )
         _logger.debug(f"phone_no: {self.phone_no}")
         if PHONE_REGEX:

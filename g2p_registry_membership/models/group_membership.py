@@ -104,23 +104,21 @@ class G2PGroupMembership(models.Model):
             if rec_count > 1:
                 raise ValidationError(_("Duplication of Member is not allowed "))
 
-    def name_get(self):
-        res = super(G2PGroupMembership, self).name_get()
+    def _compute_display_name(self):
+        res = super()._compute_display_name()
         for rec in self:
             name = "NONE"
             if rec.group:
                 name = rec.group.name
-            res.append((rec.id, name))
+            res.display_name = name
         return res
 
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
-        args = args or []
+    def _name_search(self, name, domain=None, operator="ilike", limit=100, order=None):
+        domain = domain or []
         if name:
-            args = [("group", operator, name)] + args
-        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+            domain = [("group", operator, name)] + domain
+        return self._search(domain, limit=limit, order=order)
 
     @api.depends("ended_date")
     def _compute_is_ended(self):
