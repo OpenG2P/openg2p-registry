@@ -53,7 +53,7 @@ class RegistrantTest(TransactionCase):
 
     def test_03_check_registration_date(self):
 
-        self.registrant.registration_date = date(2030, 1, 1)
+        self.registrant.registration_date = date(2022, 1, 1)
         self.registrant.birthdate = date(2031, 1, 1)
 
         with self.assertRaises(ValidationError) as context:
