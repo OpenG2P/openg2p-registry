@@ -5,6 +5,8 @@ import re
 
 from odoo import _, api, exceptions, fields, models
 
+from odoo.addons.phone_validation.tools import phone_validation
+
 _logger = logging.getLogger(__name__)
 
 
@@ -59,14 +61,23 @@ class G2PPhoneNumber(models.Model):
         )
         if not self.phone_no:
             return
-        self.phone_no = (
-            self._phone_format(fname="phone", force_format="INTERNATIONAL")
-            or self.phone_no
-        )
+        self.phone_no = self._phone_format(self.phone_no)
         _logger.debug(f"phone_no: {self.phone_no}")
         if PHONE_REGEX:
             if not re.match(PHONE_REGEX, self.phone_no):
                 raise models.ValidationError(_("Invalid phone number!"))
+
+    def _phone_format(self, number, country=None):
+        country = country or self.country_id or self.env.company.country_id
+        if not country:
+            return number
+        return phone_validation.phone_format(
+            number,
+            country.code if country else None,
+            country.phone_code if country else None,
+            force_format="INTERNATIONAL",
+            raise_exception=False,
+        )
 
     def disable_phone(self):
         for rec in self:
