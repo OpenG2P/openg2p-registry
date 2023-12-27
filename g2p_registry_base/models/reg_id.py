@@ -29,7 +29,7 @@ class G2PRegistrantID(models.Model):
             name = ""
             if rec.partner_id:
                 name = rec.partner_id.name
-            res.append((rec.id, name))
+            rec.display_name = name
         return res
 
     @api.model

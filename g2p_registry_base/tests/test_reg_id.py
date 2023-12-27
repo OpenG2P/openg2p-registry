@@ -11,7 +11,30 @@ class TestG2PRegistrantID(TransactionCase):
         self.id_type_model = self.env["g2p.id.type"]
         self.reg_id_model = self.env["g2p.reg.id"]
 
-    def test_01_create_registrant_id(self):
+    def test_01_display_name(self):
+        partner = self.partner_model.create(
+            {"name": "Test Registrant", "is_registrant": True}
+        )
+        id_type = self.id_type_model.create(
+            {"name": "Test ID Type", "id_validation": "[0-9]+"}
+        )
+
+        reg_id = self.reg_id_model.create(
+            {"partner_id": partner.id, "id_type": id_type.id, "value": "123456"}
+        )
+
+        # Call the _compute_display_name method
+        reg_id._compute_display_name()
+
+        # Check if the display name is as expected
+        expected_display_name = "Test Registrant"
+        self.assertEqual(
+            reg_id.display_name,
+            expected_display_name,
+            "Display name is not as expected.",
+        )
+
+    def test_02_create_registrant_id(self):
         partner = self.partner_model.create(
             {"name": "Test Registrant", "is_registrant": True}
         )
@@ -26,7 +49,7 @@ class TestG2PRegistrantID(TransactionCase):
             reg_id.value, "123456", "Registrant ID value is not as expected."
         )
 
-    def test_02_invalid_id_value(self):
+    def test_03_invalid_id_value(self):
         partner = self.partner_model.create(
             {"name": "Test Registrant", "is_registrant": True}
         )
@@ -43,7 +66,7 @@ class TestG2PRegistrantID(TransactionCase):
             "The provided Test ID Type ID 'abc' is invalid.", str(context.exception)
         )
 
-    def test_03_name_search(self):
+    def test_04_name_search(self):
         partner = self.partner_model.create(
             {"name": "Test Partner", "is_registrant": True}
         )
