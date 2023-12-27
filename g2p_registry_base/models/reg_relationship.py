@@ -110,7 +110,7 @@ class G2PRegistrantRelationship(models.Model):
                 name += rec.source.name
             if rec.destination:
                 name += " / " + rec.destination.name
-            res.display_name = name
+            rec.display_name = name
         return res
 
     def disable_relationship(self):
