@@ -14,8 +14,8 @@ jobs:
       - name: Invoke workflow in another repo with inputs
         uses: aurelien-baudet/workflow-dispatch@v2
         with:
-          token: ${{ secrets.GAG_PAT }}
-          repo: gaganamadival/openg2p-packaging
+          token: ${{ secrets.GIT_PUSH_TOKEN }}
+          repo: OpenG2P/openg2p-packaging
           workflow: OpenG2P Odoo Package Dockers build
           input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
           ref: main
