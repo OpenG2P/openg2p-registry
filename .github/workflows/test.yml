@@ -4,9 +4,11 @@ on:
   pull_request:
     branches:
       - "15.0*"
+      - "17.0*"
   push:
     branches:
       - "15.0*"
+      - "17.0*"
 env:
   OCA_GIT_USER_NAME: openg2p
   OCA_GIT_USER_EMAIL: bot@openg2p.org
@@ -28,19 +30,44 @@ jobs:
                   fi
               fi
           done
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - id: set-matrix
+      run: |
+        BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')
+        if [[ $BRANCH_NAME = 15.0* ]] ; then
+          matrix='{"include": [{
+              "container": "ghcr.io/oca/oca-ci/py3.8-odoo15.0:latest",
+              "makepot": "true",
+              "name": "test with Odoo 15"
+            },{
+              "container": "ghcr.io/oca/oca-ci/py3.8-ocb15.0:latest",
+              "name": "test with OCB 15"
+            }]}'
+        elif [[ $BRANCH_NAME = 17.0* ]] ; then
+          matrix='{"include": [{
+              "container": "ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest",
+              "makepot": "true",
+              "name": "test with Odoo 17"
+            },{
+              "container": "ghcr.io/oca/oca-ci/py3.10-ocb17.0:latest",
+              "name": "test with OCB 17"
+            }]}'
+        fi
+        echo "matrix<<EOF"$'\n'"$matrix"$'\n'EOF >> $GITHUB_OUTPUT
   test:
+    needs: matrix_prep
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     name: ${{ matrix.name }}
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - container: ghcr.io/oca/oca-ci/py3.8-odoo15.0:latest
-            makepot: "true"
-            name: test with Odoo
-          - container: ghcr.io/oca/oca-ci/py3.8-ocb15.0:latest
-            name: test with OCB
+      matrix: ${{fromJson(needs.matrix_prep.outputs.matrix)}}
     services:
       postgres:
         image: postgres:9.6
@@ -68,5 +95,5 @@ jobs:
         run: oca_run_tests
       - uses: codecov/codecov-action@v1
       - name: Update .pot files
-        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
+        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'openg2p' }}
