@@ -390,6 +390,18 @@ msgid "Id Validation"
 msgstr ""
 
 #. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/reg_id.py:0
+#, python-format
+msgid "Id type already exists"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/reg_id.py:0
+#, python-format
+msgid "Id type should not empty."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
 msgid "If checked, new messages require your attention."
@@ -507,16 +519,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
 msgid "Name"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_id_type_name_unique
-msgid "Name of the ID types should be unique"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.constraint,message:g2p_registry_base.constraint_g2p_registrant_tags_name_unique
-msgid "Name of the tags should be unique"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -774,6 +776,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__state_id
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_district_config_tree
 msgid "State"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/tags.py:0
+#, python-format
+msgid "Tag already Exists"
+msgstr ""
+
+#. module: g2p_registry_base
+#: code:addons/g2p_registry_base/models/tags.py:0
+#, python-format
+msgid "Tag name should not empty."
 msgstr ""
 
 #. module: g2p_registry_base
