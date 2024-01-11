@@ -4,22 +4,21 @@
     <t t-name="addl_info_each_table">
         <t t-if="! state.recordClicked">
             <table
-                class="o_group o_inner_group table table-bordered"
+                class="o_group o_inner_group table table-bordered json-widget"
                 border="1"
                 style="border-collapse:collapse"
-                t-on-click="onclick"
             >
                 <tbody>
                     <t t-foreach="renderjson" t-as="key" t-key="key">
                         <tr>
-                            <td class="o_td_label" contenteditable="true">
+                            <td class="o_td_label">
                                 <label class="o_form_label o_quick_editable">
                                     <strong>
                                         <t t-esc="key" />
                                     </strong>
                                 </label>
                             </td>
-                            <td contenteditable="true">
+                            <td>
                                 <span class="o_field_widget o_quick_editable">
                                     <t t-esc="renderjson[key]" />
                                 </span>

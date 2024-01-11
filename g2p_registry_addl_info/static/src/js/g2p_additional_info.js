@@ -3,23 +3,29 @@
 import {_t} from "@web/core/l10n/translation";
 import {registry} from "@web/core/registry";
 import {TextField} from "@web/views/fields/text/text_field";
-import {useState} from "@odoo/owl";
+import {useState, useExternalListener} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 
 export class JsonFieldWidgets extends TextField {
-
     setup() {
         super.setup();
         this.state = useState({recordClicked: false, issueRaised: false});
         this.notification = useService("notification");
+        useExternalListener(window, "click", this.onclick);
+        useExternalListener(window, "mouseup", this.onMouseup);
     }
 
     onclick(event) {
-        if (this.editingRecord && event) {
+        if (this.editingRecord && event.target.closest(".json-widget")) {
             this.state.recordClicked = true;
-        } else {
+        }
+    }
+
+    onMouseup(ev) {
+        if (!ev.target.closest(".o_field_g2p_registry_addl_info_widget textarea")) {
             this.state.recordClicked = false;
         }
+        setTimeout(() => {}, 50);
     }
 
     get editingRecord() {
@@ -66,7 +72,7 @@ export class JsonFieldWidgets extends TextField {
         return jsonObject;
     }
 }
-JsonFieldWidgets.template = addl_info_each_table;
+JsonFieldWidgets.template = "addl_info_each_table";
 
 export const jsonFieldWidgets = {
     component: JsonFieldWidgets,
