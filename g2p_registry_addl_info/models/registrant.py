@@ -1,9 +1,7 @@
-from odoo import models
-
-from odoo.addons.g2p_json_field.models import json_field
+from odoo import fields, models
 
 
 class G2PRegistrant(models.Model):
     _inherit = "res.partner"
 
-    additional_g2p_info = json_field.JSONField("Additional Information", default={})
+    additional_g2p_info = fields.Json("Additional Information", default={})

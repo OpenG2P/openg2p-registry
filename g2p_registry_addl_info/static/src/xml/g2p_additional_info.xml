@@ -2,25 +2,25 @@
 <templates xml:space="preserve">
 
     <t t-name="addl_info_each_table">
-        <t t-if="! state.recordClicked">
+        <t t-if="! state.recordClicked and ! state.noValue">
             <table
                 class="o_group o_inner_group table table-bordered json-widget"
                 border="1"
                 style="border-collapse:collapse"
             >
                 <tbody>
-                    <t t-foreach="renderjson" t-as="key" t-key="key">
+                    <t t-foreach="Object.entries(this.renderjson())" t-as="key" t-key="key">
                         <tr>
                             <td class="o_td_label">
                                 <label class="o_form_label o_quick_editable">
                                     <strong>
-                                        <t t-esc="key" />
+                                        <t t-esc="key[0]" />
                                     </strong>
                                 </label>
                             </td>
                             <td>
                                 <span class="o_field_widget o_quick_editable">
-                                    <t t-esc="renderjson[key]" />
+                                    <t t-esc="key[1]" />
                                 </span>
                             </td>
                         </tr>

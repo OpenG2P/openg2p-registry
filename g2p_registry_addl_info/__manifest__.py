@@ -8,7 +8,6 @@
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
     "depends": [
-        "g2p_json_field",
         "g2p_registry_base",
         "g2p_registry_individual",
         "g2p_registry_group",
