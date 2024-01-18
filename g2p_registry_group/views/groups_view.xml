@@ -118,7 +118,7 @@
                     </group>
                     <notebook>
                         <page string="IDs" name="ids">
-                            <field name="reg_ids" readonly="disabled" nolabel="1">
+                            <field name="reg_ids" readonly="disabled" nolabel="1" colspan="2">
                                 <tree editable="top">
                                     <field
                                         name="id_type"

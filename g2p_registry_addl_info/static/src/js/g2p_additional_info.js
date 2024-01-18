@@ -6,7 +6,6 @@ import {registry} from "@web/core/registry";
 import {TextField} from "@web/views/fields/text/text_field";
 import {useService} from "@web/core/utils/hooks";
 
-
 export class JsonFieldWidget extends TextField {
     setup() {
         super.setup();
