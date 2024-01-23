@@ -39,6 +39,7 @@
                                 name="group"
                                 placeholder="Select a Group..."
                                 options="{'no_open':True,'no_create_edit':True,'no_create':True}"
+                                domain="[('id', '=', context.get('active_group'))]"
                             />
                         </h1>
                         <label for="individual" string="Individual:" />
