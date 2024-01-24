@@ -16,14 +16,6 @@ export class JsonFieldWidget extends TextField {
         useExternalListener(window, "mouseup", this.onMouseup);
     }
 
-    getValue() {
-        const value = this.props.record.data.additional_g2p_info;
-        if (!value || !(value.length > 0)) {
-            this.state.noValue = true;
-        }
-        this.validateValue();
-    }
-
     validateValue() {
         const val = this.props.record.data.additional_g2p_info;
         if (val) {
