@@ -17,7 +17,7 @@
                                 type="object"
                                 icon="fa-external-link"
                                 class="btn-success"
-                                string="Open Group Form"
+                                string="Open group form"
                             />
                             <field
                                 name="group"

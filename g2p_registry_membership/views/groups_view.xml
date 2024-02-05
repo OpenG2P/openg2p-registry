@@ -19,7 +19,7 @@
                                     type="object"
                                     icon="fa-external-link"
                                     class="btn-success"
-                                    string="Open Individual Form"
+                                    string="Open individual form"
                                 />
                                 <field
                                     name="individual"
