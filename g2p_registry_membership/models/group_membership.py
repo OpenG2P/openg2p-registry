@@ -110,7 +110,7 @@ class G2PGroupMembership(models.Model):
             name = "NONE"
             if rec.group:
                 name = rec.group.name
-            res.display_name = name
+            rec.display_name = name
         return res
 
     @api.model
