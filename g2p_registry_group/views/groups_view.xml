@@ -137,7 +137,6 @@
                                             name="open_relationship1_form"
                                             type="object"
                                             icon="fa-external-link"
-                                            string="Open relationship1 form"
                                             class="btn-success"
                                             title="Click to open the relationship form"
                                         />
@@ -167,7 +166,6 @@
                                             name="open_relationship2_form"
                                             type="object"
                                             icon="fa-external-link"
-                                            string="Open relationship2 form"
                                             class="btn-success"
                                             title="Click to open the relationship form"
                                         />
@@ -270,7 +268,7 @@
             <search string="Search Partner">
                 <field
                     name="name"
-                    filter_domain="['|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self)]"
+                    filter_domain="['|', '|', '|', '|', ('complete_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]"
                 />
                 <field name="email" filter_domain="[('email', 'ilike', self)]" />
                 <field

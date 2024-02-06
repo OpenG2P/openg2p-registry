@@ -13,7 +13,7 @@
         <header
                         class="list-group-item list-group-item-action d-flex align-items-center px-0 py-lg-0 border-0"
                         t-att-class="{'active text-900 fw-bold': state.active[section.id] === valueId}"
-                        t-on-click="() => this.toggleCategory(section, value)"
+                        t-on-click="() =&gt; this.toggleCategory(section, value)"
                     >
             <div
                             class="o_search_panel_label d-flex align-items-center overflow-hidden w-100 cursor-pointer mb-0"
@@ -23,10 +23,7 @@
                     <i
                                     t-if="value.childrenIds.length"
                                     class="fa"
-                                    t-att-class="{
-                            'fa-caret-down' : state.expanded[section.id][valueId],
-                            'fa-caret-right':  !state.expanded[section.id][valueId]
-                        }"
+                                    t-att-class="{                             'fa-caret-down' : state.expanded[section.id][valueId],                             'fa-caret-right':  !state.expanded[section.id][valueId]                         }"
                                 />
                 </button>
                 <span
