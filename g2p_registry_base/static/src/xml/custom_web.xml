@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-  <t t-inherit="web.Legacy.SearchPanel.Category" t-inherit-mode="extension">
-    <xpath expr="//li[@class='o_search_panel_category_value list-group-item border-0']" position="replace">
+  <t t-inherit="web.SearchPanel.Category" t-inherit-mode="extension">
+    <xpath
+            expr="//li[@class='o_search_panel_category_value list-group-item py-1 cursor-pointer border-0 pe-0']"
+            position="replace"
+        >
       <t t-if="valueId">
-      <li class="o_search_panel_category_value list-group-item border-0">
-          <header
-                        class="list-group-item-action"
-                        t-att-class="{ active: state.active[section.id] === valueId }"
-                        t-on-click="_toggleCategory(section, value)"
+        <li
+                    class="o_search_panel_category_value list-group-item py-1 cursor-pointer border-0 pe-0"
+                    t-att-class="isChildList ? 'o_treeEntry' : 'ps-0'"
+                >
+        <header
+                        class="list-group-item list-group-item-action d-flex align-items-center px-0 py-lg-0 border-0"
+                        t-att-class="{'active text-900 fw-bold': state.active[section.id] === valueId}"
+                        t-on-click="() =&gt; this.toggleCategory(section, value)"
                     >
-              <label
-                            class="o_search_panel_label mb0"
-                            t-att-class="{ o_with_counters: section.enableCounters }"
+            <div
+                            class="o_search_panel_label d-flex align-items-center overflow-hidden w-100 cursor-pointer mb-0"
+                            t-att-class="{'o_with_counters': section.enableCounters }"
                         >
-                  <div class="o_toggle_fold">
-                      <i
+                <button class="o_toggle_fold btn p-0 flex-shrink-0 text-center">
+                    <i
                                     t-if="value.childrenIds.length"
-                                    t-attf-class="fa fa-caret-{{ state.expanded[section.id][valueId] ? 'down' : 'right' }}"
+                                    class="fa"
+                                    t-att-class="{                             'fa-caret-down' : state.expanded[section.id][valueId],                             'fa-caret-right':  !state.expanded[section.id][valueId]                         }"
                                 />
-                  </div>
-                  <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.display_name" />
-                  <span t-else="" class="o_search_panel_label_title" t-esc="value.display_name" />
-              </label>
-              <span
+                </button>
+                <span
+                                class="o_search_panel_label_title text-truncate"
+                                t-att-class="{'fw-bold' : value.bold}"
+                                t-esc="value.display_name"
+                                t-att-data-tooltip="value.display_name"
+                            />
+            </div>
+            <small
                             t-if="section.enableCounters and value.__count gt 0"
-                            class="o_search_panel_counter text-muted ml-2 small"
+                            class="o_search_panel_counter text-muted mx-2 fw-bold"
                             t-esc="value.__count"
                         />
-          </header>
-          <ul
+        </header>
+        <ul
                         t-if="value.childrenIds.length and state.expanded[section.id][valueId]"
                         class="list-group d-block"
                     >
-              <t t-call="web.Legacy.SearchPanel.Category">
-                  <t t-set="values" t-value="value.childrenIds" />
-              </t>
-          </ul>
-      </li>
+            <t t-call="{{ constructor.subTemplates.category }}">
+                <t t-set="values" t-value="value.childrenIds" />
+                <t t-set="isChildList" t-value="true" />
+            </t>
+        </ul>
+        </li>
       </t>
     </xpath>
   </t>

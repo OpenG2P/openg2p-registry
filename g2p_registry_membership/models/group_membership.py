@@ -29,7 +29,7 @@ class G2PGroupMembership(models.Model):
     start_date = fields.Datetime(default=lambda self: fields.Datetime.now())
     ended_date = fields.Datetime()
     status = fields.Selection(
-        [("inactive", "Inactive"), ("active", "")],
+        [("inactive", "Inactive"), ("active", " ")],
         compute="_compute_status",
         store=True,
     )

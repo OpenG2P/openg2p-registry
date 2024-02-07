@@ -24,7 +24,7 @@
         "views/district_config.xml",
     ],
     "assets": {
-        "web.assets_common": [
+        "web.assets_backend": [
             "/g2p_registry_base/static/src/xml/custom_web.xml",
         ],
     },

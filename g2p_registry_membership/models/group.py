@@ -1,7 +1,8 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
@@ -23,6 +24,43 @@ class G2PMembershipGroup(models.Model):
         compute="_compute_ind_grp_num_individuals",
         store=True,
     )
+
+    def write(self, values):
+        res = super().write(values)
+        if self:
+            unique_kinds = self.env["g2p.group.membership.kind"].search(
+                [("is_unique", "=", True)]
+            )
+            for unique_kind in unique_kinds:
+                count = sum(
+                    1
+                    for rec in self.group_membership_ids
+                    if rec.kind.id == unique_kind.id
+                )
+                if count > 1:
+                    raise ValidationError(
+                        _("Only one %s is allowed per group") % unique_kind.name
+                    )
+        return res
+
+    @api.model
+    def create(self, values):
+        new_record = super().create(values)
+        if new_record:
+            unique_kinds = self.env["g2p.group.membership.kind"].search(
+                [("is_unique", "=", True)]
+            )
+            for unique_kind in unique_kinds:
+                count = sum(
+                    1
+                    for rec in new_record.group_membership_ids
+                    if rec.kind.id == unique_kind.id
+                )
+                if count > 1:
+                    raise ValidationError(
+                        _("Only one %s is allowed per group") % unique_kind.name
+                    )
+        return new_record
 
     def _compute_force_recompute_group(self):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
