@@ -33,6 +33,9 @@ class G2PRegistrant(models.Model):
         "g2p.phone.number", "partner_id", "Phone Numbers"
     )
 
+    company_id = fields.Many2one(
+        "res.company", required=True, default=lambda self: self.env.company
+    )
     registration_date = fields.Date(default=lambda self: fields.Date.today())
     tags_ids = fields.Many2many("g2p.registrant.tags", string="Tags")
     civil_status = fields.Char(string="CivilState")
