@@ -22,16 +22,16 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[g2p_bank](g2p_bank/) | 15.0.1.2.0 |  | G2P Registry: Bank Details
-[g2p_bank_rest_api](g2p_bank_rest_api/) | 15.0.1.2.0 |  | G2P Registry: Bank Details Rest API
-[g2p_registry_addl_info](g2p_registry_addl_info/) | 15.0.1.2.0 |  | G2P Registry: Additional Info
-[g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 15.0.1.2.0 |  | G2P Registry: Additional Info REST API
-[g2p_registry_base](g2p_registry_base/) | 15.0.1.2.0 |  | G2P Registry: Base
-[g2p_registry_group](g2p_registry_group/) | 15.0.1.2.0 |  | G2P Registry: Groups
-[g2p_registry_individual](g2p_registry_individual/) | 15.0.1.2.0 |  | G2P Registry: Individual
-[g2p_registry_membership](g2p_registry_membership/) | 15.0.1.2.0 |  | G2P Registry: Membership
-[g2p_registry_rest_api](g2p_registry_rest_api/) | 15.0.1.2.0 |  | G2P Registry: Rest API
-[g2p_registry_rest_api_extension_demo](g2p_registry_rest_api_extension_demo/) | 15.0.1.2.0 |  | G2P Registry: Rest API Extension Demo
+[g2p_bank](g2p_bank/) | 17.0.1.0.0 |  | G2P Registry: Bank Details
+[g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.0.0 |  | G2P Registry: Bank Details Rest API
+[g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.0.0 |  | G2P Registry: Additional Info
+[g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.0.0 |  | G2P Registry: Additional Info REST API
+[g2p_registry_base](g2p_registry_base/) | 17.0.1.0.0 |  | G2P Registry: Base
+[g2p_registry_group](g2p_registry_group/) | 17.0.1.0.0 |  | G2P Registry: Groups
+[g2p_registry_individual](g2p_registry_individual/) | 17.0.1.0.0 |  | G2P Registry: Individual
+[g2p_registry_membership](g2p_registry_membership/) | 17.0.1.0.0 |  | G2P Registry: Membership
+[g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.1.0.0 |  | G2P Registry: Rest API
+[g2p_registry_rest_api_extension_demo](g2p_registry_rest_api_extension_demo/) | 17.0.1.0.0 |  | G2P Registry: Rest API Extension Demo
 
 [//]: # (end addons)
 

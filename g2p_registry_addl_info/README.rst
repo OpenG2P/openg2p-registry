@@ -13,14 +13,15 @@ G2P Registry: Additional Info
 .. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
     :alt: Alpha
-.. |badge2| image:: https://img.shields.io/badge/github-OpenG2P%2Fopeng2p--registry-lightgray.png?logo=github
-    :target: https://github.com/OpenG2P/openg2p-registry/tree/17.0-develop/g2p_registry_addl_info
-    :alt: OpenG2P/openg2p-registry
+.. |badge2| image:: https://img.shields.io/badge/github-openg2p%2Fopeng2p--registry-lightgray.png?logo=github
+    :target: https://github.com/openg2p/openg2p-registry/tree/17.0/g2p_registry_addl_info
+    :alt: openg2p/openg2p-registry
 
 |badge1| |badge2|
 
-This module adds support to Registry modules (registry_base, registry_individual and registry_group)
-to accept a new field called additional_g2p_info, which stores data as json and displays it as form.
+This module adds support to Registry modules (registry_base,
+registry_individual and registry_group) to accept a new field called
+additional_g2p_info, which stores data as json and displays it as form.
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -35,10 +36,10 @@ to accept a new field called additional_g2p_info, which stores data as json and 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OpenG2P/openg2p-registry/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/openg2p/openg2p-registry/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OpenG2P/openg2p-registry/issues/new?body=module:%20g2p_registry_addl_info%0Aversion:%2017.0-develop%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/openg2p/openg2p-registry/issues/new?body=module:%20g2p_registry_addl_info%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -46,13 +47,13 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * OpenG2P
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
-This module is part of the `OpenG2P/openg2p-registry <https://github.com/OpenG2P/openg2p-registry/tree/17.0-develop/g2p_registry_addl_info>`_ project on GitHub.
+This module is part of the `openg2p/openg2p-registry <https://github.com/openg2p/openg2p-registry/tree/17.0/g2p_registry_addl_info>`_ project on GitHub.
 
 You are welcome to contribute.

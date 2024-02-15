@@ -12,7 +12,9 @@ class G2PMembershipGroup(models.Model):
     _inherit = "res.partner"
 
     group_membership_ids = fields.One2many(
-        "g2p.group.membership", "group", "Group Members"  # , auto_join=True
+        "g2p.group.membership",
+        "group",
+        "Group Members",  # , auto_join=True
     )
 
     force_recompute_canary = fields.Datetime(
@@ -194,7 +196,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and not "%s"."is_ended") ' % (
+        inner_join_query += ' ON ("{}"."group" = v and not "{}"."is_ended") '.format(
             membership_alias,
             membership_alias,
         )

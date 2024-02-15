@@ -12,7 +12,7 @@ class G2PDisableRegistryWiz(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        res = super(G2PDisableRegistryWiz, self).default_get(fields)
+        res = super().default_get(fields)
         if self.env.context.get("active_id"):
             res["partner_id"] = self.env.context["active_id"]
         return res

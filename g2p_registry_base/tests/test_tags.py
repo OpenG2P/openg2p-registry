@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestG2PRegistrantTags(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PRegistrantTags, cls).setUpClass()
+        super().setUpClass()
         cls.tag_model = cls.env["g2p.registrant.tags"]
 
     def test_create_registrant_tag(self):
@@ -18,7 +18,6 @@ class TestG2PRegistrantTags(TransactionCase):
         self.assertTrue(tag.active)
 
     def test_create_duplicate_registrant_tag(self):
-
         tag_name = "Test Tag"
         self.tag_model.create({"name": tag_name})
 

@@ -1,6 +1,5 @@
 import re
 from datetime import date, datetime
-from typing import List
 
 import pydantic
 from pydantic import Field, validator
@@ -53,10 +52,10 @@ class PhoneNumberIn(NaiveOrmModel):
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
     name: str
-    ids: List[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
+    ids: list[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
     is_group: bool
     registration_date: date = None
-    phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
+    phone_numbers: list[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
     email: str = None
     address: str = None
     create_date: datetime = None
@@ -103,10 +102,10 @@ class RegistrantIDIn(NaiveOrmModel):
 
 class RegistrantInfoIn(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
-    ids: List[RegistrantIDIn] = None
+    ids: list[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
-    phone_numbers: List[PhoneNumberIn] = None
+    phone_numbers: list[PhoneNumberIn] = None
     email: str = None
     address: str = None
 

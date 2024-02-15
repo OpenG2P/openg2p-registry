@@ -17,7 +17,7 @@ class RegistryConfig(models.TransientModel):
     phone_regex = fields.Char(store=True)
 
     def set_values(self):
-        res = super(RegistryConfig, self).set_values()
+        res = super().set_values()
         params = self.env["ir.config_parameter"].sudo()
         params.set_param(
             "g2p_registry.max_registrants_count_job_queue",
@@ -32,7 +32,7 @@ class RegistryConfig(models.TransientModel):
 
     @api.model
     def get_values(self):
-        res = super(RegistryConfig, self).get_values()
+        res = super().get_values()
         params = self.env["ir.config_parameter"].sudo()
         res.update(
             batch_registrants_count_job_queue=params.get_param(

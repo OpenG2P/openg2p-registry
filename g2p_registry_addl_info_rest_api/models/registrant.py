@@ -1,12 +1,10 @@
-from typing import Dict, List, Union
-
 from odoo.addons.g2p_registry_rest_api.models import registrant
 
 
 class RegistrantAddlInfoIn(
     registrant.RegistrantInfoIn, extends=registrant.RegistrantInfoIn
 ):
-    additional_g2p_info: Union[List[Dict], Dict] = None
+    additional_g2p_info: list[dict] | dict = None
 
 
 class RegistrantAddlInfoOut(

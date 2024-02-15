@@ -6,7 +6,7 @@ from odoo.tests.common import TransactionCase
 @tagged("post_install", "-at_install")
 class TestG2PRegistrantID(TransactionCase):
     def setUp(self):
-        super(TestG2PRegistrantID, self).setUp()
+        super().setUp()
         self.partner_model = self.env["res.partner"]
         self.id_type_model = self.env["g2p.id.type"]
         self.reg_id_model = self.env["g2p.reg.id"]
@@ -83,7 +83,7 @@ class TestG2PRegistrantID(TransactionCase):
 @tagged("post_install", "-at_install")
 class TestG2PIDType(TransactionCase):
     def setUp(self):
-        super(TestG2PIDType, self).setUp()
+        super().setUp()
         self.id_type_model = self.env["g2p.id.type"]
 
     def test_01_create_id_type(self):

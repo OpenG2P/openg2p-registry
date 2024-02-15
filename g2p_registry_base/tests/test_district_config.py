@@ -4,7 +4,7 @@ from odoo.tests.common import TransactionCase
 class TestG2PDistrict(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PDistrict, cls).setUpClass()
+        super().setUpClass()
         existing_country = cls.env["res.country"].search([("code", "=", "TC")])
         if not existing_country:
             cls.country = cls.env["res.country"].create(

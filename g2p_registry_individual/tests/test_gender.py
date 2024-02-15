@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestG2PGender(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PGender, cls).setUpClass()
+        super().setUpClass()
         cls.gender_type_model = cls.env["gender.type"]
 
     def test_01_empty_code_constraint(self):
@@ -20,7 +20,7 @@ class TestG2PGender(TransactionCase):
         )
 
     def test_02_unique_code_constraint(self):
-        gender_type_1 = self.gender_type_model.create({"code": "male", "value": "Male"})
+        self.gender_type_model.create({"code": "male", "value": "Male"})
 
         with self.assertRaises(ValidationError):
             self.gender_type_model.create({"code": "male", "value": "Another Male"})

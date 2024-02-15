@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class RegistrantTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(RegistrantTest, cls).setUpClass()
+        super().setUpClass()
 
         # Initial Setup of Variables
         cls.registrant = cls.env["res.partner"].create(
@@ -52,7 +52,6 @@ class RegistrantTest(TransactionCase):
     #     print("current income value:", self.registrant.income)
 
     def test_03_check_registration_date(self):
-
         self.registrant.registration_date = date(2022, 1, 1)
         self.registrant.birthdate = date(2031, 1, 1)
 
