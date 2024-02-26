@@ -54,11 +54,9 @@ class G2PHttpRestRequest(HttpRestRequest):
         res = super()._handle_exception(exception)
         if isinstance(exception, G2PApiValidationError):
             res = wrapJsonException(BadRequest(exception.args[0]))
-            g2pFixException(res, exception)
         elif isinstance(exception, G2PApiException):
             res = wrapJsonException(InternalServerError(exception.args[0]))
-            g2pFixException(res, exception)
-
+        g2pFixException(res, exception)
         return res
 
 
