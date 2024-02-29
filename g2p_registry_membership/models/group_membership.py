@@ -34,8 +34,8 @@ class G2PGroupMembership(models.Model):
         store=True,
     )
     is_ended = fields.Boolean(default=False, compute="_compute_is_ended", store=True)
-    individual_birthdate = fields.Date(related="individual.birthdate")
-    individual_gender = fields.Selection(related="individual.gender")
+    individual_birthdate = fields.Date(related="individual.birthdate", readonly=True)
+    individual_gender = fields.Selection(related="individual.gender", readonly=True)
 
     @api.onchange("kind")
     def _kind_onchange(self):
