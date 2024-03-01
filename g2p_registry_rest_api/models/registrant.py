@@ -83,7 +83,7 @@ class RegistrantIDIn(NaiveOrmModel):
         return value
 
     @validator("value")
-    def validate_id_value(cls, value, values):
+    def validate_id_value(cls, value, values):  # noqa: B902
         id_type = values.get("id_type")
         if id_type:
             id_type_id = request.env["g2p.id.type"].search(
@@ -121,7 +121,7 @@ class RegistrantInfoIn(NaiveOrmModel):
         return value
 
     @validator("registration_date")
-    def validate_registration_date(cls, value):
+    def validate_registration_date(cls, value):  # noqa: B902
         if value is not None and value > date.today():
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_011.get_error_message(),
@@ -131,7 +131,7 @@ class RegistrantInfoIn(NaiveOrmModel):
         return value
 
     @validator("name")
-    def validate_name_presence(cls, value):
+    def validate_name_presence(cls, value):  # noqa: B902
         if value is None or value.strip() == "":
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_012.get_error_message(),

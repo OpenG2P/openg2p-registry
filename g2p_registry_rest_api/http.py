@@ -1,6 +1,6 @@
 import json
 
-from werkzeug.exceptions import BadRequest, HTTPException, InternalServerError
+from werkzeug.exceptions import BadRequest, InternalServerError
 
 import odoo
 from odoo.http import Root
@@ -14,8 +14,6 @@ from .models.error_response import G2PErrorResponse
 
 
 def g2pFixException(exception, original_exception=None):
-    get_original_headers = HTTPException(exception).get_headers
-
     def get_body(environ=None, scope=None):
         if original_exception and isinstance(original_exception, G2PApiException):
             res = G2PErrorResponse(
@@ -36,15 +34,6 @@ def g2pFixException(exception, original_exception=None):
             res.update({"traceback": exception.traceback})
         return JSONEncoder().encode(res)
 
-    def get_headers(environ=None, scope=None):
-        """Get a list of headers."""
-        _headers = [("Content-Type", "application/json")]
-        for key, value in get_original_headers(environ=environ, scope=scope):
-            if key != "Content-Type":
-                _headers.append(key, value)
-        return _headers
-
-    exception.get_headers = get_headers
     exception.get_body = get_body
     return exception
 
@@ -54,11 +43,9 @@ class G2PHttpRestRequest(HttpRestRequest):
         res = super()._handle_exception(exception)
         if isinstance(exception, G2PApiValidationError):
             res = wrapJsonException(BadRequest(exception.args[0]))
-            g2pFixException(res, exception)
         elif isinstance(exception, G2PApiException):
             res = wrapJsonException(InternalServerError(exception.args[0]))
-            g2pFixException(res, exception)
-
+        g2pFixException(res, exception)
         return res
 
 
