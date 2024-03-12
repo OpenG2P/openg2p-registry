@@ -12,7 +12,7 @@ class G2PGroup(models.Model):
 
     kind = fields.Many2one("g2p.group.kind")
     is_partial_group = fields.Boolean("Partial Group")
-    kind_as_str = fields.Char(related="kind.name")
+    kind_as_str = fields.Char(related="kind.name", string="String Kind")
 
 
 class G2PGroupKind(models.Model):
