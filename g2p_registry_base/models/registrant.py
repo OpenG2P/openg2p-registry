@@ -37,7 +37,7 @@ class G2PRegistrant(models.Model):
         "res.company", required=True, default=lambda self: self.env.company
     )
     registration_date = fields.Date(default=lambda self: fields.Date.today())
-    tags_ids = fields.Many2many("g2p.registrant.tags", string="Tags")
+    tags_ids = fields.Many2many("g2p.registrant.tags", string="Registrant Tags")
     civil_status = fields.Char(string="CivilState")
     occupation = fields.Char()
     income = fields.Float()
