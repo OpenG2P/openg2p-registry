@@ -170,10 +170,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and not "%s"."is_ended") ' % (
-            membership_alias,
-            membership_alias,
-        )
+        inner_join_query += f' ON ("{membership_alias}"."group" = v and not "{membership_alias}"."is_ended") '
 
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(

@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class TestG2PPhoneNumber(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PPhoneNumber, cls).setUpClass()
+        super().setUpClass()
         cls.partner = cls.env["res.partner"].create({"name": "Test Registrant", "is_registrant": True})
         country_india = cls.env["res.country"].search([("name", "=", "India")])
         if not country_india:

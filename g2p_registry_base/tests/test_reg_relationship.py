@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestG2PRegistrantRelationship(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PRegistrantRelationship, cls).setUpClass()
+        super().setUpClass()
         cls.reg_rel_model = cls.env["g2p.reg.rel"]
         cls.rel_model = cls.env["g2p.relationship"]
         cls.partner_model = cls.env["res.partner"]
@@ -181,7 +181,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
 class TestG2PRelationship(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestG2PRelationship, cls).setUpClass()
+        super().setUpClass()
         cls.rel_model = cls.env["g2p.relationship"]
 
     def test_get_partner_types(self):

@@ -56,7 +56,6 @@ class IndividualInfoIn(RegistrantInfoIn):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description="Invalid gender-%s. It should be %s"
-                % (value, [option.code for option in options]),
+                error_description=f"Invalid gender-{value}. It should be {[option.code for option in options]}",
             )
         return value

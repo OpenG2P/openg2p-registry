@@ -6,7 +6,7 @@ from odoo.tests.common import TransactionCase
 class TestRegistryConfig(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestRegistryConfig, cls).setUpClass()
+        super().setUpClass()
         cls.config_model = cls.env["res.config.settings"]
         cls.ir_config_parameter_model = cls.env["ir.config_parameter"]
 

@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from typing import Optional
 
 from pydantic import validator
 
@@ -33,7 +32,7 @@ class GroupMembershipKindInfo(NaiveOrmModel):
 class GroupMembersInfoOut(NaiveOrmModel):
     id: int
     individual: IndividualInfoOut
-    kind: Optional[list[GroupMembershipKindInfo]] = None  # TODO: Would be nicer to have it as a list of str
+    kind: list[GroupMembershipKindInfo] | None = None  # TODO: Would be nicer to have it as a list of str
     create_date: datetime = None
     write_date: datetime = None
 
@@ -61,7 +60,6 @@ class GroupMembersInfoIn(NaiveOrmModel):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_008.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_008.get_error_code(),
-                error_description="Invalid gender-%s. It should be %s"
-                % (value, [option.code for option in options]),
+                error_description=f"Invalid gender-{value}. It should be {[option.code for option in options]}",
             )
         return value

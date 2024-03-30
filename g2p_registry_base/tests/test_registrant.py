@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class RegistrantTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(RegistrantTest, cls).setUpClass()
+        super().setUpClass()
 
         # Initial Setup of Variables
         cls.registrant = cls.env["res.partner"].create(

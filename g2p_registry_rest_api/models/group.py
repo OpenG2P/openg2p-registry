@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pydantic
 from pydantic import validator
 
@@ -16,7 +14,7 @@ class GroupShortInfoOut(RegistrantInfoOut):
 class GroupInfoOut(RegistrantInfoOut):
     is_group = True
     members: list[GroupMembersInfoOut] = pydantic.Field(..., alias="group_membership_ids")
-    kind: Optional[str] = pydantic.Field(..., alias="kind_as_str")
+    kind: str | None = pydantic.Field(..., alias="kind_as_str")
     is_partial_group: bool
 
 
