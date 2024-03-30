@@ -37,7 +37,7 @@ jobs:
     steps:
     - id: set-matrix
       run: |
-        BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')
+        BRANCH_NAME=$(echo ${{ github.base_ref || github.ref }} | sed -e 's,.*/\(.*\),\1,')
         if [[ $BRANCH_NAME = 15.0* ]] ; then
           matrix='{"include": [{
               "container": "ghcr.io/oca/oca-ci/py3.8-odoo15.0:latest",
@@ -57,7 +57,7 @@ jobs:
               "name": "test with OCB 17"
             }]}'
         fi
-        echo "matrix<<EOF"$'\n'"$matrix"$'\n'EOF >> $GITHUB_OUTPUT
+        echo "matrix=$matrix" | tr -d '\n' >> $GITHUB_OUTPUT
   test:
     needs: matrix_prep
     runs-on: ubuntu-22.04
