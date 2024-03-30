@@ -7,16 +7,12 @@ class TestG2PDistrict(TransactionCase):
         super(TestG2PDistrict, cls).setUpClass()
         existing_country = cls.env["res.country"].search([("code", "=", "TC")])
         if not existing_country:
-            cls.country = cls.env["res.country"].create(
-                {"name": "Test Country", "code": "TC"}
-            )
+            cls.country = cls.env["res.country"].create({"name": "Test Country", "code": "TC"})
         else:
             cls.country = existing_country
 
         cls.state_model = cls.env["res.country.state"]
-        cls.state = cls.state_model.create(
-            {"name": "Test State", "code": "TS", "country_id": cls.country.id}
-        )
+        cls.state = cls.state_model.create({"name": "Test State", "code": "TS", "country_id": cls.country.id})
         cls.district_model = cls.env["g2p.district"]
 
     def test_01_create_district(self):

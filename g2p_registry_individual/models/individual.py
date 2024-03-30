@@ -64,6 +64,4 @@ class G2PIndividual(models.Model):
         """
         for rec in self:
             if rec.birthdate and rec.birthdate > fields.date.today():
-                raise ValidationError(
-                    _("You can't select a date of birth greater than today")
-                )
+                raise ValidationError(_("You can't select a date of birth greater than today"))

@@ -43,9 +43,7 @@ class G2PGroupMembership(models.Model):
             origin_length = len(rec._origin.kind.ids)
             new_length = len(rec.kind.ids)
             if new_length > origin_length:
-                unique_kinds = self.env["g2p.group.membership.kind"].search(
-                    [("is_unique", "=", True)]
-                )
+                unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
                 # Loop on all unique kinds
                 for unique_kind_id in unique_kinds:
                     unique_count = 0
@@ -83,16 +81,12 @@ class G2PGroupMembership(models.Model):
 
                                 # If the rec_line which is the kind id is the same with the unique kind
                                 # then add unique count
-                                if rec_line.id == unique_kind_id.id or kind_str == str(
-                                    unique_kind_id.id
-                                ):
+                                if rec_line.id == unique_kind_id.id or kind_str == str(unique_kind_id.id):
                                     unique_count += 1
 
                     # This will check if the unique count from the loop is greater than 1
                     if unique_count > 1:
-                        raise ValidationError(
-                            _("Only one %s is allowed per group") % unique_kind_id.name
-                        )
+                        raise ValidationError(_("Only one %s is allowed per group") % unique_kind_id.name)
 
     @api.constrains("individual")
     def _check_group_members(self):
@@ -137,10 +131,7 @@ class G2PGroupMembership(models.Model):
         else:
             groups = records
         self.env.add_to_compute(field, groups)
-        _logger.debug(
-            "OpenG2P Registry: _recompute_parent_groups: Field: %s - %s"
-            % (field, groups.ids)
-        )
+        _logger.debug("OpenG2P Registry: _recompute_parent_groups: Field: %s - %s" % (field, groups.ids))
 
     def write(self, vals):
         res = super(G2PGroupMembership, self).write(vals)

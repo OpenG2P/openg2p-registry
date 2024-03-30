@@ -24,17 +24,14 @@ class ProcessGroupMixin(AbstractComponent):
         # Add group's kind field
         if group_info.kind:
             # Search Kind
-            kind_id = self.env["g2p.group.kind"].search(
-                [("name", "=", group_info.kind)]
-            )
+            kind_id = self.env["g2p.group.kind"].search([("name", "=", group_info.kind)])
             if kind_id:
                 grp_rec.update({"kind": kind_id[0].id})
             elif group_info.kind:
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_003.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_003.get_error_code(),
-                    error_description="Group type - %s is not present in the database."
-                    % group_info.kind,
+                    error_description="Group type - %s is not present in the database." % group_info.kind,
                 )
 
         ids = []

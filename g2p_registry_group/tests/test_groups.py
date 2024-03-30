@@ -87,9 +87,7 @@ class GroupsTest(TransactionCase):
             phone_number,
             self.group_1.phone_number_ids[0].phone_no,
         )
-        self.assertEqual(
-            self.group_1.phone_number_ids[0].phone_no, phone_number, message
-        )
+        self.assertEqual(self.group_1.phone_number_ids[0].phone_no, phone_number, message)
         expected_sanitized = ""
         country_fname = self.group_1.phone_number_ids[0].country_id
         number = phone_number
@@ -142,6 +140,4 @@ class GroupsTest(TransactionCase):
             self.group_2.id,
             self.group_1.related_2_ids[0].destination.id,
         )
-        self.assertEqual(
-            self.group_1.related_2_ids[0].destination.id, self.group_2.id, message
-        )
+        self.assertEqual(self.group_1.related_2_ids[0].destination.id, self.group_2.id, message)

@@ -24,18 +24,12 @@ class G2PRegistrant(models.Model):
 
     name = fields.Char(index=True)
 
-    related_1_ids = fields.One2many(
-        "g2p.reg.rel", "destination", "Related to registrant 1"
-    )
+    related_1_ids = fields.One2many("g2p.reg.rel", "destination", "Related to registrant 1")
     related_2_ids = fields.One2many("g2p.reg.rel", "source", "Related to registrant 2")
 
-    phone_number_ids = fields.One2many(
-        "g2p.phone.number", "partner_id", "Phone Numbers"
-    )
+    phone_number_ids = fields.One2many("g2p.phone.number", "partner_id", "Phone Numbers")
 
-    company_id = fields.Many2one(
-        "res.company", required=True, default=lambda self: self.env.company
-    )
+    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
     registration_date = fields.Date(default=lambda self: fields.Date.today())
     tags_ids = fields.Many2many("g2p.registrant.tags", string="Tags")
     civil_status = fields.Char(string="CivilState")
@@ -48,12 +42,7 @@ class G2PRegistrant(models.Model):
         phone = ""
         if self.phone_number_ids:
             phone = ",".join(
-                [
-                    p
-                    for p in self.phone_number_ids.filtered(
-                        lambda rec: not rec.disabled
-                    ).mapped("phone_no")
-                ]
+                [p for p in self.phone_number_ids.filtered(lambda rec: not rec.disabled).mapped("phone_no")]
             )
         self.phone = phone
 
@@ -84,25 +73,17 @@ class G2PRegistrant(models.Model):
         for record in self:
             if record.registration_date:
                 if record.registration_date > date.today():
-                    error_message = (
-                        "Registration date must be less than the current date."
-                    )
+                    error_message = "Registration date must be less than the current date."
                     raise ValidationError(error_message)
                 elif (
-                    "birthdate" in record
-                    and record.birthdate
-                    and record.registration_date < record.birthdate
+                    "birthdate" in record and record.birthdate and record.registration_date < record.birthdate
                 ):
-                    error_message = (
-                        "Registration date must be less than the birth date."
-                    )
+                    error_message = "Registration date must be less than the birth date."
                     raise ValidationError(error_message)
 
     @api.constrains("phone_number_ids")
     def _check_phone_number_validation(self):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
-            "g2p_registry.phone_regex"
-        )
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
         if not PHONE_REGEX:
             return
         for rec in self.phone_number_ids:
@@ -118,8 +99,6 @@ class G2PRegistrant(models.Model):
         self._validate_phone(self.mobile, _("Invalid mobile number!"))
 
     def _validate_phone(self, number, error_message):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
-            "g2p_registry.phone_regex"
-        )
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
         if number and PHONE_REGEX and not re.match(PHONE_REGEX, number):
             raise ValidationError(error_message)

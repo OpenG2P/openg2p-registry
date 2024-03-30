@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import validator
 
@@ -33,9 +33,7 @@ class GroupMembershipKindInfo(NaiveOrmModel):
 class GroupMembersInfoOut(NaiveOrmModel):
     id: int
     individual: IndividualInfoOut
-    kind: Optional[
-        List[GroupMembershipKindInfo]
-    ] = None  # TODO: Would be nicer to have it as a list of str
+    kind: Optional[list[GroupMembershipKindInfo]] = None  # TODO: Would be nicer to have it as a list of str
     create_date: datetime = None
     write_date: datetime = None
 
@@ -45,18 +43,16 @@ class GroupMembersInfoIn(NaiveOrmModel):
     given_name: str = None
     addl_name: str = None
     family_name: str = None
-    ids: List[RegistrantIDIn] = None
+    ids: list[RegistrantIDIn] = None
     registration_date: date = None
-    phone_numbers: List[PhoneNumberIn] = None
+    phone_numbers: list[PhoneNumberIn] = None
     email: str = None
     address: str = None
     gender: str = None
     birthdate: date = None
     birth_place: str = None
     is_group = False
-    kind: List[
-        GroupMembershipKindInfo
-    ] = None  # TODO: Would be nicer to have it as a list of str
+    kind: list[GroupMembershipKindInfo] = None  # TODO: Would be nicer to have it as a list of str
 
     @validator("gender")
     def validate_gender(cls, value):  # noqa: B902

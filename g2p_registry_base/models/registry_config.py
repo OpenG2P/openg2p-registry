@@ -10,9 +10,7 @@ class RegistryConfig(models.TransientModel):
     max_registrants_count_job_queue = fields.Integer(
         "Maximum Registrants Before Using Job Queue", default=200
     )
-    batch_registrants_count_job_queue = fields.Integer(
-        "Number of Registrants Per Batch", default=2000
-    )
+    batch_registrants_count_job_queue = fields.Integer("Number of Registrants Per Batch", default=2000)
 
     phone_regex = fields.Char(store=True)
 
@@ -38,11 +36,7 @@ class RegistryConfig(models.TransientModel):
             batch_registrants_count_job_queue=params.get_param(
                 "g2p_registry.batch_registrants_count_job_queue"
             ),
-            max_registrants_count_job_queue=params.get_param(
-                "g2p_registry.max_registrants_count_job_queue"
-            ),
-            phone_regex=self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("g2p_registry.phone_regex"),
+            max_registrants_count_job_queue=params.get_param("g2p_registry.max_registrants_count_job_queue"),
+            phone_regex=self.env["ir.config_parameter"].sudo().get_param("g2p_registry.phone_regex"),
         )
         return res

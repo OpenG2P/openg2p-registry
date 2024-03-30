@@ -52,7 +52,6 @@ class RegistrantTest(TransactionCase):
     #     print("current income value:", self.registrant.income)
 
     def test_03_check_registration_date(self):
-
         self.registrant.registration_date = date(2022, 1, 1)
         self.registrant.birthdate = date(2031, 1, 1)
 
@@ -75,16 +74,12 @@ class RegistrantTest(TransactionCase):
     def test_04_check_phone_number_validation(self):
         # Add a phone number with an invalid format
         with self.assertRaises(ValidationError), self.cr.savepoint():
-            self.registrant.write(
-                {"phone_number_ids": [(0, 0, {"phone_no": "invalid"})]}
-            )
+            self.registrant.write({"phone_number_ids": [(0, 0, {"phone_no": "invalid"})]})
 
         # Set an invalid phone number
         invalid_phone = "12345"
         with self.assertRaisesRegex(Exception, "Invalid phone number!"):
-            self.registrant.write(
-                {"phone_number_ids": [(0, 0, {"phone_no": invalid_phone})]}
-            )
+            self.registrant.write({"phone_number_ids": [(0, 0, {"phone_no": invalid_phone})]})
 
         # Set a valid phone number
         valid_phone = "1234567890"

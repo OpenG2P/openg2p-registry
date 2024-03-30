@@ -12,20 +12,14 @@ class TestG2PPhoneNumber(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestG2PPhoneNumber, cls).setUpClass()
-        cls.partner = cls.env["res.partner"].create(
-            {"name": "Test Registrant", "is_registrant": True}
-        )
+        cls.partner = cls.env["res.partner"].create({"name": "Test Registrant", "is_registrant": True})
         country_india = cls.env["res.country"].search([("name", "=", "India")])
         if not country_india:
-            country_india = cls.env["res.country"].create(
-                {"name": "India", "code": "IN", "phone_code": "91"}
-            )
+            country_india = cls.env["res.country"].create({"name": "India", "code": "IN", "phone_code": "91"})
 
         cls.country_india = country_india
         cls.phone_regex = "^[6-9][0-9]{9}$"
-        cls.env["ir.config_parameter"].sudo().set_param(
-            "g2p_registry.phone_regex", cls.phone_regex
-        )
+        cls.env["ir.config_parameter"].sudo().set_param("g2p_registry.phone_regex", cls.phone_regex)
 
     def test_01_create_phone_number(self):
         phone_number = self.env["g2p.phone.number"].create(
@@ -97,16 +91,10 @@ class TestG2PPhoneNumber(TransactionCase):
                 "country_id": self.country_india.id,
             }
         )
-        formatted_number = phone_number._phone_format(
-            "+919876543210", self.country_india
-        )
+        formatted_number = phone_number._phone_format("+919876543210", self.country_india)
         expected_number = "+919876543210"
-        formatted_number_digits_only = "".join(
-            char for char in formatted_number if char.isdigit()
-        )
-        expected_number_digits_only = "".join(
-            char for char in expected_number if char.isdigit()
-        )
+        formatted_number_digits_only = "".join(char for char in formatted_number if char.isdigit())
+        expected_number_digits_only = "".join(char for char in expected_number if char.isdigit())
 
         self.assertEqual(expected_number_digits_only, formatted_number_digits_only)
 

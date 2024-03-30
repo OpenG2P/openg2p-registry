@@ -47,9 +47,7 @@ class G2PRegistrantID(models.Model):
                 return
             if rec.id_type.id_validation:
                 if not re.match(rec.id_type.id_validation, rec.value):
-                    raise ValidationError(
-                        f"The provided {rec.id_type.name} ID '{rec.value}' is invalid."
-                    )
+                    raise ValidationError(f"The provided {rec.id_type.name} ID '{rec.value}' is invalid.")
 
 
 class G2PIDType(models.Model):

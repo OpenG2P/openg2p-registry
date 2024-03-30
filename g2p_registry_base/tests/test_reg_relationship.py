@@ -32,19 +32,13 @@ class TestG2PRegistrantRelationship(TransactionCase):
             }
         )
 
-        with self.assertRaisesRegex(
-            Exception, "Registrant 1 and Registrant 2 cannot be the same."
-        ):
+        with self.assertRaisesRegex(Exception, "Registrant 1 and Registrant 2 cannot be the same."):
             rel.write({"source": group_partner.id, "destination": group_partner.id})
 
-        with self.assertRaisesRegex(
-            Exception, "The starting date cannot be after the ending date."
-        ):
+        with self.assertRaisesRegex(Exception, "The starting date cannot be after the ending date."):
             rel.write({"start_date": "2023-01-01", "end_date": "2022-01-01"})
 
-        with self.assertRaisesRegex(
-            Exception, "There is already a similar relation with overlapping dates"
-        ):
+        with self.assertRaisesRegex(Exception, "There is already a similar relation with overlapping dates"):
             rel2 = self.reg_rel_model.create(
                 {
                     "source": group_partner.id,
@@ -54,9 +48,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
             )
             rel2.write({"start_date": "2022-01-01", "end_date": "2023-01-01"})
 
-        with self.assertRaisesRegex(
-            Exception, "This registrant is not applicable for this relation type."
-        ):
+        with self.assertRaisesRegex(Exception, "This registrant is not applicable for this relation type."):
             rel.write(
                 {
                     "relation": self.rel_model.create(
@@ -72,9 +64,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
 
     def test_compute_display_name(self):
         group_partner = self.partner_model.create({"is_group": True})
-        individual_partner = self.partner_model.create(
-            {"is_registrant": True, "name": "Individual"}
-        )
+        individual_partner = self.partner_model.create({"is_registrant": True, "name": "Individual"})
 
         rel_type = self.rel_model.create(
             {
@@ -96,12 +86,8 @@ class TestG2PRegistrantRelationship(TransactionCase):
         self.assertEqual(rel.display_name, " / Individual")
 
     def test_name_search(self):
-        group_partner = self.partner_model.create(
-            {"is_group": True, "name": "Test Group"}
-        )
-        individual_partner = self.partner_model.create(
-            {"is_registrant": True, "name": "Test Individual"}
-        )
+        group_partner = self.partner_model.create({"is_group": True, "name": "Test Group"})
+        individual_partner = self.partner_model.create({"is_registrant": True, "name": "Test Individual"})
 
         rel_type = self.rel_model.create(
             {
@@ -159,12 +145,8 @@ class TestG2PRegistrantRelationship(TransactionCase):
         self.assertIsNone(rel.disabled_by)
 
     def test_open_relationship_forms(self):
-        group_partner = self.partner_model.create(
-            {"is_group": True, "name": "Test Group"}
-        )
-        individual_partner = self.partner_model.create(
-            {"is_registrant": True, "name": "Test Individual"}
-        )
+        group_partner = self.partner_model.create({"is_group": True, "name": "Test Group"})
+        individual_partner = self.partner_model.create({"is_registrant": True, "name": "Test Individual"})
 
         rel_type = self.rel_model.create(
             {
@@ -185,9 +167,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
         form1 = rel.open_relationship1_form()
         self.assertEqual(form1["res_model"], "res.partner")
         self.assertEqual(form1["res_id"], group_partner.id)
-        self.assertEqual(
-            form1["view_id"], self.env.ref("g2p_registry_group.view_groups_form").id
-        )
+        self.assertEqual(form1["view_id"], self.env.ref("g2p_registry_group.view_groups_form").id)
 
         form2 = rel.open_relationship2_form()
         self.assertEqual(form2["res_model"], "res.partner")

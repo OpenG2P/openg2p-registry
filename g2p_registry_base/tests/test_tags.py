@@ -18,7 +18,6 @@ class TestG2PRegistrantTags(TransactionCase):
         self.assertTrue(tag.active)
 
     def test_create_duplicate_registrant_tag(self):
-
         tag_name = "Test Tag"
         self.tag_model.create({"name": tag_name})
 

@@ -9,9 +9,7 @@ _logger = logging.getLogger(__name__)
 class G2PMembershipIndividual(models.Model):
     _inherit = "res.partner"
 
-    individual_membership_ids = fields.One2many(
-        "g2p.group.membership", "individual", "Membership to Groups"
-    )
+    individual_membership_ids = fields.One2many("g2p.group.membership", "individual", "Membership to Groups")
 
     def _recompute_parent_groups(self, records):
         field = self.env["res.partner"]._fields["force_recompute_canary"]

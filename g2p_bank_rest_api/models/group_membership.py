@@ -1,11 +1,9 @@
-from typing import List, Optional
+from typing import Optional
 
 from odoo.addons.g2p_registry_rest_api.models import group_membership
 
 from . import bank_details
 
 
-class GroupMembersInfoIn(
-    group_membership.GroupMembersInfoIn, extends=group_membership.GroupMembersInfoIn
-):
-    bank_ids: Optional[List[bank_details.BankDetailsIn]]
+class GroupMembersInfoIn(group_membership.GroupMembersInfoIn, extends=group_membership.GroupMembersInfoIn):
+    bank_ids: Optional[list[bank_details.BankDetailsIn]]

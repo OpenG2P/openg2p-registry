@@ -114,9 +114,7 @@ class IndividualsTest(TransactionCase):
             phone_number,
             self.registrant_1.phone_number_ids[0].phone_no,
         )
-        self.assertEqual(
-            self.registrant_1.phone_number_ids[0].phone_no, phone_number, message
-        )
+        self.assertEqual(self.registrant_1.phone_number_ids[0].phone_no, phone_number, message)
         expected_sanitized = ""
         country_fname = self.registrant_1.phone_number_ids[0].country_id
         number = phone_number

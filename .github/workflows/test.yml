@@ -14,10 +14,10 @@ env:
   OCA_GIT_USER_EMAIL: bot@openg2p.org
 jobs:
   unreleased-deps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Detect unreleased dependencies
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: |
           for reqfile in requirements.txt test-requirements.txt ; do
               if [ -f ${reqfile} ] ; then
@@ -31,7 +31,7 @@ jobs:
               fi
           done
   matrix_prep:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -60,7 +60,7 @@ jobs:
         echo "matrix<<EOF"$'\n'"$matrix"$'\n'EOF >> $GITHUB_OUTPUT
   test:
     needs: matrix_prep
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container: ${{ matrix.container }}
     name: ${{ matrix.name }}
     permissions:
@@ -70,7 +70,7 @@ jobs:
       matrix: ${{fromJson(needs.matrix_prep.outputs.matrix)}}
     services:
       postgres:
-        image: postgres:9.6
+        image: postgres:12.0
         env:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
@@ -78,7 +78,7 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Install addons and dependencies

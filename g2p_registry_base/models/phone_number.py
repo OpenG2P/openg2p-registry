@@ -35,9 +35,7 @@ class G2PPhoneNumber(models.Model):
     def _check_date_collected(self):
         for record in self:
             if record.date_collected and record.date_collected > fields.Date.today():
-                raise exceptions.ValidationError(
-                    _("Date collected cannot be in the future.")
-                )
+                raise exceptions.ValidationError(_("Date collected cannot be in the future."))
 
     @api.depends("phone_no", "country_id")
     def _compute_phone_sanitized(self):
@@ -56,9 +54,7 @@ class G2PPhoneNumber(models.Model):
 
     @api.onchange("phone_no", "country_id")
     def _onchange_phone_validation(self):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param(
-            "g2p_registry.phone_regex"
-        )
+        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
         if not self.phone_no:
             return
         self.phone_no = self._phone_format(self.phone_no)

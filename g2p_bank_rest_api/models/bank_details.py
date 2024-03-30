@@ -13,15 +13,12 @@ class BankDetailsIn(naive_orm_model.NaiveOrmModel):
     @validator("acc_number")
     def validate_acc_number_duplicate(cls, value):  # noqa: B902
         if value:
-            acc_num = request.env["res.partner.bank"].search(
-                [("acc_number", "=", value)]
-            )
+            acc_num = request.env["res.partner.bank"].search([("acc_number", "=", value)])
             if acc_num:
                 raise base_exception.G2PApiValidationError(
                     error_message=error_codes.G2PErrorCodes.G2P_REQ_009.get_error_message(),
                     error_code=error_codes.G2PErrorCodes.G2P_REQ_009.get_error_code(),
-                    error_description="Account number - %s cannot be duplicate."
-                    % value,
+                    error_description="Account number - %s cannot be duplicate." % value,
                 )
         return value
 
