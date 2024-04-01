@@ -35,12 +35,14 @@ class TestG2PRegistrantRelationship(TransactionCase):
         )
 
         with self.assertRaisesRegex(Exception, "Registrant 1 and Registrant 2 cannot be the same."):
+            rel_type.destination_type = "g"
             rel.write({"source": self.group_partner.id, "destination": self.group_partner.id})
 
         with self.assertRaisesRegex(Exception, "The starting date cannot be after the ending date."):
             rel.write({"start_date": "2023-01-01", "end_date": "2022-01-01"})
 
         with self.assertRaisesRegex(Exception, "There is already a similar relation with overlapping dates"):
+            rel_type.destination_type = "i"
             rel2 = self.reg_rel_model.create(
                 {
                     "source": self.group_partner.id,
@@ -82,7 +84,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
         )
 
         rel._compute_display_name()
-        self.assertEqual(rel.display_name, " / Individual")
+        self.assertEqual(rel.display_name, "Test Group / Test Individual")
 
     def test_name_search(self):
         rel_type = self.rel_model.create(

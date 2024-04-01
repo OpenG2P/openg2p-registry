@@ -1,5 +1,5 @@
 import logging
-from datetime import date
+from datetime import date, timedelta
 
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
@@ -52,11 +52,8 @@ class RegistrantTest(TransactionCase):
     #     print("current income value:", self.registrant.income)
 
     def test_03_check_registration_date(self):
-        self.registrant.registration_date = date(2022, 1, 1)
-        self.registrant.birthdate = date(2031, 1, 1)
-
         with self.assertRaises(ValidationError) as context:
-            self.registrant._check_registration_date()
+            self.registrant.registration_date = date.today() + timedelta(days=10)
         self.assertEqual(
             str(context.exception),
             "Registration date must be less than the current date.",
@@ -64,10 +61,11 @@ class RegistrantTest(TransactionCase):
         )
 
         with self.assertRaises(ValidationError) as e:
-            self.registrant._check_registration_date()
+            self.registrant.birthdate = date.today() - timedelta(days=1)
+            self.registrant.registration_date = date.today() - timedelta(days=7)
         self.assertEqual(
             str(e.exception),
-            "Registration date must be less than the birth date.",
+            "Registration date must be later than the birth date.",
             "Validation error message.",
         )
 
@@ -105,6 +103,7 @@ class RegistrantTest(TransactionCase):
 
     def test_06_onchange_mobile_validation(self):
         # Set an invalid phone number using 'mobile' field
+        self.env["ir.config_parameter"].set_param("g2p_registry.phone_regex", r"^\d{10}$")
         invalid_mobile = "9876"
         with self.assertRaisesRegex(Exception, "Invalid mobile number!"):
             self.registrant.write({"mobile": invalid_mobile})

@@ -205,7 +205,8 @@ class MembershipTest(TransactionCase):
         )
 
         _logger.info(
-            f"Test 5: Add individual: {self.registrant_3.name} and {self.registrant_4.name} to group: {self.group_2.name}."
+            f"Test 5: Add individual: {self.registrant_3.name} "
+            f"and {self.registrant_4.name} to group: {self.group_2.name}."
         )
         self.group_2.write(
             {
@@ -216,7 +217,8 @@ class MembershipTest(TransactionCase):
             }
         )
         _logger.info(
-            f"Test 5: Check group: {self.group_2.name} total membership: {len(self.group_2.group_membership_ids)}."
+            f"Test 5: Check group: {self.group_2.name} "
+            f"total membership: {len(self.group_2.group_membership_ids)}."
         )
         self.assertEqual(
             len(self.group_2.group_membership_ids),
@@ -235,7 +237,8 @@ class MembershipTest(TransactionCase):
         )
 
         _logger.info(
-            f"Test 5: Check group: {self.group_2.name} indicator field z_ind_grp_num_individuals: {self.group_2.z_ind_grp_num_individuals}."
+            f"Test 5: Check group: {self.group_2.name} "
+            f"indicator field z_ind_grp_num_individuals: {self.group_2.z_ind_grp_num_individuals}."
         )
         # self.assertEqual(
         #    self.group_2.z_ind_grp_num_individuals,
@@ -256,7 +259,8 @@ class MembershipTest(TransactionCase):
         # Ensure that the first record is created successfully
         self.assertTrue(group_membership_1)
 
-        # Try to create another group membership with the same individual and group (expecting a ValidationError)
+        # Try to create another group membership with the same individual and group
+        # (expecting a ValidationError)
         with self.assertRaises(ValidationError):
             self.env["g2p.group.membership"].create(
                 {
@@ -307,7 +311,8 @@ class MembershipTest(TransactionCase):
         # Ensure that the first record is created successfully
         self.assertTrue(group_membership_1)
 
-        # Try to create another group membership with an end date earlier than the start date (expecting a ValidationError)
+        # Try to create another group membership with an end date earlier than the start date
+        # (expecting a ValidationError)
         with self.assertRaises(ValidationError):
             self.env["g2p.group.membership"].create(
                 {

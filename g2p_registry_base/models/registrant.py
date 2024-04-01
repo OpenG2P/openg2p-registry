@@ -78,7 +78,7 @@ class G2PRegistrant(models.Model):
                 elif (
                     "birthdate" in record and record.birthdate and record.registration_date < record.birthdate
                 ):
-                    error_message = "Registration date must be less than the birth date."
+                    error_message = "Registration date must be later than the birth date."
                     raise ValidationError(error_message)
 
     @api.constrains("phone_number_ids")
