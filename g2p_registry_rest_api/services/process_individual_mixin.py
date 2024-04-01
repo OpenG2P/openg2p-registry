@@ -50,9 +50,7 @@ class ProcessIndividualMixin(AbstractComponent):
         if ids_info.ids:
             for rec in ids_info.ids:
                 # Search ID Type
-                id_type_id = self.env["g2p.id.type"].search(
-                    [("name", "=", rec.id_type)]
-                )
+                id_type_id = self.env["g2p.id.type"].search([("name", "=", rec.id_type)])
                 if id_type_id:
                     ids.append(
                         (
@@ -70,10 +68,7 @@ class ProcessIndividualMixin(AbstractComponent):
                     raise G2PApiValidationError(
                         error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                         error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
-                        error_description=(
-                            ("ID type - %s is not present in the database.")
-                            % rec.id_type
-                        ),
+                        error_description=(("ID type - %s is not present in the database.") % rec.id_type),
                     )
 
             return ids

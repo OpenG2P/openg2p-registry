@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 class MembershipTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(MembershipTest, cls).setUpClass()
+        super().setUpClass()
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
@@ -83,15 +83,10 @@ class MembershipTest(TransactionCase):
         )
 
     def test_01_add_members(self):
-        self.group_1.write(
-            {"group_membership_ids": [(0, 0, {"individual": self.registrant_1.id})]}
-        )
-        message = (
-            "Membership Testing: Adding Group Member Failed! Result: %s Expecting: %s"
-            % (
-                self.group_1.group_membership_ids[0].individual.name,
-                self.registrant_1.name,
-            )
+        self.group_1.write({"group_membership_ids": [(0, 0, {"individual": self.registrant_1.id})]})
+        message = "Membership Testing: Adding Group Member Failed! Result: {} Expecting: {}".format(
+            self.group_1.group_membership_ids[0].individual.name,
+            self.registrant_1.name,
         )
         self.assertEqual(
             self.group_1.group_membership_ids[0].individual.id,
@@ -100,15 +95,10 @@ class MembershipTest(TransactionCase):
         )
 
     def test_02_assign_member(self):
-        self.registrant_2.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
-        message = (
-            "Membership Testing: Assigning Member to Group Failed! Result %s Expecting %s"
-            % (
-                self.registrant_2.individual_membership_ids[0].group.id,
-                self.group_2.id,
-            )
+        self.registrant_2.write({"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]})
+        message = "Membership Testing: Assigning Member to Group Failed! Result {} Expecting {}".format(
+            self.registrant_2.individual_membership_ids[0].group.id,
+            self.group_2.id,
         )
         self.assertEqual(
             self.registrant_2.individual_membership_ids[0].group.id,
@@ -122,13 +112,8 @@ class MembershipTest(TransactionCase):
         The test will run the write method of res.partner and execute the _recompute_parent_groups function.
         :return:
         """
-        _logger.info(
-            "Test 3: Add individual: %s to group: %s."
-            % (self.registrant_3.name, self.group_2.name)
-        )
-        self.registrant_3.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
+        _logger.info(f"Test 3: Add individual: {self.registrant_3.name} to group: {self.group_2.name}.")
+        self.registrant_3.write({"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]})
         self.assertEqual(
             self.registrant_3.individual_membership_ids[0].group.id,
             self.group_2.id,
@@ -144,13 +129,11 @@ class MembershipTest(TransactionCase):
                 "disabled_by": self.env.user,
             }
         )
-        self.assertEqual(
-            self.registrant_3.disabled, curr_date, "Error disabling an individual!"
-        )
+        self.assertEqual(self.registrant_3.disabled, curr_date, "Error disabling an individual!")
 
         _logger.info(
-            "Test 3: Modify disabled individual: %s information. %s"
-            % (self.registrant_3.name, self.registrant_3.disabled)
+            f"Test 3: Modify disabled individual: {self.registrant_3.name} information. "
+            f"{self.registrant_3.disabled}"
         )
         self.registrant_3.update(
             {
@@ -169,13 +152,8 @@ class MembershipTest(TransactionCase):
         The test will run the write method of res.partner and execute the _recompute_parent_groups function.
         :return:
         """
-        _logger.info(
-            "Test 4: Add individual: %s to group: %s."
-            % (self.registrant_4.name, self.group_1.name)
-        )
-        self.registrant_4.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_1.id})]}
-        )
+        _logger.info(f"Test 4: Add individual: {self.registrant_4.name} to group: {self.group_1.name}.")
+        self.registrant_4.write({"individual_membership_ids": [(0, 0, {"group": self.group_1.id})]})
         self.assertEqual(
             self.registrant_4.individual_membership_ids[0].group.id,
             self.group_1.id,
@@ -184,18 +162,16 @@ class MembershipTest(TransactionCase):
 
         grp_rec = self.group_1.group_membership_ids[0]
         _logger.info(
-            "Test 4: End membership of individual: %s membership with group: %s."
-            % (grp_rec.individual.name, grp_rec.group.name)
+            f"Test 4: End membership of individual: {grp_rec.individual.name} membership with "
+            f"group: {grp_rec.group.name}."
         )
         curr_date = fields.Datetime.now()
         grp_rec.update({"ended_date": curr_date})
-        self.assertEqual(
-            grp_rec.is_ended, True, "Error ending the individual's membership to group!"
-        )
+        self.assertEqual(grp_rec.is_ended, True, "Error ending the individual's membership to group!")
 
         _logger.info(
-            "Test 4: Modify individual with ended membership: %s information. %s"
-            % (grp_rec.individual.name, grp_rec.is_ended)
+            f"Test 4: Modify individual with ended membership: {grp_rec.individual.name} information. "
+            f"{grp_rec.is_ended}"
         )
         grp_rec.individual.update(
             {
@@ -213,25 +189,15 @@ class MembershipTest(TransactionCase):
         Add members to a group and check if the indicator field z_ind_grp_num_individuals is updating.
         :return:
         """
-        _logger.info(
-            "Test 5: Add individual: %s to group: %s."
-            % (self.registrant_1.name, self.group_2.name)
-        )
-        self.registrant_1.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
+        _logger.info(f"Test 5: Add individual: {self.registrant_1.name} to group: {self.group_2.name}.")
+        self.registrant_1.write({"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]})
         self.assertEqual(
             self.registrant_1.individual_membership_ids[0].group.id,
             self.group_2.id,
             "Cannot add individual to group!",
         )
-        _logger.info(
-            "Test 5: Add individual: %s to group: %s."
-            % (self.registrant_2.name, self.group_2.name)
-        )
-        self.registrant_2.write(
-            {"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]}
-        )
+        _logger.info(f"Test 5: Add individual: {self.registrant_2.name} to group: {self.group_2.name}.")
+        self.registrant_2.write({"individual_membership_ids": [(0, 0, {"group": self.group_2.id})]})
         self.assertEqual(
             self.registrant_2.individual_membership_ids[0].group.id,
             self.group_2.id,
@@ -239,8 +205,8 @@ class MembershipTest(TransactionCase):
         )
 
         _logger.info(
-            "Test 5: Add individual: %s and %s to group: %s."
-            % (self.registrant_3.name, self.registrant_4.name, self.group_2.name)
+            f"Test 5: Add individual: {self.registrant_3.name} "
+            f"and {self.registrant_4.name} to group: {self.group_2.name}."
         )
         self.group_2.write(
             {
@@ -251,8 +217,8 @@ class MembershipTest(TransactionCase):
             }
         )
         _logger.info(
-            "Test 5: Check group: %s total membership: %s."
-            % (self.group_2.name, len(self.group_2.group_membership_ids))
+            f"Test 5: Check group: {self.group_2.name} "
+            f"total membership: {len(self.group_2.group_membership_ids)}."
         )
         self.assertEqual(
             len(self.group_2.group_membership_ids),
@@ -262,10 +228,7 @@ class MembershipTest(TransactionCase):
 
         grp_rec = self.group_2.group_membership_ids[1]
         curr_date = fields.Datetime.now()
-        _logger.info(
-            "Test 5: End membership of individual: %s - %s"
-            % (grp_rec.individual.name, curr_date)
-        )
+        _logger.info(f"Test 5: End membership of individual: {grp_rec.individual.name} - {curr_date}")
         grp_rec.update({"ended_date": curr_date})
         self.assertEqual(
             grp_rec.is_ended,
@@ -274,8 +237,8 @@ class MembershipTest(TransactionCase):
         )
 
         _logger.info(
-            "Test 5: Check group: %s indicator field z_ind_grp_num_individuals: %s."
-            % (self.group_2.name, self.group_2.z_ind_grp_num_individuals)
+            f"Test 5: Check group: {self.group_2.name} "
+            f"indicator field z_ind_grp_num_individuals: {self.group_2.z_ind_grp_num_individuals}."
         )
         # self.assertEqual(
         #    self.group_2.z_ind_grp_num_individuals,
@@ -296,9 +259,10 @@ class MembershipTest(TransactionCase):
         # Ensure that the first record is created successfully
         self.assertTrue(group_membership_1)
 
-        # Try to create another group membership with the same individual and group (expecting a ValidationError)
+        # Try to create another group membership with the same individual and group
+        # (expecting a ValidationError)
         with self.assertRaises(ValidationError):
-            group_membership_2 = self.env["g2p.group.membership"].create(
+            self.env["g2p.group.membership"].create(
                 {
                     "group": self.group_1.id,
                     "individual": self.registrant_1.id,
@@ -347,7 +311,8 @@ class MembershipTest(TransactionCase):
         # Ensure that the first record is created successfully
         self.assertTrue(group_membership_1)
 
-        # Try to create another group membership with an end date earlier than the start date (expecting a ValidationError)
+        # Try to create another group membership with an end date earlier than the start date
+        # (expecting a ValidationError)
         with self.assertRaises(ValidationError):
             self.env["g2p.group.membership"].create(
                 {
@@ -401,15 +366,11 @@ class MembershipTest(TransactionCase):
     def test_10_name_search(self):
         # Test case for _name_search method
         name = "Group 1"
-        results_query = self.env["g2p.group.membership"]._name_search(
-            name, operator="ilike"
-        )
+        results_query = self.env["g2p.group.membership"]._name_search(name, operator="ilike")
         # Extract the IDs from the query result
         results = [result[0] for result in results_query]
         expected_result = self.group_1.group_membership_ids.ids
-        self.assertListEqual(
-            results, expected_result, "Name search not working correctly."
-        )
+        self.assertListEqual(results, expected_result, "Name search not working correctly.")
 
     def test_11_recompute_parent_groups(self):
         # Test case for _recompute_parent_groups method
@@ -426,9 +387,7 @@ class MembershipTest(TransactionCase):
         new_membership.write({"individual": self.registrant_2.id})
 
         # Recompute parent groups
-        self.group_1.group_membership_ids._recompute_parent_groups(
-            records=new_membership
-        )
+        self.group_1.group_membership_ids._recompute_parent_groups(records=new_membership)
 
         # Check whether the group.name is recomputed correctly
         self.assertEqual(
@@ -577,9 +536,7 @@ class MembershipTest(TransactionCase):
 
     def test_20_get_calculated_group_fields(self):
         # Test case for _get_calculated_group_fields method
-        calculated_fields = self.group_1._get_calculated_group_fields(
-            ["z_ind_grp_num_individuals"]
-        )
+        calculated_fields = self.group_1._get_calculated_group_fields(["z_ind_grp_num_individuals"])
         self.assertIn(
             self.group_1._fields["z_ind_grp_num_individuals"],
             calculated_fields,
@@ -589,9 +546,7 @@ class MembershipTest(TransactionCase):
     def test_21_count_individuals(self):
         # Test case for count_individuals method
         self.group_1.group_membership_ids.unlink()
-        self.assertEqual(
-            self.group_1.count_individuals(), {}, "Count of individuals not correct."
-        )
+        self.assertEqual(self.group_1.count_individuals(), {}, "Count of individuals not correct.")
 
     def test_22_query_members_aggregate(self):
         # Test case for _query_members_aggregate method
@@ -602,9 +557,7 @@ class MembershipTest(TransactionCase):
     def test_23_compute_count_and_set_indicator(self):
         # Test case for compute_count_and_set_indicator method
         self.group_1.group_membership_ids.unlink()
-        self.group_1.compute_count_and_set_indicator(
-            "z_ind_grp_num_individuals", None, []
-        )
+        self.group_1.compute_count_and_set_indicator("z_ind_grp_num_individuals", None, [])
         self.assertEqual(
             self.group_1.z_ind_grp_num_individuals,
             0,
@@ -615,9 +568,7 @@ class MembershipTest(TransactionCase):
         # Test case for _update_compute_fields method
         self.group_1.group_membership_ids.unlink()
         records = self.group_1
-        self.group_1._update_compute_fields(
-            records, "z_ind_grp_num_individuals", None, []
-        )
+        self.group_1._update_compute_fields(records, "z_ind_grp_num_individuals", None, [])
         self.assertEqual(
             self.group_1.z_ind_grp_num_individuals,
             0,

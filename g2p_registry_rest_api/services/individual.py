@@ -66,7 +66,9 @@ class IndividualApiService(Component):
 
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
-            error_description = "The ID Number you have entered does not exist. Please enter a valid ID Number."
+            error_description = (
+                "The ID Number you have entered does not exist. Please enter a valid ID Number."
+            )
 
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", False))
@@ -124,9 +126,7 @@ class IndividualApiService(Component):
         :param reg_id: An instance of the partner.reg_id
         :return: An instance of partner.reg_id
         """
-        id_type_id = self.env["g2p.id.type"].search(
-            [("name", "=", reg_id.id_type)], limit=1
-        )
+        id_type_id = self.env["g2p.id.type"].search([("name", "=", reg_id.id_type)], limit=1)
         if id_type_id:
             registrant = self.env["res.partner"].search(
                 [
@@ -142,9 +142,7 @@ class IndividualApiService(Component):
                     if each_reg_id.id_type.id == id_type_id.id:
                         each_reg_id.update(reg_id_dict)
                         return RegistrantUpdateIDOut.from_orm(each_reg_id)
-                return RegistrantUpdateIDOut.from_orm(
-                    self.env["g2p.reg.id"].create(reg_id_dict)
-                )
+                return RegistrantUpdateIDOut.from_orm(self.env["g2p.reg.id"].create(reg_id_dict))
             else:
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_013.get_error_message(),

@@ -65,7 +65,9 @@ class GroupApiService(Component):
 
         if partner_search_param.id:
             domain.append(("id", "=", partner_search_param.id))
-            error_description = "The ID Number you have entered does not exist. Please enter a valid ID Number."
+            error_description = (
+                "The ID Number you have entered does not exist. Please enter a valid ID Number."
+            )
 
         domain.append(("is_registrant", "=", True))
         domain.append(("is_group", "=", True))
@@ -116,9 +118,7 @@ class GroupApiService(Component):
             if membership_kind:
                 for kind in membership_kind:
                     # Search Kind
-                    kind_id = self.env["g2p.group.membership.kind"].search(
-                        [("name", "=", kind.name)]
-                    )
+                    kind_id = self.env["g2p.group.membership.kind"].search([("name", "=", kind.name)])
                     if kind_id:
                         indv_membership_kinds.append((4, kind_id[0].id))
                     elif kind.name:
@@ -128,9 +128,7 @@ class GroupApiService(Component):
                             error_description="Membership kind - %s is not present in the database."
                             % kind.name,
                         )
-            grp_membership_rec.append(
-                {"individual": indv_id.id, "kind": indv_membership_kinds}
-            )
+            grp_membership_rec.append({"individual": indv_id.id, "kind": indv_membership_kinds})
 
         # TODO: create the group object
         logging.info("GROUP:")

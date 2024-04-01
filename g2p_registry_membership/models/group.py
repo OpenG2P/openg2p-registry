@@ -12,7 +12,9 @@ class G2PMembershipGroup(models.Model):
     _inherit = "res.partner"
 
     group_membership_ids = fields.One2many(
-        "g2p.group.membership", "group", "Group Members"  # , auto_join=True
+        "g2p.group.membership",
+        "group",
+        "Group Members",  # , auto_join=True
     )
 
     force_recompute_canary = fields.Datetime(
@@ -28,47 +30,29 @@ class G2PMembershipGroup(models.Model):
     def write(self, values):
         res = super().write(values)
         if self:
-            unique_kinds = self.env["g2p.group.membership.kind"].search(
-                [("is_unique", "=", True)]
-            )
+            unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
             for unique_kind in unique_kinds:
-                count = sum(
-                    1
-                    for rec in self.group_membership_ids
-                    if rec.kind.id == unique_kind.id
-                )
+                count = sum(1 for rec in self.group_membership_ids if rec.kind.id == unique_kind.id)
                 if count > 1:
-                    raise ValidationError(
-                        _("Only one %s is allowed per group") % unique_kind.name
-                    )
+                    raise ValidationError(_("Only one %s is allowed per group") % unique_kind.name)
         return res
 
     @api.model
     def create(self, values):
         new_record = super().create(values)
         if new_record:
-            unique_kinds = self.env["g2p.group.membership.kind"].search(
-                [("is_unique", "=", True)]
-            )
+            unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
             for unique_kind in unique_kinds:
-                count = sum(
-                    1
-                    for rec in new_record.group_membership_ids
-                    if rec.kind.id == unique_kind.id
-                )
+                count = sum(1 for rec in new_record.group_membership_ids if rec.kind.id == unique_kind.id)
                 if count > 1:
-                    raise ValidationError(
-                        _("Only one %s is allowed per group") % unique_kind.name
-                    )
+                    raise ValidationError(_("Only one %s is allowed per group") % unique_kind.name)
         return new_record
 
     def _compute_force_recompute_group(self):
         # _logger.info("SQL DEBUG: force_recompute_group: records:%s" % self.ids)
 
         # We use this trick to have a consolidated list of groups to recompute
-        self.with_delay(
-            priority=5, channel="root.recompute_indicators"
-        ).recompute_indicators()
+        self.with_delay(priority=5, channel="root.recompute_indicators").recompute_indicators()
         for group in self:
             group.force_recompute_canary = fields.Datetime.now()
 
@@ -89,9 +73,7 @@ class G2PMembershipGroup(models.Model):
 
         # Iterate through the records in batches of 10000
         for i in range(0, total_records, batch_size):
-            self.with_delay(
-                priority=20, channel="root.recompute_indicators"
-            ).recompute_indicators_for_batch(
+            self.with_delay(priority=20, channel="root.recompute_indicators").recompute_indicators_for_batch(
                 i, batch_size, recomputed_fields=recomputed_fields
             )
 
@@ -111,7 +93,7 @@ class G2PMembershipGroup(models.Model):
 
     def recompute_indicators(self, recomputed_fields=None):
         if recomputed_fields is not None and len(recomputed_fields) > 0:
-            if type(recomputed_fields[0]) is str:
+            if isinstance(recomputed_fields[0], str):
                 recomputed_fields = self._get_calculated_group_fields(recomputed_fields)
         else:
             recomputed_fields = self._get_calculated_group_fields()
@@ -149,15 +131,11 @@ class G2PMembershipGroup(models.Model):
         if domain is not None:
             individual_domain = domain
 
-        query_result = self._query_members_aggregate(
-            membership_kind_domain, individual_domain
-        )
+        query_result = self._query_members_aggregate(membership_kind_domain, individual_domain)
 
         return query_result
 
-    def _query_members_aggregate(
-        self, membership_kind_domain=None, individual_domain=None
-    ):
+    def _query_members_aggregate(self, membership_kind_domain=None, individual_domain=None):
         # _logger.info("SQL DEBUG: query_members_aggregate: records:%s" % self.ids)
         ids = self.ids
         partner_model = "res.partner"
@@ -168,9 +146,7 @@ class G2PMembershipGroup(models.Model):
         ]
         query_obj = self.env[partner_model]._where_calc(domain)
 
-        membership_alias = query_obj.left_join(
-            "res_partner", "id", "g2p_group_membership", "group", "id"
-        )
+        membership_alias = query_obj.left_join("res_partner", "id", "g2p_group_membership", "group", "id")
         individual_alias = query_obj.left_join(
             membership_alias, "individual", "res_partner", "id", "individual"
         )
@@ -194,10 +170,7 @@ class G2PMembershipGroup(models.Model):
         # We will create the inner join manually
         inner_join_vals = "(" + "), (".join(map(str, ids)) + ")"
         inner_join_query = "INNER JOIN ( VALUES %s ) vals(v)" % inner_join_vals
-        inner_join_query += ' ON ("%s"."group" = v and not "%s"."is_ended") ' % (
-            membership_alias,
-            membership_alias,
-        )
+        inner_join_query += f' ON ("{membership_alias}"."group" = v and not "{membership_alias}"."is_ended") '
 
         # Build where clause for the membership_alias
         membership_query_obj = expression.expression(
@@ -242,9 +215,7 @@ class G2PMembershipGroup(models.Model):
             ) = membership_kind_query_obj.get_sql()
             # _logger.info("SQL DEBUG: Membership Kind Query: From:%s, Where:%s, Params:%s" %
             #   (membership_kind_from_clause,membership_kind_where_clause,membership_kind_where_params))
-            query_obj.add_where(
-                membership_kind_where_clause, membership_kind_where_params
-            )
+            query_obj.add_where(membership_kind_where_clause, membership_kind_where_params)
 
         if individual_domain:
             individual_query_obj = expression.expression(
@@ -261,9 +232,7 @@ class G2PMembershipGroup(models.Model):
             #   (individual_from_clause,individual_where_clause,individual_where_params))
             query_obj.add_where(individual_where_clause, individual_where_params)
 
-        select_query, select_params = query_obj.select(
-            "res_partner.id AS id", "count(*) AS members_cnt"
-        )
+        select_query, select_params = query_obj.select("res_partner.id AS id", "count(*) AS members_cnt")
 
         # TODO: In the absence of managing "GROUP BY" by Odoo Query object,
         # we will add the GROUP BY clause manually
@@ -282,9 +251,7 @@ class G2PMembershipGroup(models.Model):
         # _logger.info("SQL DEBUG: SQL Query Result: %s" % results)
         return results
 
-    def compute_count_and_set_indicator(
-        self, field_name, kinds, domain, presence_only=False
-    ):
+    def compute_count_and_set_indicator(self, field_name, kinds, domain, presence_only=False):
         """
         This method computes the count matching a domain, then sets the indicator on the field name.
 
@@ -308,9 +275,7 @@ class G2PMembershipGroup(models.Model):
         query_result = None
         if records:
             # Generate the SQL query
-            query_result = records.count_individuals(
-                relationship_kinds=kinds, domain=domain
-            )
+            query_result = records.count_individuals(relationship_kinds=kinds, domain=domain)
             # _logger.info(
             #     "SQL DEBUG: compute_count_and_set_indicator: field:%s, results:%s"
             #     % (field_name, query_result)
@@ -323,18 +288,14 @@ class G2PMembershipGroup(models.Model):
                 else:
                     record[field_name] = result_map.get(record.id, 0)
 
-    def _update_compute_fields(
-        self, records, field_name, kinds, domain, presence_only=False
-    ):
+    def _update_compute_fields(self, records, field_name, kinds, domain, presence_only=False):
         # Get groups only
         records = records.filtered(lambda a: a.is_group)
 
         query_result = None
         if records:
             # Generate the SQL query using Job Queue
-            query_result = records.count_individuals(
-                relationship_kinds=kinds, domain=domain
-            )
+            query_result = records.count_individuals(relationship_kinds=kinds, domain=domain)
             # _logger.info(
             #     "SQL DEBUG: job_queue->_update_compute_fields: field:%s, results:%s"
             #     % (field_name, query_result)

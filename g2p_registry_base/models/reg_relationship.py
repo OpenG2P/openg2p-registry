@@ -32,21 +32,13 @@ class G2PRegistrantRelationship(models.Model):
     def _check_registrants(self):
         for rec in self:
             if rec.source == rec.destination:
-                raise ValidationError(
-                    _("Registrant 1 and Registrant 2 cannot be the same.")
-                )
+                raise ValidationError(_("Registrant 1 and Registrant 2 cannot be the same."))
 
     @api.constrains("start_date", "end_date")
     def _check_dates(self):
         for record in self:
-            if (
-                record.start_date
-                and record.end_date
-                and record.start_date > record.end_date
-            ):
-                raise ValidationError(
-                    _("The starting date cannot be after the ending date.")
-                )
+            if record.start_date and record.end_date and record.start_date > record.end_date:
+                raise ValidationError(_("The starting date cannot be after the ending date."))
 
     @api.constrains("source", "relation", "destination", "start_date", "end_date")
     def _check_relation_uniqueness(self):
@@ -54,8 +46,6 @@ class G2PRegistrantRelationship(models.Model):
         partners
         :raises ValidationError: When constraint is violated
         """
-        # pylint: disable=no-member
-        # pylint: disable=no-value-for-parameter
         for record in self:
             domain = [
                 ("relation", "=", record.relation.id),
@@ -76,9 +66,7 @@ class G2PRegistrantRelationship(models.Model):
                     ("start_date", "<=", record.end_date),
                 ]
             if record.search(domain):
-                raise ValidationError(
-                    _("There is already a similar relation with " "overlapping dates")
-                )
+                raise ValidationError(_("There is already a similar relation with overlapping dates"))
 
     @api.constrains("source", "relation")
     def _check_source(self):
@@ -98,9 +86,7 @@ class G2PRegistrantRelationship(models.Model):
                 or (ptype == "i" and partner.is_group)
                 or (ptype == "g" and not partner.is_group)
             ):
-                raise ValidationError(
-                    _("This registrant is not applicable for this " "relation type.")
-                )
+                raise ValidationError(_("This registrant is not applicable for this " "relation type."))
 
     def _compute_display_name(self):
         res = super()._compute_display_name()
@@ -150,9 +136,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.source.id,
-                "view_id": self.env.ref(
-                    "g2p_registry_individual.view_individuals_form"
-                ).id,
+                "view_id": self.env.ref("g2p_registry_individual.view_individuals_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -174,9 +158,7 @@ class G2PRegistrantRelationship(models.Model):
                 "view_mode": "form",
                 "res_model": "res.partner",
                 "res_id": self.destination.id,
-                "view_id": self.env.ref(
-                    "g2p_registry_individual.view_individuals_form"
-                ).id,
+                "view_id": self.env.ref("g2p_registry_individual.view_individuals_form").id,
                 "type": "ir.actions.act_window",
                 "target": "new",
             }
@@ -190,12 +172,8 @@ class G2PRelationship(models.Model):
     name = fields.Char(translate=True)
     name_inverse = fields.Char(string="Inverse name", required=True, translate=True)
     bidirectional = fields.Boolean("Bi-directional", default=False)
-    source_type = fields.Selection(
-        selection="get_partner_types", string="Source partner type"
-    )
-    destination_type = fields.Selection(
-        selection="get_partner_types", string="Destination partner type"
-    )
+    source_type = fields.Selection(selection="get_partner_types", string="Source partner type")
+    destination_type = fields.Selection(selection="get_partner_types", string="Destination partner type")
 
     @api.model
     def get_partner_types(self):

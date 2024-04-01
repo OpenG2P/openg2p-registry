@@ -1,9 +1,9 @@
 /** @odoo-module **/
 
-import {_t} from "@web/core/l10n/translation";
 import {onMounted, useExternalListener, useState} from "@odoo/owl";
-import {registry} from "@web/core/registry";
 import {TextField} from "@web/views/fields/text/text_field";
+import {_t} from "@web/core/l10n/translation";
+import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 
 export class JsonFieldWidget extends TextField {

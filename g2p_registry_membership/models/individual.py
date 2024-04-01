@@ -7,11 +7,9 @@ _logger = logging.getLogger(__name__)
 
 
 class G2PMembershipIndividual(models.Model):
-    _inherit = "res.partner"
+    _inherit = "res.partner"  # pylint: disable=[R8180]
 
-    individual_membership_ids = fields.One2many(
-        "g2p.group.membership", "individual", "Membership to Groups"
-    )
+    individual_membership_ids = fields.One2many("g2p.group.membership", "individual", "Membership to Groups")
 
     def _recompute_parent_groups(self, records):
         field = self.env["res.partner"]._fields["force_recompute_canary"]
@@ -25,13 +23,13 @@ class G2PMembershipIndividual(models.Model):
                     self.env.add_to_compute(field, groups)
 
     def write(self, vals):
-        res = super(G2PMembershipIndividual, self).write(vals)
+        res = super().write(vals)
         self._recompute_parent_groups(self)
         return res
 
     @api.model_create_multi
     @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
-        res = super(G2PMembershipIndividual, self).create(vals_list)
+        res = super().create(vals_list)
         self._recompute_parent_groups(res)
         return res

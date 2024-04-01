@@ -1,6 +1,5 @@
 import re
 from datetime import date, datetime
-from typing import List
 
 import pydantic
 from pydantic import Field, validator
@@ -38,9 +37,7 @@ class PhoneNumberIn(NaiveOrmModel):
 
     @validator("phone_no")
     def validate_phone_number(cls, value):  # noqa: B902
-        phone_number_pattern = request.env["ir.config_parameter"].get_param(
-            "g2p_registry.phone_regex"
-        )
+        phone_number_pattern = request.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
         if value and not re.match(phone_number_pattern, value):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_006.get_error_message(),
@@ -53,10 +50,10 @@ class PhoneNumberIn(NaiveOrmModel):
 class RegistrantInfoOut(NaiveOrmModel):
     id: int
     name: str
-    ids: List[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
+    ids: list[RegistrantIDOut] = pydantic.Field(..., alias="reg_ids")
     is_group: bool
     registration_date: date = None
-    phone_numbers: List[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
+    phone_numbers: list[PhoneNumberOut] = pydantic.Field(..., alias="phone_number_ids")
     email: str = None
     address: str = None
     create_date: datetime = None
@@ -86,12 +83,8 @@ class RegistrantIDIn(NaiveOrmModel):
     def validate_id_value(cls, value, values):
         id_type = values.get("id_type")
         if id_type:
-            id_type_id = request.env["g2p.id.type"].search(
-                [("name", "=", id_type)], limit=1
-            )
-            if id_type_id.id_validation and not re.match(
-                id_type_id.id_validation, value
-            ):
+            id_type_id = request.env["g2p.id.type"].search([("name", "=", id_type)], limit=1)
+            if id_type_id.id_validation and not re.match(id_type_id.id_validation, value):
                 raise G2PApiValidationError(
                     error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                     error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
@@ -103,10 +96,10 @@ class RegistrantIDIn(NaiveOrmModel):
 
 class RegistrantInfoIn(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
-    ids: List[RegistrantIDIn] = None
+    ids: list[RegistrantIDIn] = None
     registration_date: date = None
     is_group: bool
-    phone_numbers: List[PhoneNumberIn] = None
+    phone_numbers: list[PhoneNumberIn] = None
     email: str = None
     address: str = None
 

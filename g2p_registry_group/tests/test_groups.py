@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class GroupsTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(GroupsTest, cls).setUpClass()
+        super().setUpClass()
 
         # Initial Setup of Variables
         cls.group_1 = cls.env["res.partner"].create(
@@ -53,7 +53,7 @@ class GroupsTest(TransactionCase):
             self.env["g2p.group.kind"].create({"name": ""})
 
         # Create a group kind with a non-unique name
-        group_kind_1 = self.env["g2p.group.kind"].create({"name": "Test Kind"})
+        self.env["g2p.group.kind"].create({"name": "Test Kind"})
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.env["g2p.group.kind"].create({"name": "test kind"})
 
@@ -83,13 +83,11 @@ class GroupsTest(TransactionCase):
         vals = {"phone_no": phone_number}
         self.group_1.write({"phone_number_ids": [(0, 0, vals)]})
 
-        message = "Phone Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "Phone Creation FAILED (EXPECTED {} but RESULT is {})".format(
             phone_number,
             self.group_1.phone_number_ids[0].phone_no,
         )
-        self.assertEqual(
-            self.group_1.phone_number_ids[0].phone_no, phone_number, message
-        )
+        self.assertEqual(self.group_1.phone_number_ids[0].phone_no, phone_number, message)
         expected_sanitized = ""
         country_fname = self.group_1.phone_number_ids[0].country_id
         number = phone_number
@@ -101,7 +99,7 @@ class GroupsTest(TransactionCase):
             )
         )
         expected_sanitized = sanitized
-        message = "Phone Sanitation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "Phone Sanitation FAILED (EXPECTED {} but RESULT is {})".format(
             expected_sanitized,
             self.group_1.phone_number_ids[0].phone_sanitized,
         )
@@ -121,7 +119,7 @@ class GroupsTest(TransactionCase):
 
         self.group_1.write({"reg_ids": [(0, 0, vals)]})
         expected_value = "112233445566778899"
-        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "ID Creation FAILED (EXPECTED {} but RESULT is {})".format(
             expected_value,
             self.group_1.reg_ids[0].value,
         )
@@ -138,10 +136,8 @@ class GroupsTest(TransactionCase):
 
         self.group_1.write({"related_2_ids": [(0, 0, vals2)]})
 
-        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "ID Creation FAILED (EXPECTED {} but RESULT is {})".format(
             self.group_2.id,
             self.group_1.related_2_ids[0].destination.id,
         )
-        self.assertEqual(
-            self.group_1.related_2_ids[0].destination.id, self.group_2.id, message
-        )
+        self.assertEqual(self.group_1.related_2_ids[0].destination.id, self.group_2.id, message)

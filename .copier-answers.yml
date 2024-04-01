@@ -1,24 +1,27 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: be4e9e3
-_src_path: https://github.com/openspp/openspp-odoo-addons-repo-template.git
+_commit: v1.20
+_src_path: https://github.com/OCA/oca-addons-repo-template.git
+additional_ruff_rules: []
 ci: GitHub
-dependency_installation_mode: OCA
+convert_readme_fragments_to_markdown: false
 generate_requirements_txt: true
 github_check_license: false
+github_ci_extra_env: {}
 github_enable_codecov: true
 github_enable_makepot: true
 github_enable_stale_action: true
 github_enforce_dev_status_compatibility: false
 include_wkhtmltopdf: false
+odoo_test_flavor: Both
 odoo_version: 17.0
 org_name: OpenG2P
-org_slug: openg2p
+org_slug: OpenG2P
 rebel_module_groups: []
 repo_description: OpenG2P Registry is an open source project that provides a social
     registry that can be used on top of Odoo.
 repo_name: OpenG2P Registry
 repo_slug: openg2p-registry
 repo_website: https://github.com/openg2p/openg2p-registry
-travis_apt_packages: []
-travis_apt_sources: []
+use_pyproject_toml: true
+use_ruff: true
 

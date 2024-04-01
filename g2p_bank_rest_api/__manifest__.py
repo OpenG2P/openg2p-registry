@@ -16,7 +16,7 @@
     "assets": {},
     "demo": [],
     "images": [],
-    "application": True,
-    "installable": True,
+    "application": False,
+    "installable": False,
     "auto_install": False,
 }

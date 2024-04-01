@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 class IndividualsTest(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(IndividualsTest, cls).setUpClass()
+        super().setUpClass()
 
         # Initial Setup of Variables
         cls.registrant_1 = cls.env["res.partner"].create(
@@ -56,25 +56,25 @@ class IndividualsTest(TransactionCase):
 
     def test_01_check_names(self):
         self.registrant_1.name_change()
-        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
             "JADDRANKA, HEIDI ",
             self.registrant_1.name,
         )
         self.assertEqual(self.registrant_1.name, "JADDRANKA, HEIDI ", message)
         self.registrant_2.name_change()
-        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
             "KLEITOS, ANGUS ",
             self.registrant_2.name,
         )
         self.assertEqual(self.registrant_2.name, "KLEITOS, ANGUS ", message)
         self.registrant_3.name_change()
-        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
             "CARATACOS, SORA ",
             self.registrant_3.name,
         )
         self.assertEqual(self.registrant_3.name, "CARATACOS, SORA ", message)
         self.registrant_4.name_change()
-        message = "NAME FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
             "DEMOPHON, AMAPHIA ",
             self.registrant_4.name,
         )
@@ -99,10 +99,7 @@ class IndividualsTest(TransactionCase):
 
         age = years_months_days
         self.registrant_1.birthdate = random_date
-        message = "Age Calculation FAILED (EXPECTED %s but RESULT is %s)" % (
-            age,
-            self.registrant_1.age,
-        )
+        message = f"Age Calculation FAILED (EXPECTED {age} but RESULT is {self.registrant_1.age})"
         self.assertEqual(self.registrant_1.age, age, message)
 
     def test_03_add_phone_check_sanitized(self):
@@ -110,13 +107,11 @@ class IndividualsTest(TransactionCase):
         vals = {"phone_no": phone_number}
         self.registrant_1.write({"phone_number_ids": [(0, 0, vals)]})
 
-        message = "Phone Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "Phone Creation FAILED (EXPECTED {} but RESULT is {})".format(
             phone_number,
             self.registrant_1.phone_number_ids[0].phone_no,
         )
-        self.assertEqual(
-            self.registrant_1.phone_number_ids[0].phone_no, phone_number, message
-        )
+        self.assertEqual(self.registrant_1.phone_number_ids[0].phone_no, phone_number, message)
         expected_sanitized = ""
         country_fname = self.registrant_1.phone_number_ids[0].country_id
         number = phone_number
@@ -128,7 +123,7 @@ class IndividualsTest(TransactionCase):
             )
         )
         expected_sanitized = sanitized
-        message = "Phone Sanitation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "Phone Sanitation FAILED (EXPECTED {} but RESULT is {})".format(
             expected_sanitized,
             self.registrant_1.phone_number_ids[0].phone_sanitized,
         )
@@ -148,7 +143,7 @@ class IndividualsTest(TransactionCase):
 
         self.registrant_1.write({"reg_ids": [(0, 0, vals)]})
         expected_value = "112233445566778899"
-        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "ID Creation FAILED (EXPECTED {} but RESULT is {})".format(
             expected_value,
             self.registrant_1.reg_ids[0].value,
         )
@@ -165,7 +160,7 @@ class IndividualsTest(TransactionCase):
 
         self.registrant_1.write({"related_2_ids": [(0, 0, vals2)]})
 
-        message = "ID Creation FAILED (EXPECTED %s but RESULT is %s)" % (
+        message = "ID Creation FAILED (EXPECTED {} but RESULT is {})".format(
             self.registrant_2.id,
             self.registrant_1.related_2_ids[0].destination.id,
         )

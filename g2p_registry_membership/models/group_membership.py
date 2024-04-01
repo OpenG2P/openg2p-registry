@@ -43,9 +43,7 @@ class G2PGroupMembership(models.Model):
             origin_length = len(rec._origin.kind.ids)
             new_length = len(rec.kind.ids)
             if new_length > origin_length:
-                unique_kinds = self.env["g2p.group.membership.kind"].search(
-                    [("is_unique", "=", True)]
-                )
+                unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
                 # Loop on all unique kinds
                 for unique_kind_id in unique_kinds:
                     unique_count = 0
@@ -78,21 +76,18 @@ class G2PGroupMembership(models.Model):
                                 for m in kind_id:
                                     if m.isdigit():
                                         # Only get the digit part of the string kind id
-                                        # Newly added kinds has Neworigin prefix so this is used to remove that
+                                        # Newly added kinds has Neworigin prefix so this
+                                        # is used to remove that
                                         kind_str = kind_str + m
 
                                 # If the rec_line which is the kind id is the same with the unique kind
                                 # then add unique count
-                                if rec_line.id == unique_kind_id.id or kind_str == str(
-                                    unique_kind_id.id
-                                ):
+                                if rec_line.id == unique_kind_id.id or kind_str == str(unique_kind_id.id):
                                     unique_count += 1
 
                     # This will check if the unique count from the loop is greater than 1
                     if unique_count > 1:
-                        raise ValidationError(
-                            _("Only one %s is allowed per group") % unique_kind_id.name
-                        )
+                        raise ValidationError(_("Only one %s is allowed per group") % unique_kind_id.name)
 
     @api.constrains("individual")
     def _check_group_members(self):
@@ -137,13 +132,10 @@ class G2PGroupMembership(models.Model):
         else:
             groups = records
         self.env.add_to_compute(field, groups)
-        _logger.debug(
-            "OpenG2P Registry: _recompute_parent_groups: Field: %s - %s"
-            % (field, groups.ids)
-        )
+        _logger.debug(f"OpenG2P Registry: _recompute_parent_groups: Field: {field} - {groups.ids}")
 
     def write(self, vals):
-        res = super(G2PGroupMembership, self).write(vals)
+        res = super().write(vals)
         _logger.debug("OpenG2P Registry: write")
         self._recompute_parent_groups(self)
         return res
@@ -151,15 +143,15 @@ class G2PGroupMembership(models.Model):
     @api.model_create_multi
     @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
-        res = super(G2PGroupMembership, self).create(vals_list)
+        res = super().create(vals_list)
         _logger.debug("OpenG2P Registry: create")
         self._recompute_parent_groups(res)
         return res
 
     def unlink(self):
         groups = self.mapped("group")
-        res = super(G2PGroupMembership, self).unlink()
-        _logger.debug("OpenG2P Registry: unlink: %s - %s" % (self.ids, groups.ids))
+        res = super().unlink()
+        _logger.debug(f"OpenG2P Registry: unlink: {self.ids} - {groups.ids}")
         self._recompute_parent_groups(groups)
         return res
 
@@ -221,7 +213,7 @@ class G2PGroupMembershipKind(models.Model):
             if external_identifier.name in self._get_protected_external_identifier():
                 raise ValidationError(_("Can't delete default kinds"))
             else:
-                return super(G2PGroupMembershipKind, self).unlink()
+                return super().unlink()
 
     def _get_protected_external_identifier(self):
         return [
@@ -235,7 +227,7 @@ class G2PGroupMembershipKind(models.Model):
         if external_identifier.name in self._get_protected_external_identifier():
             raise ValidationError(_("Can't edit default kinds"))
         else:
-            return super(G2PGroupMembershipKind, self).write(vals)
+            return super().write(vals)
 
     @api.constrains("name")
     def _check_name(self):
