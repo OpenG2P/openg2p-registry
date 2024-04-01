@@ -46,12 +46,9 @@ class G2PRegistrantRelationship(models.Model):
         partners
         :raises ValidationError: When constraint is violated
         """
-        # pylint: disable=no-member
-        # pylint: disable=no-value-for-parameter
         for record in self:
             domain = [
                 ("relation", "=", record.relation.id),
-                ("id", "!=", record.id),
                 ("source", "=", record.source.id),
                 ("destination", "=", record.destination.id),
             ]
@@ -68,7 +65,7 @@ class G2PRegistrantRelationship(models.Model):
                     ("start_date", "<=", record.end_date),
                 ]
             if record.search(domain):
-                raise ValidationError(_("There is already a similar relation with " "overlapping dates"))
+                raise ValidationError(_("There is already a similar relation with overlapping dates"))
 
     @api.constrains("source", "relation")
     def _check_source(self):

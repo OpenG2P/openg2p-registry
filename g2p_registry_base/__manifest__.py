@@ -10,6 +10,7 @@
     "development_status": "Alpha",
     "depends": ["base", "mail", "contacts", "web", "portal"],
     "data": [
+        "data/ir_config_params.xml",
         "security/g2p_security.xml",
         "security/ir.model.access.csv",
         "wizard/disable_registrant_view.xml",

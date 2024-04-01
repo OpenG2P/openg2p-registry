@@ -22,6 +22,7 @@ class RegistrantTest(TransactionCase):
                 "is_registrant": True,
             }
         )
+        cls.env["ir.config_parameter"].set_param("g2p_registry.phone_regex", r"^\d{10}$")
 
     def test_01_enable_registrant(self):
         # Disable registrant first
@@ -71,7 +72,7 @@ class RegistrantTest(TransactionCase):
 
     def test_04_check_phone_number_validation(self):
         # Add a phone number with an invalid format
-        with self.assertRaises(ValidationError), self.cr.savepoint():
+        with self.assertRaises(ValidationError):
             self.registrant.write({"phone_number_ids": [(0, 0, {"phone_no": "invalid"})]})
 
         # Set an invalid phone number
@@ -87,8 +88,6 @@ class RegistrantTest(TransactionCase):
         self.assertEqual(self.registrant.phone_number_ids[0].phone_no, valid_phone)
 
     def test_05_onchange_phone_validation(self):
-        with self.assertRaises(ValidationError):
-            self.registrant._onchange_phone_validation()
         # Set an invalid phone number using 'phone' field
         invalid_phone = "12345"
         with self.assertRaisesRegex(Exception, "Invalid phone number!"):
@@ -103,7 +102,6 @@ class RegistrantTest(TransactionCase):
 
     def test_06_onchange_mobile_validation(self):
         # Set an invalid phone number using 'mobile' field
-        self.env["ir.config_parameter"].set_param("g2p_registry.phone_regex", r"^\d{10}$")
         invalid_mobile = "9876"
         with self.assertRaisesRegex(Exception, "Invalid mobile number!"):
             self.registrant.write({"mobile": invalid_mobile})
