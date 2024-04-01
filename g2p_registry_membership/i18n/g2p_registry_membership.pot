@@ -24,12 +24,14 @@ msgid "Add an individual to a group!"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Can't delete default kinds"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Can't edit default kinds"
@@ -80,12 +82,14 @@ msgid "Display Name"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Duplication of Member is not allowed "
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "End Date cannot be earlier than Start Date"
@@ -192,12 +196,6 @@ msgid "Kind"
 msgstr ""
 
 #. module: g2p_registry_membership
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership____last_update
-#: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: g2p_registry_membership
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_membership.field_g2p_group_membership_kind__write_uid
 msgid "Last Updated by"
@@ -232,9 +230,22 @@ msgid "Number of individuals"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
+#: code:addons/g2p_registry_membership/models/group.py:0
+#: code:addons/g2p_registry_membership/models/group.py:0
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "Only one %s is allowed per group"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_groups_form_membership
+msgid "Open Individual Form"
+msgstr ""
+
+#. module: g2p_registry_membership
+#: model_terms:ir.ui.view,arch_db:g2p_registry_membership.view_individuals_form_membership
+msgid "Open group form"
 msgstr ""
 
 #. module: g2p_registry_membership
@@ -285,12 +296,14 @@ msgid "Unique"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "kind already exists"
 msgstr ""
 
 #. module: g2p_registry_membership
+#. odoo-python
 #: code:addons/g2p_registry_membership/models/group_membership.py:0
 #, python-format
 msgid "kind should not empty."
