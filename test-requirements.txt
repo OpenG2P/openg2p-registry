@@ -1,0 +1,3 @@
+git+https://github.com/OpenG2P/rest-framework@17.0#subdirectory=fastapi
+git+https://github.com/OpenG2P/rest-framework@17.0#subdirectory=extendable
+git+https://github.com/OpenG2P/rest-framework@17.0#subdirectory=extendable_fastapi
