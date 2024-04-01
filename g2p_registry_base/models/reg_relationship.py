@@ -49,6 +49,7 @@ class G2PRegistrantRelationship(models.Model):
         for record in self:
             domain = [
                 ("relation", "=", record.relation.id),
+                ("id", "!=", record.id),
                 ("source", "=", record.source.id),
                 ("destination", "=", record.destination.id),
             ]

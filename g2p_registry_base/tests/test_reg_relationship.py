@@ -43,6 +43,7 @@ class TestG2PRegistrantRelationship(TransactionCase):
 
         with self.assertRaisesRegex(Exception, "There is already a similar relation with overlapping dates"):
             rel_type.destination_type = "i"
+            rel.destination = self.individual_partner.id
             rel2 = self.reg_rel_model.create(
                 {
                     "source": self.group_partner.id,

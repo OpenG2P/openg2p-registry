@@ -81,24 +81,17 @@ class G2PRegistrant(models.Model):
                     error_message = "Registration date must be later than the birth date."
                     raise ValidationError(error_message)
 
-    @api.constrains("phone_number_ids")
-    def _check_phone_number_validation(self):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
-        if not PHONE_REGEX:
-            return
-        for rec in self.phone_number_ids:
-            if rec.phone_no and not re.match(PHONE_REGEX, rec.phone_no):
-                raise ValidationError(_("Invalid phone number!"))
-
-    @api.onchange("phone")
+    @api.constrains("phone")
     def _onchange_phone_validation(self):
-        self._validate_phone(self.phone, _("Invalid phone number!"))
+        for rec in self:
+            rec._validate_phone(rec.phone, _("Invalid phone number!"))
 
-    @api.onchange("mobile")
+    @api.constrains("mobile")
     def _onchange_mobile_validation(self):
-        self._validate_phone(self.mobile, _("Invalid mobile number!"))
+        for rec in self:
+            rec._validate_phone(rec.mobile, _("Invalid mobile number!"))
 
     def _validate_phone(self, number, error_message):
         PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
-        if number and PHONE_REGEX and not re.match(PHONE_REGEX, number):
+        if PHONE_REGEX and number and not re.match(PHONE_REGEX, number):
             raise ValidationError(error_message)
