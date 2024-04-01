@@ -9,10 +9,9 @@
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
     "depends": [
-        "base",
         "g2p_registry_rest_api",
     ],
-    "external_dependencies": {"python": ["extendable-pydantic", "pydantic==1.10.10"]},
+    "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
     "data": [],
     "assets": {},
     "demo": [],

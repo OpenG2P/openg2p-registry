@@ -93,7 +93,7 @@ class G2PMembershipGroup(models.Model):
 
     def recompute_indicators(self, recomputed_fields=None):
         if recomputed_fields is not None and len(recomputed_fields) > 0:
-            if type(recomputed_fields[0]) is str:
+            if isinstance(recomputed_fields[0], str):
                 recomputed_fields = self._get_calculated_group_fields(recomputed_fields)
         else:
             recomputed_fields = self._get_calculated_group_fields()

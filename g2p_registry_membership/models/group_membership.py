@@ -76,7 +76,8 @@ class G2PGroupMembership(models.Model):
                                 for m in kind_id:
                                     if m.isdigit():
                                         # Only get the digit part of the string kind id
-                                        # Newly added kinds has Neworigin prefix so this is used to remove that
+                                        # Newly added kinds has Neworigin prefix so this
+                                        # is used to remove that
                                         kind_str = kind_str + m
 
                                 # If the rec_line which is the kind id is the same with the unique kind

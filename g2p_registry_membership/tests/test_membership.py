@@ -132,7 +132,8 @@ class MembershipTest(TransactionCase):
         self.assertEqual(self.registrant_3.disabled, curr_date, "Error disabling an individual!")
 
         _logger.info(
-            f"Test 3: Modify disabled individual: {self.registrant_3.name} information. {self.registrant_3.disabled}"
+            f"Test 3: Modify disabled individual: {self.registrant_3.name} information. "
+            f"{self.registrant_3.disabled}"
         )
         self.registrant_3.update(
             {
@@ -161,14 +162,16 @@ class MembershipTest(TransactionCase):
 
         grp_rec = self.group_1.group_membership_ids[0]
         _logger.info(
-            f"Test 4: End membership of individual: {grp_rec.individual.name} membership with group: {grp_rec.group.name}."
+            f"Test 4: End membership of individual: {grp_rec.individual.name} membership with "
+            f"group: {grp_rec.group.name}."
         )
         curr_date = fields.Datetime.now()
         grp_rec.update({"ended_date": curr_date})
         self.assertEqual(grp_rec.is_ended, True, "Error ending the individual's membership to group!")
 
         _logger.info(
-            f"Test 4: Modify individual with ended membership: {grp_rec.individual.name} information. {grp_rec.is_ended}"
+            f"Test 4: Modify individual with ended membership: {grp_rec.individual.name} information. "
+            f"{grp_rec.is_ended}"
         )
         grp_rec.individual.update(
             {
