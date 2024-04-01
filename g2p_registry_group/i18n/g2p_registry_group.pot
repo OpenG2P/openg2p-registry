@@ -53,6 +53,11 @@ msgid "Click the create button to enter the new registrant's information."
 msgstr ""
 
 #. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Click to open the relationship form"
+msgstr ""
+
+#. module: g2p_registry_group
 #: model:ir.model,name:g2p_registry_group.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -79,12 +84,22 @@ msgstr ""
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Disable"
+msgstr ""
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Disabled"
 msgstr ""
 
 #. module: g2p_registry_group
 #: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Enable"
 msgstr ""
 
 #. module: g2p_registry_group
@@ -140,11 +155,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__kind
 #: model:ir.model.fields,field_description:g2p_registry_group.field_res_users__kind_as_str
 msgid "Kind"
-msgstr ""
-
-#. module: g2p_registry_group
-#: model:ir.model.fields,field_description:g2p_registry_group.field_g2p_group_kind____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: g2p_registry_group
@@ -220,12 +230,14 @@ msgid "Tags:"
 msgstr ""
 
 #. module: g2p_registry_group
+#. odoo-python
 #: code:addons/g2p_registry_group/models/group.py:0
 #, python-format
 msgid "kind already exists"
 msgstr ""
 
 #. module: g2p_registry_group
+#. odoo-python
 #: code:addons/g2p_registry_group/models/group.py:0
 #, python-format
 msgid "kind should not empty."
