@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,11 +29,6 @@ msgstr ""
 msgid ""
 "<span class=\"o_stat_text\">Enable</span>\n"
 "                                <span class=\"o_stat_text\">Phone No.</span>"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
-msgid "<span class=\"text-muted\">Set up phone regex based on country.</span>"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -167,6 +162,11 @@ msgid "Color"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__company_id
+msgid "Company"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -174,11 +174,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.ui.menu,name:g2p_registry_base.g2p_configuration_menu_root
 msgid "Configuration"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
-msgid "Configure the country based phone regex"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -239,6 +234,7 @@ msgid "Date Range"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/phone_number.py:0
 #, python-format
 msgid "Date collected cannot be in the future."
@@ -335,7 +331,9 @@ msgid "G2P Registry Settings"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
+#: code:addons/g2p_registry_base/tests/test_reg_relationship.py:0
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__is_group
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__is_group
 #, python-format
@@ -390,12 +388,14 @@ msgid "Id Validation"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Id type already exists"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_id.py:0
 #, python-format
 msgid "Id type should not empty."
@@ -403,7 +403,6 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -420,20 +419,23 @@ msgid "Income"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
+#: code:addons/g2p_registry_base/tests/test_reg_relationship.py:0
 #, python-format
 msgid "Individual"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/registrant.py:0
 #, python-format
 msgid "Invalid mobile number!"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/phone_number.py:0
-#: code:addons/g2p_registry_base/models/registrant.py:0
 #: code:addons/g2p_registry_base/models/registrant.py:0
 #, python-format
 msgid "Invalid phone number!"
@@ -452,18 +454,6 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "Is Related to:"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags____last_update
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -488,11 +478,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_main_attachment_id
-msgid "Main Attachment"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -538,17 +523,12 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -615,6 +595,7 @@ msgid "Registrant"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "Registrant 1 and Registrant 2 cannot be the same."
@@ -757,6 +738,11 @@ msgid "Select Source..."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
+msgid "Set up phone regex based on country."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__source
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_rel_filter
 msgid "Source"
@@ -779,12 +765,14 @@ msgid "State"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/tags.py:0
 #, python-format
 msgid "Tag already Exists"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/tags.py:0
 #, python-format
 msgid "Tag name should not empty."
@@ -798,31 +786,24 @@ msgid "Tags"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "The starting date cannot be after the ending date."
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "There is already a similar relation with overlapping dates"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
 msgid "This registrant is not applicable for this relation type."
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: g2p_registry_base
-#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_unread_counter
-msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: g2p_registry_base
