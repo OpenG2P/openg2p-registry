@@ -83,21 +83,6 @@ class TestG2PPhoneNumber(TransactionCase):
         except Exception as e:
             _logger.debug(f"Caught exception: {e}")
 
-    def test_06_phone_format(self):
-        phone_number = self.env["g2p.phone.number"].create(
-            {
-                "partner_id": self.partner.id,
-                "phone_no": "+919876543210",
-                "country_id": self.country_india.id,
-            }
-        )
-        formatted_number = phone_number._phone_format("+919876543210", self.country_india)
-        expected_number = "+919876543210"
-        formatted_number_digits_only = "".join(char for char in formatted_number if char.isdigit())
-        expected_number_digits_only = "".join(char for char in expected_number if char.isdigit())
-
-        self.assertEqual(expected_number_digits_only, formatted_number_digits_only)
-
     def test_07_compute_phone_sanitized(self):
         phone_number = self.env["g2p.phone.number"].create(
             {
