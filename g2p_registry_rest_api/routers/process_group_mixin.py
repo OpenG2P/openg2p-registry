@@ -1,10 +1,11 @@
-from odoo.addons.component.core import AbstractComponent
+from odoo import models
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
+from .process_individual_mixin import ProcessIndividualMixin
 
 
-class ProcessGroupMixin(AbstractComponent):
+class ProcessGroupMixin(models.AbstractModel):
     _name = "process_group.rest.mixin"
     _inherit = "process_individual.rest.mixin"
     _description = """
@@ -24,7 +25,7 @@ class ProcessGroupMixin(AbstractComponent):
         # Add group's kind field
         if group_info.kind:
             # Search Kind
-            kind_id = self.env["g2p.group.kind"].search([("name", "=", group_info.kind)])
+            kind_id = self.env["g2p.group.kind"].sudo().search([("name", "=", group_info.kind)])
             if kind_id:
                 grp_rec.update({"kind": kind_id[0].id})
             elif group_info.kind:
@@ -36,12 +37,12 @@ class ProcessGroupMixin(AbstractComponent):
 
         ids = []
         ids_info = group_info
-        ids = self._process_ids(ids_info)
+        ids = ProcessIndividualMixin._process_ids(self, ids_info)
         if ids:
             grp_rec.update({"reg_ids": ids})
 
         phone_numbers = []
-        phone_numbers, primary_phone = self._process_phones(ids_info)
+        phone_numbers, primary_phone = ProcessIndividualMixin._process_phones(self, ids_info)
         if primary_phone:
             grp_rec.update({"phone": primary_phone})
         if phone_numbers:
