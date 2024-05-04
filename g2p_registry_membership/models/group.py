@@ -32,7 +32,7 @@ class G2PMembershipGroup(models.Model):
         if self:
             unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
             for unique_kind in unique_kinds:
-                count = sum(1 for rec in self.group_membership_ids if rec.kind.id == unique_kind.id)
+                count = sum(1 for rec in self.group_membership_ids if unique_kind.id in rec.kind.ids)
                 if count > 1:
                     raise ValidationError(_("Only one %s is allowed per group") % unique_kind.name)
         return res
@@ -43,7 +43,7 @@ class G2PMembershipGroup(models.Model):
         if new_record:
             unique_kinds = self.env["g2p.group.membership.kind"].search([("is_unique", "=", True)])
             for unique_kind in unique_kinds:
-                count = sum(1 for rec in new_record.group_membership_ids if rec.kind.id == unique_kind.id)
+                count = sum(1 for rec in self.group_membership_ids if unique_kind.id in rec.kind.ids)
                 if count > 1:
                     raise ValidationError(_("Only one %s is allowed per group") % unique_kind.name)
         return new_record
