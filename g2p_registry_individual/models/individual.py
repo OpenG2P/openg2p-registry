@@ -45,6 +45,12 @@ class G2PIndividual(models.Model):
         for line in self:
             line.age = self.compute_age_from_dates(line.birthdate)
 
+    @api.constrains("age")
+    def _check_age_is_integer(self):
+        for record in self:
+            if record.age and not record.age.isdigit():
+                raise ValidationError(_("Age must be a valid integer."))
+
     def compute_age_from_dates(self, partner_dob):
         now = datetime.strptime(str(fields.Datetime.now())[:10], "%Y-%m-%d")
         if partner_dob:
