@@ -157,7 +157,7 @@
                                         colspan="2"
                                     >
                                         <tree decoration-danger="disabled">
-                                             <field
+                                            <field
                                                 name="phone_no"
                                                 string="Phone Numbers"
                                                 widget="phone"
@@ -175,7 +175,12 @@
                                     <field name="birth_place" readonly="disabled" />
                                 </group>
                                 <group colspan="3">
-                                    <field name="birthdate" readonly="disabled" colspan="2" />
+                                    <field
+                                        name="birthdate"
+                                        readonly="disabled"
+                                        colspan="2"
+                                        placeholder="mm/dd/yyyy"
+                                    />
                                     <field name="birthdate_not_exact" readonly="disabled" />
                                     <field name="age" readonly="disabled" />
                                     <field name="gender" readonly="disabled" />
@@ -330,7 +335,8 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new individual registrant!
-            </p><p>
+            </p>
+            <p>
                 Click the create button to enter the new registrant's information.
             </p>
         </field>
