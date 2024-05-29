@@ -1,7 +1,8 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -19,8 +20,24 @@ class G2PMembershipIndividual(models.Model):
             if line.is_registrant and not line.is_group:
                 try:
                     groups = line.individual_membership_ids.mapped("group")
+                    for group in groups:
+                        unique_kinds = group.env["g2p.group.membership.kind"].search(
+                            [("is_unique", "=", True)]
+                        )
+                        for unique_kind in unique_kinds:
+                            count = sum(
+                                1
+                                for rec in group.group_membership_ids
+                                if unique_kind.id in rec.kind.ids
+                            )
+                            if count > 1:
+                                raise ValidationError(
+                                    _("Only one %s is allowed per group")
+                                    % unique_kind.name
+                                )
                 except Exception as e:
-                    _logger.info("_recompute_parent_groups: exception: %s" % e)
+                    _logger.error("_recompute_parent_groups: exception: %s", e)
+                    raise
                 else:
                     self.env.add_to_compute(field, groups)
 
