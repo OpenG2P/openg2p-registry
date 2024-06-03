@@ -1,7 +1,7 @@
 from datetime import date, datetime
 
 import pydantic
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from .naive_orm_model import NaiveOrmModel
 
@@ -37,10 +37,16 @@ class RegistrantInfoResponse(NaiveOrmModel):
     is_group: bool
     registration_date: date = None
     phone_numbers: list[PhoneNumberResponse] | None = pydantic.Field([], alias="phone_number_ids")
-    email: str | None
-    address: str | None
+    email: str | bool | None = None
+    address: str | bool | None = None
     create_date: datetime = None
     write_date: datetime = None
+
+    @field_validator("email", "address")
+    @classmethod
+    def validate_email(cls, v):
+        if v is False:
+            return ""
 
 
 class RegistrantIDRequest(NaiveOrmModel):
