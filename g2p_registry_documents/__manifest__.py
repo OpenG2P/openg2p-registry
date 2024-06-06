@@ -13,13 +13,14 @@
         "g2p_registry_base",
     ],
     "data": [
-        'views/registrant_document_views.xml',
+        "views/registrant_document_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
             "static/src/js/preview_document.js",
         ],
     },
+    "external_dependencies": {"python": ["python-magic==0.4.27"]},
     "demo": [],
     "images": [],
     "application": True,

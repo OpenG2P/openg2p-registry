@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [g2p_bank](g2p_bank/) | 17.0.1.0.0 |  | G2P Registry: Bank Details
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.0.0 |  | G2P Registry: Additional Info
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.0.0 |  | G2P Registry: Base
+[g2p_registry_documents](g2p_registry_documents/) | 17.0.1.0.0 |  | G2P Registry: Documents
 [g2p_registry_group](g2p_registry_group/) | 17.0.1.0.0 |  | G2P Registry: Groups
 [g2p_registry_individual](g2p_registry_individual/) | 17.0.1.0.0 |  | G2P Registry: Individual
 [g2p_registry_membership](g2p_registry_membership/) | 17.0.1.0.0 |  | G2P Registry: Membership

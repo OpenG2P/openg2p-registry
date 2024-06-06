@@ -47,7 +47,6 @@ class Widgetpreview extends Component {
         const attach_id = parseInt(result.id, 10);
         const mimetype = result.mimetype;
         const indexContent = result.index_content || "";
-        window.open(result.url, "_blank");
         if (mimetype.includes("image")) {
             const attachment = this.store.Attachment.insert({
                 id: attach_id,
