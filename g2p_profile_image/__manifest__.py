@@ -8,13 +8,13 @@
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
     "depends": [
-        "g2p_social_registry",
+        "g2p_registry_base",
         "g2p_documents",
     ],
-    "external_dependencies": {},
-    "data": [
-       
-        ],
+    "external_dependencies": {
+        "python": ["pillow==9.0.1"],
+    },
+    "data": [],
     "assets": {},
     "demo": [],
     "images": [],
