@@ -46,7 +46,6 @@ class G2PImageStorage(models.Model):
 
                     if storage_file:
                         storage_file.unlink()
-
                     self.env["storage.file"].create(storage_file_vals)
                 else:
                     if storage_file:
