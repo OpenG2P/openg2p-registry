@@ -1,9 +1,10 @@
-from odoo import _, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
 class G2PDocumentFile(models.Model):
     _inherit = "storage.file"
+    registrant_id = fields.Many2one("res.partner")
 
     def create(self, vals):
         if isinstance(vals, dict):
