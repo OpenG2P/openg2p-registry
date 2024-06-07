@@ -12,7 +12,7 @@
                             <field name="tags_ids" widget="many2many_tags" />
                             <field name="slug" string="Name" />
                             <field name="file_size" />
-                            <field name="storage_file_type" />
+                            <field name="file_type" />
                             <widget name="action_preview" />
                         </tree>
                     </field>
@@ -33,7 +33,7 @@
                             <field name="tags_ids" widget="many2many_tags" />
                             <field name="slug" string="Name" />
                             <field name="file_size" />
-                            <field name="storage_file_type" />
+                            <field name="file_type" />
                             <widget name="action_preview" />
                         </tree>
                     </field>

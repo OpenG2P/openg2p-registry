@@ -38,22 +38,25 @@ class Widgetpreview extends Component {
     }
 
     async _onPreviewButtonClick(recordID) {
-        const result = await this.rpc("/web/dataset/call_kw/storage.file/get_binary", {
+        const result = await this.rpc("/web/dataset/call_kw/storage.file/get_record", {
             model: "storage.file",
-            method: "get_binary",
+            method: "get_record",
             args: [[recordID]],
             kwargs: {},
         });
-        const attach_id = parseInt(result.id, 10);
         const mimetype = result.mimetype;
-        const indexContent = result.index_content || "";
-        if (mimetype.includes("image")) {
-            const attachment = this.store.Attachment.insert({
-                id: attach_id,
-                mimetype: mimetype,
-                fileType: indexContent,
-            });
-            this.fileViewer.open(attachment);
+
+        const file = {
+            id: recordID,
+            displayName: result.name,
+            downloadUrl: result.url,
+            isViewable: mimetype.includes("image") || mimetype.includes("pdf"),
+            defaultSource: result.url,
+            isImage: mimetype.includes("image"),
+            isPdf: mimetype.includes("pdf"),
+        };
+        if (file.isViewable) {
+            this.fileViewer.open(file);
         } else {
             window.open(result.url, "_blank");
         }

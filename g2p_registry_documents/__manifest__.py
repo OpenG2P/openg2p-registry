@@ -11,6 +11,8 @@
     "depends": [
         "g2p_documents",
         "g2p_registry_base",
+        "g2p_registry_individual",
+        "g2p_registry_group",
     ],
     "data": [
         "views/registrant_document_views.xml",
@@ -20,7 +22,6 @@
             "static/src/js/preview_document.js",
         ],
     },
-    "external_dependencies": {"python": ["python-magic==0.4.27"]},
     "demo": [],
     "images": [],
     "application": True,
