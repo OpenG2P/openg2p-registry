@@ -171,10 +171,8 @@
                                 </group>
                             </group>
                             <group col="6" colspan="6">
-                                <group colspan="6">
-                                    <field name="birth_place" readonly="disabled" />
-                                </group>
                                 <group colspan="3">
+                                    <field name="birth_place" readonly="disabled" />
                                     <field
                                         name="birthdate"
                                         readonly="disabled"
