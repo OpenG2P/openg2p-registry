@@ -376,6 +376,13 @@ msgid "ID Type Validation"
 msgstr ""
 
 #. module: g2p_registry_base
+#. odoo-python
+#: code:addons/g2p_registry_base/models/reg_id.py:0
+#, python-format
+msgid "ID Type must be unique."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.actions.act_window,name:g2p_registry_base.action_id_type
 #: model:ir.ui.menu,name:g2p_registry_base.menu_id_type
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.reg_id_filter
