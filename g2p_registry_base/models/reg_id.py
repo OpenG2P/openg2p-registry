@@ -53,6 +53,20 @@ class G2PRegistrantID(models.Model):
                         f"The provided {rec.id_type.name} ID '{rec.value}' is invalid."
                     )
 
+    @api.constrains("partner_id", "id_type")
+    def _check_unique_id_type(self):
+        for record in self:
+            if (
+                self.search_count(
+                    [
+                        ("partner_id", "=", record.partner_id.id),
+                        ("id_type", "=", record.id_type.id),
+                    ]
+                )
+                > 1
+            ):
+                raise ValidationError(_("ID Type must be unique."))
+
 
 class G2PIDType(models.Model):
     _name = "g2p.id.type"
