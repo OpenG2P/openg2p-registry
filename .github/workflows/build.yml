@@ -1,0 +1,21 @@
+name: Trigger OpenG2P Packaging Workflow
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  trigger-packaging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set variables
+        run: |
+          echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
+      - name: Invoke workflow in another repo with inputs
+        uses: aurelien-baudet/workflow-dispatch@v2
+        with:
+          token: ${{ secrets.GIT_PUSH_TOKEN }}
+          repo: OpenG2P/openg2p-packaging
+          workflow: OpenG2P Odoo Package Dockers build
+          input: "{\"packageName\": \"${{ env.BRANCH_NAME }}\"}"
+          ref: main
