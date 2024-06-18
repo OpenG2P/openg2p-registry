@@ -9,14 +9,13 @@
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
     "depends": [
-        "g2p_registry_base",
-        "g2p_registry_group",
-        "g2p_registry_individual",
+        "g2p_registry_membership",
         "fastapi",
         "extendable_fastapi",
     ],
     "external_dependencies": {"python": ["extendable-pydantic", "pydantic"]},
     "data": [
+        "data/fastapi_endpoint_registry.xml",
         "security/g2p_security.xml",
         "security/ir.model.access.csv",
     ],
@@ -24,6 +23,6 @@
     "demo": [],
     "images": [],
     "application": False,
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }
