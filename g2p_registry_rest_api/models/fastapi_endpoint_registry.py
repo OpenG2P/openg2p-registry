@@ -4,6 +4,7 @@ from odoo import api, fields, models
 
 from ..routers.group import group_router
 from ..routers.individual import individual_router
+from ..routers.registration_id import rid_router,update_registrant_router
 
 
 class G2PRegistryEndpoint(models.Model):
@@ -16,8 +17,8 @@ class G2PRegistryEndpoint(models.Model):
     def _get_fastapi_routers(self) -> list[APIRouter]:
         routers = super()._get_fastapi_routers()
         if self.app == "registry":
-            routers.append(group_router)
-            routers.append(individual_router)
+            routers.extend([group_router, individual_router, rid_router, update_registrant_router])
+        print("end pof router---------------------",routers)
         return routers
 
     @api.model
