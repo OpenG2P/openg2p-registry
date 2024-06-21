@@ -1,46 +1,61 @@
 import logging
 from datetime import date
-
 from typing import Annotated
+
 from fastapi import APIRouter, Depends
+
 from odoo.api import Environment
+
 from odoo.addons.fastapi.dependencies import odoo_env
+
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
-from ..schemas.registration_id import RegistrationIDResponse,UpdateRegistrantInfoRequest
+from ..schemas.registration_id import UpdateRegistrantInfoRequest
 
-rid_router = APIRouter(tags=["Registration id"])
-
-update_registrant_router = APIRouter(tags=["Update Registrant using rid"])
+id_router = APIRouter(tags=["Registration id"])
 
 
-# Fetch registration IDs
-@rid_router.get(
-    "/get/rids",
+@id_router.get(
+    "/get_ids",
     responses={200: {"model": list[str]}},
 )
 async def fetch_registration_ids(
     env: Annotated[Environment, Depends(odoo_env)],
-    id_type: str,
+    include_id_type: str,
+    exclude_id_type: str,
 ):
     """
-    Fetch the registration IDs of all registrants
+    Fetch the IDs of all registrants
     """
     try:
-        if not id_type:
+        if not include_id_type:
             _handle_error(G2PErrorCodes.G2P_REQ_010, "Record is not present in the database.")
 
-        id_type_rec = env["g2p.reg.id"].sudo().search([("id_type.name", "=", id_type)])
-        registration_ids = [rec.value for rec in id_type_rec]
-        return registration_ids
+        domain = [("is_registrant", "=", True)]
+        if include_id_type:
+            domain.append(("reg_ids.id_type", "=", include_id_type))
+
+        registrant_rec = env["res.partner"].sudo().search(domain)
+
+        registration_ids = set()
+
+        for partner in registrant_rec:
+            has_exclude_id_type = any(reg_id.id_type.name == exclude_id_type for reg_id in partner.reg_ids)
+            if has_exclude_id_type:
+                continue
+            for reg_id in partner.reg_ids:
+                if reg_id.id_type.name == include_id_type:
+                    registration_ids.add(reg_id.value)
+
+        return list(registration_ids)
+
     except Exception as e:
         logging.error(f"Error fetching registration IDs: {str(e)}")
         _handle_error(G2PErrorCodes.G2P_REQ_010, "An error occurred while fetching registration IDs.")
 
 
-# Update partner using registration ID
-@update_registrant_router.put(
-    "/update/partner",
+@id_router.put(
+    "/update_partners",
 )
 async def update_partner_using_rid(
     env: Annotated[Environment, Depends(odoo_env)],
@@ -57,9 +72,14 @@ async def update_partner_using_rid(
             logging.info(f"Request data: {request}")
             registration_id = request.registrationId
             if registration_id:
-                partner_rec = env["res.partner"].sudo().search([("reg_ids.value", "=", registration_id)], limit=1)
+                partner_rec = (
+                    env["res.partner"].sudo().search([("reg_ids.value", "=", registration_id)], limit=1)
+                )
                 if not partner_rec:
-                    _handle_error(G2PErrorCodes.G2P_REQ_010, f"Partner with the given registration ID {registration_id} not found.")
+                    _handle_error(
+                        G2PErrorCodes.G2P_REQ_010,
+                        f"Partner with the given registration ID {registration_id} not found.",
+                    )
 
                 if request.name is not None:
                     name_parts = request.name.split(" ")
@@ -72,37 +92,46 @@ async def update_partner_using_rid(
                     update_data["birthdate"] = request.birthdate
                 if request.gender is not None:
                     update_data["gender"] = _process_gender(env, request.gender)
-                if request.birth_place is not None:
-                    update_data["birth_place"] = request.birth_place
                 if request.email is not None:
                     update_data["email"] = request.email
                 if request.address is not None:
                     update_data["address"] = request.address
 
-                 # Process faydaId mapping
-                
+                # Process faydaId mapping
                 fayda_value = None
                 if request.faydaId is not None:
-                    for fayda in request.faydaId:
-                        id_type = fayda.id_type
-                        fayda_value = fayda.value
-                        if id_type and fayda_value:
-                            available_id = env["res.partner"].sudo().search([("reg_ids.value", "=", fayda_value)], limit=1)
-                            if not available_id:
-                                partner_rec.reg_ids =  _process_ids(env, id_type, fayda_value)
+                    id_type = request.faydaId.id_type
+                    fayda_value = request.faydaId.value
+                    if id_type and fayda_value:
+                        available_id = (
+                            env["res.partner"].sudo().search([("reg_ids.value", "=", fayda_value)], limit=1)
+                        )
+                        if not available_id:
+                            partner_rec.reg_ids = _process_ids(env, id_type, fayda_value)
 
                 partner_rec.write(update_data)
-                results.append({"faydaId": fayda_value if fayda_value else None, "registrationId": registration_id, "status": "Success", "message": "Partner data's updated successfully"})
+                results.append(
+                    {
+                        "faydaId": fayda_value if fayda_value else None,
+                        "registrationId": registration_id,
+                        "status": "Success",
+                        "message": "Partner data's updated successfully",
+                    }
+                )
 
             else:
                 logging.error("Registration ID is required")
                 _handle_error(G2PErrorCodes.G2P_REQ_010, "Registration ID is required")
 
         except Exception as e:
-            logging.error(f"Error occurred while updating the partner with registration ID {request.registrationId}: {str(e)}")
+            logging.error(
+                f"Error occurred while updating the partner with registration ID\
+                      {request.registrationId}: {str(e)}"
+            )
             results.append({"registrationId": request.registrationId, "status": "Error", "message": str(e)})
 
     return results
+
 
 def _handle_error(error_code, error_description):
     raise G2PApiValidationError(
@@ -111,22 +140,19 @@ def _handle_error(error_code, error_description):
         error_description=error_description,
     )
 
-def _process_gender(env,gender):
-        gender = (
-            env["gender.type"]
-            .sudo()
-            .search([("active", "=", True), ("code", "=",gender)], limit=1)
-        )
-        if gender:
-            return gender.value
-        return None
+
+def _process_gender(env, gender):
+    gender = env["gender.type"].sudo().search([("active", "=", True), ("code", "=", gender)], limit=1)
+    if gender:
+        return gender.value
+    return None
 
 
-def _process_ids(env,id_type,value):
+def _process_ids(env, id_type, value):
     ids = []
     if id_type and value:
         # Search ID Type
-        id_type_id = env["g2p.id.type"].sudo().search([("name", "=", id_type)],limit=1)
+        id_type_id = env["g2p.id.type"].sudo().search([("name", "=", id_type)], limit=1)
         if id_type_id:
             ids.append(
                 (
@@ -143,7 +169,7 @@ def _process_ids(env,id_type,value):
             raise G2PApiValidationError(
                 error_message=G2PErrorCodes.G2P_REQ_005.get_error_message(),
                 error_code=G2PErrorCodes.G2P_REQ_005.get_error_code(),
-                error_description=(("ID type - %s is not present in the database.") % id_type)
+                error_description=(("ID type - %s is not present in the database.") % id_type),
             )
 
         return ids
