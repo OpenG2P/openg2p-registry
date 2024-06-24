@@ -4,7 +4,6 @@ from odoo import api, fields, models
 
 from ..routers.group import group_router
 from ..routers.individual import individual_router
-from ..routers.registration_id import id_router
 
 
 class G2PRegistryEndpoint(models.Model):
@@ -17,7 +16,7 @@ class G2PRegistryEndpoint(models.Model):
     def _get_fastapi_routers(self) -> list[APIRouter]:
         routers = super()._get_fastapi_routers()
         if self.app == "registry":
-            routers.extend([group_router, individual_router, id_router])
+            routers.extend([group_router, individual_router])
         return routers
 
     @api.model
