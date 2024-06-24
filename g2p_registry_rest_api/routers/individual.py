@@ -92,7 +92,7 @@ async def get_ids(
         if not include_id_type:
             _handle_error(G2PErrorCodes.G2P_REQ_010, "Record is not present in the database.")
 
-        domain = [("is_registrant", "=", True)]
+        domain = [("is_registrant", "=", True), ("is_group", "=", False)]
         if include_id_type:
             domain.append(("reg_ids.id_type", "=", include_id_type))
 

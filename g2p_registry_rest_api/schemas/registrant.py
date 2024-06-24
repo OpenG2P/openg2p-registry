@@ -59,12 +59,6 @@ class RegistrantInfoRequest(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
     ids: list[RegistrantIDRequest]
     registration_date: date = None
-    phone_numbers: list[PhoneNumberRequest]
+    phone_numbers: list[PhoneNumberRequest] | None = None
     email: str | None = None
     address: str | None = None
-
-
-class UpdateIDRegistrant(NaiveOrmModel):
-    id_type: str
-    value: str
-    expiry_date: date | None
