@@ -21,6 +21,14 @@
     <record id="group_g2p_registrar" model="res.groups">
         <field name="name">Registrar</field>
         <field name="category_id" ref="g2p_registry_base.openg2p_module" />
+        <field
+            name="implied_ids"
+            eval="
+            [
+                Command.link(ref('base.group_partner_manager')),
+            ]"
+        />
+
     </record>
 
 </odoo>

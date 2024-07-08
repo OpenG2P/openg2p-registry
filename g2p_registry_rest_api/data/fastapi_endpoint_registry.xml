@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="fastapi.endpoint" id="fastapi_endpoint_registry">
+        <field name="name">OpenG2P FastAPI Endpoint</field>
+        <field name="description">This module implements OpenG2P APIs.</field>
+        <field name="app">registry</field>
+        <field name="root_path">/api/v1/registry</field>
+    </record>
+
+    <function
+        model="fastapi.endpoint"
+        name="sync_endpoint_id_with_registry"
+        eval="(ref('g2p_registry_rest_api.fastapi_endpoint_registry'),)"
+    />
+
+</odoo>

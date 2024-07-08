@@ -4,7 +4,7 @@ import re
 from datetime import date
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -95,3 +95,19 @@ class G2PRegistrant(models.Model):
         PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
         if PHONE_REGEX and number and not re.match(PHONE_REGEX, number):
             raise ValidationError(error_message)
+
+    def unlink(self):
+        res = super().unlink()
+        # Preventing delete access for registrar role
+        # Requirement needs contact creation access
+        # only way to do because conflict happen due to contact creation access
+        group_g2p_registrar = self.env.user.has_group("g2p_registry_base.group_g2p_registrar")
+        group_g2p_admin = self.env.user.has_group("g2p_registry_base.group_g2p_admin")
+        if group_g2p_registrar and not (group_g2p_admin or self.env.user._is_admin()):
+            raise UserError(
+                _(
+                    "You do not have the necessary permissions to delete partner records. "
+                    "Please contact the administrator."
+                )
+            )
+        return res
