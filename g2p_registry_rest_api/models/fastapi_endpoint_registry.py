@@ -16,8 +16,7 @@ class G2PRegistryEndpoint(models.Model):
     def _get_fastapi_routers(self) -> list[APIRouter]:
         routers = super()._get_fastapi_routers()
         if self.app == "registry":
-            routers.append(group_router)
-            routers.append(individual_router)
+            routers.extend([group_router, individual_router])
         return routers
 
     @api.model

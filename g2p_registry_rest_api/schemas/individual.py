@@ -25,8 +25,12 @@ class IndividualInfoResponse(RegistrantInfoResponse):
 class IndividualInfoRequest(RegistrantInfoRequest):
     given_name: str
     addl_name: str | None = None
-    family_name: str
+    family_name: str | None = None
     gender: str | None
     birthdate: date | None
     birth_place: str | None
     is_group: bool = False
+
+
+class UpdateIndividualInfoRequest(IndividualInfoRequest):
+    updateId: str

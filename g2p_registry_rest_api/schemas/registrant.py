@@ -14,7 +14,7 @@ class RegistrantIDResponse(NaiveOrmModel):
     id: int
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
     value: str | None
-    expiry_date: date | None = None
+    expiry_date: date | bool | None = None
 
 
 class PhoneNumberResponse(NaiveOrmModel):
@@ -52,13 +52,13 @@ class RegistrantInfoResponse(NaiveOrmModel):
 class RegistrantIDRequest(NaiveOrmModel):
     id_type: str
     value: str
-    expiry_date: date
+    expiry_date: date | None = None
 
 
 class RegistrantInfoRequest(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
     ids: list[RegistrantIDRequest]
     registration_date: date = None
-    phone_numbers: list[PhoneNumberRequest]
+    phone_numbers: list[PhoneNumberRequest] | None = None
     email: str | None = None
     address: str | None = None
