@@ -22,11 +22,8 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [g2p_bank](g2p_bank/) | 17.0.1.0.0 |  | G2P Registry: Bank Details
-
-[g2p_profile_image](g2p_profile_image/) | 17.0.1.0.0 |  | OpenG2P Profile Image
-
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.0.0 |  | G2P Registry: Bank Details Rest API
-
+[g2p_profile_image](g2p_profile_image/) | 17.0.1.0.0 |  | OpenG2P Profile Image
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.0.0 |  | G2P Registry: Additional Info
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.0.0 |  | G2P Registry: Base
 [g2p_registry_group](g2p_registry_group/) | 17.0.1.0.0 |  | G2P Registry: Groups
