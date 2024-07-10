@@ -118,8 +118,8 @@ class G2PRegistrant(models.Model):
 
         This is to fix the issue that is occuring when the user is trying to create a new company in an
         instance that has "stock" module and "g2p_registry_base" module installed. The issue is that the
-        `_check_company` function checks if the company of the record is either False or the same with the record's
-        company.
+        `_check_company` function checks if the company of the record is either
+        False or the same with the record's company.
 
         To replicate the issue:
         1. Install the "stock" module and "g2p_registry_base" module.
