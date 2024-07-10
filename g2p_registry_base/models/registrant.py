@@ -5,6 +5,7 @@ from datetime import date
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.osv.expression import OR
 
 _logger = logging.getLogger(__name__)
 
@@ -111,3 +112,21 @@ class G2PRegistrant(models.Model):
                 )
             )
         return res
+
+    def _check_company_domain(self, companies):
+        """Overrides the default domain to include the default company that was setup in company_id field.
+
+        This is to fix the issue that is occuring when the user is trying to create a new company in an
+        instance that has "stock" module and "g2p_registry_base" module installed. The issue is that the
+        `_check_company` function checks if the company of the record is either False or the same with the record's
+        company.
+
+        To replicate the issue:
+        1. Install the "stock" module and "g2p_registry_base" module.
+        2. Create a new company.
+        3. "Incompatible companies on records" error will occur.
+        """
+
+        domain = super()._check_company_domain(companies)
+        domain = OR([domain, [("company_id", "=", self.env.company.id)]])
+        return domain
