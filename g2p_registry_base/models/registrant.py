@@ -124,7 +124,7 @@ class G2PRegistrant(models.Model):
         To replicate the issue:
         1. Install the "stock" module and "g2p_registry_base" module.
         2. Create a new company.
-        3. "Incompatible companies on records" error will occur.
+        3. "Incompatible companies on records" error should not occur.
         """
 
         domain = super()._check_company_domain(companies)
