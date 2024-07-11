@@ -180,7 +180,7 @@
                                         placeholder="mm/dd/yyyy"
                                     />
                                     <field name="birthdate_not_exact" readonly="disabled" />
-                                    <field name="age" readonly="disabled" />
+                                    <field name="age" />
                                     <field name="gender" readonly="disabled" />
                                 </group>
                                 <group colspan="3">
