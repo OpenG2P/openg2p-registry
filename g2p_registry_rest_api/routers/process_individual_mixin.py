@@ -23,6 +23,7 @@ class ProcessIndividualMixin(models.AbstractModel):
             "birthdate": individual.birthdate or False,
             "birth_place": individual.birth_place or False,
             "address": individual.address if individual.address else None,
+            "image_1920": individual.image_1920 if individual.image_1920 else None,
         }
 
         ids = []

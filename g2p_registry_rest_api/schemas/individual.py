@@ -34,3 +34,4 @@ class IndividualInfoRequest(RegistrantInfoRequest):
 
 class UpdateIndividualInfoRequest(IndividualInfoRequest):
     updateId: str
+    image_1920: bytes | None = None
