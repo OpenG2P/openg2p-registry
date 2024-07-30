@@ -65,8 +65,8 @@ class ProcessIndividualMixin(models.AbstractModel):
                                 "id_type": id_type_id[0].id,
                                 "value": rec.value,
                                 "expiry_date": rec.expiry_date,
-                                "api_status": rec.api_status if rec.api_status else None,
-                                "api_description": rec.api_description if rec.api_description else None,
+                                "status": rec.status if rec.status else None,
+                                "description": rec.description if rec.description else None,
                             },
                         )
                     )

@@ -66,8 +66,8 @@ class RegistrantIDRequest(NaiveOrmModel):
     expiry_date: str = Field(
         None, description="Expiry date in YYYY-MM-DD format", json_schema_extra={"examples": ["2000-01-01"]}
     )
-    api_status: str = Field(None, alias="status")
-    api_description: str = Field(None, alias="description")
+    status: str = None
+    description: str = None
 
     @field_validator("id_type", "value")
     @classmethod

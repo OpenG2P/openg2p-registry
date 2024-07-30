@@ -162,8 +162,8 @@ async def update_individual(
                 for reg_id in indv_rec["reg_ids"]:
                     id_type = reg_id[2].get("id_type")
                     value = reg_id[2].get("value")
-                    status = reg_id[2].get("api_status")
-                    description = reg_id[2].get("api_description")
+                    status = reg_id[2].get("status")
+                    description = reg_id[2].get("description")
 
                     id_rec = (
                         env["g2p.reg.id"]
@@ -204,8 +204,8 @@ async def update_individual(
                                                     "partner_id": partner_rec.id,
                                                     "id_type": id_type,
                                                     "value": value,
-                                                    "api_status": status,
-                                                    "api_description": description,
+                                                    "status": status,
+                                                    "description": description,
                                                 },
                                             )
                                         )
