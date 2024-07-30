@@ -199,6 +199,13 @@
                                     />
                                     <field name="value" string="ID Number" />
                                     <field name="expiry_date" />
+                                    <field name="status" readonly="1" widget="badge" decoration-info="1" />
+                                    <field
+                                        name="description"
+                                        readonly="1"
+                                        widget="badge"
+                                        decoration-warning="1"
+                                    />
                                 </tree>
                             </field>
                         </page>
