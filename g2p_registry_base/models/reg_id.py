@@ -23,6 +23,9 @@ class G2PRegistrantID(models.Model):
     expiry_date = fields.Date()
     id_type_as_str = fields.Char(related="id_type.name")
 
+    api_status = fields.Char()
+    api_description = fields.Char()
+
     def _compute_display_name(self):
         res = super()._compute_display_name()
         for rec in self:

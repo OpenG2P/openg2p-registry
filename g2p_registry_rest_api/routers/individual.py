@@ -3,13 +3,19 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
+from odoo import fields
 from odoo.api import Environment
 
 from odoo.addons.fastapi.dependencies import odoo_env
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
-from ..schemas.individual import IndividualInfoRequest, IndividualInfoResponse, UpdateIndividualInfoRequest
+from ..schemas.individual import (
+    IndividualInfoRequest,
+    IndividualInfoResponse,
+    UpdateIndividualInfoRequest,
+    UpdateIndividualInfoResponse,
+)
 
 individual_router = APIRouter(tags=["individual"])
 
@@ -92,7 +98,7 @@ async def get_ids(
         if not include_id_type:
             _handle_error(G2PErrorCodes.G2P_REQ_010, "Record is not present in the database.")
 
-        domain = [("is_registrant", "=", True), ("is_group", "=", False)]
+        domain = [("is_registrant", "=", True), ("is_group", "=", False), ("active", "=", True)]
         if include_id_type:
             domain.append(("reg_ids.id_type", "=", include_id_type))
 
@@ -115,12 +121,12 @@ async def get_ids(
         _handle_error(G2PErrorCodes.G2P_REQ_010, "An error occurred while getting IDs.")
 
 
-@individual_router.put("/update_individual", responses={200: {"model": IndividualInfoResponse}})
+@individual_router.put("/update_individual", responses={200: {"model": UpdateIndividualInfoResponse}})
 async def update_individual(
     requests: list[UpdateIndividualInfoRequest],
     env: Annotated[Environment, Depends(odoo_env)],
     id_type: str | None = "",
-) -> list[IndividualInfoResponse]:
+) -> list[UpdateIndividualInfoResponse]:
     """
     Update an individual
     """
@@ -134,7 +140,14 @@ async def update_individual(
                 partner_rec = (
                     env["res.partner"]
                     .sudo()
-                    .search([("reg_ids.value", "=", _id), ("reg_ids.id_type", "=", id_type)], limit=1)
+                    .search(
+                        [
+                            ("reg_ids.value", "=", _id),
+                            ("reg_ids.id_type", "=", id_type),
+                            ("active", "=", True),
+                        ],
+                        limit=1,
+                    )
                 )
                 if not partner_rec:
                     _handle_error(
@@ -144,12 +157,65 @@ async def update_individual(
 
                 # Update the individual
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
-
                 logging.info("Individual Api: Updating Individual Record", indv_rec)
+
+                for reg_id in indv_rec["reg_ids"]:
+                    id_type = reg_id[2].get("id_type")
+                    value = reg_id[2].get("value")
+                    status = reg_id[2].get("api_status")
+                    description = reg_id[2].get("api_description")
+
+                    id_rec = (
+                        env["g2p.reg.id"]
+                        .sudo()
+                        .search(
+                            [
+                                ("value", "=", value),
+                                ("id_type", "=", id_type),
+                            ],
+                            limit=1,
+                        )
+                    )
+                    if id_rec:
+                        # Search for the partner
+                        partner_rec = (
+                            env["res.partner"]
+                            .sudo()
+                            .search(
+                                [
+                                    ("reg_ids.value", "=", value),
+                                    ("reg_ids.id_type", "=", id_type),
+                                    ("active", "=", True),
+                                ],
+                                limit=1,
+                            )
+                        )
+
+                        indv_rec.pop("reg_ids")
+
+                        if partner_rec:
+                            partner_rec.update(
+                                {
+                                    "reg_ids": [
+                                        (
+                                            fields.Command.update(
+                                                id_rec.id,
+                                                {
+                                                    "partner_id": partner_rec.id,
+                                                    "id_type": id_type,
+                                                    "value": value,
+                                                    "api_status": status,
+                                                    "api_description": description,
+                                                },
+                                            )
+                                        )
+                                    ]
+                                }
+                            )
 
                 partner_rec.write(indv_rec)
 
-                results.append(IndividualInfoResponse.model_validate(partner_rec))
+                results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
 
             else:
                 logging.error("ID & ID type is required for update individual")

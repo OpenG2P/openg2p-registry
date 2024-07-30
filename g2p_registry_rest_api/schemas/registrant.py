@@ -21,22 +21,33 @@ class PhoneNumberResponse(NaiveOrmModel):
     id: int
     phone_no: str
     phone_sanitized: str
-    date_collected: date = None
+    date_collected: date | bool | None = None
     # disabled: date | None = None
 
 
 class PhoneNumberRequest(NaiveOrmModel):
     phone_no: str
-    date_collected: date = None
+    date_collected: str = Field(
+        None,
+        description="Date of Collected in YYYY-MM-DD format",
+        json_schema_extra={"examples": ["2000-01-01"]},
+    )
+
+    @field_validator("date_collected")
+    @classmethod
+    def parse_dob(cls, v):
+        if v is None or v == "":
+            return None
+        return datetime.strptime(v, "%Y-%m-%d").date()
 
 
 class RegistrantInfoResponse(NaiveOrmModel):
     id: int
     name: str
-    ids: list[RegistrantIDResponse] | None = pydantic.Field([], alias="reg_ids")
+    ids: list[RegistrantIDResponse] | None = Field([], alias="reg_ids")
     is_group: bool
     registration_date: date = None
-    phone_numbers: list[PhoneNumberResponse] | None = pydantic.Field([], alias="phone_number_ids")
+    phone_numbers: list[PhoneNumberResponse] | None = Field([], alias="phone_number_ids")
     email: str | bool | None = None
     address: str | bool | None = None
     create_date: datetime = None
@@ -52,13 +63,42 @@ class RegistrantInfoResponse(NaiveOrmModel):
 class RegistrantIDRequest(NaiveOrmModel):
     id_type: str
     value: str
-    expiry_date: date | None = None
+    expiry_date: str = Field(
+        None, description="Expiry date in YYYY-MM-DD format", json_schema_extra={"examples": ["2000-01-01"]}
+    )
+    api_status: str = Field(None, alias="status")
+    api_description: str = Field(None, alias="description")
+
+    @field_validator("id_type", "value")
+    @classmethod
+    def check_not_empty(cls, v, field):
+        if not v:
+            raise ValueError(f"{field} cannot be empty")
+        return v
+
+    @field_validator("expiry_date")
+    @classmethod
+    def parse_dob(cls, v):
+        if v is None or v == "":
+            return None
+        return datetime.strptime(v, "%Y-%m-%d").date()
 
 
 class RegistrantInfoRequest(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
     ids: list[RegistrantIDRequest]
-    registration_date: date = None
+    registration_date: str = Field(
+        None,
+        description="Registration date in YYYY-MM-DD format",
+        json_schema_extra={"examples": ["2000-01-01"]},
+    )
     phone_numbers: list[PhoneNumberRequest] | None = None
     email: str | None = None
     address: str | None = None
+
+    @field_validator("registration_date")
+    @classmethod
+    def parse_dob(cls, v):
+        if v is None or v == "":
+            return None
+        return datetime.strptime(v, "%Y-%m-%d").date()

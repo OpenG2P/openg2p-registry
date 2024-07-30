@@ -12,19 +12,23 @@ class ProcessIndividualMixin(models.AbstractModel):
 
     def _process_individual(self, individual):
         indv_rec = {
-            "name": individual.name,
-            "registration_date": individual.registration_date,
+            "name": individual.name if individual.name else None,
+            "registration_date": individual.registration_date if individual.registration_date else None,
             "is_registrant": True,
             "is_group": False,
-            "email": individual.email,
-            "given_name": individual.given_name,
-            "family_name": individual.family_name,
-            "addl_name": individual.addl_name,
-            "birthdate": individual.birthdate or False,
-            "birth_place": individual.birth_place or False,
+            "email": individual.email if individual.email else None,
+            "given_name": individual.given_name if individual.given_name else None,
+            "family_name": individual.family_name if individual.family_name else None,
+            "addl_name": individual.addl_name if individual.addl_name else None,
+            "birthdate": individual.birthdate if individual.birthdate else None,
+            "birth_place": individual.birth_place if individual.birth_place else None,
             "address": individual.address if individual.address else None,
             "image_1920": individual.image_1920 if individual.image_1920 else None,
         }
+
+        filtered_none = {key: value for key, value in indv_rec.items() if value is not None}
+        indv_rec.clear()
+        indv_rec.update(filtered_none)
 
         ids = []
         ids_info = individual
@@ -61,6 +65,8 @@ class ProcessIndividualMixin(models.AbstractModel):
                                 "id_type": id_type_id[0].id,
                                 "value": rec.value,
                                 "expiry_date": rec.expiry_date,
+                                "api_status": rec.api_status if rec.api_status else None,
+                                "api_description": rec.api_description if rec.api_description else None,
                             },
                         )
                     )
