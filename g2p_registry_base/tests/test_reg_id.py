@@ -16,7 +16,7 @@ class TestG2PRegistrantID(TransactionCase):
         id_type = self.id_type_model.create({"name": "Test ID Type", "id_validation": "[0-9]+"})
 
         reg_id = self.reg_id_model.create(
-            {"partner_id": partner.id, "id_type": id_type.id, "value": "123456"}
+            {"partner_id": partner.id, "id_type": id_type.id, "value": "123456" ,"status":"valid", "description":"Due to API"}
         )
 
         # Call the _compute_display_name method
@@ -35,7 +35,7 @@ class TestG2PRegistrantID(TransactionCase):
         id_type = self.id_type_model.create({"name": "Test ID Type", "id_validation": "[0-9]+"})
 
         reg_id = self.reg_id_model.create(
-            {"partner_id": partner.id, "id_type": id_type.id, "value": "123456"}
+            {"partner_id": partner.id, "id_type": id_type.id, "value": "123456", "status":"valid", "description":"Due to API"}
         )
         self.assertEqual(reg_id.value, "123456", "Registrant ID value is not as expected.")
 
@@ -44,7 +44,7 @@ class TestG2PRegistrantID(TransactionCase):
         id_type = self.id_type_model.create({"name": "Test ID Type", "id_validation": "[0-9]+"})
 
         with self.assertRaises(ValidationError) as context:
-            self.reg_id_model.create({"partner_id": partner.id, "id_type": id_type.id, "value": "abc"})
+            self.reg_id_model.create({"partner_id": partner.id, "id_type": id_type.id, "value": "abc", "status":"valid", "description":"Due to API"})
 
         self.assertIn("The provided Test ID Type ID 'abc' is invalid.", str(context.exception))
 
@@ -52,7 +52,7 @@ class TestG2PRegistrantID(TransactionCase):
         partner = self.partner_model.create({"name": "Test Partner", "is_registrant": True})
         id_type = self.id_type_model.create({"name": "Test ID Type"})
         reg_id = self.reg_id_model.create(
-            {"partner_id": partner.id, "id_type": id_type.id, "value": "Test Value"}
+            {"partner_id": partner.id, "id_type": id_type.id, "value": "Test Value","status":"valid", "description":"Due to API"}
         )
         search_result = self.reg_id_model._name_search("Test Partner")
         self.assertIn(reg_id.id, search_result, "Expected record not found in search result")
