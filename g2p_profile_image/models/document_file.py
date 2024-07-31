@@ -1,14 +1,14 @@
-from odoo import _, fields, models
-from odoo.exceptions import UserError
 import logging
+
+from odoo import _, models
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
 
-
 class G2PDocumentFile(models.Model):
     _inherit = "storage.file"
-    
+
     def create(self, vals):
         _logger.info("Creating storage file with values: %s", vals)
         if isinstance(vals, dict):

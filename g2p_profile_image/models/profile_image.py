@@ -3,8 +3,7 @@ import io
 
 from PIL import Image
 
-
-from odoo import models,api
+from odoo import api, models
 from odoo.exceptions import ValidationError
 
 
@@ -16,7 +15,7 @@ class G2PImageStorage(models.Model):
 
         if not profile_tag:
             profile_tag = self.env["g2p.document.tag"].create({"name": "Profile Image"})
-           
+
         storage_file = self.env["storage.file"].search(
             [("registrant_id", "=", self.id), ("tags_ids", "in", [profile_tag.id])], limit=1
         )
@@ -58,8 +57,6 @@ class G2PImageStorage(models.Model):
         else:
             if values and storage_file:
                 storage_file.unlink()
-
-
 
     def write(self, values):
         self._process_profile_image(values)
