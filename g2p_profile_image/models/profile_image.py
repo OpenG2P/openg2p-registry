@@ -3,17 +3,20 @@ import io
 
 from PIL import Image
 
-from odoo import models
+
+from odoo import models,api
 from odoo.exceptions import ValidationError
 
 
 class G2PImageStorage(models.Model):
     _inherit = "res.partner"
 
-    def write(self, values):
+    def _process_profile_image(self, values):
         profile_tag = self.env["g2p.document.tag"].get_tag_by_name("Profile Image")
+
         if not profile_tag:
             profile_tag = self.env["g2p.document.tag"].create({"name": "Profile Image"})
+           
         storage_file = self.env["storage.file"].search(
             [("registrant_id", "=", self.id), ("tags_ids", "in", [profile_tag.id])], limit=1
         )
@@ -56,8 +59,18 @@ class G2PImageStorage(models.Model):
             if values and storage_file:
                 storage_file.unlink()
 
+
+
+    def write(self, values):
+        self._process_profile_image(values)
         result = super().write(values)
         return result
+
+    @api.model
+    def create(self, values):
+        new_record = super().create(values)
+        new_record._process_profile_image(values)
+        return new_record
 
     def _resize_image(self, binary_image):
         image_stream = io.BytesIO(binary_image)

@@ -9,7 +9,7 @@
     "license": "Other OSI approved licence",
     "depends": [
         "g2p_registry_base",
-        "g2p_documents",
+        "g2p_registry_documents",
     ],
     "external_dependencies": {
         "python": ["pillow==9.0.1"],
