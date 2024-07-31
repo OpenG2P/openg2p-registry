@@ -180,7 +180,7 @@
                                         placeholder="mm/dd/yyyy"
                                     />
                                     <field name="birthdate_not_exact" readonly="disabled" />
-                                    <field name="age" readonly="disabled" />
+                                    <field name="age" />
                                     <field name="gender" readonly="disabled" />
                                 </group>
                                 <group colspan="3">
@@ -199,6 +199,12 @@
                                     />
                                     <field name="value" string="ID Number" />
                                     <field name="expiry_date" />
+                                    <field
+                                        name="status"
+                                        decoration-danger="status == 'invalid'"
+                                        decoration-success="status == 'valid'"
+                                    />
+                                    <field name="description" decoration-warning="1" />
                                 </tree>
                             </field>
                         </page>

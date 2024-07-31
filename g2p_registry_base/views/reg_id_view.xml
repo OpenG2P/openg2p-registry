@@ -12,6 +12,8 @@
                 <field name="partner_id" options="{'no_open':True,'no_create_edit':True,'no_create':True}" />
                 <field name="id_type" options="{'no_open':True,'no_create_edit':True,'no_create':True}" />
                 <field name="value" />
+                <field name="status" />
+                <field name="description" />
             </tree>
         </field>
     </record>
@@ -24,6 +26,8 @@
             <search string="Search Registrant IDs">
                 <field name="partner_id" />
                 <field name="value" />
+                <field name="status" />
+                <field name="description" />
                 <group expand="0" string="Group By">
                     <filter string="Registrant" name="grp_registrant" context="{'group_by': 'partner_id'}" />
                 </group>

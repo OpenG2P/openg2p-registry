@@ -139,7 +139,12 @@ class IndividualsTest(TransactionCase):
                 "name": "Testing ID Type",
             }
         )
-        vals = {"id_type": id_type.id, "value": "112233445566778899"}
+        vals = {
+            "id_type": id_type.id,
+            "value": "112233445566778899",
+            "status": "valid",
+            "description": "Due to API",
+        }
 
         self.registrant_1.write({"reg_ids": [(0, 0, vals)]})
         expected_value = "112233445566778899"
