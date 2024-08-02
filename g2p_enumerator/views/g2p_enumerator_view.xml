@@ -9,11 +9,11 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="enumerator_name" />
-                <field name="enumerator_id"/>
-                <field name="data_collection_date"/>
+                <field name="enumerator_id" />
+                <field name="data_collection_date" />
                 <field name="enum_latitude" />
-                <field name="enum_longitude"/>
-                <field name="enum_altitude"/>
+                <field name="enum_longitude" />
+                <field name="enum_altitude" />
                 <field name="enum_accuracy" />
             </tree>
         </field>
@@ -24,7 +24,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">g2p.enumerator</field>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_enumerator_config_tree"/>
+        <field name="view_id" ref="view_enumerator_config_tree" />
         <field name="context">{}</field>
         <field name="domain">[]</field>
         <field name="help" type="html">

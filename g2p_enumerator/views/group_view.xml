@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
    Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 -->
@@ -13,13 +13,13 @@
                     <field name="enumerator_ids" nolabel="1" colspan="2">
                         <tree>
                             <field name="enumerator_name" />
-                            <field name="enumerator_id" string="Enumerator ID"/>
+                            <field name="enumerator_id" string="Enumerator ID" />
                             <field name="data_collection_date" />
                         </tree>
                         <form>
                             <group string="Enumerator Info">
                                 <field name="enumerator_name" />
-                                <field name="enumerator_id" string="Enumerator ID"/>
+                                <field name="enumerator_id" string="Enumerator ID" />
                                 <field name="data_collection_date" />
                             </group>
                             <group string="Enumerator Location">

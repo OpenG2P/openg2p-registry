@@ -7,11 +7,7 @@
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
     "depends": ["g2p_registry_group"],
-    "data": [
-        "security/ir.model.access.csv",
-        "views/g2p_enumerator_view.xml",
-        "views/group_view.xml"
-    ],
+    "data": ["security/ir.model.access.csv", "views/g2p_enumerator_view.xml", "views/group_view.xml"],
     "assets": {
         "web.assets_frontend": [],
         "web.assets_common": [],
