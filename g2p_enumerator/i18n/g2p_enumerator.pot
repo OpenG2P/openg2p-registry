@@ -50,6 +50,8 @@ msgstr ""
 
 #. module: g2p_enumerator
 #: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__data_collection_date
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_partner__data_collection_date
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__data_collection_date
 msgid "Data Collection Date"
 msgstr ""
 
@@ -59,35 +61,40 @@ msgid "Display Name"
 msgstr ""
 
 #. module: g2p_enumerator
-#: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__enumerator_id
-#: model:ir.model.fields,field_description:g2p_enumerator.field_res_partner__enumerator_ids
-#: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__enumerator_ids
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_partner__enumerator_id
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__enumerator_id
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_tree
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
 msgid "Enumerator"
 msgstr ""
 
 #. module: g2p_enumerator
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_fomr
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
 msgid "Enumerator Details"
 msgstr ""
 
 #. module: g2p_enumerator
-#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
-msgid "Enumerator ID"
-msgstr ""
-
-#. module: g2p_enumerator
-#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
-msgid "Enumerator Info"
-msgstr ""
-
-#. module: g2p_enumerator
-#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_fomr
 msgid "Enumerator Location"
 msgstr ""
 
 #. module: g2p_enumerator
-#: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__enumerator_name
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_fomr
 msgid "Enumerator Name"
+msgstr ""
+
+#. module: g2p_enumerator
+#: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__enumerator_user_id
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_partner__enumerator_user_id
+#: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__enumerator_user_id
+msgid "Enumerator User"
+msgstr ""
+
+#. module: g2p_enumerator
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_fomr
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+msgid "Enumerator User ID"
 msgstr ""
 
 #. module: g2p_enumerator
@@ -116,8 +123,8 @@ msgid "Longitude"
 msgstr ""
 
 #. module: g2p_enumerator
-#: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__partner_id
-msgid "Partner"
+#: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__name
+msgid "Name"
 msgstr ""
 
 #. module: g2p_enumerator
