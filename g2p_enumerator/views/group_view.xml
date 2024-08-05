@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_groups_form_enumerator_details" model="ir.ui.view">
+        <field name="name">view_groups_form_enumerator_details</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other']" position="after">
+                <page string="Enumerator Details" name="enumerator_details">
+                    <field name="enumerator_ids" nolabel="1" colspan="2">
+                        <tree>
+                            <field name="enumerator_name" />
+                            <field name="enumerator_id" string="Enumerator ID" />
+                            <field name="data_collection_date" />
+                        </tree>
+                        <form>
+                            <group string="Enumerator Info">
+                                <field name="enumerator_name" />
+                                <field name="enumerator_id" string="Enumerator ID" />
+                                <field name="data_collection_date" />
+                            </group>
+                            <group string="Enumerator Location">
+                                <field name="enum_latitude" />
+                                <field name="enum_longitude" />
+                                <field name="enum_altitude" />
+                                <field name="enum_accuracy" />
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

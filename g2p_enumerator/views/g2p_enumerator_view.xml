@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_enumerator_config_tree" model="ir.ui.view">
+        <field name="name">view_enumerator_config_tree</field>
+        <field name="model">g2p.enumerator</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="enumerator_name" />
+                <field name="enumerator_id" />
+                <field name="data_collection_date" />
+                <field name="enum_latitude" />
+                <field name="enum_longitude" />
+                <field name="enum_altitude" />
+                <field name="enum_accuracy" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_enumerator_action" model="ir.actions.act_window">
+        <field name="name">enumerator action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">g2p.enumerator</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_enumerator_config_tree" />
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a enumerator!
+            </p>
+            <p>
+                Click the create button to enter a new enumerator.
+            </p>
+        </field>
+    </record>
+
+</odoo>

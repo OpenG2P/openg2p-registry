@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_g2p_enum,g2p_enumerator_name,model_g2p_enumerator,,1,1,1,1
