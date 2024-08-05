@@ -3,10 +3,11 @@ from odoo import fields, models
 
 class G2PEnumerator(models.Model):
     _name = "g2p.enumerator"
+    _rec = "name"
 
     # Enum Details
-    enumerator_name = fields.Char()
-    enumerator_id = fields.Char()
+    name = fields.Char()
+    enumerator_user_id = fields.Char()
     data_collection_date = fields.Date()
 
     # Location
@@ -14,5 +15,3 @@ class G2PEnumerator(models.Model):
     enum_longitude = fields.Float(string="Longitude", digits=(10, 7))
     enum_altitude = fields.Float(string="Altitude")
     enum_accuracy = fields.Float(string="Accuracy")
-
-    partner_id = fields.Many2one("res.partner")

@@ -8,14 +8,34 @@
         <field name="model">g2p.enumerator</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="enumerator_name" />
-                <field name="enumerator_id" />
+                <field name="name" string="Enumerator" />
+                <field name="enumerator_user_id" />
                 <field name="data_collection_date" />
                 <field name="enum_latitude" />
                 <field name="enum_longitude" />
                 <field name="enum_altitude" />
                 <field name="enum_accuracy" />
             </tree>
+        </field>
+    </record>
+
+    <record id="view_enumerator_config_fomr" model="ir.ui.view">
+        <field name="name">view_enumerator_config_form</field>
+        <field name="model">g2p.enumerator</field>
+        <field name="arch" type="xml">
+            <form>
+                <group string="Enumerator Details">
+                    <field name="name" string="Enumerator Name" />
+                    <field name="enumerator_user_id" string="Enumerator User ID" />
+                    <field name="data_collection_date" />
+                </group>
+                <group string="Enumerator Location">
+                    <field name="enum_latitude" />
+                    <field name="enum_longitude" />
+                    <field name="enum_altitude" />
+                    <field name="enum_accuracy" />
+                </group>
+            </form>
         </field>
     </record>
 
