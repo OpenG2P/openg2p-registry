@@ -29,7 +29,10 @@ async def get_individual(_id, env: Annotated[Environment, Depends(odoo_env)]):
     if partner:
         return IndividualInfoResponse.model_validate(partner)
     else:
-        _handle_error(G2PErrorCodes.G2P_REQ_010, "Record is not present in the database.")
+        raise G2PApiValidationError(
+            error_message="Record is not present in the database.",
+            error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+        )
 
 
 @individual_router.get(
@@ -55,7 +58,10 @@ def search_individuals(
     partners = env["res.partner"].sudo().search(domain)
     if not partners:
         error_message = "The specified criteria did not match any records."
-        _handle_error(G2PErrorCodes.G2P_REQ_010, error_message)
+        raise G2PApiValidationError(
+            error_message=error_message,
+            error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+        )
 
     return [IndividualInfoResponse.model_validate(partner) for partner in partners]
 
@@ -96,11 +102,14 @@ async def get_ids(
 
     try:
         if not include_id_type:
-            _handle_error(G2PErrorCodes.G2P_REQ_010, "Record is not present in the database.")
+            raise G2PApiValidationError(
+                error_message="Record is not present in the database.",
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+            )
 
         domain = [("is_registrant", "=", True), ("is_group", "=", False), ("active", "=", True)]
         if include_id_type:
-            domain.append(("reg_ids.id_type", "=", include_id_type))
+            domain.extend([("reg_ids.id_type", "=", include_id_type), ("reg_ids.status", "=", "valid")])
 
         registrant_rec = env["res.partner"].sudo().search(domain)
 
@@ -118,7 +127,10 @@ async def get_ids(
 
     except Exception as e:
         logging.error(f"Error while getting IDs: {str(e)}")
-        _handle_error(G2PErrorCodes.G2P_REQ_010, "An error occurred while getting IDs.")
+        raise G2PApiValidationError(
+            error_message="An error occurred while getting IDs.",
+            error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+        ) from e
 
 
 @individual_router.put("/update_individual", responses={200: {"model": UpdateIndividualInfoResponse}})
@@ -150,9 +162,9 @@ async def update_individual(
                     )
                 )
                 if not partner_rec:
-                    _handle_error(
-                        G2PErrorCodes.G2P_REQ_010,
-                        f"Individual with the given ID {_id} not found.",
+                    raise G2PApiValidationError(
+                        error_message=f"Individual with the given ID {_id} not found.",
+                        error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
                     )
 
                 # Update the individual
@@ -219,11 +231,17 @@ async def update_individual(
 
             else:
                 logging.error("ID & ID type is required for update individual")
-                _handle_error(G2PErrorCodes.G2P_REQ_010, "ID is required for update individual")
+                raise G2PApiValidationError(
+                    error_message="ID is required for update individual",
+                    error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+                )
 
         except Exception as e:
             logging.error(f"Error occurred while updating the partner with ID {str(e)}")
-            results.append({"Id": request.updateId, "status": "Failure", "message": str(e)})
+            raise G2PApiValidationError(
+                error_message=str(e),
+                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+            ) from e
 
     return results
 
@@ -233,12 +251,4 @@ def _get_individual(env: Environment, _id: int):
         env["res.partner"]
         .sudo()
         .search([("id", "=", _id), ("is_registrant", "=", True), ("is_group", "=", False)])
-    )
-
-
-def _handle_error(error_code, error_description):
-    raise G2PApiValidationError(
-        error_message=error_code.get_error_message(),
-        error_code=error_code.get_error_code(),
-        error_description=error_description,
     )
