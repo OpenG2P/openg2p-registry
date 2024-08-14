@@ -18,7 +18,7 @@ class G2PRegistrant(models.Model):
         if not vals.get("eid"):
             vals["eid"] = "New"
         res = super().create(vals)
-        if res.eid == "New" and res.supplier_rank > 0:
+        if res.eid == "New" and hasattr(res, 'supplier_rank') and res.supplier_rank > 0:
             res.eid = res.generate_eid()
         return res
 
