@@ -18,8 +18,7 @@
             </tree>
         </field>
     </record>
-
-    <record id="view_enumerator_config_fomr" model="ir.ui.view">
+    <record id="view_enumerator_config_form" model="ir.ui.view">
         <field name="name">view_enumerator_config_form</field>
         <field name="model">g2p.enumerator</field>
         <field name="arch" type="xml">
