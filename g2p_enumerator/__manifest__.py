@@ -6,8 +6,14 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "depends": ["g2p_registry_group"],
-    "data": ["security/ir.model.access.csv", "views/g2p_enumerator_view.xml", "views/group_view.xml"],
+    "depends": ["g2p_registry_group", "base"],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/sequence.xml",
+        "views/g2p_enumerator_view.xml",
+        "views/group_view.xml",
+        "views/registration_portal_view.xml",
+    ],
     "assets": {
         "web.assets_frontend": [],
         "web.assets_common": [],
