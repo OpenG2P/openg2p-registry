@@ -2,7 +2,7 @@
 {
     "name": "G2P Registry: Rest API",
     "category": "G2P",
-    "version": "17.0.1.2.0-develop",
+    "version": "17.0.1.2.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
