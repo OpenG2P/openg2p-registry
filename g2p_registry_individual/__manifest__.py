@@ -2,12 +2,11 @@
 {
     "name": "G2P Registry: Individual",
     "category": "G2P",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.2.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Alpha",
     "depends": ["base", "mail", "contacts", "g2p_registry_base"],
     "data": [
         "security/ir.model.access.csv",

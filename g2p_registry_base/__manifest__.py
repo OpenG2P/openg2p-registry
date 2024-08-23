@@ -1,13 +1,12 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 {
     "name": "G2P Registry: Base",
-    "category": "G2P/",
-    "version": "17.0.1.0.0",
+    "category": "G2P",
+    "version": "17.0.1.2.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Alpha",
     "depends": ["base", "mail", "contacts", "web", "portal"],
     "data": [
         "data/ir_config_params.xml",

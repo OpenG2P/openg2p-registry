@@ -49,14 +49,6 @@ repos:
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
         args: ["https://openg2p.org"]
-      - id: oca-gen-addon-readme
-        args:
-          - --addons-dir=.
-          - --branch=17.0-develop
-          - --org-name=OpenG2P
-          - --repo-name=openg2p-registry
-          - --if-source-changed
-          - --keep-source-digest
       - id: oca-gen-addons-table
       - id: oca-gen-external-dependencies
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
