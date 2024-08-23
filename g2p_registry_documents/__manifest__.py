@@ -19,7 +19,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "static/src/js/preview_document.js",
+            "g2p_registry_documents/static/src/js/preview_document.js",
         ],
     },
     "demo": [],

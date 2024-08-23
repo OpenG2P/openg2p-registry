@@ -1,16 +1,11 @@
-import logging
-
 from odoo import _, models
 from odoo.exceptions import UserError
-
-_logger = logging.getLogger(__name__)
 
 
 class G2PDocumentFile(models.Model):
     _inherit = "storage.file"
 
     def create(self, vals):
-        _logger.info("Creating storage file with values: %s", vals)
         if isinstance(vals, dict):
             self._check_profile_tag(vals)
         elif isinstance(vals, list):
@@ -21,7 +16,6 @@ class G2PDocumentFile(models.Model):
         return super().create(vals)
 
     def _check_profile_tag(self, vals_obj):
-        _logger.info("Checking profile tag for values: %s", vals_obj)
         profile_tag = self.env["g2p.document.tag"].get_tag_by_name("Profile Image")
         profile_tag_id = profile_tag.id
         tags_ids = vals_obj.get("tags_ids", [])
