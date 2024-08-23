@@ -7,12 +7,12 @@ from .registrant import RegistrantInfoRequest, RegistrantInfoResponse
 
 class IndividualInfoResponse(RegistrantInfoResponse):
     given_name: str
-    addl_name: str | bool | None = None
-    family_name: str
-    gender: str | bool | None = None
-    birthdate: date | bool | None = None
+    addl_name: str | None = None
+    family_name: str | None = None
+    gender: str | None = None
+    birthdate: date | None = None
     age: str | None = None
-    birth_place: str | bool | None = None
+    birth_place: str | None = None
     is_group: bool = False
 
     @field_validator("addl_name", "gender", "birthdate", "birth_place", "email", "address")

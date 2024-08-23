@@ -146,7 +146,7 @@ async def update_individual(
 
     for request in requests:
         try:
-            logging.info(f"!!!!!!!!Request data: {request}")
+            logging.info(f"Request data: {request}")
             _id = request.updateId
             if _id and id_type:
                 partner_rec = (
@@ -224,9 +224,8 @@ async def update_individual(
                                     ]
                                 }
                             )
-
+                logging.info(f"individual rec transformed: {indv_rec}")
                 partner_rec.write(indv_rec)
-
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
 
             else:
