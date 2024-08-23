@@ -169,7 +169,6 @@ async def update_individual(
 
                 # Update the individual
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
-                logging.info("Individual Api: Updating Individual Record", indv_rec)
 
                 for reg_id in indv_rec["reg_ids"]:
                     id_type = reg_id[2].get("id_type")
@@ -224,7 +223,6 @@ async def update_individual(
                                     ]
                                 }
                             )
-                logging.info(f"individual rec transformed: {indv_rec}")
                 partner_rec.write(indv_rec)
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
 
