@@ -14,14 +14,14 @@ class RegistrantIDResponse(NaiveOrmModel):
     id: int
     id_type: str = pydantic.Field(..., alias="id_type_as_str")
     value: str | None
-    expiry_date: date | bool | None = None
+    expiry_date: date | None = None
 
 
 class PhoneNumberResponse(NaiveOrmModel):
     id: int
     phone_no: str
     phone_sanitized: str
-    date_collected: date | bool | None = None
+    date_collected: date | None = None
     # disabled: date | None = None
 
 
@@ -48,8 +48,8 @@ class RegistrantInfoResponse(NaiveOrmModel):
     is_group: bool
     registration_date: date = None
     phone_numbers: list[PhoneNumberResponse] | None = Field([], alias="phone_number_ids")
-    email: str | bool | None = None
-    address: str | bool | None = None
+    email: str | None = None
+    address: str | None = None
     create_date: datetime = None
     write_date: datetime = None
 
