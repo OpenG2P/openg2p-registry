@@ -3,7 +3,6 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from odoo import fields
 from odoo.api import Environment
 
 from odoo.addons.fastapi.dependencies import odoo_env
@@ -16,6 +15,8 @@ from ..schemas.individual import (
     UpdateIndividualInfoRequest,
     UpdateIndividualInfoResponse,
 )
+
+_logger = logging.getLogger(__name__)
 
 individual_router = APIRouter(tags=["individual"])
 
@@ -146,7 +147,7 @@ async def update_individual(
 
     for request in requests:
         try:
-            logging.info(f"Request data: {request}")
+            _logger.info(f"Request data: {request}")
             _id = request.updateId
             if _id and id_type:
                 partner_rec = (
@@ -171,10 +172,8 @@ async def update_individual(
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
 
                 for reg_id in indv_rec["reg_ids"]:
-                    id_type = reg_id[2].get("id_type")
+                    id_type_id = reg_id[2].get("id_type")
                     value = reg_id[2].get("value")
-                    status = reg_id[2].get("status")
-                    description = reg_id[2].get("description")
 
                     id_rec = (
                         env["g2p.reg.id"]
@@ -182,50 +181,16 @@ async def update_individual(
                         .search(
                             [
                                 ("value", "=", value),
-                                ("id_type", "=", id_type),
+                                ("id_type", "=", id_type_id),
                             ],
                             limit=1,
                         )
                     )
                     if id_rec:
-                        # Search for the partner
-                        partner_rec = (
-                            env["res.partner"]
-                            .sudo()
-                            .search(
-                                [
-                                    ("reg_ids.value", "=", value),
-                                    ("reg_ids.id_type", "=", id_type),
-                                    ("active", "=", True),
-                                ],
-                                limit=1,
-                            )
-                        )
+                        id_rec.unlink()
 
-                        indv_rec.pop("reg_ids")
-
-                        if partner_rec:
-                            partner_rec.update(
-                                {
-                                    "reg_ids": [
-                                        (
-                                            fields.Command.update(
-                                                id_rec.id,
-                                                {
-                                                    "partner_id": partner_rec.id,
-                                                    "id_type": id_type,
-                                                    "value": value,
-                                                    "status": status,
-                                                    "description": description,
-                                                },
-                                            )
-                                        )
-                                    ]
-                                }
-                            )
                 partner_rec.write(indv_rec)
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
-
             else:
                 logging.error("ID & ID type is required for update individual")
                 raise G2PApiValidationError(
