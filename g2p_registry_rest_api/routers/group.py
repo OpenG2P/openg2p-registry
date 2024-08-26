@@ -5,17 +5,19 @@ from fastapi import APIRouter, Depends
 
 from odoo.api import Environment
 
-from odoo.addons.fastapi.dependencies import odoo_env
+from odoo.addons.fastapi.dependencies import authenticated_partner_env
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
 from ..schemas.group import GroupInfoRequest, GroupInfoResponse, GroupShortInfoOut
 
-group_router = APIRouter(prefix="/group", tags=["group"])
+_logger = logging.getLogger(__name__)
+
+group_router = APIRouter(tags=["group"])
 
 
-@group_router.get("/{_id}", responses={200: {"model": GroupInfoResponse}})
-def get_group(_id, env: Annotated[Environment, Depends(odoo_env)]):
+@group_router.get("/group/{_id}", responses={200: {"model": GroupInfoResponse}})
+def get_group(_id, env: Annotated[Environment, Depends(authenticated_partner_env)]):
     """
     Get partner's information by ID
     """
@@ -32,10 +34,11 @@ def get_group(_id, env: Annotated[Environment, Depends(odoo_env)]):
 
 
 @group_router.get(
-    "",
+    "/group",
+    responses={200: {"model": list[GroupInfoResponse]}},
 )
 def search_groups(
-    env: Annotated[Environment, Depends(odoo_env)],
+    env: Annotated[Environment, Depends(authenticated_partner_env)],
     _id: int | None = None,
     name: str | None = None,
     include_members_full: bool = False,
@@ -72,21 +75,20 @@ def search_groups(
     return res
 
 
-@group_router.post("/", responses={200: {"model": GroupInfoResponse}})
-def create_group(request: GroupInfoRequest, env: Annotated[Environment, Depends(odoo_env)]):
+@group_router.post("/group", responses={200: {"model": GroupInfoResponse}})
+def create_group(request: GroupInfoRequest, env: Annotated[Environment, Depends(authenticated_partner_env)]):
     """
     Create a new Group
     """
     # Create the individual Objects
     grp_membership_rec = []
-    logging.info("INDIVIDUALS:")
 
     for membership_info in request.members:
         individual = membership_info
 
         indv_rec = env["process_individual.rest.mixin"]._process_individual(individual)
 
-        logging.info("Creating Individual Record")
+        _logger.info("Creating Individual Record")
         indv_id = env["res.partner"].sudo().create(indv_rec)
 
         # Add individual's membership kind fields
@@ -107,12 +109,10 @@ def create_group(request: GroupInfoRequest, env: Annotated[Environment, Depends(
                     )
         grp_membership_rec.append({"individual": indv_id.id, "kind": indv_membership_kinds})
 
-    # TODO: create the group object
-    logging.info("GROUP:")
-
+    # create the group object
     grp_rec = env["process_group.rest.mixin"]._process_group(request)
 
-    logging.info("Creating Group Record")
+    _logger.info("Creating Group Record")
     grp_id = env["res.partner"].sudo().create(grp_rec)
     for mbr in grp_membership_rec:
         mbr_rec = mbr
@@ -120,7 +120,7 @@ def create_group(request: GroupInfoRequest, env: Annotated[Environment, Depends(
 
         env["g2p.group.membership"].sudo().create(mbr_rec)
 
-    # TODO: Reload the new object from the DB
+    # Reload the new object from the DB
     partner = _get_group(env, grp_id.id)
 
     return GroupInfoResponse.model_validate(partner)
