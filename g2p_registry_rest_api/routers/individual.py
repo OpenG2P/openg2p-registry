@@ -170,23 +170,16 @@ async def update_individual(
                 # Update the individual
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
 
-                for reg_id in indv_rec["reg_ids"]:
+                for i in range(len(indv_rec.get("reg_ids", []) or [])):
+                    reg_id = indv_rec["reg_ids"][i]
                     id_type_id = reg_id[2].get("id_type")
-                    value = reg_id[2].get("value")
 
-                    id_rec = (
-                        env["g2p.reg.id"]
-                        .sudo()
-                        .search(
-                            [
-                                ("value", "=", value),
-                                ("id_type", "=", id_type_id),
-                            ],
-                            limit=1,
-                        )
+                    id_rec = partner_rec.reg_ids.filtered(
+                        lambda x, id_type_id=id_type_id: x.id_type.id == id_type_id
                     )
+
                     if id_rec:
-                        id_rec.unlink()
+                        indv_rec["reg_ids"][i] = (1, id_rec.id, reg_id[2])
 
                 partner_rec.write(indv_rec)
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
