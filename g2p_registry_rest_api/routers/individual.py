@@ -170,7 +170,8 @@ async def update_individual(
                 # Update the individual
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
 
-                for reg_id in indv_rec["reg_ids"]:
+                for i in range(len(indv_rec.get("reg_ids", []) or [])):
+                    reg_id = indv_rec["reg_ids"][i]
                     id_type_id = reg_id[2].get("id_type")
 
                     id_rec = partner_rec.reg_ids.filtered(
@@ -178,8 +179,7 @@ async def update_individual(
                     )
 
                     if id_rec:
-                        reg_id[0] = 1
-                        reg_id[1] = id_rec.id
+                        indv_rec["reg_ids"][i] = (1, id_rec.id, reg_id[2])
 
                 partner_rec.write(indv_rec)
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
