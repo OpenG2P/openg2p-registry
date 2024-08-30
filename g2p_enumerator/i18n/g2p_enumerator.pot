@@ -53,6 +53,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_enumerator.field_res_partner__creator_eid
 #: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__creator_eid
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_individual_form_enumerator_details
 msgid "Creator's EID"
 msgstr ""
 
@@ -79,12 +80,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_enumerator.field_res_users__enumerator_id
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_tree
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_individual_form_enumerator_details
 msgid "Enumerator"
 msgstr ""
 
 #. module: g2p_enumerator
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_form
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_individual_form_enumerator_details
 msgid "Enumerator Details"
 msgstr ""
 
@@ -108,6 +111,7 @@ msgstr ""
 #. module: g2p_enumerator
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_enumerator_config_form
 #: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
+#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_individual_form_enumerator_details
 msgid "Enumerator User ID"
 msgstr ""
 
