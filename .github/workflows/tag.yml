@@ -1,0 +1,21 @@
+name: Tag the repo
+on:
+  workflow_call:
+    inputs:
+      new-tag:
+        description: Tag in "vN.N.N" format
+        required: true
+        type: string
+      previous-tag:
+        description: Previous tag. "None" if no previous tag
+        required: true
+        type: string
+        default: latest
+jobs:
+  tag-repo:
+    uses: openg2p/openg2p-packaging/.github/workflows/tag.yml@main
+    with:
+      new-tag: ${{ inputs.new-tag }}
+      previous-tag: ${{ inputs.previous-tag }}
+    secrets:
+      OPENG2P_BOT_GITHUB_PAT: ${{ secrets.OPENG2P_BOT_GITHUB_PAT }}
