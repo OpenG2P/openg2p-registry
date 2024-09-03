@@ -8,13 +8,17 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
         <field name="arch" type="xml">
+
             <xpath expr="//page[@name='other']" position="inside">
-                    <group name="enumerator_details" string="Enumerator Details">
+                <group name="other_info" colspan="2" cols="2">
+                    <group cols="1" colspan="1" name="enumerator_details" string="Enumerator Details">
                         <field name="creator_eid" string="Creator's EID" readonly="1" />
                         <field name="enumerator_id" string="Enumerator" />
                         <field name="enumerator_user_id" string="Enumerator User ID" />
                         <field name="data_collection_date" />
                     </group>
+                </group>
+
             </xpath>
         </field>
     </record>
