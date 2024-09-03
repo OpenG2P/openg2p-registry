@@ -3,20 +3,18 @@
    Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 -->
 <odoo>
-    <record id="view_groups_form_enumerator_details" model="ir.ui.view">
-        <field name="name">view_groups_form_enumerator_details</field>
+    <record id="view_individual_form_enumerator_details" model="ir.ui.view">
+        <field name="name">view_individual_form_enumerator_details</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
         <field name="arch" type="xml">
-                 <xpath expr="//page[@name='other']" position="inside">
+            <xpath expr="//page[@name='other']" position="inside">
                     <group name="enumerator_details" string="Enumerator Details">
-                        <field name="create_uid" string="Created by" readonly="1" />
                         <field name="creator_eid" string="Creator's EID" readonly="1" />
                         <field name="enumerator_id" string="Enumerator" />
                         <field name="enumerator_user_id" string="Enumerator User ID" />
                         <field name="data_collection_date" />
                     </group>
-
             </xpath>
         </field>
     </record>
