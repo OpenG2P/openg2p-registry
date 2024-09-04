@@ -1,6 +1,5 @@
 from datetime import date, datetime
 
-import pydantic
 from pydantic import Field, field_validator
 
 from .naive_orm_model import NaiveOrmModel
@@ -12,7 +11,7 @@ class IDType(NaiveOrmModel):
 
 class RegistrantIDResponse(NaiveOrmModel):
     id: int
-    id_type: str = pydantic.Field(..., alias="id_type_as_str")
+    id_type: str = Field(..., alias="id_type_as_str")
     value: str | None
     expiry_date: date | None = None
 
