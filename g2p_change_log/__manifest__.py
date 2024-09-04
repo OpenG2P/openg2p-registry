@@ -5,7 +5,7 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     # any module necessary for this one to work correctly
     "depends": ["base"],
     # always loaded

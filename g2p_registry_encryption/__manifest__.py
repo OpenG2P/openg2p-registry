@@ -5,7 +5,7 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "depends": ["g2p_encryption", "g2p_registry_base", "g2p_registry_individual"],
     "data": [
         "data/registry_encryption_provider.xml",

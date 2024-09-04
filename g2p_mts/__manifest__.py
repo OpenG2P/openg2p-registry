@@ -4,7 +4,7 @@
     "version": "17.0.0.0.0",
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "development_status": "Alpha",
     "depends": ["mts_connector", "g2p_registry_base"],
     "data": [

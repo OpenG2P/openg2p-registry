@@ -5,7 +5,7 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "development_status": "Alpha",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["jq"]},

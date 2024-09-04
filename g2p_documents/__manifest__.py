@@ -6,7 +6,7 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "depends": [
         "storage_backend_s3",
         "storage_file",

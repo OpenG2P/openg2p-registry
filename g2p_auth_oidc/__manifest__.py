@@ -3,7 +3,7 @@
     "version": "17.0.0.0.0",
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "external_dependencies": {"python": ["python-jose"]},
     "depends": ["auth_oauth"],
     "data": [
