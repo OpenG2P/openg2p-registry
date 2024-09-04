@@ -23,7 +23,7 @@
     ],
     "external_dependencies": {
         "python": [
-            "pyjq",
+            "jq",
         ]
     },
     "application": True,

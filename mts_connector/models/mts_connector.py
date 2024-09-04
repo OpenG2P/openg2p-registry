@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 
-import pyjq
+import jq
 import requests
 
 from odoo import _, api, fields, models
@@ -115,7 +115,7 @@ class MTSConnector(models.Model):
                     raise ValidationError(_("Mapping is not valid json.")) from ve
             if rec.output_format:
                 try:
-                    pyjq.compile(rec.output_format)
+                    jq.compile(rec.output_format)
                 except ValueError as ve:
                     raise ValidationError(_("Output Format is not valid jq expression.")) from ve
 

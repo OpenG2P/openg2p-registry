@@ -4,7 +4,7 @@ import logging
 import mimetypes
 from datetime import datetime
 
-import pyjq
+import jq
 import requests
 from dateutil import parser
 
@@ -100,7 +100,7 @@ class ODKClient:
         for member in data["value"]:
             _logger.info("ODK RAW DATA:%s" % member)
             try:
-                mapped_json = pyjq.compile(self.json_formatter).all(member)[0]
+                mapped_json = jq.first(self.json_formatter, member)
                 if self.target_registry == "individual":
                     mapped_json.update({"is_registrant": True, "is_group": False})
                 elif self.target_registry == "group":
@@ -327,7 +327,7 @@ class ODKClient:
         _logger.info(f"ODK RAW DATA by instance ID %s {instance_id} {data}")
         try:
             for member in data["value"]:
-                mapped_json = pyjq.compile(self.json_formatter).all(member)[0]
+                mapped_json = jq.first(self.json_formatter, member)
                 if self.target_registry == "individual":
                     mapped_json.update({"is_registrant": True, "is_group": False})
                 elif self.target_registry == "group":

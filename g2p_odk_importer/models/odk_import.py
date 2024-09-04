@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 
-import pyjq
+import jq
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -100,9 +100,9 @@ class OdkImport(models.Model):
         for rec in self:
             if rec.json_formatter:
                 try:
-                    pyjq.compile(rec.json_formatter)
+                    jq.compile(rec.json_formatter)
                 except ValueError as ve:
-                    raise ValidationError(_("Json Format is not valid pyjq expression.")) from ve
+                    raise ValidationError(_("Json Format is not valid jq expression.")) from ve
 
     def test_connection(self):
         if not self.odk_config:

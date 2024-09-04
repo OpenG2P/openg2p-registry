@@ -177,7 +177,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
 #, python-format
-msgid "Json Format is not valid pyjq expression."
+msgid "Json Format is not valid jq expression."
 msgstr ""
 
 #. module: g2p_odk_importer

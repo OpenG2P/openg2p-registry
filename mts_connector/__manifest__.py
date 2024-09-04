@@ -8,7 +8,7 @@
     "license": "Other OSI approved licence",
     "development_status": "Alpha",
     "depends": ["base", "queue_job"],
-    "external_dependencies": {"python": ["pyjq"]},
+    "external_dependencies": {"python": ["jq"]},
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",

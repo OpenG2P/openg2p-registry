@@ -6,7 +6,6 @@ extendable-pydantic
 jq
 jwcrypto
 pydantic
-pyjq
 python-jose
 python_slugify
 schwifty
