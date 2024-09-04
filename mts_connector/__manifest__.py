@@ -6,7 +6,6 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "development_status": "Alpha",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["jq"]},
     "data": [

@@ -5,7 +5,6 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "development_status": "Alpha",
     "depends": ["mts_connector", "g2p_registry_base"],
     "data": [
         "data/cron.xml",
