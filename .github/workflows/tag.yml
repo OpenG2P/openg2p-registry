@@ -1,6 +1,6 @@
 name: Tag the repo
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       new-tag:
         description: Tag in "vN.N.N" format
