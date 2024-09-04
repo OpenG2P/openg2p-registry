@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 
 from odoo.api import Environment
 
-from odoo.addons.fastapi.dependencies import odoo_env
+from odoo.addons.fastapi.dependencies import authenticated_partner_env
 
 from ..exceptions.base_exception import G2PApiValidationError
 from ..exceptions.error_codes import G2PErrorCodes
@@ -22,7 +22,7 @@ individual_router = APIRouter(tags=["individual"])
 
 
 @individual_router.get("/individual/{_id}", responses={200: {"model": IndividualInfoResponse}})
-async def get_individual(_id, env: Annotated[Environment, Depends(odoo_env)]):
+async def get_individual(_id, env: Annotated[Environment, Depends(authenticated_partner_env)]):
     """
     Get partner's information by ID
     """
@@ -41,7 +41,7 @@ async def get_individual(_id, env: Annotated[Environment, Depends(odoo_env)]):
     responses={200: {"model": list[IndividualInfoResponse]}},
 )
 def search_individuals(
-    env: Annotated[Environment, Depends(odoo_env)],
+    env: Annotated[Environment, Depends(authenticated_partner_env)],
     _id: int | None = None,
     name: str | None = None,
 ) -> list[IndividualInfoResponse]:
@@ -68,11 +68,11 @@ def search_individuals(
 
 
 @individual_router.post(
-    "/individual/",
+    "/individual",
     responses={200: {"model": IndividualInfoResponse}},
 )
 def create_individual(
-    request: IndividualInfoRequest, env: Annotated[Environment, Depends(odoo_env)]
+    request: IndividualInfoRequest, env: Annotated[Environment, Depends(authenticated_partner_env)]
 ) -> IndividualInfoResponse:
     """
     Create a new individual
@@ -80,7 +80,7 @@ def create_individual(
     # Create the individual Object
     indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
 
-    logging.info("Individual Api: Creating Individual Record")
+    _logger.info("Individual Api: Creating Individual Record")
     indv_id = env["res.partner"].sudo().create(indv_rec)
 
     partner = _get_individual(env, indv_id.id)
@@ -89,11 +89,11 @@ def create_individual(
 
 
 @individual_router.get(
-    "/get_ids",
+    "/get_individual_ids",
     responses={200: {"model": list[str]}},
 )
-async def get_ids(
-    env: Annotated[Environment, Depends(odoo_env)],
+async def get_individual_ids(
+    env: Annotated[Environment, Depends(authenticated_partner_env)],
     include_id_type: str | None = "",
     exclude_id_type: str | None = "",
 ):
@@ -101,13 +101,12 @@ async def get_ids(
     Get the IDs of an individual
     """
 
+    if not include_id_type:
+        raise G2PApiValidationError(
+            error_message="Record is not present in the database.",
+            error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+        )
     try:
-        if not include_id_type:
-            raise G2PApiValidationError(
-                error_message="Record is not present in the database.",
-                error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
-            )
-
         domain = [("is_registrant", "=", True), ("is_group", "=", False), ("active", "=", True)]
         if include_id_type:
             domain.extend([("reg_ids.id_type", "=", include_id_type), ("reg_ids.status", "=", "valid")])
@@ -127,7 +126,7 @@ async def get_ids(
         return list(all_ids)
 
     except Exception as e:
-        logging.error(f"Error while getting IDs: {str(e)}")
+        _logger.exception("Error while getting IDs")
         raise G2PApiValidationError(
             error_message="An error occurred while getting IDs.",
             error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
@@ -137,7 +136,7 @@ async def get_ids(
 @individual_router.put("/update_individual", responses={200: {"model": UpdateIndividualInfoResponse}})
 async def update_individual(
     requests: list[UpdateIndividualInfoRequest],
-    env: Annotated[Environment, Depends(odoo_env)],
+    env: Annotated[Environment, Depends(authenticated_partner_env)],
     id_type: str | None = "",
 ) -> list[UpdateIndividualInfoResponse]:
     """
@@ -147,7 +146,7 @@ async def update_individual(
 
     for request in requests:
         try:
-            _logger.info(f"Request data: {request}")
+            _logger.debug(f"Request data: {request}")
             _id = request.updateId
             if _id and id_type:
                 partner_rec = (
@@ -171,35 +170,28 @@ async def update_individual(
                 # Update the individual
                 indv_rec = env["process_individual.rest.mixin"]._process_individual(request)
 
-                for reg_id in indv_rec["reg_ids"]:
+                for i in range(len(indv_rec.get("reg_ids", []) or [])):
+                    reg_id = indv_rec["reg_ids"][i]
                     id_type_id = reg_id[2].get("id_type")
-                    value = reg_id[2].get("value")
 
-                    id_rec = (
-                        env["g2p.reg.id"]
-                        .sudo()
-                        .search(
-                            [
-                                ("value", "=", value),
-                                ("id_type", "=", id_type_id),
-                            ],
-                            limit=1,
-                        )
+                    id_rec = partner_rec.reg_ids.filtered(
+                        lambda x, id_type_id=id_type_id: x.id_type.id == id_type_id
                     )
+
                     if id_rec:
-                        id_rec.unlink()
+                        indv_rec["reg_ids"][i] = (1, id_rec.id, reg_id[2])
 
                 partner_rec.write(indv_rec)
                 results.append(UpdateIndividualInfoResponse.model_validate(partner_rec))
             else:
-                logging.error("ID & ID type is required for update individual")
+                _logger.error("ID & ID type is required for update individual")
                 raise G2PApiValidationError(
                     error_message="ID is required for update individual",
                     error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
                 )
 
         except Exception as e:
-            logging.error(f"Error occurred while updating the partner with ID {str(e)}")
+            _logger.exception("Error occurred while updating the partner with ID")
             raise G2PApiValidationError(
                 error_message=str(e),
                 error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
