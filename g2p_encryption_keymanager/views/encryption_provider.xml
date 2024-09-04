@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_keymanager_encryption_provider_form" model="ir.ui.view">
+        <field name="name">view_keymanager_encryption_provider_form</field>
+        <field name="model">g2p.encryption.provider</field>
+        <field name="inherit_id" ref="g2p_encryption.view_encryption_provider_form" />
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <group
+                    name="Keymanager Settings"
+                    string="Keymanager Settings"
+                    invisible="type != 'keymanager'"
+                >
+                    <field name="keymanager_api_base_url" required="type == 'keymanager'" />
+                    <field name="keymanager_api_timeout" />
+                    <field name="keymanager_auth_url" required="type == 'keymanager'" />
+                    <field name="keymanager_auth_client_id" required="type == 'keymanager'" />
+                    <field
+                        name="keymanager_auth_client_secret"
+                        required="type == 'keymanager'"
+                        password="True"
+                    />
+                    <field name="keymanager_auth_grant_type" required="type == 'keymanager'" />
+                </group>
+                <group
+                    name="Keymanager Additional Settings"
+                    string="Keymanager Additional Settings"
+                    invisible="type != 'keymanager'"
+                >
+                    <!-- <field name="keymanager_access_token" />
+                    <field name="keymanager_access_token_expiry" /> -->
+                    <field name="keymanager_encrypt_application_id" required="True" />
+                    <field name="keymanager_encrypt_reference_id" />
+                    <field name="keymanager_sign_application_id" required="True" />
+                    <field name="keymanager_sign_reference_id" />
+                    <field name="keymanager_encrypt_salt" required="True" password="True" />
+                    <field name="keymanager_encrypt_aad" required="True" password="True" />
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vci_issuers,OpenID VCI Issuers System user,model_g2p_openid_vci_issuers,base.group_system,1,1,1,1

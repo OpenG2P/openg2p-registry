@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mts_connector.access_mts_connector,access_mts_connector,model_mts_connector,base.group_user,1,1,1,1

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="mis_menu_root" name="MIS Importer" sequence="30" active="True" />
+    <menuitem
+        id="mis_menu_config"
+        name="Importer Configurations"
+        active="True"
+        parent="mis_menu_root"
+        sequence="1"
+        action="action_mis_config"
+    />
+
+</odoo>

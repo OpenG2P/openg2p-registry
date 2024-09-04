@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_mis_conf_action" model="ir.actions.server">
+        <field name="name">MIS Config Start</field>
+        <field name="model_id" ref="model_mis_config" />
+        <field name="state">code</field>
+        <field name="code">
+            record.mis_import_action_trigger()
+        </field>
+    </record>
+
+    <record id="view_mis_config_tree" model="ir.ui.view">
+        <field name="name">view_mis_config_tree</field>
+        <field name="model">mis.config</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="mis_api_url" />
+                <field name="job_status" />
+                <button
+                    type="action"
+                    name="%(action_mis_conf_action)d"
+                    invisible="job_status != 'draft'"
+                    string="Start"
+                    title="Action mis conf action"
+                />
+                <button
+                    type="action"
+                    name="%(action_mis_conf_action)d"
+                    invisible="job_status not in ('started','running')"
+                    string="Stop"
+                    title="Action mis conf action"
+                />
+                <button
+                    type="action"
+                    name="%(action_mis_conf_action)d"
+                    invisible="job_status != 'completed'"
+                    string="Restart"
+                    title="Action mis conf action"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mis_config_form" model="ir.ui.view">
+        <field name="name">mis.config.form</field>
+        <field name="model">mis.config</field>
+        <field name="arch" type="xml">
+            <form string="MIS Configuration">
+                <header>
+                    <button
+                        name="test_connection"
+                        string="Test Connection"
+                        type="object"
+                        class="oe_highlight"
+                        title="Test connection"
+                    />
+                    <button
+                        name="import_records"
+                        string="Import Records"
+                        type="object"
+                        class="oe_highlight"
+                        title="Import records"
+                    />
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                            <button
+                            type="action"
+                            name="%(action_mis_conf_action)d"
+                            icon="fa-play"
+                            invisible="job_status != 'draft'"
+                            title="Action mis conf action"
+                        >
+                                <span class="o_stat_text">Start</span>
+                            </button>
+                            <button
+                            type="action"
+                            name="%(action_mis_conf_action)d"
+                            icon="fa-stop"
+                            invisible="job_status not in ('started','running')"
+                            title="Action mis conf action"
+                        >
+                                <span class="o_stat_text">Stop</span>
+                            </button>
+                            <button
+                            type="action"
+                            name="%(action_mis_conf_action)d"
+                            icon="fa-repeat"
+                            invisible="job_status != 'completed'"
+                            title="Action mis conf action"
+                        >
+                                <span class="o_stat_text">Restart</span>
+                            </button>
+                        </div>
+                    <group string="MIS Central">
+                        <field name="name" />
+                        <field name="mis_api_url" />
+                        <field name="mis_login_url" />
+                        <field name="mis_logout_url" />
+                        <field name="database" />
+                        <field name="username" />
+                        <field name="password" password="True" />
+                        <field name="job_status" invisible="True" />
+                        <field name="mis_id_type" />
+                        <field name="mis_program_id" />
+                    </group>
+                    <!-- <group string="Target settings">
+                        <field name="target_registry"/>
+                        <field name="json_formatter"/>
+                    </group> -->
+                     <group string="Time interval">
+                        <field name="interval_minutes" />
+                        <field name="last_updated_at" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mis_config" model="ir.actions.act_window">
+        <field name="name">MIS Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mis.config</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="search_view_id" ref="mis_connector.view_mis_config_search"/> -->
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

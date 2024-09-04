@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="g2p_auth_id_oidc.reg_id_auth_status">
+        <t t-if="showWidget">
+            <link rel="stylesheet" href="/g2p_auth_id_oidc/static/src/css/g2p_reg_id_base.css" />
+            <div>
+                <div class="statusClass">
+                    <t t-out="renderStatus()" />
+                </div>
+                <button class="g2p_reg_id_authenticate_button_class" t-on-click="authenticateButtonClick">
+                    Authenticate
+                </button>
+            </div>
+        </t>
+    </t>
+</templates>

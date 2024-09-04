@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <function
+        model="g2p.encryption.provider"
+        name="set_registry_provider"
+        eval="(ref('g2p_encryption.encryption_provider_default'), False)"
+    />
+</odoo>

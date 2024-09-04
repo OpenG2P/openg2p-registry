@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_encryption_provider_list_tree" model="ir.ui.view">
+        <field name="name">view_encryption_provider_list_tree</field>
+        <field name="model">g2p.encryption.provider</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_encryption_provider_form" model="ir.ui.view">
+        <field name="name">view_encryption_provider_form</field>
+        <field name="model">g2p.encryption.provider</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Encryption Provider">
+                <group name="Base" string="Base">
+                    <field name="name" />
+                    <field name="type" required="True" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_encryption_provider" model="ir.actions.act_window">
+        <field name="name">Encryption Provider</field>
+        <field name="res_model">g2p.encryption.provider</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">Manage encryption providers.</field>
+    </record>
+
+    <menuitem
+        id="menu_encryption_provider"
+        name="Encryption Providers"
+        parent="base.menu_administration"
+        sequence="700"
+        action="action_encryption_provider"
+        groups="crypto_admin"
+    />
+</odoo>

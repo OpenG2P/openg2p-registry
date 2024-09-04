@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <menuitem id="odk_menu_root" name="ODK" sequence="30" active="True" />
+    <menuitem
+        id="odk_import_menu"
+        name="ODK Import"
+        parent="odk_menu_root"
+        action="g2p_odk_importer.action_odk_import"
+        sequence="1"
+    />
+
+    <menuitem
+        id="odk_config_menu"
+        name="Configuration"
+        parent="odk_menu_root"
+        sequence="1"
+        action="g2p_odk_importer.action_odk_config"
+    />
+
+</odoo>

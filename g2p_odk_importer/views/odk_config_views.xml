@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_odk_config_tree" model="ir.ui.view">
+        <field name="name">view_odk_config_tree</field>
+        <field name="model">odk.config</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="base_url" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odk_config_form" model="ir.ui.view">
+        <field name="name">odk.config.form</field>
+        <field name="model">odk.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="ODK Configuration">
+                        <field name="name" />
+                        <field name="base_url" />
+                        <field name="username" />
+                        <field name="password" password="true" />
+                    </group>
+                    <group string="Project details">
+                        <field name="project" />
+                        <field name="form_id" />
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odk_config" model="ir.actions.act_window">
+        <field name="name">Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odk.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

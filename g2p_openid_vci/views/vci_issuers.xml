@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_g2p_openid_vci_issuers_tree" model="ir.ui.view">
+        <field name="name">view_g2p_openid_vci_issuers_tree</field>
+        <field name="model">g2p.openid.vci.issuers</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="scope" />
+                <field name="issuer_type" />
+                <field name="credential_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_g2p_openid_vci_issuers_form" model="ir.ui.view">
+        <field name="name">view_g2p_openid_vci_issuers_form</field>
+        <field name="model">g2p.openid.vci.issuers</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="VCI issuers">
+                <group name="Base" string="Base">
+                    <field name="name" />
+                    <field name="scope" />
+                    <field name="issuer_type" />
+                    <field name="supported_format" />
+                    <field name="unique_issuer_id" />
+
+                    <field name="encryption_provider_id" groups="g2p_encryption.crypto_admin" />
+
+                    <field name="auth_sub_id_type_id" />
+                    <field name="auth_allowed_auds" />
+                    <field name="auth_allowed_issuers" />
+                    <field name="auth_issuer_jwks_mapping" />
+                    <field name="auth_allowed_client_ids" />
+
+                    <field name="credential_type" />
+                    <field name="credential_format" />
+                    <field name="issuer_metadata_text" />
+                    <field name="contexts_json" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vci_issuers" model="ir.actions.act_window">
+        <field name="name">VCI issuers</field>
+        <field name="res_model">g2p.openid.vci.issuers</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">Manage allowed VCI issuers.</field>
+    </record>
+
+    <menuitem
+        id="menu_vci_issuers"
+        name="VCI Issuers"
+        parent="base.menu_administration"
+        sequence="800"
+        action="action_vci_issuers"
+    />
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_registry_encryption_provider_form" model="ir.ui.view">
+        <field name="name">view_registry_encryption_provider_form</field>
+        <field name="model">g2p.encryption.provider</field>
+        <field name="inherit_id" ref="g2p_encryption.view_encryption_provider_form" />
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <group name="Registry Settings" string="Registry Settings">
+                    <field name="registry_fields_to_enc" required="True" />
+                    <field name="registry_enc_field_placeholder" required="True" />
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

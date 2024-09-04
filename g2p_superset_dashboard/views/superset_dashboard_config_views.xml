@@ -1,0 +1,79 @@
+<odoo>
+    <!-- Access Control List for Dashboard Configuration -->
+    <record id="g2p_superset_dashboard_config_user" model="ir.model.access">
+        <field name="name">g2p.superset.dashboard.config user</field>
+        <field name="model_id" ref="model_g2p_superset_dashboard_config" />
+        <field name="group_id" ref="base.group_user" /> <!-- Adjust this group ID as necessary -->
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" /> <!-- Optional: Allow deletion -->
+    </record>
+    <record id="group_superset_dashboard_admin" model="res.groups">
+        <field name="name">Superset Dashboard Admin</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="g2p_superset_dashboard_config_admin" model="ir.model.access">
+        <field name="name">g2p.superset.dashboard.config admin</field>
+        <field name="model_id" ref="model_g2p_superset_dashboard_config" />
+        <field name="group_id" ref="group_superset_dashboard_admin" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+    <record id="rule_g2p_superset_dashboard_config_user" model="ir.rule">
+        <field name="name">g2p_superset_dashboard_config user access</field>
+        <field name="model_id" ref="model_g2p_superset_dashboard_config" />
+        <field name="domain_force">[('access_user_ids', 'in', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]" /> <!-- Adjust the group as necessary -->
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <!-- Form View for Dashboard Configuration -->
+    <record id="view_superset_dashboard_form" model="ir.ui.view">
+        <field name="name">superset.dashboard.config.form</field>
+        <field name="model">g2p.superset.dashboard.config</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard Configuration">
+                <group>
+                    <field name="name" />
+                    <field name="url" />
+                    <field name="access_user_ids" widget="many2many_tags" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Dashboard Configuration -->
+    <record id="view_superset_dashboard_tree" model="ir.ui.view">
+        <field name="name">superset.dashboard.config.tree</field>
+        <field name="model">g2p.superset.dashboard.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="url" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for Dashboard Configuration -->
+    <record id="action_superset_dashboard_config" model="ir.actions.act_window">
+        <field name="name">Superset Dashboard Configuration</field>
+        <field name="res_model">g2p.superset.dashboard.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item for Dashboard Configuration -->
+    <menuitem
+        id="menu_superset_dashboard_config"
+        name="Dashboard Configuration"
+        sequence="1"
+        parent="base.menu_administration"
+        action="action_superset_dashboard_config"
+    />
+</odoo>

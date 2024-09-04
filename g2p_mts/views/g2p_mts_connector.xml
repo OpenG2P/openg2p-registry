@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_g2p_mts_connectors_form" model="ir.ui.view">
+        <field name="name">g2p.mts.connector.view.form</field>
+        <field name="model">mts.connector</field>
+        <field name="inherit_id" ref="mts_connector.view_mts_connectors_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group['mts_connector_form_base_conf']" position="after">
+                <group string="OpenG2P Registry Input Configuration" invisible="input_type != 'custom'">
+                    <field name="g2p_search_domain" required="input_type == 'custom'" />
+                    <field name="g2p_selected_fields" required="input_type =='custom'" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

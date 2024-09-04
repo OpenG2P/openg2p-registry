@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="providers" inherit_id="auth_oauth.providers" name="OAuth Providers" priority="100">
+        <xpath expr="//i[contains(@t-att-class,'css_class')]" position="replace">
+            <t t-if="p['image_icon_url']">
+                <img t-att-src="p['image_icon_url']" t-att-class="p['css_class']" />
+            </t>
+            <t t-else="">
+                <i t-att-class="p['css_class']" />
+            </t>
+        </xpath>
+    </template>
+</odoo>

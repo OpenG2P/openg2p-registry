@@ -1,0 +1,24 @@
+/* CSS for the Authenticated Button */
+
+.g2p_reg_id_authenticate_button_class {
+    background-color: #2196f3;
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    height: 28px;
+    width: 104px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 28px;
+}
+
+.g2p_reg_id_authenticate_button_class:hover {
+    background-color: #1976d2;
+}
+
+.g2p_reg_id_authenticate_button_class:active {
+    background-color: #0d47a1;
+}

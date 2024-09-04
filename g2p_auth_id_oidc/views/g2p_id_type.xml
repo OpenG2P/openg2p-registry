@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_g2p_id_type_oidc_tree" model="ir.ui.view">
+        <field name="name">view_g2p_id_type_oidc_tree</field>
+        <field name="model">g2p.id.type</field>
+        <field name="inherit_id" ref="g2p_registry_base.view_id_type_tree" />
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="auth_oauth_provider_id" options="{'no_create': True}" />
+            </tree>
+        </field>
+    </record>
+</odoo>

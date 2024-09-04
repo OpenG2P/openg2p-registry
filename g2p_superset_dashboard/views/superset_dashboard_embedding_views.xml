@@ -1,0 +1,17 @@
+<odoo>
+    <!-- Action to Open Embedded Dashboard -->
+    <record id="action_superset_dashboard_embedded" model="ir.actions.client">
+        <field name="name">Embedded Dashboard</field>
+        <field name="tag">g2p.superset_dashboard_embedded</field>
+    </record>
+
+    <!-- Menu Item for Embedded Dashboard -->
+    <menuitem
+        id="menu_superset_dashboard_embedded"
+        name="Superset Dashboards"
+        sequence="1"
+        action="action_superset_dashboard_embedded"
+        web_icon="g2p_superset_dashboard,static/description/dashboard_icon.png"
+    />
+
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="openg2p_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">openg2p.res.config.settings.view.inherit.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1010" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <app name="g2p_config_settings" position="inside">
+                <block
+                    name="encryption_settings_container"
+                    title="G2P Registry Encryption Settings"
+                    groups="g2p_encryption.crypto_admin"
+                >
+                    <setting
+                        string="Registry Encryption Provider Config"
+                        help="Select the encryption provider to encrypt the registry"
+                    >
+                        <field name="registry_encryption_provider" />
+                    </setting>
+                    <setting
+                        string="Encrypt Registry Config"
+                        help="This option enables registry fields encrpytion"
+                    >
+                        <field name="encrypt_registry" />
+                    </setting>
+                    <setting
+                        string="Decrypt Registry Config"
+                        help="By choosing this, you are consenting to decrypting fields on registry. So be careful"
+                    >
+                        <field name="decrypt_registry" />
+                    </setting>
+                </block>
+            </app>
+        </field>
+    </record>
+</odoo>
