@@ -13,7 +13,6 @@ dependencies = [
     "odoo-addon-g2p-encryption-keymanager @ {root:uri}/g2p_encryption_keymanager",
     "odoo-addon-g2p-encryption-rest-api @ {root:uri}/g2p_encryption_rest_api",
     "odoo-addon-g2p-enumerator @ {root:uri}/g2p_enumerator",
-    "odoo-addon-g2p-mis-importer @ {root:uri}/g2p_mis_importer",
     "odoo-addon-g2p-mts @ {root:uri}/g2p_mts",
     "odoo-addon-g2p-odk-importer @ {root:uri}/g2p_odk_importer",
     "odoo-addon-g2p-openid-vci @ {root:uri}/g2p_openid_vci",

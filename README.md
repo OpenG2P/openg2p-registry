@@ -32,7 +32,6 @@ addon | version | maintainers | summary
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.0.0.0 |  | G2P Encryption: Keymanager
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.0.0.0 |  | G2P Encryption: Rest API
 [g2p_enumerator](g2p_enumerator/) | 17.0.0.0.0 |  | G2P Enumerator
-[g2p_mis_importer](g2p_mis_importer/) | 17.0.0.0.0 |  | G2P MIS Importer
 [g2p_mts](g2p_mts/) | 17.0.0.0.0 |  | OpenG2P Registry MTS Connector
 [g2p_odk_importer](g2p_odk_importer/) | 17.0.0.0.0 |  | Import records from ODK
 [g2p_openid_vci](g2p_openid_vci/) | 17.0.0.0.0 |  | G2P OpenID VCI: Base
