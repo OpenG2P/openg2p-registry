@@ -81,11 +81,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           persist-credentials: false
-      - name: Pre-install test-requirments
+      - name: Install test-pre-requirments
         run: |
-          if [ -f test-requirements.txt ]; then
-            pip install -r test-requirements.txt
-            rm test-requirements.txt
+          if [ -f test-pre-requirements.txt ]; then
+            pip install -r test-pre-requirements.txt
           fi
       - name: Install addons and dependencies
         run: oca_install_addons
