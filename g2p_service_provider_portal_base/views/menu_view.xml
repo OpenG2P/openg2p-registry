@@ -1,0 +1,26 @@
+<odoo>
+    <!-- Action Name -->
+    <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
+        <field name="name">Service Provider</field>
+    </record>
+
+    <!-- Search View -->
+    <record id="res_partner_view_search_g2p_inherit" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.res_partner_view_search" />
+        <field name="arch" type="xml">
+            <filter name="supplier" position="attributes">
+                <attribute name="string">Service Provider</attribute>
+            </filter>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_account_supplier"
+        name="Service Provider"
+        action="account.res_partner_action_supplier"
+        groups="g2p_registry_base.group_g2p_admin"
+        sequence="5"
+    />
+</odoo>
