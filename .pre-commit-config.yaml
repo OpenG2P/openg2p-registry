@@ -51,8 +51,6 @@ repos:
         args: ["https://openg2p.org"]
       - id: oca-gen-addons-table
       - id: oca-gen-external-dependencies
-      - id: oca-gen-metapackage
-        args: ["odoo-addons-openg2p-registry"]
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
     rev: v0.0.25
     hooks:
