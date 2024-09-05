@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [g2p_enumerator](g2p_enumerator/) | 17.0.0.0.0 |  | G2P Enumerator
 [g2p_mts](g2p_mts/) | 17.0.0.0.0 |  | OpenG2P Registry MTS Connector
 [g2p_odk_importer](g2p_odk_importer/) | 17.0.0.0.0 |  | Import records from ODK
+[g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.0.0.0 |  | ODK App User Mapping
 [g2p_openid_vci](g2p_openid_vci/) | 17.0.0.0.0 |  | G2P OpenID VCI: Base
 [g2p_openid_vci_rest_api](g2p_openid_vci_rest_api/) | 17.0.0.0.0 |  | G2P OpenID VCI: Rest API
 [g2p_portal_auth](g2p_portal_auth/) | 17.0.0.0.0 |  | G2P Portal Auth
@@ -46,6 +47,8 @@ addon | version | maintainers | summary
 [g2p_registry_individual](g2p_registry_individual/) | 17.0.0.0.0 |  | G2P Registry: Individual
 [g2p_registry_membership](g2p_registry_membership/) | 17.0.0.0.0 |  | G2P Registry: Membership
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Rest API
+[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.0.0.0 |  | G2P Service Provider Beneficiary Management
+[g2p_service_provider_portal_base](g2p_service_provider_portal_base/) | 17.0.0.0.0 |  | G2P Service Provider Portal: Base
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.0.0.0 |  | OpenG2P Superset Dashboard
 [mts_connector](mts_connector/) | 17.0.0.0.0 |  | MTS Connector
 

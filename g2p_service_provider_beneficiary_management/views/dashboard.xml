@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<template
+        id="dashboard_service_provider"
+        name="Dashboard Extended"
+        inherit_id="g2p_service_provider_portal_base.home_page"
+    >
+		<xpath expr="//div[hasclass('container-adjuster')]" position="inside">
+			<div class="card-container" style="justify-content: space-evenly">
+
+					<div class="card">
+						<h5 class="card-heading">List of household</h5>
+						<hr />
+						<ul class="card-block">
+							<a href="/serviceprovider/group">
+								<li>
+									<div class="icon-image">
+										<img
+                                        src="/g2p_service_provider_portal_base/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png"
+                                        class="img"
+                                    />
+									</div>
+									<div>
+										<a href="/serviceprovider/group">
+											Household </a>
+										<p> Details</p>
+									</div>
+								</li>
+							</a>
+						</ul>
+						<div class="card-foot">
+							<a href="/serviceprovider/group" class="justify-content-center viewprograms group">View All</a>
+						</div>
+					</div>
+					<div class="card">
+						<h5 class="card-heading">List of Individuals</h5>
+						<hr />
+						<ul class="card-block">
+							<a href="/serviceprovider/individual">
+								<li>
+									<div class="icon-image">
+										<img
+                                        src="/g2p_service_provider_portal_base/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png"
+                                        class="img"
+                                    />
+									</div>
+									<div>
+										<a href="/serviceprovider/individual">
+											Individual </a>
+										<p> Details</p>
+									</div>
+								</li>
+							</a>
+						</ul>
+						<div class="card-foot">
+							<a href="/serviceprovider/individual" class="justify-content-center viewprograms group">View All</a>
+						</div>
+					</div>
+
+			</div>
+		</xpath>
+	</template>
+</odoo>

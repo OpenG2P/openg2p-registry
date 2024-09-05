@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- TODO: Remove all hardcoding -->
+    <template id="profile_page" name="G2P Service Provider My Profile">
+        <t t-call="g2p_service_provider_portal_base.base">
+            <t t-set="title"> My Profile | Service Provider Portal</t>
+            <div class="main-container">
+                <div class="container-adjuster">
+                    <h5 class='all-title'>My Profile</h5>
+                    <ol class="breadcrumb  breadcrumb-list bg-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="/serviceprovider">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                    </ol>
+
+                    <div class="current-partner-container">
+                        <div class="s_website_form_rows">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="s_website_form_field">
+                                        <label class="s_website_form_label" for="first_name">
+                                            <span
+                                                class="s_website_form_label_content"
+                                                style="color: #666666;"
+                                            >Name</span>
+                                        </label>
+                                        <div class="beneficiary-value">
+                                            <t
+                                                t-out="current_partner['name'] if current_partner['name'] else '&#8209;'"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="s_website_form_field">
+                                        <label class="s_website_form_label" for="email">
+                                            <span
+                                                class="s_website_form_label_content"
+                                                style="color: #666666;"
+                                            >Email Address</span>
+                                        </label>
+                                        <div class="beneficiary-value">
+                                            <t
+                                                t-out="current_partner['email'] if current_partner['email'] else '&#8209;'"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="s_website_form_field">
+                                        <label class="s_website_form_label" for="mobile_number">
+                                            <span
+                                                class="s_website_form_label_content"
+                                                style="color: #666666;"
+                                            >Mobile Number</span>
+                                        </label>
+                                        <div class="beneficiary-value">
+                                            <t
+                                                t-out="current_partner['phone'] if current_partner['phone'] else '&#8209;'"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

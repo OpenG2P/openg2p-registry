@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_odk_app_tree" model="ir.ui.view">
+            <field name="name">odk.app.user.tree</field>
+            <field name="model">odk.app.user</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="odk_user_id" />
+                    <field name="name" />
+                    <field name="partner_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odk_app_action" model="ir.actions.act_window">
+            <field name="name">odk.app.user.action</field>
+            <field name="res_model">odk.app.user</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_odk_app_tree" />
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a odk app user
+              </p>
+            </field>
+        </record>
+</odoo>

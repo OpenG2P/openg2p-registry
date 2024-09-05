@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="contact_us_page" name="G2P Service Provider Contact Us">
+        <t t-call="g2p_service_provider_portal_base.base">
+            <t t-set="title"> Contact Us| Service Provider Portal</t>
+            <div class="main-container">
+                <div class="container-adjuster">
+                    <h5 class='all-title'>Contact Us</h5>
+                    <ol class="breadcrumb  breadcrumb-list bg-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="/serviceprovider">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                    </ol>
+
+                    <div class="profile-container">
+                        <img
+                            src="/g2p_service_provider_portal_base/static/src/img/page_under_construction.png"
+                        />
+                        <div>
+                            <h1>Page Under Construction!</h1>
+                            <p
+                            >Our experts are working hard to make this page available. Meanwhile, we request you to please visit after some time.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

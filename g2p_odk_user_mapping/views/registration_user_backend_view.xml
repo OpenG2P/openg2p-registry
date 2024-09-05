@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_res_partner_form_inherit_registration" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.registration</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="ODk User Configuration">
+                    <field
+                        name="odk_config_id"
+                        options="{'no_create': True}"
+                        invisible="context.get('default_supplier_rank')  &lt; 1"
+                    />
+                    <field
+                        name="odk_app_user"
+                        options="{'no_create': True}"
+                        invisible="context.get('default_supplier_rank') &lt; 1"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
