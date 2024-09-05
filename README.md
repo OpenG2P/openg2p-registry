@@ -74,11 +74,7 @@ Contributors include:
 
 ## Licenses
 
-This repository is licensed under [MPL-2.0](LICENSE).
-
-However, each module can have a totally different license, as long as they adhere to OpenG2P
-policy. Consult each module's `__manifest__.py` file, which contains a `license` key
-that explains its license.
+This repository is licensed under [LGPL-3.0](LICENSE).
 
 ----
 <!-- /!\ Non OCA Context : Set here the full description of your organization. -->
