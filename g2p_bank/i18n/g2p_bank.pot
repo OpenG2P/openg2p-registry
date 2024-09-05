@@ -25,6 +25,7 @@ msgid "Bank Details"
 msgstr ""
 
 #. module: g2p_bank
+#: model:ir.model.fields,field_description:g2p_bank.field_account_setup_bank_manual_config__iban
 #: model:ir.model.fields,field_description:g2p_bank.field_res_partner_bank__iban
 msgid "IBAN"
 msgstr ""
