@@ -34,7 +34,7 @@ msgstr ""
 
 #. module: g2p_auth_id_oidc
 #: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
-msgid "Authentication Response:"
+msgid "Authentication Error"
 msgstr ""
 
 #. module: g2p_auth_id_oidc
@@ -52,7 +52,22 @@ msgstr ""
 
 #. module: g2p_auth_id_oidc
 #: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "CLOSE"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Email:"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
 msgid "Encountered error while authenticating Reg Id."
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Error"
 msgstr ""
 
 #. module: g2p_auth_id_oidc
@@ -81,6 +96,11 @@ msgid "Last Authentication User"
 msgstr ""
 
 #. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Name:"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
 #: model:ir.model.fields.selection,name:g2p_auth_id_oidc.selection__g2p_reg_id__authentication_status__not_authenticated
 msgid "Not authenticated"
 msgstr ""
@@ -92,10 +112,25 @@ msgstr ""
 
 #. module: g2p_auth_id_oidc
 #: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
-msgid "Ok"
+msgid "OK"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Phone Number:"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Reg ID:"
 msgstr ""
 
 #. module: g2p_auth_id_oidc
 #: model:ir.model,name:g2p_auth_id_oidc.model_g2p_reg_id
 msgid "Registrant ID"
+msgstr ""
+
+#. module: g2p_auth_id_oidc
+#: model_terms:ir.ui.view,arch_db:g2p_auth_id_oidc.g2p_reg_id_authenticate
+msgid "Success"
 msgstr ""
