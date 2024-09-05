@@ -1,0 +1,385 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mts_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "<span class=\"o_stat_text\">Restart</span>"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "<span class=\"o_stat_text\">Start</span>"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "<span class=\"o_stat_text\">Stop</span>"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_tree
+msgid "Action mts conf action"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "Base Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__delivery_type__callback
+msgid "Callback"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_database
+msgid "Callback Auth Database"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_password
+msgid "Callback Auth Password"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_authtype
+msgid "Callback Auth Type"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_url
+msgid "Callback Auth Url"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_username
+msgid "Callback Auth Username"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "Callback Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_httpmethod
+msgid "Callback HTTP Method"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "Callback Odoo Auth Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_timeout
+msgid "Callback Timeout"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_url
+msgid "Callback URL"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__job_status__completed
+msgid "Completed"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.actions.act_window,help:mts_connector.action_mts_connector
+msgid "Configure Mosip Token Seeder Importers."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.ui.menu,name:mts_connector.mts_importer_connector
+msgid "Connector"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__cron_id
+msgid "Cron Job"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__job_status__draft
+msgid "Draft"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__end_datetime
+msgid "End Time"
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "End Time cannot be after Start Time."
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "End Time cannot be after the current time."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__get
+msgid "GET"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__id
+msgid "ID"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__interval_minutes
+msgid "Interval in minutes"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__output_type__json
+msgid "JSON"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__is_recurring
+msgid "Job Type"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.actions.server,name:mts_connector.action_mts_conf_action
+msgid "MTS Config Start"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.actions.act_window,name:mts_connector.action_mts_connector
+msgid "MTS Connector"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.ui.menu,name:mts_connector.mts_importer_root
+msgid "MTS Connectors"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__delivery_type
+msgid "MTS Delivery Type"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__input_type
+msgid "MTS Input Type"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__output_format
+msgid "MTS Output Format"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__output_type
+msgid "MTS Output Type"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__mapping
+msgid "Mapping"
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Mapping is not valid json."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__lang_code
+msgid "Mosip Language"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model,name:mts_connector.model_mts_connector
+msgid "Mosip Token Seeder Connectors"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__name
+msgid "Name"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__input_type__odk
+msgid "ODK"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__odk_base_url
+msgid "ODK Base Url"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "ODK Input Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__odk_odata_url
+msgid "ODK ODATA Url"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__odk_email
+msgid "ODK User email"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__odk_password
+msgid "ODK User password"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_authtype__odoo
+msgid "Odoo"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "One Time Job Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__is_recurring__onetime
+msgid "One time"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__input_type__custom
+msgid "OpenG2P Registry"
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Output Format is not valid jq expression."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__patch
+msgid "PATCH"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__post
+msgid "POST"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__put
+msgid "PUT"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__is_recurring__recurring
+msgid "Recurring"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+msgid "Recurring Job Configuration"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_tree
+msgid "Restart"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__job_status__running
+msgid "Running"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_tree
+msgid "Start"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__start_datetime
+msgid "Start Time"
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Start Time cannot be after the current time."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__job_status__started
+msgid "Started"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__job_status
+msgid "Status"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_tree
+msgid "Stop"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__mts_url
+msgid "URL to reach MTS"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,help:mts_connector.field_mts_connector__cron_id
+msgid "linked to this MTS configuration"
+msgstr ""

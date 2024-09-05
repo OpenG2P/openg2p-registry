@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="fastapi.endpoint" id="fastapi_endpoint_security">
+        <field name="name">OpenG2P Secuirty FastAPI Endpoint</field>
+        <field name="description">FastAPI APIs related OpenG2P encryption and cryptography</field>
+        <field name="app">security</field>
+        <field name="root_path">/api/v1/security</field>
+    </record>
+
+    <function
+        model="fastapi.endpoint"
+        name="sync_endpoint_id_with_registry"
+        eval="(ref('g2p_encryption_rest_api.fastapi_endpoint_security'),)"
+    />
+</odoo>

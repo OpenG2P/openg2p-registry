@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_oauth_provider_oidc_form" model="ir.ui.view">
+        <field name="name">view_oauth_provider_oidc_form</field>
+        <field name="model">auth.oauth.provider</field>
+        <field name="inherit_id" ref="auth_oauth.view_oauth_provider_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="flow" />
+                <field name="token_map" placeholder="e.g from:to upn:email sub:user_id" />
+            </field>
+            <field name="client_id" position="after">
+                <field name="client_authentication_method" />
+                <field
+                    name="client_secret"
+                    invisible="client_authentication_method != 'client_secret_basic' and client_authentication_method != 'client_secret_post'"
+                />
+                <field
+                    name="client_private_key"
+                    invisible="client_authentication_method != 'private_key_jwt'"
+                />
+            </field>
+
+            <field name="css_class" position="after">
+                <field name="image_icon_url" />
+            </field>
+
+            <field name="validation_endpoint" position="after">
+                <field name="token_endpoint" />
+                <field name="jwks_uri" />
+                <field name="jwt_assertion_aud" />
+            </field>
+            <field name="data_endpoint" position="after">
+                <field name="extra_authorize_params" />
+                <field name="verify_at_hash" />
+                <field name="date_format" />
+                <field name="allow_signup" />
+                <field
+                    name="signup_default_groups"
+                    invisible="allow_signup != 'yes'"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                />
+                <field name="sync_user_groups" />
+                <field name="company_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

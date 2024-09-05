@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template id="login" inherit_id="web.login" priority="1000">
+        <xpath expr="//input[@name='db']/../.." position="replace" />
+        <xpath expr="//input[@name='login']/.." position="replace" />
+        <xpath expr="//input[@name='password']/.." position="replace" />
+        <xpath expr="//button[@type='submit' and hasclass('btn-primary')]" position="replace" />
+    </template>
+    <template id="auth_oauth_providers" inherit_id="auth_oauth.providers" priority="1000">
+        <em position="replace" />
+    </template>
+</odoo>

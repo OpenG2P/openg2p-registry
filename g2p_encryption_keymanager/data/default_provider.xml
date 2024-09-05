@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="g2p_encryption.encryption_provider_default" model="g2p.encryption.provider">
+        <field name="name">Default Keymanager Encryption Provider</field>
+        <field name="type">keymanager</field>
+    </record>
+</odoo>

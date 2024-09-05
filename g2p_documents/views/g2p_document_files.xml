@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_g2p_document_files_tree" model="ir.ui.view">
+        <field name="name">view_g2p_document_files_tree</field>
+        <field name="model">storage.file</field>
+        <field name="inherit_id" ref="storage_file.storage_file_view_tree" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </field>
+            <field name="name" position="after">
+                <field name="tags_ids" widget="many2many_tags" />
+                <field name="slug" />
+            </field>
+            <field name="backend_id" position="attributes">
+                <attribute name="invisible">context.get('hide_backend',0)</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_g2p_document_files_form" model="ir.ui.view">
+        <field name="name">view_g2p_document_files_form</field>
+        <field name="model">storage.file</field>
+        <field name="priority" eval="99" />
+        <field name="inherit_id" ref="storage_file.storage_file_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']/.." position="after">
+                <label for="tags_ids" />
+                <h2>
+                    <field name="tags_ids" widget="many2many_tags" />
+                </h2>
+            </xpath>
+            <xpath expr="//field[@name='data']" position="replace">
+                <field name="data" readonly="id" filename="filename" required="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_g2p_document_files" model="ir.actions.act_window">
+        <field name="name">Document Files</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">storage.file</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="storage_file.storage_file_view_search" />
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_g2p_document_file_tree">
+        <field name="act_window_id" ref="action_g2p_document_files" />
+        <field name="view_id" ref="view_g2p_document_files_tree" />
+        <field name="view_mode">tree</field>
+        <field name="sequence" eval="1" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_g2p_document_file_form">
+        <field name="act_window_id" ref="action_g2p_document_files" />
+        <field name="view_id" ref="storage_file.storage_file_view_form" />
+        <field name="view_mode">form</field>
+        <field name="sequence" eval="1" />
+    </record>
+
+    <menuitem
+        id="menu_g2p_document_files"
+        name="Document Files"
+        action="action_g2p_document_files"
+        parent="g2p_documents_main_menu_root"
+        sequence="20"
+        groups="g2p_documents.group_g2p_document_admin"
+    />
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="fastapi.endpoint" id="fastapi_endpoint_vci">
+        <field name="name">OpenG2P OpenID VCI FastAPI Endpoint</field>
+        <field name="description">FastAPI APIs related OpenID VC Issuance</field>
+        <field name="app">vci</field>
+        <field name="root_path">/api/v1/vci</field>
+    </record>
+
+    <function
+        model="fastapi.endpoint"
+        name="sync_endpoint_id_with_registry"
+        eval="(ref('g2p_openid_vci_rest_api.fastapi_endpoint_vci'),)"
+    />
+</odoo>

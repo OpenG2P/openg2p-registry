@@ -1,0 +1,42 @@
+[project]
+name = "odoo-addons-openg2p-registry"
+version = "0.0.0"
+dependencies = [
+    "odoo-addon-g2p-auth-id-oidc @ {root:uri}/g2p_auth_id_oidc",
+    "odoo-addon-g2p-auth-oidc @ {root:uri}/g2p_auth_oidc",
+    "odoo-addon-g2p-bank @ {root:uri}/g2p_bank",
+    "odoo-addon-g2p-bank-rest-api @ {root:uri}/g2p_bank_rest_api",
+    "odoo-addon-g2p-change-log @ {root:uri}/g2p_change_log",
+    "odoo-addon-g2p-disable-password-login @ {root:uri}/g2p_disable_password_login",
+    "odoo-addon-g2p-documents @ {root:uri}/g2p_documents",
+    "odoo-addon-g2p-encryption @ {root:uri}/g2p_encryption",
+    "odoo-addon-g2p-encryption-keymanager @ {root:uri}/g2p_encryption_keymanager",
+    "odoo-addon-g2p-encryption-rest-api @ {root:uri}/g2p_encryption_rest_api",
+    "odoo-addon-g2p-enumerator @ {root:uri}/g2p_enumerator",
+    "odoo-addon-g2p-mts @ {root:uri}/g2p_mts",
+    "odoo-addon-g2p-odk-importer @ {root:uri}/g2p_odk_importer",
+    "odoo-addon-g2p-openid-vci @ {root:uri}/g2p_openid_vci",
+    "odoo-addon-g2p-openid-vci-rest-api @ {root:uri}/g2p_openid_vci_rest_api",
+    "odoo-addon-g2p-portal-auth @ {root:uri}/g2p_portal_auth",
+    "odoo-addon-g2p-profile-image @ {root:uri}/g2p_profile_image",
+    "odoo-addon-g2p-registry-addl-info @ {root:uri}/g2p_registry_addl_info",
+    "odoo-addon-g2p-registry-base @ {root:uri}/g2p_registry_base",
+    "odoo-addon-g2p-registry-documents @ {root:uri}/g2p_registry_documents",
+    "odoo-addon-g2p-registry-encryption @ {root:uri}/g2p_registry_encryption",
+    "odoo-addon-g2p-registry-group @ {root:uri}/g2p_registry_group",
+    "odoo-addon-g2p-registry-individual @ {root:uri}/g2p_registry_individual",
+    "odoo-addon-g2p-registry-membership @ {root:uri}/g2p_registry_membership",
+    "odoo-addon-g2p-registry-rest-api @ {root:uri}/g2p_registry_rest_api",
+    "odoo-addon-g2p-superset-dashboard @ {root:uri}/g2p_superset_dashboard",
+    "odoo-addon-mts-connector @ {root:uri}/mts_connector",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+bypass-selection = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+encryption_provider_crypto_admin,Encryption Provider Crypto Admin,g2p_encryption.model_g2p_encryption_provider,g2p_encryption.crypto_admin,1,1,1,1

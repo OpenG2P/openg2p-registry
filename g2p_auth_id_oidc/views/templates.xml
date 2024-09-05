@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="g2p_reg_id_authenticate" name="Authenticate">
+        <t t-call="web.layout">
+            <t t-set="title">Authenticate</t>
+            <link rel="stylesheet" href="/g2p_auth_id_oidc/static/src/css/g2p_authentication_response.css" />
+            <div class="auth_response" id="auth_response">
+                <t t-if="authentication_status">
+                    <div class="modal-header">
+                        <h2 class="success-message">Authentication Success</h2>
+                        <img
+                            src="/g2p_auth_id_oidc/static/src/img/success.png"
+                            alt="Success"
+                            class="success-icon"
+                        />
+                    </div>
+                    <div class="modal-body">
+                        <div class="authentication-details">
+                            <!-- Display the Name -->
+                            <p class="detail">Name: <t t-esc="validation.get('name')" /></p>
+
+                            <!-- Display the Registration ID (Assuming it's in reg_ids[0]['value']) -->
+                            <p class="detail">Reg ID: <t
+                                    t-esc="validation.get('reg_ids')[0][2]['value'] if validation.get('reg_ids') else ''"
+                                />
+                            </p>
+
+                            <!-- Display the Email -->
+                            <p class="detail">Email: <t t-esc="validation.get('email')" /></p>
+
+                            <!-- Display the Phone Number -->
+                            <p class="detail">Phone Number: <t t-esc="validation.get('phone')" /></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="window.close()">OK</button>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="modal-header">
+                        <h2 class="error-message">Authentication Error</h2>
+                        <img
+                            src="/g2p_auth_id_oidc/static/src/img/error.png"
+                            alt="Error"
+                            class="error-icon"
+                        />
+                    </div>
+                    <div class="modal-body">
+                        <p class="detail">Encountered error while authenticating Reg Id.</p>
+                        <t t-if="debug">
+                            <p class="detail"><t t-out="error_exception" /></p>
+                        </t>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="window.close()">CLOSE</button>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

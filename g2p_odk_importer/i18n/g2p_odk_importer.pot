@@ -1,0 +1,360 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_odk_importer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "<span class=\"o_stat_text\">Restart</span>"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "<span class=\"o_stat_text\">Start</span>"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "<span class=\"o_stat_text\">Stop</span>"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Action odk conf action"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Action odk restart action"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Action odk start action"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Action odk stop action"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__base_url
+msgid "Base URL"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__job_status__completed
+msgid "Completed"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model,name:g2p_odk_importer.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.actions.act_window,name:g2p_odk_importer.action_odk_config
+#: model:ir.ui.menu,name:g2p_odk_importer.odk_config_menu
+msgid "Configuration"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__create_uid
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__create_date
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__cron_id
+msgid "Cron Job"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__display_name
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__job_status__draft
+msgid "Draft"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.odk_res_config_settings_view_form
+msgid "Enable ODK import InstanceID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_res_config_settings__enable_odk
+msgid "Enable Odk"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__end_datetime
+msgid "End Time"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Fetch Record"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Fetch Records Using Instance ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__form_id
+msgid "Form ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__target_registry__group
+msgid "Group"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__id
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Import Records"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Import records"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__target_registry__individual
+msgid "Individual"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__instance_id
+msgid "Instance"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Instance ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__interval_hours
+msgid "Interval in hours"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__json_formatter
+msgid "JSON Formatter"
+msgstr ""
+
+#. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#, python-format
+msgid "Json Format is not valid jq expression."
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__write_uid
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__write_date
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__last_sync_time
+msgid "Last synced on"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__name
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__odk_config_name
+msgid "Name"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.ui.menu,name:g2p_odk_importer.odk_menu_root
+msgid "ODK"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__odk_config
+msgid "ODK Config"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model,name:g2p_odk_importer.model_odk_config
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_config_form
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "ODK Configuration"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.actions.act_window,name:g2p_odk_importer.action_odk_import
+#: model:ir.model,name:g2p_odk_importer.model_odk_import
+#: model:ir.ui.menu,name:g2p_odk_importer.odk_import_menu
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "ODK Import"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.odk_res_config_settings_view_form
+msgid "ODK Import Settings"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.actions.server,name:g2p_odk_importer.action_odk_import_action
+msgid "ODK Import Start"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.odk_res_config_settings_view_form
+msgid "ODK Import by Instance ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__enable_import_instance
+msgid "ODK Setting Param"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__password
+msgid "Password"
+msgstr ""
+
+#. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#, python-format
+msgid "Please configure the ODK."
+msgstr ""
+
+#. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#, python-format
+msgid "Please enable the ODK import instanceID in the ResConfig settings"
+msgstr ""
+
+#. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_import.py:0
+#, python-format
+msgid "Please give the instance ID."
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__project
+msgid "Project"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_config_form
+msgid "Project details"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Restart"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__job_status__running
+msgid "Running"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.odk_res_config_settings_view_form
+msgid "Select this to enable ODK import by using instance ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_client.py:0
+#, python-format
+msgid "Session not created"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Start"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__start_datetime
+msgid "Start Time"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__job_status__started
+msgid "Started"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__job_status
+msgid "Status"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_tree
+msgid "Stop"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__target_registry
+msgid "Target Registry"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Target settings"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Test Connection"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model_terms:ir.ui.view,arch_db:g2p_odk_importer.view_odk_import_form
+msgid "Time interval"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_config__username
+msgid "Username"
+msgstr ""

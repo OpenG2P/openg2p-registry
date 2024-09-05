@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odk_config,ODK Configuration,model_odk_config,base.group_user,1,1,1,1
+access_odk_import,ODK Import,model_odk_import,base.group_user,1,1,1,1

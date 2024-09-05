@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="action_odk_import_action" model="ir.actions.server">
+        <field name="name">ODK Import Start</field>
+        <field name="model_id" ref="model_odk_import" />
+        <field name="state">code</field>
+        <field name="code">
+            record.odk_import_action_trigger()
+        </field>
+    </record>
+
+    <record id="view_odk_import_tree" model="ir.ui.view">
+        <field name="name">view_odk_config_tree</field>
+        <field name="model">odk.import</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="odk_config_name" />
+                <field name="job_status" />
+                <button
+                    type="action"
+                    name="%(action_odk_import_action)d"
+                    invisible="job_status != 'draft'"
+                    string="Start"
+                    title="Action odk start action"
+                />
+                <button
+                    type="action"
+                    name="%(action_odk_import_action)d"
+                    invisible="job_status not in ('started','running')"
+                    string="Stop"
+                    title="Action odk stop action"
+                />
+                <button
+                    type="action"
+                    name="%(action_odk_import_action)d"
+                    invisible="job_status != 'completed'"
+                    string="Restart"
+                    title="Action odk restart action"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odk_import_form" model="ir.ui.view">
+        <field name="name">odk.import.form</field>
+        <field name="model">odk.import</field>
+        <field name="arch" type="xml">
+            <form string="ODK Import">
+                <header>
+                    <button
+                        name="test_connection"
+                        string="Test Connection"
+                        type="object"
+                        class="oe_highlight"
+                        titile="Test connection"
+                    />
+                    <button
+                        name="import_records"
+                        string="Import Records"
+                        type="object"
+                        class="oe_highlight"
+                        title="Import records"
+                    />
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="job_status" invisible="1" />
+
+                        <button
+                            type="action"
+                            name="%(action_odk_import_action)d"
+                            icon="fa-play"
+                            invisible="job_status != 'draft'"
+                            title="Action odk conf action"
+                        >
+                            <span class="o_stat_text">Start</span>
+                        </button>
+                        <button
+                            type="action"
+                            name="%(action_odk_import_action)d"
+                            icon="fa-stop"
+                            invisible="job_status not in ('started','running')"
+                            title="Action odk conf action"
+                        >
+                            <span class="o_stat_text">Stop</span>
+                        </button>
+                        <button
+                            type="action"
+                            name="%(action_odk_import_action)d"
+                            icon="fa-repeat"
+                            invisible="job_status != 'completed'"
+                            title="Action odk conf action"
+                        >
+                            <span class="o_stat_text">Restart</span>
+                        </button>
+                    </div>
+                    <group string="ODK Configuration">
+                        <field name="odk_config" />
+                    </group>
+                    <group string="Target settings">
+                        <field name="target_registry" />
+                        <field name="json_formatter" />
+                    </group>
+                    <group string="Time interval">
+                        <field name="interval_hours" />
+                    </group>
+                    <field name="enable_import_instance" invisible="1" />
+                    <group string="Fetch Records Using Instance ID" invisible="not enable_import_instance">
+                        <field name="instance_id" string="Instance ID" />
+                    </group>
+                    <div>
+                        <button
+                            type="object"
+                            class="btn-primary"
+                            string="Fetch Record"
+                            name="fetch_record_by_instance_id"
+                            invisible="not enable_import_instance"
+                        />
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odk_import" model="ir.actions.act_window">
+        <field name="name">ODK Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odk.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

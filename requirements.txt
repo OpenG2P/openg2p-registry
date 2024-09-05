@@ -1,4 +1,11 @@
 # generated from manifests external_dependencies
+PyLD
+boto3<=1.15.18
+cryptography<37
 extendable-pydantic
+jq
+jwcrypto
 pydantic
+python-jose
+python_slugify
 schwifty
