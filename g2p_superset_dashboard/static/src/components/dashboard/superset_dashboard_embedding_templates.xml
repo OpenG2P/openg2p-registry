@@ -27,7 +27,14 @@
                         src="/g2p_superset_dashboard/static/description/icon.png"
                     />
               </div>
-              <div style="color: red; font-size: 11px;">No Dashboards Available</div>
+              <div>
+                <p
+                        style="color: red; font-size: 18px; font-weight: bold; font-family: Roboto; text-align: center; text-align-last: center;"
+                    >No Dashboards Available</p>
+                <p
+                        style="color: black; font-size: 14px; font-family:Roboto;"
+                    >Try contacting Admin to configure new dashboards or give you access rights.</p>
+              </div>
           </div>
       </t>
 
@@ -36,9 +43,9 @@
           <div>
               <select
                     t-on-change="onDashboardSelect"
-                    style="font-size: 24px; font-weight: bold; font-family: Roboto;"
+                    style="font-size: 24px; font-weight: bold; font-family: Roboto; text-align: center; text-align-last: center;"
                 >
-                  <t t-foreach="state.dashboards" t-as="dashboard" t-key="dashboard">
+                  <t t-foreach="state.dashboards" t-as="dashboard" t-key="dashboard.id">
                       <option
                             t-att-value="dashboard.url"
                             t-esc="dashboard.name"
