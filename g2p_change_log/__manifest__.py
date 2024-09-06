@@ -1,7 +1,7 @@
 {
     "name": "OpenG2P Change Log",
     "category": "G2P",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.3.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",

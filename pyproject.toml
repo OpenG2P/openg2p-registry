@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-openg2p-registry"
-version = "0.0.0"
+version = "1.3.0"
 dependencies = [
     "odoo-addon-g2p_auth_id_oidc @ {root:uri}/g2p_auth_id_oidc",
     "odoo-addon-g2p_auth_oidc @ {root:uri}/g2p_auth_oidc",

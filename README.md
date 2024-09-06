@@ -1,8 +1,8 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=17.0-develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3A17.0-develop)
-[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=17.0-develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3A17.0-develop)
-[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/17.0-develop/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
+[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=17.0-1.3)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3A17.0-1.3)
+[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=17.0-1.3)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3A17.0-1.3)
+[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/17.0-1.3/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
@@ -21,44 +21,44 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.0.0.0 |  | G2P Auth: OIDC - Reg ID
-[g2p_auth_oidc](g2p_auth_oidc/) | 17.0.0.0.0 |  | OpenID Connect Authentication
-[g2p_bank](g2p_bank/) | 17.0.0.0.0 |  | G2P Registry: Bank Details
-[g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Bank Details Rest API
-[g2p_change_log](g2p_change_log/) | 17.0.0.0.0 |  | OpenG2P Change Log
-[g2p_disable_password_login](g2p_disable_password_login/) | 17.0.0.0.0 |  | Disable Password Login
-[g2p_documents](g2p_documents/) | 17.0.0.0.0 |  | G2P Documents Store
-[g2p_encryption](g2p_encryption/) | 17.0.0.0.0 |  | G2P Encryption: Base
-[g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.0.0.0 |  | G2P Encryption: Keymanager
-[g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.0.0.0 |  | G2P Encryption: Rest API
-[g2p_enumerator](g2p_enumerator/) | 17.0.0.0.0 |  | G2P Enumerator
-[g2p_mts](g2p_mts/) | 17.0.0.0.0 |  | OpenG2P Registry MTS Connector
-[g2p_odk_importer](g2p_odk_importer/) | 17.0.0.0.0 |  | Import records from ODK
-[g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.0.0.0 |  | ODK App User Mapping
-[g2p_openid_vci](g2p_openid_vci/) | 17.0.0.0.0 |  | G2P OpenID VCI: Base
-[g2p_openid_vci_rest_api](g2p_openid_vci_rest_api/) | 17.0.0.0.0 |  | G2P OpenID VCI: Rest API
-[g2p_portal_auth](g2p_portal_auth/) | 17.0.0.0.0 |  | G2P Portal Auth
-[g2p_profile_image](g2p_profile_image/) | 17.0.0.0.0 |  | OpenG2P Profile Image
-[g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.0.0.0 |  | G2P Registry: Additional Info
-[g2p_registry_base](g2p_registry_base/) | 17.0.0.0.0 |  | G2P Registry: Base
-[g2p_registry_documents](g2p_registry_documents/) | 17.0.0.0.0 |  | G2P Registry: Documents
-[g2p_registry_encryption](g2p_registry_encryption/) | 17.0.0.0.0 |  | G2P Registry: Encryption
-[g2p_registry_group](g2p_registry_group/) | 17.0.0.0.0 |  | G2P Registry: Groups
-[g2p_registry_individual](g2p_registry_individual/) | 17.0.0.0.0 |  | G2P Registry: Individual
-[g2p_registry_membership](g2p_registry_membership/) | 17.0.0.0.0 |  | G2P Registry: Membership
-[g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Rest API
-[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.0.0.0 |  | G2P Service Provider Beneficiary Management
-[g2p_service_provider_portal_base](g2p_service_provider_portal_base/) | 17.0.0.0.0 |  | G2P Service Provider Portal: Base
-[g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.0.0.0 |  | OpenG2P Superset Dashboard
-[mts_connector](mts_connector/) | 17.0.0.0.0 |  | MTS Connector
+[g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.1.3.0 |  | G2P Auth: OIDC - Reg ID
+[g2p_auth_oidc](g2p_auth_oidc/) | 17.0.1.3.0 |  | OpenID Connect Authentication
+[g2p_bank](g2p_bank/) | 17.0.1.3.0 |  | G2P Registry: Bank Details
+[g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.3.0 |  | G2P Registry: Bank Details Rest API
+[g2p_change_log](g2p_change_log/) | 17.0.1.3.0 |  | OpenG2P Change Log
+[g2p_disable_password_login](g2p_disable_password_login/) | 17.0.1.3.0 |  | Disable Password Login
+[g2p_documents](g2p_documents/) | 17.0.1.3.0 |  | G2P Documents Store
+[g2p_encryption](g2p_encryption/) | 17.0.1.3.0 |  | G2P Encryption: Base
+[g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.1.3.0 |  | G2P Encryption: Keymanager
+[g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.1.3.0 |  | G2P Encryption: Rest API
+[g2p_enumerator](g2p_enumerator/) | 17.0.1.3.0 |  | G2P Enumerator
+[g2p_mts](g2p_mts/) | 17.0.1.3.0 |  | OpenG2P Registry MTS Connector
+[g2p_odk_importer](g2p_odk_importer/) | 17.0.1.3.0 |  | Import records from ODK
+[g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.1.3.0 |  | ODK App User Mapping
+[g2p_openid_vci](g2p_openid_vci/) | 17.0.1.3.0 |  | G2P OpenID VCI: Base
+[g2p_openid_vci_rest_api](g2p_openid_vci_rest_api/) | 17.0.1.3.0 |  | G2P OpenID VCI: Rest API
+[g2p_portal_auth](g2p_portal_auth/) | 17.0.1.3.0 |  | G2P Portal Auth
+[g2p_profile_image](g2p_profile_image/) | 17.0.1.3.0 |  | OpenG2P Profile Image
+[g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.3.0 |  | G2P Registry: Additional Info
+[g2p_registry_base](g2p_registry_base/) | 17.0.1.3.0 |  | G2P Registry: Base
+[g2p_registry_documents](g2p_registry_documents/) | 17.0.1.3.0 |  | G2P Registry: Documents
+[g2p_registry_encryption](g2p_registry_encryption/) | 17.0.1.3.0 |  | G2P Registry: Encryption
+[g2p_registry_group](g2p_registry_group/) | 17.0.1.3.0 |  | G2P Registry: Groups
+[g2p_registry_individual](g2p_registry_individual/) | 17.0.1.3.0 |  | G2P Registry: Individual
+[g2p_registry_membership](g2p_registry_membership/) | 17.0.1.3.0 |  | G2P Registry: Membership
+[g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.1.3.0 |  | G2P Registry: Rest API
+[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.1.3.0 |  | G2P Service Provider Beneficiary Management
+[g2p_service_provider_portal_base](g2p_service_provider_portal_base/) | 17.0.1.3.0 |  | G2P Service Provider Portal: Base
+[g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.1.3.0 |  | OpenG2P Superset Dashboard
+[mts_connector](mts_connector/) | 17.0.1.3.0 |  | MTS Connector
 
 
 Unported addons
 ---------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.0.0.0 (unported) |  | G2P Registry: Additional Info REST API
-[g2p_registry_rest_api_extension_demo](g2p_registry_rest_api_extension_demo/) | 17.0.0.0.0 (unported) |  | G2P Registry: Rest API Extension Demo
+[g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.3.0 (unported) |  | G2P Registry: Additional Info REST API
+[g2p_registry_rest_api_extension_demo](g2p_registry_rest_api_extension_demo/) | 17.0.1.3.0 (unported) |  | G2P Registry: Rest API Extension Demo
 
 [//]: # (end addons)
 
