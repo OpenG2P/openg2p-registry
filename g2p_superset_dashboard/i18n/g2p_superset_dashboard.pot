@@ -98,3 +98,11 @@ msgstr ""
 #: model:ir.ui.menu,name:g2p_superset_dashboard.menu_superset_dashboard_embedded
 msgid "Superset Dashboards"
 msgstr ""
+
+#. module: g2p_superset_dashboard
+#. odoo-javascript
+#: code:addons/g2p_superset_dashboard/static/src/components/dashboard/superset_dashboard_embedding_templates.xml:0
+#, python-format
+msgid ""
+"Try contacting Admin to configure new dashboards or give you access rights."
+msgstr ""
