@@ -1,62 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve" id="G2PSupersetDashboardEmbedded">
-  <t t-name="g2p_superset_dashboard.G2PSupersetDashboardEmbedded">
-      <!-- Loading State -->
-      <t t-if="state.isLoading">
-          <div
+    <t t-name="g2p_superset_dashboard.G2PSupersetDashboardEmbedded" class="fade-in-g2p">
+        <t t-if="state.isLoading">
+            <div
                 style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;"
             >
-              <div class="loading-image-g2p-logo">
-                  <img
+                <div class="loading-image-g2p-logo">
+                    <img
                         style="max-height: 70px; max-width: 70px;"
                         src="/g2p_superset_dashboard/static/description/icon.png"
                     />
-              </div>
-              <span style="font-size: 11px">Loading Superset Dashboard</span>
-          </div>
-      </t>
-
-      <!-- No Dashboards Available -->
-      <t t-elif="!state.isLoading and !state.dashboards.length">
-          <div
+                </div>
+                <span style="font-size: 11px">Loading Superset Dashboard</span>
+            </div>
+        </t>
+        <t t-elif="!state.isLoading and !superSetUrl">
+            <div
                 style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;"
             >
-              <div>
-                  <img
+                <div>
+                    <img
                         style="max-height: 70px; max-width: 70px;"
                         src="/g2p_superset_dashboard/static/description/icon.png"
                     />
-              </div>
-              <div>
-                <p
+                </div>
+                <div>
+                    <p
                         style="color: red; font-size: 18px; font-weight: bold; font-family: Roboto; text-align: center; text-align-last: center;"
                     >No Dashboards Available</p>
-                <p
+                    <p
                         style="color: black; font-size: 14px; font-family:Roboto;"
                     >Try contacting Admin to configure new dashboards or give you access rights.</p>
-              </div>
-          </div>
-      </t>
-
-      <!-- Dashboard Selection and Embedding -->
-      <t t-else="">
-          <div>
-              <select
-                    t-on-change="onDashboardSelect"
-                    style="font-size: 24px; font-weight: bold; font-family: Roboto; text-align: center; text-align-last: center;"
-                >
-                  <t t-foreach="state.dashboards" t-as="dashboard" t-key="dashboard.id">
-                      <option
-                            t-att-value="dashboard.url"
-                            t-esc="dashboard.name"
-                            style="font-size: 16px; font-weight: bold; font-family: Roboto;"
-                        />
-                  </t>
-              </select>
-          </div>
-          <div>
-              <iframe t-att-src="state.dashboardUrl" style="width:100%; height:100vh;" />
-          </div>
-      </t>
-  </t>
+                </div>
+            </div>
+        </t>
+        <t t-elif="!state.isLoading and superSetUrl">
+            <div>
+                <iframe t-att-src="superSetUrl" style="width:100%; height:100vh;" />
+            </div>
+        </t>
+    </t>
 </templates>

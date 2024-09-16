@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_superset_config,Superset Configuration,model_g2p_superset_dashboard_config,group_superset_admin,1,1,1,1

@@ -1,106 +1,112 @@
-import logging
+import re
 
-from odoo import fields, models
-
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SupersetDashboardConfig(models.Model):
     _name = "g2p.superset.dashboard.config"
     _description = "Superset Dashboard Configuration"
 
-    name = fields.Char(string="Dashboard Name", required=True)
-    url = fields.Char(string="Dashboard URL", required=True)
-    access_user_ids = fields.Many2many("res.users", string="Access Rights")
+    name = fields.Char(string="Dashboard name", required=True)
+    url = fields.Char(
+        string="Dashboard URL",
+        required=True,
+        help="Enter the URL for your Superset dashboard. URL must start with 'http://' or 'https://'",
+    )
+    group_name = fields.Char("Group name", required=True)
+    group = fields.Many2one("res.groups")
+    menu_name = fields.Char("Menu title", required=True)
+    menu = fields.Many2one("ir.ui.menu")
+    action = fields.Many2one("ir.actions.client")
 
+    @api.constrains("url")
+    def _oncreate_check_url(self):
+        for record in self:
+            record.check_url(record.url)
 
-# ***  USE CODE BELOW TO EMBED SUPERSET DASHBOARD IN ODOO MENUITEMS. ***
-# THIS MAY SLOW PERFORMANCE OF ODOO SINCE IT WILL BE CREATING MENUITEMS AND ACTIONS FOR EACH DASHBOARDS.
+    @api.onchange("url")
+    def _onchange_check_url(self):
+        for record in self:
+            if record.url:
+                record.check_url(record.url)
 
+    def check_url(self, url):
+        url_pattern = re.compile(
+            r"^(https?:\/\/)(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+$",
+            re.IGNORECASE,
+        )
+        if not url_pattern.match(url):
+            error_msg = "Invalid URL format. The URL must start with 'http://' or 'https://'."
+            raise ValidationError(error_msg)
 
-# Override create method to regenerate menus when new dashboards are created.s
-# @api.model_create_multi
-# def create(self, vals_list):
-#     records = super().create(vals_list)
-#     self._create_or_update_menus(records)
-#     return records
+    @api.model
+    def create(self, vals):
+        group_vals = {
+            "name": vals.get("group_name"),
+            "category_id": self.env.ref("g2p_superset_dashboard.g2p_superset_dashboard_access_module").id,
+            "implied_ids": [(4, self.env.ref("g2p_superset_dashboard.group_superset_user").id)],
+        }
+        group = self.env["res.groups"].create(group_vals)
+        vals["group"] = group.id
 
-# # Override write method to regenerate menus when dashboards are updated.
-# def write(self, vals):
-#     res = super().write(vals)
-#     self._create_or_update_menus(self)
-#     return res
+        action_vals = {
+            "name": f"{vals.get('menu_name')} Action",
+            "tag": "g2p.superset_dashboard_embedded",
+        }
+        action = self.env["ir.actions.client"].create(action_vals)
+        action_id = action.id
 
-# # Override unlink method to delete menus related to the dashboards being deleted.
-# def unlink(self):
-#     dashboard_names = self.mapped("name")
-#     res = super().unlink()
-#     self._delete_menus(dashboard_names)
-#     return res
+        menu_vals = {
+            "name": vals.get("menu_name"),
+            "parent_id": self.env.ref("g2p_superset_dashboard.menu_superset_dashboards").id,
+            "action": f"ir.actions.client,{action_id}",
+            "sequence": 1,
+            "groups_id": [(6, 0, [int(group.id)])],  # Ensure IDs are integers
+        }
+        menu = self.env["ir.ui.menu"].create(menu_vals)
+        vals["menu"] = menu.id
 
-# # Create or update the menus for the provided dashboards.
-# def _create_or_update_menus(self, dashboards):
-#     try:
-# for dashboard in dashboards:
-#     existing_menu = self.env["ir.ui.menu"].search([
-#         ("parent_id", "=", self.env.ref(
-#             "g2p_superset_dashboard.menu_superset_dashboard_embedded").id),
-#         ("name", "=", dashboard.name)
-#     ])
-#     existing_menu.unlink()
+        if action_id:
+            vals["action"] = action_id
 
-#             action = self.env["ir.actions.client"].create({
-#                 "name": dashboard.name,
-#                 "tag": "g2p_superset_dashboard_embedded",
-#                 "context": {"url": dashboard.url},
-#             })
+        return super().create(vals)
 
-# self.env["ir.ui.menu"].create({
-#     "name": dashboard.name,
-#     "parent_id": self.env.ref(
-#           "g2p_superset_dashboard.menu_superset_dashboard_embedded").id,
-#     "action": f"ir.actions.client,{action.id}",
-# })
+    def unlink(self):
+        for record in self:
+            if not record.exists():
+                continue
+            if record.menu and record.menu.exists():
+                record.menu.write({"groups_id": [(5, 0, [])]})
 
-#             _logger.info(f"Menu for dashboard '{dashboard.name}' created/updated successfully.")
-#     except Exception as e:
-#         _logger.error(f"Error while creating/updating menus: {e}")
-#         raise
+            if record.group and record.group.exists():
+                if (
+                    record.group.category_id.id
+                    == self.env.ref("g2p_superset_dashboard.g2p_superset_dashboard_access_module").id
+                ):
+                    users = self.env["res.users"].search([("groups_id", "in", record.group.id)])
+                    if users:
+                        users.write({"groups_id": [(3, record.group.id)]})
+                    record.group.unlink()
 
-# # Delete the menus associated with the dashboards being deleted.
-# # def _delete_menus(self, dashboard_names):
-# #     try:
-#         menus_to_delete = self.env["ir.ui.menu"].search([
-#             ("parent_id", "=", self.env.ref(
-#                 "g2p_superset_dashboard.menu_superset_dashboard_embedded").id),
-#             ("name", "in", dashboard_names)
-#         ])
-# #         if menus_to_delete:
-#             menus_to_delete.unlink()
-#             _logger.info(f"Menus for dashboards {dashboard_names} deleted successfully.")
-#         else:
-#             _logger.info(f"No menus found for dashboards {dashboard_names} to delete.")
-#     except Exception as e:
-#         _logger.error(f"Error while deleting menus: {e}")
-#         raise
+            if record.group and record.group.exists():
+                record.group.unlink()
 
-# # Regenerates all menus for the dashboards.
-# # @api.model
-# # def create_menus(self):
-# #     try:
-# #         # Clear all existing dynamic menus
-#             existing_menus = self.env["ir.ui.menu"].search([
-#                 ("parent_id", "=", self.env.ref(
-#                     "g2p_superset_dashboard.menu_superset_dashboard_embedded").id)
-#             ])
-# #         existing_menus.unlink()
+            if record.action and record.action.exists():
+                record.action.unlink()
 
-#         # Fetch all dashboards
-#         dashboards = self.search([])
+            if record.menu and record.menu.exists():
+                record.menu.unlink()
+        return super().unlink()
 
-#         # Create or update menus for all dashboards
-#         self._create_or_update_menus(dashboards)
+    def write(self, vals):
+        if "menu_name" in vals:
+            menu = self.env["ir.ui.menu"].browse(self.menu.id)
+            if menu:
+                menu.write({"name": vals["menu_name"]})
 
-#     except Exception as e:
-#         _logger.error(f"Error while regenerating all menus: {e}")
-#         raise
+        if "group_name" in vals:
+            group = self.env["res.groups"].browse(self.group.id)
+            if group:
+                group.write({"name": vals["group_name"]})
+        return super().write(vals)
