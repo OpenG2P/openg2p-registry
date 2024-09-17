@@ -57,6 +57,7 @@ class AuthOauthProvider(models.Model):
     client_secret = fields.Char()
     client_private_key = fields.Binary(attachment=False)
 
+    enable_pkce = fields.Boolean(default=True)
     code_verifier = fields.Char("PKCE Code Verifier", default=lambda self: secrets.token_urlsafe(32))
 
     token_map = fields.Char(
@@ -142,9 +143,10 @@ class AuthOauthProvider(models.Model):
                 client_id=self.client_id,
                 grant_type="authorization_code",
                 code=code,
-                code_verifier=self.code_verifier,
                 redirect_uri=oidc_redirect_uri,
             )
+            if self.enable_pkce:
+                token_request_data['code_verifier'] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -155,9 +157,10 @@ class AuthOauthProvider(models.Model):
                 client_id=self.client_id,
                 grant_type="authorization_code",
                 code=code,
-                code_verifier=self.code_verifier,
                 redirect_uri=oidc_redirect_uri,
             )
+            if self.enable_pkce:
+                token_request_data['code_verifier'] = self.code_verifier
             response = requests.post(
                 self.token_endpoint,
                 auth=token_request_auth,
@@ -173,9 +176,10 @@ class AuthOauthProvider(models.Model):
                 client_secret=self.client_secret,
                 grant_type="authorization_code",
                 code=code,
-                code_verifier=self.code_verifier,
                 redirect_uri=oidc_redirect_uri,
             )
+            if self.enable_pkce:
+                token_request_data['code_verifier'] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -188,9 +192,10 @@ class AuthOauthProvider(models.Model):
                 client_assertion=private_key_jwt,
                 grant_type="authorization_code",
                 code=code,
-                code_verifier=self.code_verifier,
                 redirect_uri=oidc_redirect_uri,
             )
+            if self.enable_pkce:
+                token_request_data['code_verifier'] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -486,15 +491,10 @@ class AuthOauthProvider(models.Model):
             )
             flow = provider.get("flow")
             if flow and flow.startswith("oidc"):
-                params.update(
-                    dict(
-                        nonce=secrets.token_urlsafe(),
-                        code_challenge=base64.urlsafe_b64encode(
-                            hashlib.sha256(provider["code_verifier"].encode("ascii")).digest()
-                        ).rstrip(b"="),
-                        code_challenge_method="S256",
-                    )
-                )
+                params["nonce"] = secrets.token_urlsafe()
+                if provider.get("enable_pkce"):
+                    params["code_challenge"] = base64.urlsafe_b64encode(hashlib.sha256(provider["code_verifier"].encode("ascii")).digest()).rstrip(b"=")
+                    params["code_challenge_method"] = "S256"
             extra_auth_params = json.loads(provider.get("extra_authorize_params") or "{}")
             params.update(extra_auth_params)
             provider["auth_link"] = f"{provider['auth_endpoint']}?{url_encode(params)}"
