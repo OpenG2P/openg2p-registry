@@ -146,7 +146,7 @@ class AuthOauthProvider(models.Model):
                 redirect_uri=oidc_redirect_uri,
             )
             if self.enable_pkce:
-                token_request_data['code_verifier'] = self.code_verifier
+                token_request_data["code_verifier"] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -160,7 +160,7 @@ class AuthOauthProvider(models.Model):
                 redirect_uri=oidc_redirect_uri,
             )
             if self.enable_pkce:
-                token_request_data['code_verifier'] = self.code_verifier
+                token_request_data["code_verifier"] = self.code_verifier
             response = requests.post(
                 self.token_endpoint,
                 auth=token_request_auth,
@@ -179,7 +179,7 @@ class AuthOauthProvider(models.Model):
                 redirect_uri=oidc_redirect_uri,
             )
             if self.enable_pkce:
-                token_request_data['code_verifier'] = self.code_verifier
+                token_request_data["code_verifier"] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -195,7 +195,7 @@ class AuthOauthProvider(models.Model):
                 redirect_uri=oidc_redirect_uri,
             )
             if self.enable_pkce:
-                token_request_data['code_verifier'] = self.code_verifier
+                token_request_data["code_verifier"] = self.code_verifier
             response = requests.post(self.token_endpoint, data=token_request_data, timeout=10)
             response.raise_for_status()
             response_json = response.json()
@@ -493,7 +493,9 @@ class AuthOauthProvider(models.Model):
             if flow and flow.startswith("oidc"):
                 params["nonce"] = secrets.token_urlsafe()
                 if provider.get("enable_pkce"):
-                    params["code_challenge"] = base64.urlsafe_b64encode(hashlib.sha256(provider["code_verifier"].encode("ascii")).digest()).rstrip(b"=")
+                    params["code_challenge"] = base64.urlsafe_b64encode(
+                        hashlib.sha256(provider["code_verifier"].encode("ascii")).digest()
+                    ).rstrip(b"=")
                     params["code_challenge_method"] = "S256"
             extra_auth_params = json.loads(provider.get("extra_authorize_params") or "{}")
             params.update(extra_auth_params)
