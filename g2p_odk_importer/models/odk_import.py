@@ -72,8 +72,9 @@ class OdkImport(models.Model):
                 config.json_formatter,
             )
             client.login()
-
-            imported = client.import_record_by_instance_id(instance_id=config.instance_id)
+            imported = client.import_record_by_instance_id(
+                instance_id=config.instance_id, last_sync_timestamp=config.last_sync_time
+            )
             if "form_updated" in imported:
                 message = "ODK form records is imported successfully."
                 types = "success"
