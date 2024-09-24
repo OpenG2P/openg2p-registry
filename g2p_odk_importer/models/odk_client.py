@@ -5,11 +5,12 @@ import mimetypes
 from datetime import datetime
 
 import jq
+import pytz
 import requests
 from dateutil import parser
 
 from odoo import _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -304,7 +305,7 @@ class ODKClient:
         return response.content
 
     #  Fetch Record using Instance ID
-    def import_record_by_instance_id(self, instance_id):
+    def import_record_by_instance_id(self, instance_id, last_sync_timestamp=None):
         url = (
             f"{self.base_url}/v1/projects/{self.project_id}/forms/{self.form_id}.svc/"
             f"Submissions('{instance_id}')"
@@ -325,8 +326,23 @@ class ODKClient:
             raise ValidationError(f"Failed to parse response by using instance ID: {e}") from e
 
         _logger.info(f"ODK RAW DATA by instance ID %s {instance_id} {data}")
+
+        if last_sync_timestamp:
+            last_sync_time = pytz.UTC.localize(last_sync_timestamp)
+        else:
+            last_sync_time = None
+
         try:
             for member in data["value"]:
+                submission_date_str = member.get("__system", {}).get("submissionDate")
+                if submission_date_str:
+                    # Parse submissionDate to a timezone-aware datetime object
+                    submission_date = parser.isoparse(submission_date_str)
+                    if last_sync_time and last_sync_time < submission_date:
+                        raise UserError(
+                            _("Future records cannot be fetched before the regular import occurs.")
+                        )
+
                 mapped_json = jq.first(self.json_formatter, member)
                 if self.target_registry == "individual":
                     mapped_json.update({"is_registrant": True, "is_group": False})
