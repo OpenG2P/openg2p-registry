@@ -1,5 +1,5 @@
 {
-    "name": "G2P Service Provider Portal: Base",
+    "name": "G2P Agent Portal: Base",
     "category": "OpenG2P",
     "version": "17.0.1.3.0",
     "sequence": 1,
@@ -16,7 +16,7 @@
         "views/profile.xml",
         "views/other.xml",
         "views/menu_view.xml",
-        "views/service_provider_extend_view.xml",
+        "views/agent_portal_extend_view.xml",
     ],
     "assets": {
         "web.assets_frontend": [],

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- TODO: Remove all hardcoding -->
-    <template id="other_page" name="G2P Self Service Other">
-        <t t-call="g2p_service_provider_portal_base.base">
-            <t t-set="title"> Other| Service Provider Portal</t>
+    <template id="other_page" name="G2P Registration Portal Other">
+        <t t-call="g2p_agent_portal_base.base">
+            <t t-set="title"> Other|Registration Portal</t>
             <div class="main-container">
                 <div class="container-adjuster">
                     <h5 class='all-title'>Other</h5>
                     <ol class="breadcrumb  breadcrumb-list bg-transparent">
                         <li class="breadcrumb-item">
-                            <a href="/serviceprovider">Home</a>
+                            <a href="/portal">Home</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Other</li>
                     </ol>
 
 
                 <div class="profile-container">
-                    <img src="/g2p_service_provider_portal_base/static/src/img/page_under_construction.png" />
+                    <img src="/g2p_agent_portal_base/static/src/img/page_under_construction.png" />
                     <div>
                         <h1>Page Under Construction!</h1>
                         <p

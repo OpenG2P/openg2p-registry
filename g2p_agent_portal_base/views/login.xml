@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- TODO: Remove all hardcoding -->
-    <template id="login_page" name="G2P Service Provider Login">
+    <template id="login_page" name="G2P Registration Portal Login">
 
-        <t t-call="g2p_service_provider_portal_base.base">
+        <t t-call="g2p_agent_portal_base.base">
             <t t-set="no_header" t-value="1" />
             <t t-set="no_footer" t-value="1" />
             <t t-set="body_classname" t-value="'bg-100'" />
-            <link rel="stylesheet" href="/g2p_service_provider_portal_base/static/src/css/portal.css" />
+            <link rel="stylesheet" href="/g2p_agent_portal_base/static/src/css/portal.css" />
             <div class="ssp-login-body">
                 <div class="ssp-login-box">
                     <div class="logo-box">
-                        <img
-                            src="/g2p_service_provider_portal_base/static/src/img/logo@2x.png"
-                            class="logo"
-                        />
+                        <img src="#" class="logo" alt="Official Logo" />
                     </div>
                     <form
                         class="oe_login_form"
                         role="form"
-                        t-attf-action="/serviceprovider/login"
+                        t-attf-action="/portal/login"
                         method="post"
-                        onsubmit="this.action = '/serviceprovider/login' + location.hash"
+                        onsubmit="this.action = '/portal/login' + location.hash"
                     >
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                        <input type="hidden" name="redirect" value="/serviceprovider/home" />
+                        <input type="hidden" name="redirect" value="/portal/home" />
                         <div class="form-group field-login">
                             <label for="login">Email or Phone</label>
                             <input

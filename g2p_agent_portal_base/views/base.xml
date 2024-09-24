@@ -3,23 +3,20 @@
     <!-- TODO: Remove all hardcoding -->
     <template
         id="base"
-        name="G2P Service Provider Portal Base"
+        name="G2P Registration Portal Base"
         inherit_id="web.frontend_layout"
         priority="900"
         primary="True"
     >
 
         <xpath expr="//header" position="replace">
-            <link rel="stylesheet" href="/g2p_service_provider_portal_base/static/src/css/portal.css" />
+            <link rel="stylesheet" href="/g2p_agent_portal_base/static/src/css/portal.css" />
             <script src="https://cdn.jsdelivr.net/npm/chart.js" />
             <header t-if="not no_header" id="top" data-anchor="true">
                 <div class="header-container">
                     <div class="nav">
-                        <a href="/serviceprovider">
-                            <img
-                                src="/g2p_service_provider_portal_base/static/src/img/logo@2x.png"
-                                class="main-logo"
-                            />
+                        <a href="/portal">
+                            <img src="#" class="main-logo" alt="Official Logo" />
                         </a>
                         <div class="nav-user">
                             <div class="search-box">
@@ -54,21 +51,21 @@
                                 <div class="dropdown-menu" aria-labelledby="language-dropdown-button">
                                     <a
                                         class="dropdown-item"
-                                        href="/website/lang/en?r=/serviceprovider"
+                                        href="/website/lang/en?r=/portal"
                                         data-url_code="en"
                                     >
                                         <span>English</span>
                                     </a>
                                     <a
                                         class="dropdown-item"
-                                        href="/website/lang/fr?r=/serviceprovider"
+                                        href="/website/lang/fr?r=/portal"
                                         data-url_code="fr"
                                     >
                                         <span>Français</span>
                                     </a>
                                     <a
                                         class="dropdown-item"
-                                        href="/website/lang/tl?r=/serviceprovider"
+                                        href="/website/lang/tl?r=/portal"
                                         data-url_code="tl"
                                     >
                                         <span>Filipino</span>
@@ -90,12 +87,12 @@
                                 <div class="dropdown-menu user-block">
                                     <ul style="padding:0px">
                                         <li>
-                                            <a href="/serviceprovider/myprofile" class="link">My Profile</a>
+                                            <a href="/portal/myprofile" class="link">My Profile</a>
                                         </li>
                                         <hr />
                                         <li>
                                             <a
-                                                href="/web/session/logout?redirect=/serviceprovider/login"
+                                                href="/web/session/logout?redirect=/portal/login"
                                                 class="link"
                                             >Logout</a>
                                         </li>
@@ -110,7 +107,7 @@
                 </div>
                 <script
                     type="text/javascript"
-                    src="/g2p_service_provider_portal_base/static/src/js/language_selector.js"
+                    src="/g2p_agent_portal_base/static/src/js/language_selector.js"
                 />
             </header>
         </xpath>
@@ -119,25 +116,22 @@
             <footer t-if="not no_footer" id="bottom" data-anchor="true" t-attf-class="bg-light o_footer">
                 <div class="footer-container">
                     <div class="nav">
-                        <a href="/serviceprovider">
-                            <img
-                                src="/g2p_service_provider_portal_base/static/src/img/logo@2x.png"
-                                class="main-logo"
-                            />
+                        <a href="/portal">
+                            <img src="#" class="main-logo" alt="Official Logo" />
                         </a>
                         <ul class='list-container'>
                             <li class="nav-item">
                                 <a
                                     class="nav-link link"
                                     aria-current="page"
-                                    href="/serviceprovider/aboutus"
+                                    href="/portal/aboutus"
                                 >About Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link" href="/serviceprovider/contactus">Contact Us</a>
+                                <a class="nav-link link" href="/portal/contactus">Contact Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link" href="/serviceprovider/otherpage">Others</a>
+                                <a class="nav-link link" href="/portal/otherpage">Others</a>
                             </li>
                         </ul>
 
