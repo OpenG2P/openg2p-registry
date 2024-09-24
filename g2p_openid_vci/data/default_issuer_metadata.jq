@@ -70,7 +70,7 @@
         },
         "display": [
             {
-                "name": "OpenG2P Registry Credential",
+                "name": .name,
                 "locale": "en",
                 "logo": {
                     "url": (.web_base_url + "/g2p_openid_vci/static/description/icon.png"),
