@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_g2p_registration_portal_base_g2p_registration_portal_base,g2p_registration_portal_base.g2p_registration_portal_base,model_g2p_registration_portal_base_g2p_registration_portal_base,base.group_user,1,1,1,1

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="service_provider_profile_page"
+        name="G2P Service Provider Portal My Profile"
+        inherit_id="g2p_agent_portal_base.profile_page"
+    >
+        <xpath expr="//t[@t-call='g2p_agent_portal_base.base']" position="inside">
+            <t t-set="title"> My Profile | serviceprovider Portal </t>
+        </xpath>
+    </template>
+</odoo>

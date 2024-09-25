@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="service_provider_home_page" inherit_id="g2p_agent_portal_base.home_page">
+        <!-- Modify the title -->
+        <!-- <xpath expr="//t[@t-set='title']" position="attributes">
+            <attribute name="t-set">Home | serviceprovider Portal</attribute>
+        </xpath> -->
+        <xpath expr="//t[@t-call='g2p_agent_portal_base.home_page']" position="inside">
+            <t t-set="title">Registration Portal Home</t>
+        </xpath>
+
+
+    </template>
+</odoo>
