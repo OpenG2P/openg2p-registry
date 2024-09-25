@@ -20,8 +20,6 @@
         "views/success_page.xml",
         "views/individual_page.xml",
         "views/login.xml",
-        "views/home.xml",
-        "views/profile.xml",
     ],
     "assets": {
         "web.assets_frontend": [
