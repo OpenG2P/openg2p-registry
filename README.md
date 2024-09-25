@@ -49,7 +49,6 @@ addon | version | maintainers | summary
 [g2p_registry_individual](g2p_registry_individual/) | 17.0.1.3.0 |  | G2P Registry: Individual
 [g2p_registry_membership](g2p_registry_membership/) | 17.0.1.3.0 |  | G2P Registry: Membership
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.1.3.0 |  | G2P Registry: Rest API
-[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.1.3.0 |  | G2P Service Provider Beneficiary Management
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.1.3.0 |  | OpenG2P Superset Dashboard
 [mts_connector](mts_connector/) | 17.0.1.3.0 |  | MTS Connector
 
