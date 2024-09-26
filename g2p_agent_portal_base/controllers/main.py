@@ -38,7 +38,7 @@ class AgentPortalBase(http.Controller):
 
     @http.route(["/portal/home"], type="http", auth="user", website=True)
     def portal_home(self, **kwargs):
-        self.check_roles("Portal")
+        self.check_roles("Agent")
         return request.render("g2p_agent_portal_base.home_page")
 
     @http.route(["/portal/myprofile"], type="http", auth="public", website=True)
@@ -65,7 +65,7 @@ class AgentPortalBase(http.Controller):
         return request.render("g2p_agent_portal_base.other_page")
 
     def check_roles(self, role_to_check):
-        if role_to_check == "Portal":
+        if role_to_check == "Agent":
             if not request.session or not request.env.user:
                 raise Unauthorized(_("User is not logged in"))
             if not request.env.user.partner_id.supplier_rank > 0:
