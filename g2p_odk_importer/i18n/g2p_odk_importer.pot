@@ -265,7 +265,6 @@ msgstr ""
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
-#: code:addons/g2p_odk_importer/models/odk_import.py:0
 #, python-format
 msgid "Please configure the ODK."
 msgstr ""
