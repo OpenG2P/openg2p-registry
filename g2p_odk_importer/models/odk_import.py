@@ -72,8 +72,9 @@ class OdkImport(models.Model):
                 config.json_formatter,
             )
             client.login()
-
-            imported = client.import_record_by_instance_id(instance_id=config.instance_id)
+            imported = client.import_record_by_instance_id(
+                instance_id=config.instance_id, last_sync_timestamp=config.last_sync_time
+            )
             if "form_updated" in imported:
                 message = "ODK form records is imported successfully."
                 types = "success"
@@ -171,25 +172,6 @@ class OdkImport(models.Model):
                 },
             }
 
-    def import_records_by_cron(self, _id):
-        config = self.env["odk.config"].browse(_id)
-        if not config.base_url:
-            raise UserError(_("Please configure the ODK."))
-        client = ODKClient(
-            self.env,
-            config.id,
-            config.base_url,
-            config.username,
-            config.password,
-            config.project,
-            config.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-        client.login()
-        client.import_delta_records(last_sync_timestamp=config.last_sync_time)
-        config.update({"last_sync_time": fields.Datetime.now()})
-
     def odk_import_action_trigger(self):
         for rec in self:
             if rec.job_status == "draft" or rec.job_status == "completed":
@@ -204,7 +186,7 @@ class OdkImport(models.Model):
                         "interval_type": "minutes",
                         "model_id": self.env["ir.model"].search([("model", "=", "odk.import")]).id,
                         "state": "code",
-                        "code": "model.import_records_by_cron(" + str(rec.id) + ")",
+                        "code": "model.browse(" + str(rec.id) + ").import_records()",
                         "doall": False,
                         "numbercall": -1,
                     }

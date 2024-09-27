@@ -11,7 +11,7 @@
         "g2p_registry_base",
         "g2p_encryption",
     ],
-    "external_dependencies": {"python": ["cryptography<37", "python-jose", "jq", "PyLD"]},
+    "external_dependencies": {"python": ["cryptography>36,<37", "python-jose", "jq", "PyLD"]},
     "data": [
         "security/ir.model.access.csv",
         "views/vci_issuers.xml",
