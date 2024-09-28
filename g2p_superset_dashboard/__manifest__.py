@@ -10,8 +10,9 @@
     "depends": ["base", "web"],
     "external_dependencies": {},
     "data": [
+        "security/groups.xml",
+        "security/ir.model.access.csv",
         "views/superset_dashboard_config_views.xml",
-        "views/superset_dashboard_embedding_views.xml",
     ],
     "demo": [],
     "installable": True,
@@ -24,4 +25,5 @@
             "g2p_superset_dashboard/static/src/components/**/*.scss",
         ],
     },
+    "uninstall_hook": "uninstall_hook",
 }
