@@ -74,6 +74,11 @@ msgid "Denies user signup (invitation only)"
 msgstr ""
 
 #. module: g2p_auth_oidc
+#: model:ir.model.fields,field_description:g2p_auth_oidc.field_auth_oauth_provider__enable_pkce
+msgid "Enable Pkce"
+msgstr ""
+
+#. module: g2p_auth_oidc
 #: model:ir.model.fields,field_description:g2p_auth_oidc.field_auth_oauth_provider__extra_authorize_params
 msgid "Extra Authorize Params"
 msgstr ""
