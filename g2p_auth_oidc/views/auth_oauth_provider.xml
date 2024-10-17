@@ -32,6 +32,7 @@
             </field>
             <field name="data_endpoint" position="after">
                 <field name="extra_authorize_params" />
+                <field name="enable_pkce" />
                 <field name="verify_at_hash" />
                 <field name="date_format" />
                 <field name="allow_signup" />

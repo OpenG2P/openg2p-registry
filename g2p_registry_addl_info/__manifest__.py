@@ -1,7 +1,7 @@
 {
     "name": "G2P Registry: Additional Info",
     "category": "G2P",
-    "version": "17.0.1.3.0",
+    "version": "17.0.1.4.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
