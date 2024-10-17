@@ -128,6 +128,13 @@ msgid "Form ID"
 msgstr ""
 
 #. module: g2p_odk_importer
+#. odoo-python
+#: code:addons/g2p_odk_importer/models/odk_client.py:0
+#, python-format
+msgid "Future records cannot be fetched before the regular import occurs."
+msgstr ""
+
+#. module: g2p_odk_importer
 #: model:ir.model.fields.selection,name:g2p_odk_importer.selection__odk_import__target_registry__group
 msgid "Group"
 msgstr ""
@@ -255,7 +262,6 @@ msgstr ""
 
 #. module: g2p_odk_importer
 #. odoo-python
-#: code:addons/g2p_odk_importer/models/odk_import.py:0
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
 #: code:addons/g2p_odk_importer/models/odk_import.py:0
