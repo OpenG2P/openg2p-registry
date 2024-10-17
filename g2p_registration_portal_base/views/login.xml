@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="service_provider_login_page"
+        name="G2P Service Provider Portal Login"
+        inherit_id="g2p_agent_portal_base.login_page"
+    >
+        <xpath expr="//div[@class='logo-box']/img" position="attributes">
+            <attribute name="src">/g2p_registration_portal_base/static/src/img/logo@2x.png</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='g2p_agent_portal_base.base']" position="inside">
+            <t t-set="title">Registration Portal Login</t>
+        </xpath>
+    </template>
+</odoo>
