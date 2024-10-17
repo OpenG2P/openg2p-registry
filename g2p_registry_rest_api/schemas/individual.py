@@ -30,7 +30,7 @@ class IndividualInfoRequest(RegistrantInfoRequest):
     birthdate: str = Field(
         None, description="Date of birth in YYYY-MM-DD format", json_schema_extra={"examples": ["2000-01-01"]}
     )
-    birth_place: str | None
+    birth_place: str | None = None
     is_group: bool = False
 
     @field_validator("birthdate")
@@ -43,7 +43,6 @@ class IndividualInfoRequest(RegistrantInfoRequest):
 
 class UpdateIndividualInfoRequest(IndividualInfoRequest):
     updateId: str
-    image_1920: bytes | None = None
     given_name: str | None
     name: str | None
 

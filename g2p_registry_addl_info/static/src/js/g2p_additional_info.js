@@ -7,7 +7,7 @@ import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 
 export class G2PRegistryAddlInfoComponent extends TextField {
-    static template = "g2p_reg_addl_info_tpl";
+    static template = "g2p_registry_addl_info_tpl";
 
     setup() {
         super.setup();
