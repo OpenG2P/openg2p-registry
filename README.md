@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[g2p_agent_portal_base](g2p_agent_portal_base/) | 17.0.1.4.0 |  | G2P Agent Portal: Base
 [g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.1.4.0 |  | G2P Auth: OIDC - Reg ID
 [g2p_auth_oidc](g2p_auth_oidc/) | 17.0.1.4.0 |  | OpenID Connect Authentication
 [g2p_bank](g2p_bank/) | 17.0.1.4.0 |  | G2P Registry: Bank Details
@@ -39,6 +40,7 @@ addon | version | maintainers | summary
 [g2p_openid_vci_rest_api](g2p_openid_vci_rest_api/) | 17.0.1.4.0 |  | G2P OpenID VCI: Rest API
 [g2p_portal_auth](g2p_portal_auth/) | 17.0.1.4.0 |  | G2P Portal Auth
 [g2p_profile_image](g2p_profile_image/) | 17.0.1.4.0 |  | OpenG2P Profile Image
+[g2p_registration_portal_base](g2p_registration_portal_base/) | 17.0.1.4.0 |  | G2P Registration Portal :Base
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.4.0 |  | G2P Registry: Additional Info
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.4.0 |  | G2P Registry: Base
 [g2p_registry_documents](g2p_registry_documents/) | 17.0.1.4.0 |  | G2P Registry: Documents
@@ -47,8 +49,6 @@ addon | version | maintainers | summary
 [g2p_registry_individual](g2p_registry_individual/) | 17.0.1.4.0 |  | G2P Registry: Individual
 [g2p_registry_membership](g2p_registry_membership/) | 17.0.1.4.0 |  | G2P Registry: Membership
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.1.4.0 |  | G2P Registry: Rest API
-[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.1.4.0 |  | G2P Service Provider Beneficiary Management
-[g2p_service_provider_portal_base](g2p_service_provider_portal_base/) | 17.0.1.4.0 |  | G2P Service Provider Portal: Base
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.1.4.0 |  | OpenG2P Superset Dashboard
 [mts_connector](mts_connector/) | 17.0.1.4.0 |  | MTS Connector
 
