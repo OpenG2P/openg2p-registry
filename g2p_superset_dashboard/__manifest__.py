@@ -2,7 +2,7 @@
 {
     "name": "OpenG2P Superset Dashboard",
     "category": "G2P",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.4.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
