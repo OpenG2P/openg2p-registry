@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="home_page" name="G2P Registration Portal Home">
+        <t t-call="g2p_agent_portal_base.base">
+            <t t-set="title"> Home | Registration Portal</t>
+            <div class="main-container">
+                <div class="container-adjuster">
+                    <!-- TODO:  Inherit and add your changes here-->
+                </div>
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -1,6 +1,6 @@
 {
     "name": "OpenID Connect Authentication",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.4.0",
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
