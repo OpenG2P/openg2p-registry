@@ -1,7 +1,7 @@
-from odoo.addons.component.core import AbstractComponent
+from odoo import models
 
 
-class ProcessGroupMixin(AbstractComponent):
+class ProcessGroupMixin(models.AbstractModel):
     _inherit = "process_group.rest.mixin"
 
     def _process_group(self, group_info):

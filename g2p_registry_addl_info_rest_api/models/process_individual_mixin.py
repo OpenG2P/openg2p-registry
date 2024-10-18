@@ -1,7 +1,7 @@
-from odoo.addons.component.core import AbstractComponent
+from odoo import models
 
 
-class ProcessIndividualMixin(AbstractComponent):
+class ProcessIndividualMixin(models.AbstractModel):
     _inherit = "process_individual.rest.mixin"
 
     def _process_individual(self, individual):

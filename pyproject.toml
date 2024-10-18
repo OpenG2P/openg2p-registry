@@ -21,6 +21,7 @@ dependencies = [
     "odoo-addon-g2p_portal_auth @ {root:uri}/g2p_portal_auth",
     "odoo-addon-g2p_profile_image @ {root:uri}/g2p_profile_image",
     "odoo-addon-g2p_registry_addl_info @ {root:uri}/g2p_registry_addl_info",
+    "odoo-addon-g2p_registry_addl_info_rest_api @ {root:uri}/g2p_registry_addl_info_rest_api",
     "odoo-addon-g2p_registry_base @ {root:uri}/g2p_registry_base",
     "odoo-addon-g2p_registry_documents @ {root:uri}/g2p_registry_documents",
     "odoo-addon-g2p_registry_encryption @ {root:uri}/g2p_registry_encryption",
