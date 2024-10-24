@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-
-    <t t-name="addl_info_each_table">
-        <t t-if="! state.recordClicked and ! state.noValue">
-            <table
-                class="o_group o_inner_group table table-bordered json-widget"
-                border="1"
-                style="border-collapse:collapse"
-            >
-                <tbody>
-                    <t t-foreach="Object.entries(this.renderjson())" t-as="key" t-key="key">
-                        <tr>
+    <t t-name="g2p_registry_addl_info_tpl">
+        <t t-if="!state.editingMode">
+            <t t-set="jsonToRender" t-value="this.renderjson()" />
+            <t t-call="g2p_registry_addl_info_table_tpl" />
+            <button
+                class="btn btn-success"
+                name="g2p_registry_addl_info_edit_button"
+                t-on-click="editButtonClick"
+            >Edit</button>
+        </t>
+        <t t-else="">
+            <t t-call="web.TextField" />
+            <br />
+            <button
+                class="btn btn-success"
+                name="g2p_registry_addl_info_save_button"
+                t-on-click="doneButtonClick"
+            >Done</button>
+        </t>
+    </t>
+    <t t-name="g2p_registry_addl_info_table_tpl">
+        <table class="o_group o_inner_group table table-bordered" border="1" style="border-collapse:collapse">
+            <tbody>
+                <t t-set="isArray" t-value="Array.isArray(jsonToRender)" />
+                <t t-foreach="Object.entries(jsonToRender)" t-as="key" t-key="key[0]">
+                    <tr>
+                        <t t-if="!isArray">
                             <td class="o_td_label">
-                                <label class="o_form_label o_quick_editable">
+                                <label class="o_form_label">
                                     <strong>
                                         <t t-esc="key[0]" />
                                     </strong>
                                 </label>
                             </td>
-                            <td>
-                                <span class="o_field_widget o_quick_editable">
+                        </t>
+                        <td>
+                            <t t-if="typeof key[1] === 'object' || Array.isArray(key[1])">
+                                <t t-set="jsonToRender" t-value="key[1]" />
+                                <t t-call="g2p_registry_addl_info_table_tpl" />
+                            </t>
+                            <t t-else="">
+                                <span class="o_field_widget">
                                     <t t-esc="key[1]" />
                                 </span>
-                            </td>
-                        </tr>
-                    </t>
-                </tbody>
-            </table>
-        </t>
-        <t t-else="">
-            <t t-call="web.TextField" />
-        </t>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
     </t>
 </templates>

@@ -49,6 +49,7 @@ class RegistrantInfoResponse(NaiveOrmModel):
     phone_numbers: list[PhoneNumberResponse] | None = Field([], alias="phone_number_ids")
     email: str | None = None
     address: str | None = None
+    image_1920: bytes | None = None
     create_date: datetime = None
     write_date: datetime = None
 
@@ -85,7 +86,7 @@ class RegistrantIDRequest(NaiveOrmModel):
 
 class RegistrantInfoRequest(NaiveOrmModel):
     name: str = Field(..., description="Mandatory field")
-    ids: list[RegistrantIDRequest]
+    ids: list[RegistrantIDRequest] | None = None
     registration_date: str = Field(
         None,
         description="Registration date in YYYY-MM-DD format",
@@ -94,6 +95,7 @@ class RegistrantInfoRequest(NaiveOrmModel):
     phone_numbers: list[PhoneNumberRequest] | None = None
     email: str | None = None
     address: str | None = None
+    image_1920: bytes | None = None
 
     @field_validator("registration_date")
     @classmethod

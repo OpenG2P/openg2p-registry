@@ -1,2 +1,2 @@
-from . import registrant
-from . import group_membership
+from . import process_individual_mixin
+from . import process_group_mixin
