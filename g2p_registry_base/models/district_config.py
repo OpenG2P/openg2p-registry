@@ -9,4 +9,5 @@ class G2PDistrict(models.Model):
     _order = "name ASC"
 
     name = fields.Char()
+    code = fields.Char()
     state_id = fields.Many2one("res.country.state")

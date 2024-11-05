@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <tree editable="top">
                 <field name="name" required="1" />
+                <field name="code" />
                 <field name="state_id" string="State" />
             </tree>
         </field>
