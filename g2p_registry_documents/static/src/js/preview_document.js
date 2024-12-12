@@ -1,17 +1,50 @@
 /** @odoo-module **/
-import {Component, xml} from "@odoo/owl";
+import {Component, onWillStart, xml} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 import {useService} from "@web/core/utils/hooks";
 
 class Widgetpreview extends Component {
-    static template = xml`<button class="btn btn-primary" icon="fa-file-text-o" t-on-click="clickPreview">Preview</button>`;
+    static template = xml`
+        <t>
+            <button
+                class="btn btn-primary"
+                icon="fa-file-text-o"
+                t-on-click="clickPreview"
+                t-if="canPreview"
+            >
+                Preview
+            </button>
+            <span t-else="">Encrypted</span>
+        </t>
+    `;
 
     setup() {
         super.setup();
         this.fileViewer = useFileViewer();
         this.store = useService("mail.store");
         this.rpc = useService("rpc");
+
+        onWillStart(async () => {
+            this.decryptRegistry = await this._getDecryptRegistryValue();
+            this.canPreview = this._checkPreviewConditions();
+        });
+    }
+
+    async _getDecryptRegistryValue() {
+        const result = await this.rpc("/web/dataset/call_kw/ir.config_parameter/get_param", {
+            model: "ir.config_parameter",
+            method: "get_param",
+            args: ["g2p_registry_encryption.decrypt_registry"],
+            kwargs: {},
+        });
+        return result === "True";
+    }
+
+    _checkPreviewConditions() {
+        const is_encrypted = this.props.record.data.is_encrypted;
+        const decrypt_registry = this.decryptRegistry;
+        return !is_encrypted || (is_encrypted && decrypt_registry);
     }
 
     clickPreview(ev) {

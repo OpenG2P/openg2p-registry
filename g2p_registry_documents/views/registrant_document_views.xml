@@ -13,6 +13,7 @@
                             <field name="slug" string="Name" />
                             <field name="file_size" />
                             <field name="file_type" />
+                            <field name="is_encrypted" column_invisible="True" />
                             <widget name="action_preview" />
                         </tree>
                     </field>
@@ -34,6 +35,7 @@
                             <field name="slug" string="Name" />
                             <field name="file_size" />
                             <field name="file_type" />
+                            <field name="is_encrypted" column_invisible="True" />
                             <widget name="action_preview" />
                         </tree>
                     </field>

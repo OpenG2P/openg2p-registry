@@ -26,7 +26,7 @@
                     </setting>
                     <setting
                         string="Decrypt Registry Config"
-                        help="By choosing this, you are consenting to decrypting fields on registry. So be careful"
+                        help="By choosing this, you are consenting to display the decrypted fields of registrant. So be careful"
                     >
                         <field name="decrypt_registry" />
                     </setting>
