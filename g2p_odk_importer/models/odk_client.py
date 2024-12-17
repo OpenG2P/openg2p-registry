@@ -5,12 +5,11 @@ import mimetypes
 from datetime import datetime
 
 import jq
-import pytz
 import requests
 from dateutil import parser
 
 from odoo import _
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -93,36 +92,66 @@ class ODKClient:
         data["value"] = sorted(
             data["value"],
             key=lambda x: (
-                x.get("submission_time") in (None, ""),  # True for invalid times, sorts to end
+                # True for invalid times, sorts to end
+                x.get("submission_time") in (None, ""),
                 parser.parse(x["submission_time"]) if x.get("submission_time") not in (None, "") else None,
             ),
         )
         partner_count = 0
         for member in data["value"]:
             _logger.info("ODK RAW DATA:%s" % member)
-            try:
-                mapped_json = jq.first(self.json_formatter, member)
-                if self.target_registry == "individual":
-                    mapped_json.update({"is_registrant": True, "is_group": False})
-                elif self.target_registry == "group":
-                    mapped_json.update({"is_registrant": True, "is_group": True})
+            # try:
+            mapped_json = jq.first(self.json_formatter, member)
+            if self.target_registry == "individual":
+                mapped_json.update({"is_registrant": True, "is_group": False})
+            elif self.target_registry == "group":
+                mapped_json.update({"is_registrant": True, "is_group": True})
 
-                self.handle_one2many_fields(mapped_json)
-                self.handle_media_import(member, mapped_json)
+            self.handle_one2many_fields(mapped_json)
+            self.handle_media_import(member, mapped_json)
 
-                updated_mapped_json = self.get_addl_data(mapped_json)
+            updated_mapped_json = self.get_addl_data(mapped_json)
 
-                self.env["res.partner"].sudo().create(updated_mapped_json)
-                partner_count += 1
-                data.update({"form_updated": True})
-            except Exception as e:
-                data.update({"form_failed": True})
-                _logger.error("An exception occurred%s" % e)
-                raise ValidationError(f"The following errors occurred:\n{e}") from e
+            self.env["res.partner"].sudo().create(updated_mapped_json)
+            partner_count += 1
+            data.update({"form_updated": True})
 
         data.update({"partner_count": partner_count})
 
         return data
+
+    def get_submissions(self, fields=None, last_sync_time=None):
+        # Construct the API endpoint
+        endpoint = f"{self.base_url}/v1/projects/{self.project_id}/forms/{self.form_id}.svc/Submissions"
+
+        # Add query parameters to fetch only specific fields and filter by last sync time
+        params = {}
+        if fields:
+            params["$select"] = fields
+        if last_sync_time:
+            startdate = last_sync_time.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            params["$filter"] = f"__system/submissionDate ge {startdate}"
+        submissions = []
+        headers = {"Authorization": f"Bearer {self.session}"}
+
+        params = {}
+        while endpoint:
+            # Make the API request
+            response = requests.get(endpoint, headers=headers, params=params, timeout=10)
+            response.raise_for_status()
+
+            # Append the submissions
+            data = response.json()
+            if isinstance(data, dict):
+                submissions.extend(data["value"])
+            else:
+                _logger.error("Unexpected response format: expected a dict of submissions")
+                break
+
+            # Handle pagination
+            endpoint = None
+
+        return submissions
 
     def handle_one2many_fields(self, mapped_json):
         if "phone_number_ids" in mapped_json:
@@ -262,10 +291,15 @@ class ODKClient:
 
     def get_individual_data(self, record):
         name = record.get("name", None)
-        given_name = name.split(" ")[0]
-        family_name = name.split(" ")[-1]
+        if name is not None:
+            given_name = name.split(" ")[0]
+            family_name = name.split(" ")[-1]
+            addl_name = " ".join(name.split(" ")[1:-1])
+        else:
+            given_name = None
+            family_name = None
+            addl_name = None
         dob = self.get_dob(record)
-        addl_name = " ".join(name.split(" ")[1:-1])
         gender = self.get_gender(record.get("gender"))
 
         return {
@@ -327,39 +361,27 @@ class ODKClient:
 
         _logger.info(f"ODK RAW DATA by instance ID %s {instance_id} {data}")
 
-        if last_sync_timestamp:
-            last_sync_time = pytz.UTC.localize(last_sync_timestamp)
-        else:
-            last_sync_time = None
+        # if last_sync_timestamp:
+        #     last_sync_time = pytz.UTC.localize(last_sync_timestamp)
+        # else:
+        #     last_sync_time = None
 
-        try:
-            for member in data["value"]:
-                submission_date_str = member.get("__system", {}).get("submissionDate")
-                if submission_date_str:
-                    # Parse submissionDate to a timezone-aware datetime object
-                    submission_date = parser.isoparse(submission_date_str)
-                    if last_sync_time and last_sync_time < submission_date:
-                        raise UserError(
-                            _("Future records cannot be fetched before the regular import occurs.")
-                        )
+        for member in data["value"]:
+            mapped_json = jq.first(self.json_formatter, member)
 
-                mapped_json = jq.first(self.json_formatter, member)
-                if self.target_registry == "individual":
-                    mapped_json.update({"is_registrant": True, "is_group": False})
-                elif self.target_registry == "group":
-                    mapped_json.update({"is_registrant": True, "is_group": True})
+            if self.target_registry == "individual":
+                mapped_json.update({"is_registrant": True, "is_group": False})
+            elif self.target_registry == "group":
+                mapped_json.update({"is_registrant": True, "is_group": True})
 
-                self.handle_one2many_fields(mapped_json)
-                self.handle_media_import(member, mapped_json)
+            mapped_json.update({"name": f"{mapped_json['family_name']} {mapped_json['given_name']}"})
 
-                updated_mapped_json = self.get_addl_data(mapped_json)
-                self.env["res.partner"].sudo().create(updated_mapped_json)
+            self.handle_one2many_fields(mapped_json)
 
-            data.update({"form_updated": True})
+            updated_mapped_json = self.get_addl_data(mapped_json)
 
-        except Exception as e:
-            data.update({"form_failed": True})
-            _logger.error("An exception occurred by instanceID%s" % e)
-            raise ValidationError(f"The following errors occurred by instanceID:\n{e}") from e
+            self.env["res.partner"].sudo().create(updated_mapped_json)
+
+        data.update({"form_updated": True})
 
         return data
