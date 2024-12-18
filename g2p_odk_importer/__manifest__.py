@@ -10,6 +10,7 @@
     "website": "https://openg2p.org",
     "license": "LGPL-3",
     "depends": [
+        "base",
         "queue_job",
         "g2p_documents",
         "g2p_registry_base",

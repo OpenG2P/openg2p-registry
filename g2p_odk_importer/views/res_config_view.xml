@@ -12,12 +12,18 @@
                     name="odk_instance_config"
                     logo="/g2p_registry_base/static/description/icon.png"
                 >
-                    <block title="ODK Import by Instance ID">
+                    <block title="ODK Import Settings">
                         <setting
                             string="Enable ODK import InstanceID"
                             help="Select this to enable ODK import by using instance ID"
                         >
                             <field name="enable_odk" />
+                        </setting>
+                        <setting
+                            string="Enable Async ODK import"
+                            help="Once enabled, the ODK import will be done asynchronously by first fetching the instance ID from the ODK server"
+                        >
+                            <field name="enable_odk_async" />
                         </setting>
                     </block>
                 </app>
