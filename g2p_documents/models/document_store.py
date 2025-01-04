@@ -1,11 +1,20 @@
-import base64
-import uuid
-
-from odoo import _, models
+from odoo import _, fields, models
 
 
 class G2PDocumentStore(models.Model):
     _inherit = "storage.backend"
+
+    mimetype_strategy = fields.Selection(
+        selection=[("from_data", "Guess from Data"), ("from_file_name", "Guess from filename")],
+        default="from_data",
+        help=("Mimetype of a file can be inferred from the filename " "or from the binary data."),
+    )
+
+    @property
+    def _server_env_fields(self):
+        env_fields = super()._server_env_fields
+        env_fields.update({"mimetype_strategy": {}})
+        return env_fields
 
     def open_store_files_tree(self):
         return {
@@ -21,35 +30,3 @@ class G2PDocumentStore(models.Model):
             "context": {"hide_backend": 1},
             "domain": [("backend_id", "=", self.id)],
         }
-
-    def add_file(self, data, name=None, extension=None, tags=None):
-        if not name:
-            name = self._gen_random_name()
-        if extension:
-            name += extension
-        tags_ids = []
-        if tags:
-            if not (isinstance(tags, list) or isinstance(tags, tuple)):
-                tags = [
-                    tags,
-                ]
-            for tag in tags:
-                if isinstance(tag, str):
-                    tag_id = self.env["g2p.document.tag"].get_tag_by_name(tag)
-                    if tag_id:
-                        tags_ids.append((4, tag_id.id))
-                    else:
-                        tags_ids.append((0, 0, {"name": tag}))
-                else:
-                    tags_ids.append(tag)
-        return self.env["storage.file"].create(
-            {
-                "name": name,
-                "backend_id": self.id,
-                "data": base64.b64encode(data),
-                "tags_ids": tags_ids,
-            }
-        )
-
-    def _gen_random_name(self, length=10):
-        return str(uuid.uuid4())

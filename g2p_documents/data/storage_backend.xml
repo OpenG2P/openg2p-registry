@@ -12,5 +12,6 @@
         <field name="aws_bucket">documents</field>
         <field name="aws_access_key_id">admin</field>
         <field name="aws_cache_control">max-age=31536000, public</field>
+        <field name="mimetype_strategy">from_data</field>
     </record>
 </odoo>
