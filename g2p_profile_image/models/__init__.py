@@ -1,1 +1,1 @@
-from . import profile_image, document_file
+from . import registrant

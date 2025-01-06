@@ -1,6 +1,6 @@
-# Part of OpenG2P Social Registry. See LICENSE file for full copyright and licensing details.
+# Part of OpenG2P Documents. See LICENSE file for full copyright and licensing details.
 {
-    "name": "OpenG2P Profile Image",
+    "name": "G2P Document Field",
     "category": "G2P",
     "version": "17.0.1.4.0",
     "sequence": 1,
@@ -8,13 +8,13 @@
     "website": "https://openg2p.org",
     "license": "LGPL-3",
     "depends": [
-        "g2p_registry_documents",
-        "g2p_document_field",
+        "g2p_documents",
     ],
-    "data": [
-        "data/tags.xml",
-    ],
-    "assets": {},
+    "data": [],
+    "external_dependencies": {},
+    "assets": {
+        "web.assets_backend": [],
+    },
     "demo": [],
     "images": [],
     "application": True,

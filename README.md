@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.4.0 |  | G2P Registry: Bank Details Rest API
 [g2p_change_log](g2p_change_log/) | 17.0.1.4.0 |  | OpenG2P Change Log
 [g2p_disable_password_login](g2p_disable_password_login/) | 17.0.1.4.0 |  | Disable Password Login
+[g2p_document_field](g2p_document_field/) | 17.0.1.4.0 |  | G2P Document Field
 [g2p_documents](g2p_documents/) | 17.0.1.4.0 |  | G2P Documents Store
 [g2p_encryption](g2p_encryption/) | 17.0.1.4.0 |  | G2P Encryption: Base
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.1.4.0 |  | G2P Encryption: Keymanager
