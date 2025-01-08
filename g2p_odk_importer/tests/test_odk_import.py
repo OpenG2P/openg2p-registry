@@ -28,42 +28,37 @@ class TestOdkImport(TransactionCase):
                 "last_sync_time": datetime.now() - timedelta(days=1),
                 "job_status": "draft",
                 "interval_hours": 1,
+                "enable_import_by_instance_id": True,
             }
         )
-        self.env["ir.config_parameter"].set_param("g2p_odk_importer.enable_odk", True)
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.login")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.import_record_by_instance_id")
-    def test_fetch_record_by_instance_id(self, mock_import_record, mock_login):
+    def test_fetch_record_by_instance_id(self):
         # Test fetch record by instance ID method
-        mock_login.return_value = None
-        mock_import_record.return_value = {"form_updated": True}
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch.object(self.odk_config, "import_record_by_instance_id") as mock_import_record,
+        ):
+            mock_login.return_value = "test_token"
+            mock_import_record.return_value = {"form_updated": True}
 
-        self.odk_import.instance_id = "test_instance_id"
-        result = self.odk_import.fetch_record_by_instance_id()
-        self.assertEqual(result["params"]["type"], "success")
+            self.odk_import.instance_id = "test_instance_id"
+            result = self.odk_import.fetch_record_by_instance_id()
 
-        self.odk_import.instance_id = False
-        with self.assertRaises(UserError):
-            self.odk_import.fetch_record_by_instance_id()
+            self.assertEqual(result["params"]["type"], "success")
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.login")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.test_connection")
-    def test_test_connection(self, mock_test_connection, mock_login):
+            self.odk_import.instance_id = False
+            with self.assertRaises(UserError):
+                self.odk_import.fetch_record_by_instance_id()
+
+    def test_test_connection(self):
         # Test connection method
-        mock_login.return_value = None
-        mock_test_connection.return_value = True
-
-        result = self.odk_import.test_connection()
+        with patch.object(self.odk_config, "test_connection") as mock_test_connection:
+            mock_test_connection.return_value = True
+            result = self.odk_import.test_connection()
         self.assertEqual(result["params"]["message"], "Tested successfully.")
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.login")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.import_record_by_instance_id")
-    def test_process_instance_id(self, mock_import_record, mock_login):
+    def test_process_instance_id(self):
         # Test processing instance ID method
-        mock_login.return_value = None
-        mock_import_record.return_value = {"form_updated": True}
-
         instance_id = self.env["odk.instance.id"].create(
             {
                 "instance_id": "test_instance_id",
@@ -71,18 +66,17 @@ class TestOdkImport(TransactionCase):
                 "status": "pending",
             }
         )
-        self.odk_import._process_instance_id([instance_id])
+        with patch.object(self.odk_config, "import_record_by_instance_id") as mock_import_record:
+            mock_import_record.return_value = {"form_updated": True}
+            self.odk_import._process_instance_id([instance_id])
         self.assertEqual(instance_id.status, "processing")
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.get_submissions")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.login")
-    def test_import_records_with_async(self, mock_login, mock_get_submissions):
+    def test_import_records_with_async(self):
         # Test importing records with async enabled
-        mock_login.return_value = None
-        mock_get_submissions.return_value = [{"__id": "test_instance_id"}]
-
-        self.env["ir.config_parameter"].sudo().set_param("g2p_odk_importer.enable_odk_async", True)
-        self.odk_import.import_records()
+        self.odk_import.enable_async = True
+        with patch.object(self.odk_config, "get_submissions") as mock_get_submissions:
+            mock_get_submissions.return_value = [{"__id": "test_instance_id"}]
+            self.odk_import.import_records()
 
         pending_instance = self.env["odk.instance.id"].search([("instance_id", "=", "test_instance_id")])
         self.assertTrue(pending_instance)

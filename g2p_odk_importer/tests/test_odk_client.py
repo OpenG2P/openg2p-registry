@@ -1,34 +1,26 @@
-from datetime import datetime
+import base64
+from datetime import datetime, timezone
 from unittest.mock import MagicMock, patch
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
-
-from odoo.addons.g2p_odk_importer.models.odk_client import ODKClient
 
 
 class TestODKClient(TransactionCase):
     @classmethod
     def setUpClass(self):
         super().setUpClass()
-        self.env_mock = MagicMock()
-        self.base_url = "http://example.com"
-        self.username = "test_user"
-        self.password = "test_password"
-        self.project_id = 5
-        self.form_id = "test_form_id"
         self.target_registry = "group"
         self.json_formatter = "."
-        self.client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
+        self.odk_config = self.env["odk.config"].create(
+            {
+                "name": "Test Config",
+                "base_url": "http://example.com",
+                "username": "test_user",
+                "password": "test_password",
+                "project": 5,
+                "form_id": "test_form_id",
+            }
         )
 
     @patch("requests.post")
@@ -36,43 +28,22 @@ class TestODKClient(TransactionCase):
         # Test login success method
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"token": "test_token"}
+        mock_response.json.return_value = {
+            "token": "test_token",
+            "expiresAt": datetime.now(tz=timezone.utc).isoformat(),
+        }
         mock_post.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        odk_client.login()
-        self.assertEqual(odk_client.session, "test_token")
+        token = self.odk_config.login_get_session_token()
+        self.assertEqual(token, "test_token")
 
     @patch("requests.post")
     def test_login_exception(self, mock_post):
         # Test login exception handling
         mock_post.side_effect = Exception("Network error")
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
         with self.assertRaises(ValidationError) as cm:
-            odk_client.login()
+            self.odk_config.login_get_session_token()
 
         self.assertEqual(str(cm.exception), "Login failed: Network error")
 
@@ -84,64 +55,22 @@ class TestODKClient(TransactionCase):
         mock_response.json.return_value = {"displayName": "test_user"}
         mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            test_connection = self.odk_config.test_connection()
 
-        odk_client.session = "test_token"
-        self.assertTrue(odk_client.test_connection())
+        self.assertTrue(test_connection)
 
-    @patch("requests.get")
-    def test_connection_no_session(self, mock_get):
-        # Test connection when session is not created
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        odk_client.session = None
-
-        with self.assertRaises(ValidationError) as cm:
-            odk_client.test_connection()
-
-        self.assertEqual(str(cm.exception), "Session not created")
-
-    @patch("requests.get")
-    def test_connection_failure(self, mock_get):
+    def test_connection_failure(self):
         # Test connection failure handling
-        mock_get.side_effect = Exception("Connection error")
-
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        odk_client.session = "valid_session_token"
-
-        with self.assertRaises(ValidationError) as cm:
-            odk_client.test_connection()
+        with (
+            self.assertRaises(ValidationError) as cm,
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_response,
+        ):
+            mock_response.side_effect = Exception("Connection error")
+            mock_login.return_value = "test_token"
+            self.odk_config.test_connection()
 
         self.assertEqual(str(cm.exception), "Connection test failed: Connection error")
 
@@ -153,20 +82,10 @@ class TestODKClient(TransactionCase):
         mock_response.json.return_value = {"value": [{"name": "John Doe"}]}
         mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            result = self.odk_config.import_delta_records(self.json_formatter, self.target_registry)
 
-        odk_client.session = "test_token"
-        result = odk_client.import_delta_records()
         self.assertIn("value", result)
 
     def test_handle_one2many_fields(self):
@@ -178,106 +97,35 @@ class TestODKClient(TransactionCase):
             "group_membership_ids": [],
             "reg_ids": [{"id_type": "National ID", "value": "12345", "expiry_date": "2024-12-31"}],
         }
-        self.client.handle_one2many_fields(mapped_json)
+        self.odk_config.handle_one2many_fields(mapped_json)
         self.assertIn("phone_number_ids", mapped_json)
         self.assertIn("reg_ids", mapped_json)
 
-    @patch("requests.get")
-    def test_handle_media_import(self, mock_get):
+    def test_handle_media_import(self):
         # Test handling media imports
         member = {"meta": {"instanceID": "test_instance"}}
-        mapped_json = {}
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.content = b"fake_image_data"
-        mock_get.return_value.json.return_value = [{"name": "test_image.jpg"}]
+        mapped_json = {"image_1920": "test_image.jpg"}
 
-        self.client.handle_media_import(member, mapped_json)
-        self.assertIn("supporting_documents_ids", mapped_json)
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch.object(self.odk_config, "download_attachment") as mock_download_attach,
+        ):
+            mock_login.return_value = "test_token"
+            mock_download_attach.return_value = b"fake_image_data"
+            self.odk_config.handle_media_import(mapped_json, member)
+
+        self.assertEqual(mapped_json["image_1920"], base64.b64encode(b"fake_image_data"))
 
     def test_get_dob(self):
         # Test getting date of birth from record
         record = {"birthdate": "2000-01-01", "age": 4}
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
 
-        dob = odk_client.get_dob(record)
+        dob = self.odk_config.get_dob(record)
         self.assertEqual(dob, "2000-01-01")
 
         record = {"age": 4}
-        dob = odk_client.get_dob(record)
+        dob = self.odk_config.get_dob(record)
         self.assertEqual(dob[:4], str(datetime.now().year - 4))
-
-    def test_is_image(self):
-        # Test checking if file is an image
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        result = odk_client.is_image("test.jpg")
-        self.assertTrue(result)
-
-    @patch("requests.get")
-    def test_list_expected_attachments(self, mock_get):
-        # Test listing expected attachments
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = [{"name": "test.jpg"}]
-
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        result = odk_client.list_expected_attachments(
-            "http://example.com", "1", "1", "test_instance", "fake_token"
-        )
-        self.assertIn({"name": "test.jpg"}, result)
-
-    @patch("requests.get")
-    def test_download_attachment(self, mock_get):
-        # Test downloading attachment
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.content = b"fake_image_data"
-
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        result = odk_client.download_attachment(
-            "http://example.com", "1", "1", "test_instance", "test.jpg", "fake_token"
-        )
-        self.assertEqual(result, b"fake_image_data")
 
     @patch("requests.get")
     def test_import_record_by_instance_id_success(self, mock_get):
@@ -287,20 +135,10 @@ class TestODKClient(TransactionCase):
         mock_response.json.return_value = {"value": [{"family_name": "Test", "given_name": "1"}]}
         mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
         instance_id = "test_instance_id"
-        result = odk_client.import_record_by_instance_id(instance_id)
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            result = self.odk_config.import_record_by_instance_id(instance_id)
 
         self.assertIn("form_updated", result)
         self.assertTrue(result["form_updated"])
@@ -318,45 +156,28 @@ class TestODKClient(TransactionCase):
         }
         mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        submissions = odk_client.get_submissions()
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            submissions = self.odk_config.get_submissions()
 
         self.assertEqual(submissions[0]["id"], 2)
         self.assertEqual(submissions[1]["id"], 3)
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.get_dob")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.get_gender")
-    def test_get_individual_data_success(self, mock_get_gender, mock_get_dob):
+    def test_get_individual_data_success(self):
         # Test case for successful retrieval of individual data
-        mock_get_dob.return_value = "1990-01-01"
-        mock_get_gender.return_value = "Male"
-
         record = {"name": "John Doe", "gender": "Male"}
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        with (
+            patch.object(self.odk_config, "get_dob") as mock_get_dob,
+            patch.object(self.odk_config, "get_gender") as mock_get_gender,
+        ):
+            mock_get_dob.return_value = "1990-01-01"
+            mock_get_gender.return_value = "Male"
 
-        individual_data = odk_client.get_individual_data(record)
+            individual_data = self.odk_config.get_individual_data(record)
+
+            mock_get_dob.assert_called_once_with(record)
+            mock_get_gender.assert_called_once_with("Male")
 
         self.assertEqual(individual_data["name"], "John Doe")
         self.assertEqual(individual_data["given_name"], "John")
@@ -367,31 +188,21 @@ class TestODKClient(TransactionCase):
         self.assertEqual(individual_data["birthdate"], "1990-01-01")
         self.assertEqual(individual_data["gender"], "Male")
 
-        mock_get_dob.assert_called_once_with(record)
-        mock_get_gender.assert_called_once_with("Male")
-
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.get_dob")
-    @patch("odoo.addons.g2p_odk_importer.models.odk_client.ODKClient.get_gender")
-    def test_get_individual_data_no_name(self, mock_get_gender, mock_get_dob):
+    def test_get_individual_data_no_name(self):
         # Test case when no name is provided in the record
-        mock_get_dob.return_value = "1990-01-01"
-        mock_get_gender.return_value = "Female"
-
         record = {"gender": "Female"}
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        with (
+            patch.object(self.odk_config, "get_dob") as mock_get_dob,
+            patch.object(self.odk_config, "get_gender") as mock_get_gender,
+        ):
+            mock_get_dob.return_value = "1990-01-01"
+            mock_get_gender.return_value = "Female"
 
-        individual_data = odk_client.get_individual_data(record)
+            individual_data = self.odk_config.get_individual_data(record)
+
+            mock_get_dob.assert_called_once_with(record)
+            mock_get_gender.assert_called_once_with("Female")
 
         self.assertEqual(individual_data["name"], None)
         self.assertEqual(individual_data["given_name"], None)
@@ -402,5 +213,24 @@ class TestODKClient(TransactionCase):
         self.assertEqual(individual_data["birthdate"], "1990-01-01")
         self.assertEqual(individual_data["gender"], "Female")
 
-        mock_get_dob.assert_called_once_with(record)
-        mock_get_gender.assert_called_once_with("Female")
+    @patch("requests.get")
+    def test_list_expected_attachments(self, mock_get):
+        # Test listing expected attachments
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = [{"name": "test.jpg"}]
+
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            result = self.odk_config.list_expected_attachments("test_instance")
+        self.assertEqual(result[0]["name"], "test.jpg")
+
+    @patch("requests.get")
+    def test_download_attachment(self, mock_get):
+        # Test downloading attachment
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.content = b"fake_image_data"
+
+        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+            mock_login.return_value = "test_token"
+            result = self.odk_config.download_attachment("test_instance", "test.jpg")
+        self.assertEqual(result, b"fake_image_data")

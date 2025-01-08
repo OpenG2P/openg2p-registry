@@ -6,7 +6,7 @@ class G2PDocumentTags(models.Model):
     _description = "G2P Document Tag"
     _order = "id asc"
 
-    name = fields.Char()
+    name = fields.Char(required=True, index=True)
 
     _sql_constraints = [
         (
@@ -17,8 +17,8 @@ class G2PDocumentTags(models.Model):
     ]
 
     @api.model
-    def get_tag_by_name(self, name, **kwargs):
-        res = self.search([("name", "=", name)], **kwargs)
+    def get_or_create_tag_from_name(self, tag_name, **kwargs):
+        res = self.search([("name", "=", tag_name)], **kwargs)
         if res:
             return res[0]
-        return None
+        return self.create({"name": tag_name})

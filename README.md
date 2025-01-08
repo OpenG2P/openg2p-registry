@@ -36,6 +36,7 @@ addon | version | maintainers | summary
 [g2p_enumerator](g2p_enumerator/) | 17.0.1.4.0 |  | G2P Enumerator
 [g2p_mts](g2p_mts/) | 17.0.1.4.0 |  | OpenG2P Registry MTS Connector
 [g2p_odk_importer](g2p_odk_importer/) | 17.0.1.4.0 |  | Import records from ODK
+[g2p_odk_importer_documents](g2p_odk_importer_documents/) | 17.0.1.4.0 |  | ODK Import Records with Documents
 [g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.1.4.0 |  | ODK App User Mapping
 [g2p_openid_vci](g2p_openid_vci/) | 17.0.1.4.0 |  | G2P OpenID VCI: Base
 [g2p_openid_vci_group](g2p_openid_vci_group/) | 17.0.1.4.0 |  | G2P OpenID VCI: Group
