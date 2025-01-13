@@ -74,22 +74,340 @@ class TestODKClient(TransactionCase):
 
         self.assertEqual(str(cm.exception), "Connection test failed: Connection error")
 
-    @patch("requests.get")
-    def test_import_delta_records_success(self, mock_get):
+    def test_import_records_success(self):
         # Test importing delta records successfully
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"value": [{"name": "John Doe"}]}
-        mock_get.return_value = mock_response
 
-        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
             mock_login.return_value = "test_token"
-            result = self.odk_config.import_delta_records(self.json_formatter, self.target_registry)
+            mock_get.return_value = mock_response
+
+            result = self.odk_config.import_records(self.json_formatter, self.target_registry)
 
         self.assertIn("value", result)
 
+    def test_import_records_with_timestamp(self):
+        """Test importing records with a last sync timestamp"""
+        # Mock the response
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"submission_time": "2024-01-01T10:00:00.000Z"}]}
+
+        # Create a timestamp for testing
+        test_timestamp = datetime(2024, 1, 1, 8, 0, 0)
+        expected_filter = "__system/submissionDate ge 2024-01-01T08:00:00.000Z"
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            # Call the method with timestamp
+            self.odk_config.import_records(
+                self.json_formatter, self.target_registry, last_sync_timestamp=test_timestamp
+            )
+
+            # Verify the request was made with correct parameters
+            actual_params = mock_get.call_args[1]["params"]
+            self.assertIn("$filter", actual_params)
+            self.assertEqual(actual_params["$filter"], expected_filter)
+
+    def test_import_records_without_timestamp(self):
+        """Test importing records without a last sync timestamp"""
+        # Mock the response
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"submission_time": "2024-01-01T10:00:00.000Z"}]}
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            # Call the method without timestamp
+            self.odk_config.import_records(self.json_formatter, self.target_registry)
+
+            # Verify the request was made without filter parameter
+            actual_params = mock_get.call_args[1]["params"]
+            self.assertNotIn("$filter", actual_params)
+
+    def test_import_records_request_exception(self):
+        """Test handling of RequestException during import"""
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            # Simulate a request exception
+            mock_get.side_effect = OSError("Network error")
+
+            # Verify that ValidationError is raised with the correct message
+            with self.assertRaises(ValidationError) as context:
+                self.odk_config.import_records(self.json_formatter, self.target_registry)
+
+                self.assertIn("Failed to parse response: Network error", str(context.exception))
+
+    def test_import_records_with_skip(self):
+        """Test importing records with skip parameter"""
+        # Mock the response
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"submission_time": "2024-01-01T10:00:00.000Z"}]}
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            # Call the method with skip parameter
+            skip_value = 10
+            self.odk_config.import_records(self.json_formatter, self.target_registry, skip=skip_value)
+
+            # Verify the request was made with correct skip parameter
+            actual_params = mock_get.call_args[1]["params"]
+            self.assertEqual(actual_params["$skip"], skip_value)
+
+    def test_import_records_timestamp_and_skip(self):
+        """Test importing records with both timestamp and skip parameters"""
+        # Mock the response
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"submission_time": "2024-01-01T10:00:00.000Z"}]}
+
+        test_timestamp = datetime(2024, 1, 1, 8, 0, 0)
+        skip_value = 10
+        expected_filter = "__system/submissionDate ge 2024-01-01T08:00:00.000Z"
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            # Call the method with both parameters
+            self.odk_config.import_records(
+                self.json_formatter, self.target_registry, last_sync_timestamp=test_timestamp, skip=skip_value
+            )
+
+            # Verify all parameters are correct
+            actual_params = mock_get.call_args[1]["params"]
+            self.assertEqual(actual_params["$skip"], skip_value)
+            self.assertEqual(actual_params["$filter"], expected_filter)
+
+    def test_import_records_is_registrant(self):
+        # Set target_registry to "individual"
+        self.target_registry = "individual"
+
+        # Mock response for submissions
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"submission_time": "2024-01-01T10:00:00.000Z"}]}
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            self.odk_config.import_records(self.json_formatter, self.target_registry)
+
+        # Check if "is_registrant" and "is_group" were set correctly
+        partner = self.env["res.partner"].search([], limit=1)
+        self.assertTrue(partner.is_registrant)
+        self.assertFalse(partner.is_group)
+
+    def test_import_record_by_instance_id_is_registrant(self):
+        # Set target_registry to "individual"
+        self.target_registry = "individual"
+
+        # Mock response for submissions
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "value": [{"name": "Doe John", "family_name": "Doe", "given_name": "John"}]
+        }
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            self.odk_config.import_records(
+                self.json_formatter, self.target_registry, instance_id="test_instance_id"
+            )
+
+        # Check if "is_registrant" and "is_group" were set correctly
+        partner = self.env["res.partner"].search([], limit=1)
+        self.assertTrue(partner.is_registrant)
+        self.assertFalse(partner.is_group)
+        self.assertEqual(partner.name, "Doe John")
+
+    def test_import_record_by_instance_id_request_exception(self):
+        """Test handling of IOError during import by instance ID"""
+        instance_id = "test-instance-123"
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            # Simulate a network error
+            mock_get.side_effect = OSError("Network error")
+
+            # Verify that ValidationError is raised with the correct message
+            with self.assertRaises(ValidationError) as context:
+                self.odk_config.import_records(
+                    self.json_formatter, self.target_registry, instance_id=instance_id
+                )
+
+                self.assertIn(
+                    "Failed to parse response by using instance ID: Network error",
+                    str(context.exception),
+                )
+
+    def test_import_record_by_instance_id_success(self):
+        """Test successful import of record by instance ID with correct registry flags"""
+        instance_id = "test-instance-123"
+        # Test individual registry
+        self.target_registry = "individual"
+
+        # Mock response data
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "value": [{"name": "Doe John", "family_name": "Doe", "given_name": "John"}]
+        }
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            result = self.odk_config.import_records(
+                self.json_formatter, self.target_registry, instance_id=instance_id
+            )
+
+            # Verify the created partner data had correct flags
+            partner = self.env["res.partner"].search([], limit=1)
+            self.assertTrue(partner.is_registrant)
+            self.assertFalse(partner.is_group)
+            self.assertEqual(partner.name, "Doe John")
+            self.assertTrue(result["form_updated"])
+
+    def test_import_record_by_instance_id_group(self):
+        """Test import of record by instance ID for group registry"""
+        instance_id = "test-instance-123"
+        # Test group registry
+        self.target_registry = "group"
+
+        # Mock response data
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "value": [{"name": "Family Group", "family_name": "Family", "given_name": "Group"}]
+        }
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            result = self.odk_config.import_records(
+                self.json_formatter, self.target_registry, instance_id=instance_id
+            )
+
+            # Verify the created partner data had correct flags
+            group = self.env["res.partner"].search([("is_group", "=", True)], limit=1)
+            ind = self.env["res.partner"].search([("is_group", "=", False)], limit=1)
+            self.assertTrue(group)
+            self.assertTrue(ind)
+            self.assertTrue(group.is_registrant)
+            self.assertTrue(ind.is_registrant)
+            self.assertEqual(group.name, "Family Group")
+            self.assertTrue(result["form_updated"])
+
+    def test_handle_group_membership(self):
+        # Test data
+        mapped_json = {
+            "group_membership_ids": [
+                {"name": "Test Person", "kind": "member", "relationship_with_head": "spouse"}
+            ]
+        }
+
+        with (
+            patch.object(self.odk_config, "get_member_relationship") as mock_get_relationship,
+            patch.object(self.odk_config, "get_member_kind") as mock_get_kind,
+            patch.object(self.odk_config, "get_individual_data") as mock_get_individual_data,
+        ):
+            mock_kind = MagicMock()
+            mock_kind.id = 2
+            mock_get_kind.return_value = mock_kind
+
+            mock_relationship = {"source": 1, "relation": 3, "start_date": datetime.now()}
+            mock_get_relationship.return_value = mock_relationship
+
+            mock_individual_data = {"name": "Test Person", "given_name": "Test", "family_name": "Person"}
+            mock_get_individual_data.return_value = mock_individual_data
+
+            self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+
+            # Verify individual creation
+            partner = self.env["res.partner"].search([], limit=1)
+            self.assertEqual(partner.name, mock_individual_data["name"])
+            self.assertEqual(partner.given_name, mock_individual_data["given_name"])
+            self.assertEqual(partner.family_name, mock_individual_data["family_name"])
+
+        # Verify the results
+        self.assertIn("group_membership_ids", mapped_json)
+        self.assertIn("related_1_ids", mapped_json)
+
+        # Verify relationship creation
+        self.assertEqual(len(mapped_json["related_1_ids"]), 1)
+        self.assertEqual(mapped_json["related_1_ids"][0][0], 0)
+        self.assertEqual(mapped_json["related_1_ids"][0][1], 0)
+        self.assertEqual(mapped_json["related_1_ids"][0][2], mock_relationship)
+
+        # Verify group membership creation
+        self.assertEqual(len(mapped_json["group_membership_ids"]), 1)
+        expected_individual_data = {"individual": partner.id, "kind": [(4, mock_kind.id)]}
+        self.assertEqual(mapped_json["group_membership_ids"][0][2], expected_individual_data)
+
+    def test_handle_group_membership_no_relationship(self):
+        # Test handling when no relationship is found
+        mapped_json = {"group_membership_ids": [{"name": "Test Person"}]}
+
+        self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+
+        ind = self.env["res.partner"].search([("is_group", "=", False)], limit=1)
+        # Verify only group membership was created without relationship
+        self.assertTrue("group_membership_ids" in mapped_json)
+        self.assertEqual(len(mapped_json.get("related_1_ids", [])), 0)
+        self.assertEqual(len(mapped_json["group_membership_ids"]), 1)
+        expected_individual_data = {"individual": ind.id}
+        self.assertEqual(mapped_json["group_membership_ids"][0][2], expected_individual_data)
+
     def test_handle_one2many_fields(self):
-        # Test handling one2many fields in the mapped JSON
+        # Create a mock environment with proper structure
+        id_type = self.env["g2p.id.type"].create({"name": "National ID"})
+
+        # Test data
         mapped_json = {
             "phone_number_ids": [
                 {"phone_no": "123456789", "date_collected": "2024-07-01", "disabled": False}
@@ -97,9 +415,54 @@ class TestODKClient(TransactionCase):
             "group_membership_ids": [],
             "reg_ids": [{"id_type": "National ID", "value": "12345", "expiry_date": "2024-12-31"}],
         }
-        self.odk_config.handle_one2many_fields(mapped_json)
+
+        # Execute
+        self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+
+        # Assert phone_number_ids structure
         self.assertIn("phone_number_ids", mapped_json)
+        self.assertEqual(len(mapped_json["phone_number_ids"]), 1)
+        phone_data = mapped_json["phone_number_ids"][0]
+        self.assertEqual(phone_data[0], 0)  # create command
+        self.assertEqual(phone_data[1], 0)  # no id
+        self.assertEqual(phone_data[2]["phone_no"], "123456789")
+        self.assertEqual(phone_data[2]["date_collected"], "2024-07-01")
+        self.assertEqual(phone_data[2]["disabled"], False)
+
+        # Assert reg_ids structure
         self.assertIn("reg_ids", mapped_json)
+        self.assertEqual(len(mapped_json["reg_ids"]), 1)
+        reg_data = mapped_json["reg_ids"][0]
+        self.assertEqual(reg_data[0], 0)  # create command
+        self.assertEqual(reg_data[1], 0)  # no id
+        self.assertEqual(reg_data[2]["id_type"], id_type.id)
+        self.assertEqual(reg_data[2]["value"], "12345")
+        self.assertEqual(reg_data[2]["expiry_date"], "2024-12-31")
+
+    def test_handle_one2many_fields_no_id_type_found(self):
+        # Test data
+        mapped_json = {
+            "reg_ids": [{"id_type": "NonExistent ID", "value": "12345", "expiry_date": "2024-12-31"}]
+        }
+
+        # Test should raise a ValidationError or handle the case appropriately
+        with self.assertRaises(AttributeError):
+            self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+
+    def test_handle_one2many_fields_empty(self):
+        """Test handling empty mapped_json"""
+        mapped_json = {}
+        self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+        self.assertEqual(mapped_json, {})
+
+    def test_handle_one2many_fields_only_phone(self):
+        """Test handling only phone numbers"""
+        mapped_json = {
+            "phone_number_ids": [{"phone_no": "123456789", "date_collected": "2024-07-01", "disabled": False}]
+        }
+        self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
+        self.assertEqual(len(mapped_json["phone_number_ids"]), 1)
+        self.assertEqual(mapped_json["phone_number_ids"][0][2]["phone_no"], "123456789")
 
     def test_handle_media_import(self):
         # Test handling media imports
@@ -116,35 +479,87 @@ class TestODKClient(TransactionCase):
 
         self.assertEqual(mapped_json["image_1920"], base64.b64encode(b"fake_image_data"))
 
-    def test_get_dob(self):
-        # Test getting date of birth from record
-        record = {"birthdate": "2000-01-01", "age": 4}
+    def test_handle_media_import_no_instance_id(self):
+        # Test with missing instance_id
+        member = {}
+        mapped_json = {}
+        self.odk_config.handle_media_import(mapped_json, member)
+        self.assertEqual(mapped_json, {})  # No changes should be made
 
-        dob = self.odk_config.get_dob(record)
-        self.assertEqual(dob, "2000-01-01")
+        member = {"meta": {}}  # No instanceID
+        mapped_json = {}
+        self.odk_config.handle_media_import(mapped_json, member)
+        self.assertEqual(mapped_json, {})  # No changes should be made
 
-        record = {"age": 4}
-        dob = self.odk_config.get_dob(record)
-        self.assertEqual(dob[:4], str(datetime.now().year - 4))
+    def test_handle_media_import_no_attachments(self):
+        # Test with empty attachments
+        member = {"meta": {"instanceID": "test_instance"}}
+        mapped_json = {}
 
-    @patch("requests.get")
-    def test_import_record_by_instance_id_success(self, mock_get):
-        # Test importing record by instance ID successfully
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+        ):
+            mock_login.return_value = "test_token"
+            self.odk_config.handle_media_import(mapped_json, member)
+        self.assertEqual(mapped_json, {})  # No changes should be made
+
+    def test_get_submissions_with_fields(self):
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"value": [{"family_name": "Test", "given_name": "1"}]}
-        mock_get.return_value = mock_response
+        mock_response.json.return_value = {"value": [{"field1": "value1"}]}
 
-        instance_id = "test_instance_id"
-        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+        fields = "field1,field2"
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
             mock_login.return_value = "test_token"
-            result = self.odk_config.import_record_by_instance_id(instance_id)
+            mock_get.return_value = mock_response
 
-        self.assertIn("form_updated", result)
-        self.assertTrue(result["form_updated"])
+            submissions = self.odk_config.get_submissions(fields=fields)
 
-    @patch("requests.get")
-    def test_get_submissions_success(self, mock_get):
+            self.assertIn("$select", mock_get.call_args[1]["params"])
+            self.assertEqual(mock_get.call_args[1]["params"]["$select"], fields)
+            self.assertEqual(submissions[0]["field1"], "value1")
+
+    def test_get_submissions_with_last_sync_time(self):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"value": [{"id": 1}]}
+
+        last_sync_time = datetime(2024, 12, 25, 10, 0, 0)
+        expected_filter = "__system/submissionDate ge 2024-12-25T10:00:00.000Z"
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            submissions = self.odk_config.get_submissions(last_sync_time=last_sync_time)
+
+            self.assertIn("$filter", mock_get.call_args[1]["params"])
+            self.assertEqual(mock_get.call_args[1]["params"]["$filter"], expected_filter)
+            self.assertEqual(submissions[0]["id"], 1)
+
+    def test_get_submissions_invalid_response(self):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{"field1": "value1"}]  # Not a dict
+
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+            self.assertLogs(level="ERROR") as log,
+        ):
+            mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
+
+            submissions = self.odk_config.get_submissions()
+            self.assertIn("Unexpected response format", log.output[0])
+            self.assertEqual(len(submissions), 0)
+
+    def test_get_submissions_success(self):
         # Test importing submission successfully
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -154,10 +569,13 @@ class TestODKClient(TransactionCase):
                 {"id": 3, "field1": "value3", "field2": "value4"},
             ]
         }
-        mock_get.return_value = mock_response
 
-        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
+        with (
+            patch.object(self.odk_config, "login_get_session_token") as mock_login,
+            patch("requests.get") as mock_get,
+        ):
             mock_login.return_value = "test_token"
+            mock_get.return_value = mock_response
             submissions = self.odk_config.get_submissions()
 
         self.assertEqual(submissions[0]["id"], 2)
@@ -213,24 +631,84 @@ class TestODKClient(TransactionCase):
         self.assertEqual(individual_data["birthdate"], "1990-01-01")
         self.assertEqual(individual_data["gender"], "Female")
 
-    @patch("requests.get")
-    def test_list_expected_attachments(self, mock_get):
-        # Test listing expected attachments
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = [{"name": "test.jpg"}]
+    def test_get_member_kind(self):
+        # Test with existing kind
+        member_kind = self.env["g2p.group.membership.kind"].create({"name": "member"})
 
-        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
-            mock_login.return_value = "test_token"
-            result = self.odk_config.list_expected_attachments("test_instance")
-        self.assertEqual(result[0]["name"], "test.jpg")
+        record = {"kind": "member"}
+        result = self.odk_config.get_member_kind(record)
+        self.assertEqual(result.id, member_kind.id)
 
-    @patch("requests.get")
-    def test_download_attachment(self, mock_get):
-        # Test downloading attachment
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.content = b"fake_image_data"
+        # Test with non-existent kind
+        self.env["g2p.group.membership.kind"].create()
+        record = {"kind": "nonexistent"}
+        result = self.odk_config.get_member_kind(record)
+        self.assertFalse(result)
 
-        with patch.object(self.odk_config, "login_get_session_token") as mock_login:
-            mock_login.return_value = "test_token"
-            result = self.odk_config.download_attachment("test_instance", "test.jpg")
-        self.assertEqual(result, b"fake_image_data")
+        # Test with no kind in record
+        record = {}
+        result = self.odk_config.get_member_kind(record)
+        self.assertFalse(result)
+
+    def test_get_member_relationship(self):
+        # Test with existing relationship
+        relationship = self.env["g2p.relationship"].create(
+            {"name": "spouse", "source_type": "i", "destination_type": "i"}
+        )
+
+        source_id = 1
+        record = {"relationship_with_head": "spouse"}
+        result = self.odk_config.get_member_relationship(source_id, record)
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["source"], source_id)
+        self.assertEqual(result["relation"], relationship.id)
+        self.assertIsInstance(result["start_date"], datetime)
+
+        # Test with non-existent relationship
+        record = {"relationship_with_head": "nonexistent"}
+        result = self.odk_config.get_member_relationship(source_id, record)
+        self.assertIsNone(result)
+
+        # Test with no relationship in record
+        record = {}
+        result = self.odk_config.get_member_relationship(source_id, record)
+        self.assertIsNone(result)
+
+    def test_get_gender(self):
+        # Test with existing gender
+        self.env["gender.type"].create({"code": "Male", "value": "male"})
+
+        result = self.odk_config.get_gender("male")
+        self.assertEqual(result, "Male")
+
+        # Test with non-existent gender
+        result = self.odk_config.get_gender("nonexistent")
+        self.assertIsNone(result)
+
+        # Test with None gender value
+        result = self.odk_config.get_gender(None)
+        self.assertIsNone(result)
+
+    def test_get_dob(self):
+        # Test getting date of birth from record
+        record = {"birthdate": "2000-01-01", "age": 4}
+
+        dob = self.odk_config.get_dob(record)
+        self.assertEqual(dob, "2000-01-01")
+
+        record = {"age": 4}
+        dob = self.odk_config.get_dob(record)
+        self.assertEqual(dob[:4], str(datetime.now().year - 4))
+
+    def test_get_dob_future_birth_year(self):
+        # Create a record with an age resulting in a birthdate one day in the future
+        now = datetime.now()
+        future_age = now.year - (now.year + 1) + 1  # Simulate age for birthdate exactly one day in the future
+        record = {"age": int(future_age)}  # Ensure age is an integer
+
+        # Call the method
+        dob = self.odk_config.get_dob(record)
+
+        # Verify the return value is None
+        self.assertIsNone(dob)

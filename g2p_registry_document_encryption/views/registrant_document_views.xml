@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_registrant_documents_form_individual" model="ir.ui.view">
+        <field name="name">view_registrant_documents_form_individual</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='supporting_documents_ids']/tree" position="inside">
+                <field name="is_encrypted" string="Encrypted" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_registrant_documents_form_group" model="ir.ui.view">
+        <field name="name">view_registrant_documents_form_group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='supporting_documents_ids']/tree" position="inside">
+                <field name="is_encrypted" string="Encrypted" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

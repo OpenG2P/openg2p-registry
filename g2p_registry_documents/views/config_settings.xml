@@ -8,7 +8,7 @@
             <app name="g2p_config_settings" position="inside">
                 <block name="g2p_registry_documents_settings" title="G2P Registry Documents Settings">
                     <setting
-                        string="Document Store Config"
+                        string="Default Document Store Config"
                         help="Select the document store to be used for default document creation"
                     >
                         <field name="g2p_registry_documents_store" />

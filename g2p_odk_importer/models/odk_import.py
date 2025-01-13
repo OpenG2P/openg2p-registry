@@ -53,8 +53,11 @@ class OdkImport(models.Model):
         if not self.instance_id:
             raise UserError(_("Please give the instance ID."))
 
-        imported = self.odk_config.import_record_by_instance_id(
-            self.instance_id, self.json_formatter, self.target_registry, last_sync_time=self.last_sync_time
+        imported = self.odk_config.import_records(
+            self.json_formatter,
+            self.target_registry,
+            instance_id=self.instance_id,
+            last_sync_time=self.last_sync_time,
         )
         if "form_updated" in imported:
             message = "ODK form records is imported successfully."
@@ -129,9 +132,9 @@ class OdkImport(models.Model):
                         _logger.error(f"Missing '__id' in submission: {instance}")
 
             self.last_sync_time = fields.Datetime.now()
-            self.process_pending_instances()
+            return self.process_pending_instances()
         else:
-            imported = self.odk_config.import_delta_records(
+            imported = self.odk_config.import_records(
                 self.json_formatter, self.target_registry, last_sync_time=self.last_sync_time
             )
             if "form_updated" in imported:
@@ -196,14 +199,33 @@ class OdkImport(models.Model):
         pending_instance_ids = self.env["odk.instance.id"].sudo().search([("status", "=", "pending")])
         if not pending_instance_ids:
             _logger.info("No pending instance IDs found.")
-            return
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "type": "warning",
+                    "message": "No pending instance IDs found to process.",
+                    "next": {"type": "ir.actions.act_window_close"},
+                },
+            }
 
-        _logger.info(f"Found {len(pending_instance_ids)} pending instance IDs.")
+        total_instances = len(pending_instance_ids)
+        _logger.info(f"Found {total_instances} pending instance IDs.")
 
         for batch_start in range(0, len(pending_instance_ids), batch_size):
             batch = pending_instance_ids[batch_start : batch_start + batch_size]
             _logger.info(f"Submitting batch of {len(batch)} instance IDs.")
             self.with_delay()._process_instance_id(batch)
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "success",
+                "message": f"Started the import process for {total_instances} registrants in batches.",
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
 
     @api.model
     def _process_instance_id(self, instance_ids):
@@ -211,8 +233,8 @@ class OdkImport(models.Model):
             _logger.info("Processing instance ID", instance.instance_id)
             instance.status = "processing"
             try:
-                instance.odk_import_id.odk_config.import_record_by_instance_id(
-                    instance.instance_id, self.json_formatter, self.target_registry
+                instance.odk_import_id.odk_config.import_records(
+                    self.json_formatter, self.target_registry, instance_id=instance.instance_id
                 )
                 instance.write({"status": "processing"})
             except Exception as exc:

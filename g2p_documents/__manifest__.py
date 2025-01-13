@@ -7,10 +7,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": [
-        "storage_backend_s3",
-        "storage_file",
-    ],
+    "depends": ["storage_backend_s3", "storage_file", "web"],
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",

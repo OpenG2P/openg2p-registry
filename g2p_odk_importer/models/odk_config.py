@@ -65,7 +65,7 @@ class OdkConfig(models.Model):
             _logger.exception("Connection test failed: %s", e)
             raise ValidationError(f"Connection test failed: {e}") from e
 
-    def import_delta_records(self, jq_format, target_registry, last_sync_time=None, skip=0):
+    def import_records(self, jq_format, target_registry, instance_id=None, last_sync_time=None, skip=0):
         self.ensure_one()
         url = f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/Submissions"
         params = {
@@ -73,6 +73,8 @@ class OdkConfig(models.Model):
             "$count": "true",
             "$expand": "*",
         }
+        if instance_id:
+            url += f"('{instance_id}')"
         if last_sync_time:
             startdate = last_sync_time.strftime("%Y-%m-%dT%H:%M:%S.000Z")
             params["$filter"] = f"__system/submissionDate ge {startdate}"
@@ -117,48 +119,6 @@ class OdkConfig(models.Model):
             data.update({"form_updated": True})
 
         data.update({"partner_count": partner_count})
-
-        return data
-
-    #  Fetch Record using Instance ID
-    def import_record_by_instance_id(self, instance_id, jq_format, target_registry, last_sync_time=None):
-        url = (
-            f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/"
-            f"Submissions('{instance_id}')"
-        )
-        headers = {"Authorization": f"Bearer {self.login_get_session_token()}"}
-        params = {
-            "$skip": 0,
-            "$count": "true",
-            "$expand": "*",
-        }
-
-        try:
-            response = requests.get(url, headers=headers, params=params, timeout=10)
-            response.raise_for_status()
-            data = response.json()
-        except Exception as e:
-            _logger.exception("Failed to parse response by using instance ID: %s", e)
-            raise ValidationError(f"Failed to parse response by using instance ID: {e}") from e
-
-        _logger.debug(f"ODK RAW DATA by instance ID %s {instance_id} {data}")
-
-        for member in data["value"]:
-            mapped_json = jq.first(jq_format, member)
-
-            if target_registry == "individual":
-                mapped_json.update({"is_registrant": True, "is_group": False})
-            elif target_registry == "group":
-                mapped_json.update({"is_registrant": True, "is_group": True})
-
-            mapped_json.update({"name": f"{mapped_json['family_name']} {mapped_json['given_name']}"})
-
-            self.handle_one2many_fields(mapped_json)
-            self.handle_addl_data(mapped_json)
-
-            self.env["res.partner"].sudo().create(mapped_json)
-
-        data.update({"form_updated": True})
 
         return data
 
@@ -253,10 +213,7 @@ class OdkConfig(models.Model):
 
     def handle_media_import(self, mapped_json, member):
         self.ensure_one()
-        meta = member.get("meta")
-        if not meta:
-            return
-        instance_id = meta.get("instanceID")
+        instance_id = member.get("meta", {}).get("instanceID")
         if not instance_id:
             return
         if mapped_json.get("image_1920", None):

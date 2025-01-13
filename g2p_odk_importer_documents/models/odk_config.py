@@ -29,10 +29,7 @@ class OdkConfig(models.Model):
         use tags as shown above. Random ID gets generated in place of name.
         """
         res = super().handle_media_import(mapped_json, member)
-        meta = member.get("meta")
-        if not meta:
-            return res
-        instance_id = meta.get("instanceID")
+        instance_id = member.get("meta", {}).get("instanceID")
         if not instance_id:
             return res
 

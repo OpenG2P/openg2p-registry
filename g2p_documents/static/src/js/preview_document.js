@@ -4,17 +4,7 @@ import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 
 class Widgetpreview extends Component {
-    static template = xml`
-        <t>
-            <button
-                class="btn btn-primary"
-                icon="fa-file-text-o"
-                t-on-click="clickPreview"
-            >
-                Preview
-            </button>
-        </t>
-    `;
+    static template = xml`<button class="btn btn-primary" icon="fa-file-text-o" t-on-click="clickPreview">Preview</button>`;
 
     setup() {
         super.setup();
