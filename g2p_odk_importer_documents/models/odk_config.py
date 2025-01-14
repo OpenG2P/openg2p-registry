@@ -33,7 +33,7 @@ class OdkConfig(models.Model):
         if not instance_id:
             return res
 
-        storage_backend = self.env["res.partner"].get_registry_documents_store()
+        registry_storage_backend_id = self.env["res.partner"].get_registry_documents_store().id
 
         DOC_TAGS = self.env["g2p.document.tag"].sudo()
 
@@ -47,8 +47,10 @@ class OdkConfig(models.Model):
             if filename:
                 attachm = self.download_attachment(instance_id, filename)
 
+            storage_backend_id = doc_mapping.get("backend_id", registry_storage_backend_id)
+
             doc_file = {
-                "backend_id": storage_backend.id,
+                "backend_id": storage_backend_id,
                 "tags_ids": [(4, DOC_TAGS.get_or_create_tag_from_name(tag).id) for tag in tags],
                 "data": base64.b64encode(attachm) if attachm else None,
             }
