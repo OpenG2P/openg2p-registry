@@ -5,11 +5,11 @@ class G2PDocumentStore(models.Model):
     _inherit = "storage.backend"
 
     encryption_strategy = fields.Selection(
-        selection_add=[("registry_based", "Use Registry Encryption Settings")], ondelete="set default"
+        selection_add=[("registry_based", "Use Registry Encryption Settings")]
     )
 
     viewing_decryption_strategy = fields.Selection(
-        selection_add=[("registry_based", "Use Registry Encryption Settings")], ondelete="set default"
+        selection_add=[("registry_based", "Use Registry Encryption Settings")]
     )
 
     def get_encryption_provider(self):

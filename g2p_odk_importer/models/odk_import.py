@@ -230,7 +230,7 @@ class OdkImport(models.Model):
     @api.model
     def _process_instance_id(self, instance_ids):
         for instance in instance_ids:
-            _logger.info("Processing instance ID", instance.instance_id)
+            _logger.info("Processing instance ID: %s", instance.instance_id)
             instance.status = "processing"
             try:
                 instance.odk_import_id.odk_config.import_records(

@@ -13,8 +13,8 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "g2p_registry_document_encryption/static/src/xml/preview_document.xml",
-            "g2p_registry_document_encryption/static/src/js/preview_document.js",
+            "g2p_document_encryption/static/src/xml/preview_document.xml",
+            "g2p_document_encryption/static/src/js/preview_document.js",
         ],
     },
     "demo": [],

@@ -1,7 +1,7 @@
 from odoo import api, fields, models
 
 
-class G2PDocumentRegistry(models.Model):
+class G2PDocumentFile(models.Model):
     _inherit = "storage.file"
 
     is_encrypted = fields.Boolean(string="Encrypted", default=False)

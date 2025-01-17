@@ -44,7 +44,11 @@ class OdkConfig(models.Model):
             if response.status_code == 200:
                 response_json = response.json()
                 self.session_token = response_json["token"]
-                self.session_expires_at = dateutil_parser.parse(response_json["expiresAt"])
+                self.session_expires_at = (
+                    dateutil_parser.parse(response_json["expiresAt"])
+                    .astimezone(timezone.utc)
+                    .replace(tzinfo=None)
+                )
                 return response_json["token"]
         except Exception as e:
             _logger.exception("Login failed: %s", e)
@@ -196,20 +200,25 @@ class OdkConfig(models.Model):
             mapped_json["group_membership_ids"] = individual_ids
 
         if "reg_ids" in mapped_json:
-            mapped_json["reg_ids"] = [
-                (
-                    0,
-                    0,
-                    {
-                        "id_type": self.env["g2p.id.type"]
-                        .search([("name", "=", reg_id.get("id_type"))], limit=1)
-                        .id,
-                        "value": reg_id.get("value"),
-                        "expiry_date": reg_id.get("expiry_date"),
-                    },
+            reg_ids = mapped_json["reg_ids"]
+            mapped_json["reg_ids"] = []
+            for reg_id in reg_ids:
+                id_type = self.env["g2p.id.type"].search([("name", "=", reg_id.get("id_type"))], limit=1)
+                if not id_type:
+                    raise ValidationError(
+                        f"ID Type not found while handling Reg IDs. {reg_id.get('id_type')}"
+                    )
+                mapped_json["reg_ids"].append(
+                    (
+                        0,
+                        0,
+                        {
+                            "id_type": id_type.id,
+                            "value": reg_id.get("value"),
+                            "expiry_date": reg_id.get("expiry_date"),
+                        },
+                    )
                 )
-                for reg_id in mapped_json["reg_ids"]
-            ]
 
     def handle_media_import(self, mapped_json, member):
         self.ensure_one()
@@ -227,15 +236,17 @@ class OdkConfig(models.Model):
 
     def get_member_kind(self, record):
         kind_as_str = record.get("kind", None)
-        kind = self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
+        if kind_as_str:
+            kind = self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
         return kind
 
     def get_member_relationship(self, source_id, record):
         member_relation = record.get("relationship_with_head", None)
-        relation = self.env["g2p.relationship"].search([("name", "=", member_relation)], limit=1)
+        if member_relation:
+            relation = self.env["g2p.relationship"].search([("name", "=", member_relation)], limit=1)
 
-        if relation:
-            return {"source": source_id, "relation": relation.id, "start_date": datetime.now()}
+            if relation:
+                return {"source": source_id, "relation": relation.id, "start_date": datetime.now()}
 
         _logger.warning("No relation defined for member")
 

@@ -4,12 +4,11 @@ from unittest.mock import patch
 from odoo.addons.component.tests.common import TransactionComponentCase
 
 
-class TestG2PDocumentRegistry(TransactionComponentCase):
+class TestG2PDocumentFile(TransactionComponentCase):
     def setUp(self):
         super().setUp()
         # Set up a sample storage backend and a file
         self.storage_backend = self.env["storage.backend"].create({"name": "Test Backend"})
-        self.registrant = self.env["res.partner"].create({"name": "Test Registrant"})
 
     @patch(
         "odoo.addons.g2p_document_encryption.models.document_store.G2PDocumentStore.get_encryption_provider"
@@ -22,7 +21,6 @@ class TestG2PDocumentRegistry(TransactionComponentCase):
                 "name": "test.txt",
                 "backend_id": self.storage_backend.id,
                 "data": base64.b64encode(b"test_data"),
-                "registrant_id": self.registrant.id,
             }
         )
 
@@ -40,7 +38,6 @@ class TestG2PDocumentRegistry(TransactionComponentCase):
                 "name": "test.txt",
                 "backend_id": self.storage_backend.id,
                 "data": base64.b64encode(b"test_data"),
-                "registrant_id": self.registrant.id,
             }
         )
 
@@ -52,7 +49,6 @@ class TestG2PDocumentRegistry(TransactionComponentCase):
             {
                 "name": "test.txt",
                 "backend_id": self.storage_backend.id,
-                "registrant_id": self.registrant.id,
             }
         )
         self.test_file.relative_path = False
@@ -75,7 +71,6 @@ class TestG2PDocumentRegistry(TransactionComponentCase):
                 "name": "test.txt",
                 "backend_id": self.storage_backend.id,
                 "data": b"test_data",
-                "registrant_id": self.registrant.id,
             }
         )
 
@@ -100,7 +95,6 @@ class TestG2PDocumentRegistry(TransactionComponentCase):
                 "name": "test.txt",
                 "backend_id": self.storage_backend.id,
                 "data": b"test_data",
-                "registrant_id": self.registrant.id,
             }
         )
 
