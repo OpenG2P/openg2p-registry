@@ -1,6 +1,6 @@
 # Part of OpenG2P. See LICENSE file for full copyright and licensing details.
 {
-    "name": "G2P Registry: Documents Individual",
+    "name": "G2P Registry Documents: Individual",
     "category": "G2P",
     "version": "17.0.1.4.0",
     "sequence": 1,
