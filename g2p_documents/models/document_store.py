@@ -7,7 +7,7 @@ class G2PDocumentStore(models.Model):
     mimetype_strategy = fields.Selection(
         selection=[("from_data", "Guess from Data"), ("from_file_name", "Guess from filename")],
         default="from_data",
-        help=("Mimetype of a file can be inferred from the filename " "or from the binary data."),
+        help="Mimetype of a file can be inferred from the filename or from the binary data.",
     )
 
     @property

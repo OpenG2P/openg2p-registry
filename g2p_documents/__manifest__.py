@@ -20,6 +20,7 @@
     "external_dependencies": {"python": ["boto3<=1.15.18", "python_slugify"]},
     "assets": {
         "web.assets_backend": [
+            "g2p_documents/static/src/xml/preview_document.xml",
             "g2p_documents/static/src/js/preview_document.js",
         ],
     },

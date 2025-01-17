@@ -6,9 +6,8 @@ from odoo.tests.common import TransactionCase
 
 
 class TestOdkImport(TransactionCase):
-    @classmethod
-    def setUpClass(self):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         self.odk_config = self.env["odk.config"].create(
             {
                 "name": "Test ODK Config",

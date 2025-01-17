@@ -1,11 +1,9 @@
 /** @odoo-module **/
-import {Component, xml} from "@odoo/owl";
+import {Component} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 
 class Widgetpreview extends Component {
-    static template = xml`<button class="btn btn-primary" icon="fa-file-text-o" t-on-click="clickPreview">Preview</button>`;
-
     setup() {
         super.setup();
         this.fileViewer = useFileViewer();
@@ -34,5 +32,6 @@ class Widgetpreview extends Component {
         }
     }
 }
+Widgetpreview.template = "g2p_documents.Widgetpreview";
 
 registry.category("view_widgets").add("g2p_documents_action_preview", {component: Widgetpreview});

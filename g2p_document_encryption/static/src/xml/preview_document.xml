@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="g2p_documents.Widgetpreview" t-inherit-mode="extension">
+        <xpath expr="//button" position="attributes">
+            <attribute name="t-if">canPreviewEncrypted</attribute>
+        </xpath>
+        <xpath expr="//button" position="after">
+            <span t-else="">Encrypted</span>
+        </xpath>
+    </t>
+</templates>

@@ -7,9 +7,8 @@ from odoo.tests.common import TransactionCase
 
 
 class TestODKClient(TransactionCase):
-    @classmethod
-    def setUpClass(self):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         self.target_registry = "group"
         self.json_formatter = "."
         self.odk_config = self.env["odk.config"].create(

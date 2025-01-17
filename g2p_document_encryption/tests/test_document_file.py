@@ -1,0 +1,97 @@
+import base64
+from unittest.mock import patch
+
+from odoo.addons.component.tests.common import TransactionComponentCase
+
+
+class TestG2PDocumentRegistry(TransactionComponentCase):
+    def setUp(self):
+        super().setUp()
+        # Set up a sample storage backend and a file
+        self.storage_backend = self.env["storage.backend"].create({"name": "Test Backend"})
+        self.registrant = self.env["res.partner"].create({"name": "Test Registrant"})
+
+    def test_inverse_data_encryption_enabled(self):
+        with patch.object(self.storage_backend, "get_encryption_provider") as mock_get_encryption_provider:
+            mock_get_encryption_provider.return_value.encrypt_data.return_value = b"Test Encrypted Data"
+
+            self.test_file = self.env["storage.file"].create(
+                {
+                    "name": "test.txt",
+                    "backend_id": self.storage_backend.id,
+                    "data": base64.b64encode(self.test_data),
+                    "registrant_id": self.registrant.id,
+                }
+            )
+
+            # Verify that the file is marked as encrypted
+            self.assertTrue(self.test_file.is_encrypted)
+
+    def test_inverse_data_encryption_disabled(self):
+        with patch.object(self.storage_backend, "get_encryption_provider") as mock_get_encryption_provider:
+            mock_get_encryption_provider.return_value = None
+
+            self.test_file = self.env["storage.file"].create(
+                {
+                    "name": "test.txt",
+                    "backend_id": self.storage_backend.id,
+                    "data": base64.b64encode(self.test_data),
+                    "registrant_id": self.registrant.id,
+                }
+            )
+
+            # Verify that the file is marked as encrypted
+            self.assertFalse(self.test_file.is_encrypted)
+
+    def test_compute_data_no_relative_path(self):
+        self.test_file = self.env["storage.file"].create(
+            {
+                "name": "test.txt",
+                "backend_id": self.storage_backend.id,
+                "registrant_id": self.registrant.id,
+            }
+        )
+        self.test_file.relative_path = False
+        self.assertFalse(self.test_file.data)
+
+    def test_compute_data_encryption_enabled(self):
+        with (
+            patch.object(self.storage_backend, "get_encryption_provider") as mock_get_encryption_provider,
+            patch.object(self.storage_backend, "get_decryption_provider") as mock_get_decryption_provider,
+        ):
+            mock_get_encryption_provider.return_value.encrypt_data.return_value = b"Test Encrypted Data"
+            mock_get_decryption_provider.return_value.decrypt_data.return_value = b"Test Decrypted Data"
+
+            self.test_file = self.env["storage.file"].create(
+                {
+                    "name": "test.txt",
+                    "backend_id": self.storage_backend.id,
+                    "data": b"test_data",
+                    "registrant_id": self.registrant.id,
+                }
+            )
+
+            # Verify that the file is marked as encrypted
+            self.assertTrue(self.test_file.is_encrypted)
+            self.assertEqual(self.test_file.data, b"Test Decrypted Data")
+
+    def test_compute_data_encryption_disabled(self):
+        with (
+            patch.object(self.storage_backend, "get_encryption_provider") as mock_get_encryption_provider,
+            patch.object(self.storage_backend, "get_decryption_provider") as mock_get_decryption_provider,
+        ):
+            mock_get_encryption_provider.return_value.encrypt_data.return_value = b"Test Encrypted Data"
+            mock_get_decryption_provider.return_value = None
+
+            self.test_file = self.env["storage.file"].create(
+                {
+                    "name": "test.txt",
+                    "backend_id": self.storage_backend.id,
+                    "data": b"test_data",
+                    "registrant_id": self.registrant.id,
+                }
+            )
+
+            # Verify that the file is marked as encrypted
+            self.assertTrue(self.test_file.is_encrypted)
+            self.assertEqual(self.test_file.data, b"Test Encrypted Data")
