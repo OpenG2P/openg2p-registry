@@ -9,9 +9,7 @@
     "license": "LGPL-3",
     "depends": ["base", "mail", "contacts", "g2p_registry_base"],
     "data": [
-        "security/ir.model.access.csv",
         "views/individuals_view.xml",
-        "views/gender_view.xml",
     ],
     "assets": {},
     "demo": [],

@@ -5,4 +5,5 @@ from . import (
     test_reg_id,
     test_tags,
     test_reg_relationship,
+    test_gender,
 )
