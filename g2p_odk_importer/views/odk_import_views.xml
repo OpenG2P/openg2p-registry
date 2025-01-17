@@ -23,7 +23,7 @@
                     title="Action odk stop action"
                 />
                 <button
-                    type="action"
+                    type="object"
                     name="odk_import_action_trigger"
                     invisible="job_status != 'completed'"
                     string="Restart"
@@ -106,16 +106,13 @@
                         invisible="not enable_import_by_instance_id"
                     >
                         <field name="instance_id" string="Instance ID" />
-                    </group>
-                    <div>
                         <button
                             type="object"
                             class="btn-primary"
                             string="Fetch Record"
                             name="fetch_record_by_instance_id"
-                            invisible="not enable_import_instance"
                         />
-                    </div>
+                    </group>
                 </sheet>
             </form>
         </field>

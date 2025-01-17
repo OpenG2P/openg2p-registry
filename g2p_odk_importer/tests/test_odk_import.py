@@ -31,28 +31,31 @@ class TestOdkImport(TransactionCase):
             }
         )
 
-    def test_fetch_record_by_instance_id(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_fetch_record_by_instance_id(self, mock_import_record):
         # Test fetch record by instance ID method
-        with patch.object(self.odk_config, "import_records") as mock_import_record:
-            mock_import_record.return_value = {"form_updated": True}
+        mock_import_record.return_value = {"form_updated": True}
 
-            self.odk_import.instance_id = "test_instance_id"
-            result = self.odk_import.fetch_record_by_instance_id()
+        self.odk_import.instance_id = "test_instance_id"
+        result = self.odk_import.fetch_record_by_instance_id()
 
-            self.assertEqual(result["params"]["type"], "success")
+        self.assertEqual(result["params"]["type"], "success")
 
-            self.odk_import.instance_id = False
-            with self.assertRaises(UserError):
-                self.odk_import.fetch_record_by_instance_id()
+        self.odk_import.instance_id = False
+        with self.assertRaises(UserError):
+            self.odk_import.fetch_record_by_instance_id()
 
-    def test_test_connection(self):
-        # Test connection method
-        with patch.object(self.odk_config, "test_connection") as mock_test_connection:
-            mock_test_connection.return_value = True
-            result = self.odk_import.test_connection()
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.test_connection")
+    def test_test_connection(self, mock_test_connection):
+        mock_test_connection.return_value = True
+
+        result = self.odk_import.test_connection()
         self.assertEqual(result["params"]["message"], "Tested successfully.")
 
-    def test_process_instance_id(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_process_instance_id(self, mock_import_record):
+        mock_import_record.return_value = {"form_updated": True}
+
         # Test processing instance ID method
         instance_id = self.env["odk.instance.id"].create(
             {
@@ -61,17 +64,16 @@ class TestOdkImport(TransactionCase):
                 "status": "pending",
             }
         )
-        with patch.object(self.odk_config, "import_records") as mock_import_record:
-            mock_import_record.return_value = {"form_updated": True}
-            self.odk_import._process_instance_id([instance_id])
+        self.odk_import._process_instance_id([instance_id])
         self.assertEqual(instance_id.status, "processing")
 
-    def test_import_records_with_async(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.get_submissions")
+    def test_import_records_with_async(self, mock_get_submissions):
+        mock_get_submissions.return_value = [{"__id": "test_instance_id"}]
+
         # Test importing records with async enabled
         self.odk_import.enable_async = True
-        with patch.object(self.odk_config, "get_submissions") as mock_get_submissions:
-            mock_get_submissions.return_value = [{"__id": "test_instance_id"}]
-            self.odk_import.import_records()
+        self.odk_import.import_records()
 
         pending_instance = self.env["odk.instance.id"].search([("instance_id", "=", "test_instance_id")])
         self.assertTrue(pending_instance)
@@ -87,53 +89,56 @@ class TestOdkImport(TransactionCase):
         self.assertEqual(self.odk_import.job_status, "completed")
         self.assertFalse(self.odk_import.cron_id)
 
-    def test_import_records(self):
-        with patch.object(self.odk_config, "import_records") as mock_import_record:
-            # Case 1: Successful import
-            mock_import_record.return_value = {"form_updated": True, "partner_count": 5}
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_import_records(self, mock_import_record):
+        # Case 1: Successful import
+        mock_import_record.return_value = {"form_updated": True, "partner_count": 5}
 
-            result = self.odk_import.import_records()
-            self.assertEqual(result["params"]["type"], "success")
-            self.assertIn("5 records were imported successfully.", result["params"]["message"])
+        result = self.odk_import.import_records()
+        self.assertEqual(result["params"]["type"], "success")
+        self.assertIn("5 records were imported successfully.", result["params"]["message"])
 
-            # Case 2: Import failed
-            mock_import_record.return_value = {"form_failed": True}
-            result = self.odk_import.import_records()
-            self.assertEqual(result["params"]["type"], "danger")
-            self.assertIn("ODK form import failed", result["params"]["message"])
+        # Case 2: Import failed
+        mock_import_record.return_value = {"form_failed": True}
+        result = self.odk_import.import_records()
+        self.assertEqual(result["params"]["type"], "danger")
+        self.assertIn("ODK form import failed", result["params"]["message"])
 
-            # Case 3: No new records
-            mock_import_record.return_value = {}
-            result = self.odk_import.import_records()
-            self.assertEqual(result["params"]["type"], "warning")
-            self.assertIn("No new form records were submitted.", result["params"]["message"])
+        # Case 3: No new records
+        mock_import_record.return_value = {}
+        result = self.odk_import.import_records()
+        self.assertEqual(result["params"]["type"], "warning")
+        self.assertIn("No new form records were submitted.", result["params"]["message"])
 
-    def test_odk_setting_disabled(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_odk_setting_disabled(self, mock_import_record):
+        mock_import_record.return_value = None
+
         # Test when ODK setting is disabled
         self.odk_import.enable_import_by_instance_id = False
-        with patch.object(self.odk_config, "import_records"), self.assertRaises(UserError):
+        with self.assertRaises(UserError):
             self.odk_import.fetch_record_by_instance_id()
 
-    def test_import_failed(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_import_failed(self, mock_import_record):
+        mock_import_record.return_value = {"form_failed": True}
+
         # Test when import fails
         self.odk_import.instance_id = "test_instance_id"
 
-        with patch.object(self.odk_config, "import_records") as mock_import_record:
-            mock_import_record.return_value = {"form_failed": True}
-
-            result = self.odk_import.fetch_record_by_instance_id()
+        result = self.odk_import.fetch_record_by_instance_id()
 
         self.assertEqual(result["params"]["type"], "danger")
         self.assertIn("ODK form import failed", result["params"]["message"])
 
-    def test_no_record_found(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_no_record_found(self, mock_import_record):
+        mock_import_record.return_value = {}
+
         # Test when no record is found for the given instance ID
         self.odk_import.instance_id = "test_instance_id"
 
-        with patch.object(self.odk_config, "import_records") as mock_import_record:
-            mock_import_record.return_value = {}
-
-            result = self.odk_import.fetch_record_by_instance_id()
+        result = self.odk_import.fetch_record_by_instance_id()
 
         self.assertEqual(result["params"]["type"], "warning")
         self.assertIn("No record found using this instance ID.", result["params"]["message"])
@@ -143,7 +148,10 @@ class TestOdkImport(TransactionCase):
         with self.assertRaises(ValidationError):
             self.odk_import.json_formatter = "{ invalid_json: .value "  # Missing closing brace
 
-    def test_process_instance_id_exception(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.import_records")
+    def test_process_instance_id_exception(self, mock_import_record):
+        mock_import_record.side_effect = Exception("Test Exception")
+
         # Create a test instance_id
         instance_id = self.env["odk.instance.id"].create(
             {
@@ -154,19 +162,14 @@ class TestOdkImport(TransactionCase):
         )
 
         # Process the instance_id and handle the exception
-        with (
-            patch.object(self.odk_config, "import_records") as mock_import_record,
-            self.assertLogs(level="ERROR") as log,
-        ):
-            mock_import_record.side_effect = Exception("Test Exception")
-
+        with self.assertLogs(level="ERROR") as log:
             self.odk_import._process_instance_id([instance_id])
-
-            # Re-fetch the instance_id to check its updated status
-            updated_instance_id = self.env["odk.instance.id"].browse(instance_id.id)
-
-            # Check that the status was updated to "failed"
-            self.assertEqual(updated_instance_id.status, "failed")
 
             # Verify logger was called with the exception details
             self.assertIn("Failed to import instance ID test_instance_id", log.output[0])
+
+        # Re-fetch the instance_id to check its updated status
+        updated_instance_id = self.env["odk.instance.id"].browse(instance_id.id)
+
+        # Check that the status was updated to "failed"
+        self.assertEqual(updated_instance_id.status, "failed")

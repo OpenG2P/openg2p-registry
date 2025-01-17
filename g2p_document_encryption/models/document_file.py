@@ -14,7 +14,7 @@ class G2PDocumentRegistry(models.Model):
 
             enc_provider = record.backend_id.get_encryption_provider()
 
-            if enc_provider and record.registrant_id:
+            if enc_provider:
                 record.is_encrypted = True
                 record.data = enc_provider.encrypt_data(record.data)
 
@@ -23,7 +23,6 @@ class G2PDocumentRegistry(models.Model):
                 record.data,
                 mimetype=record.mimetype,
                 binary=False,
-                registrant_id=record.registrant_id.id,
             )
 
     @api.depends("backend_id", "relative_path", "file_size", "is_encrypted")
