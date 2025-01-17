@@ -34,7 +34,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
                 {
                     "name": "Test WebSub Config",
                     "partner_id": self.env.ref("base.main_partner").id,  # Use existing partner
-                    "event_type": "GROUP_CREATED",
+                    "event_type": "WEBSUB_GROUP_CREATED",
                     "websub_base_url": "http://test.websub/hub",
                     "websub_auth_url": "http://test.auth/token",
                     "websub_auth_client_id": "test_client",
@@ -146,12 +146,12 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
 
         # Ensure websub config matches event type
         self.websub_config.write(
-            {"event_type": "GROUP_CREATED", "transform_data_jq": ".", "condition_jq": "true"}
+            {"event_type": "WEBSUB_GROUP_CREATED", "transform_data_jq": ".", "condition_jq": "true"}
         )
 
         # Test publishing with matching event type
         self.env["g2p.datashare.config.websub"].with_context(test_mode=True).publish_event(
-            "GROUP_CREATED", test_data
+            "WEBSUB_GROUP_CREATED", test_data
         )
 
         # Verify that call was made
@@ -160,7 +160,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         # Test with non-matching event type
         mock_post.reset_mock()
         self.env["g2p.datashare.config.websub"].with_context(test_mode=True).publish_event(
-            "INDIVIDUAL_CREATED", test_data
+            "WEBSUB_INDIVIDUAL_CREATED", test_data
         )
 
         # Verify no calls for non-matching type
@@ -198,7 +198,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         }"""
 
         self.websub_config.write(
-            {"transform_data_jq": transform_jq, "event_type": "GROUP_CREATED", "condition_jq": "true"}
+            {"transform_data_jq": transform_jq, "event_type": "WEBSUB_GROUP_CREATED", "condition_jq": "true"}
         )
 
         # Reset mock to clear write() calls
@@ -208,7 +208,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         record_data = test_record.read(["id", "name"])[0]
         test_data = {
             "id": test_record.id,
-            "publisher": {"event_type": "GROUP_CREATED"},
+            "publisher": {"event_type": "WEBSUB_GROUP_CREATED"},
             "record_data": record_data,
             "curr_datetime": "2024-12-27T17:05:05.936Z",
         }
@@ -221,7 +221,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         published_data = call_args[1].get("json", {})
 
         # Verify the transformed data
-        self.assertEqual(published_data.get("event"), "GROUP_CREATED")
+        self.assertEqual(published_data.get("event"), "WEBSUB_GROUP_CREATED")
         self.assertIsNotNone(published_data.get("ts_ms"), "Timestamp should not be None")
         self.assertTrue(isinstance(published_data.get("ts_ms"), str), "Timestamp should be a string")
         # Cleanup
@@ -254,13 +254,13 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         self.websub_config.write(
             {
                 "condition_jq": "true",  # First test with default condition
-                "event_type": "GROUP_CREATED",
+                "event_type": "WEBSUB_GROUP_CREATED",
                 "transform_data_jq": ".",
             }
         )
 
         # Prepare test data
-        test_data = {"id": test_record.id, "publisher": {"event_type": "GROUP_CREATED"}}
+        test_data = {"id": test_record.id, "publisher": {"event_type": "WEBSUB_GROUP_CREATED"}}
 
         # Should pass condition and make API call with default "true" condition
         mock_post.reset_mock()
@@ -300,7 +300,7 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
             {
                 "name": "Test Unlink Config",
                 "partner_id": self.env.ref("base.main_partner").id,
-                "event_type": "GROUP_CREATED",
+                "event_type": "WEBSUB_GROUP_CREATED",
                 "websub_base_url": "http://test.websub/hub",
                 "websub_auth_url": "http://test.auth/token",
                 "websub_auth_client_id": "test_client",

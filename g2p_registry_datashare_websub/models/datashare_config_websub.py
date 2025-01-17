@@ -32,12 +32,12 @@ class G2PDatashareConfigWebsub(models.Model):
 
     event_type = fields.Selection(
         [
-            ("GROUP_CREATED", "GROUP_CREATED"),
-            ("GROUP_UPDATED", "GROUP_UPDATED"),
-            ("GROUP_DELETED", "GROUP_DELETED"),
-            ("INDIVIDUAL_CREATED", "INDIVIDUAL_CREATED"),
-            ("INDIVIDUAL_UPDATED", "INDIVIDUAL_UPDATED"),
-            ("INDIVIDUAL_DELETED", "INDIVIDUAL_DELETED"),
+            ("WEBSUB_GROUP_CREATED", "Group Created"),
+            ("WEBSUB_GROUP_UPDATED", "Group Updated"),
+            ("WEBSUB_GROUP_DELETED", "Group Deleted"),
+            ("WEBSUB_INDIVIDUAL_CREATED", "Individual Created"),
+            ("WEBSUB_INDIVIDUAL_UPDATED", "Individual Updated"),
+            ("WEBSUB_INDIVIDUAL_DELETED", "Individual Deleted"),
         ],
         required=True,
     )

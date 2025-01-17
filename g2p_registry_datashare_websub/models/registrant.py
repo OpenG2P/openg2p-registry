@@ -16,7 +16,7 @@ class ResPartner(models.Model):
                 new_vals = vals[i].copy()
                 new_vals["id"] = res[i].id
                 self.env["g2p.datashare.config.websub"].with_delay().publish_event(
-                    "GROUP_CREATED" if res[i].is_group else "INDIVIDUAL_CREATED", new_vals
+                    "WEBSUB_GROUP_CREATED" if res[i].is_group else "WEBSUB_INDIVIDUAL_CREATED", new_vals
                 )
         return res
 
@@ -27,7 +27,7 @@ class ResPartner(models.Model):
                 new_vals = vals.copy()
                 new_vals["id"] = rec.id
                 self.env["g2p.datashare.config.websub"].with_delay().publish_event(
-                    "GROUP_UPDATED" if rec.is_group else "INDIVIDUAL_UPDATED", new_vals
+                    "WEBSUB_GROUP_UPDATED" if rec.is_group else "WEBSUB_INDIVIDUAL_UPDATED", new_vals
                 )
         return res
 
@@ -35,6 +35,6 @@ class ResPartner(models.Model):
         for rec in self:
             if rec.is_registrant:
                 self.env["g2p.datashare.config.websub"].with_delay().publish_event(
-                    "GROUP_DELETED" if rec.is_group else "INDIVIDUAL_DELETED", dict(id=rec.id)
+                    "WEBSUB_GROUP_DELETED" if rec.is_group else "WEBSUB_INDIVIDUAL_DELETED", dict(id=rec.id)
                 )
         return super().unlink()
