@@ -30,7 +30,7 @@ class ResPartner(models.Model):
     def _fetch_odk_app_users(self):
         self.ensure_one()
         self.odk_config_id.ensure_one()
-        url = f"{self.odk_config_id.base_url}/v1/projects/{self.odk_config_id.project_id}/app-users"
+        url = f"{self.odk_config_id.base_url}/v1/projects/{self.odk_config_id.project}/app-users"
         headers = {
             "Content-Type": "application/json",
             "X-Extended-Metadata": "true",

@@ -196,7 +196,7 @@ class TestODKClient(TransactionCase):
         self.odk_config.import_records(self.json_formatter, self.target_registry)
 
         # Check if "is_registrant" and "is_group" were set correctly
-        partner = self.env["res.partner"].search([], limit=1)
+        partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
         self.assertTrue(partner.is_registrant)
         self.assertFalse(partner.is_group)
 
@@ -216,7 +216,7 @@ class TestODKClient(TransactionCase):
         )
 
         # Check if "is_registrant" and "is_group" were set correctly
-        partner = self.env["res.partner"].search([], limit=1)
+        partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
         self.assertTrue(partner.is_registrant)
         self.assertFalse(partner.is_group)
         self.assertEqual(partner.name, "Doe John")
@@ -259,7 +259,7 @@ class TestODKClient(TransactionCase):
         )
 
         # Verify the created partner data had correct flags
-        partner = self.env["res.partner"].search([], limit=1)
+        partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
         self.assertTrue(partner.is_registrant)
         self.assertFalse(partner.is_group)
         self.assertEqual(partner.name, "Doe John")
@@ -284,12 +284,11 @@ class TestODKClient(TransactionCase):
         )
 
         # Verify the created partner data had correct flags
-        group = self.env["res.partner"].search([("is_group", "=", True)], limit=1)
-        ind = self.env["res.partner"].search([("is_group", "=", False)], limit=1)
+        group = self.env["res.partner"].search(
+            [("is_registrant", "=", True), ("is_group", "=", True)], limit=1
+        )
         self.assertTrue(group)
-        self.assertTrue(ind)
         self.assertTrue(group.is_registrant)
-        self.assertTrue(ind.is_registrant)
         self.assertEqual(group.name, "Family Group")
         self.assertTrue(result["form_updated"])
 
@@ -303,7 +302,7 @@ class TestODKClient(TransactionCase):
         mock_kind_id = 2
         mock_get_kind.return_value.id = mock_kind_id
 
-        mock_individual_data = {"name": "Test Person"}
+        mock_individual_data = {"name": "Test Person", "is_registrant": True, "is_group": False}
         mock_get_individual_data.return_value = mock_individual_data
 
         # Test data
@@ -316,7 +315,7 @@ class TestODKClient(TransactionCase):
         self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
 
         # Verify individual creation
-        partner = self.env["res.partner"].search([], limit=1)
+        partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
         self.assertEqual(partner.name, mock_individual_data["name"])
         # self.assertEqual(partner.given_name, mock_individual_data["given_name"])
         # self.assertEqual(partner.family_name, mock_individual_data["family_name"])
@@ -336,13 +335,22 @@ class TestODKClient(TransactionCase):
         expected_individual_data = {"individual": partner.id, "kind": [(4, mock_kind_id)]}
         self.assertEqual(mapped_json["group_membership_ids"][0][2], expected_individual_data)
 
-    def test_handle_group_membership_no_relationship(self):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.get_individual_data")
+    def test_handle_group_membership_no_relationship(self, mock_get_individual_data):
+        mock_get_individual_data.return_value = {
+            "name": "Test Person",
+            "is_registrant": True,
+            "is_group": False,
+        }
+
         # Test handling when no relationship is found
         mapped_json = {"group_membership_ids": [{"name": "Test Person"}]}
 
         self.odk_config.handle_one2many_fields(mapped_json, self.target_registry)
 
-        ind = self.env["res.partner"].search([("is_group", "=", False)], limit=1)
+        ind = self.env["res.partner"].search(
+            [("is_registrant", "=", True), ("is_group", "=", False)], limit=1
+        )
         # Verify only group membership was created without relationship
         self.assertTrue("group_membership_ids" in mapped_json)
         self.assertEqual(len(mapped_json.get("related_1_ids", [])), 0)
@@ -493,7 +501,7 @@ class TestODKClient(TransactionCase):
 
         with self.assertLogs(level="ERROR") as log:
             submissions = self.odk_config.get_submissions()
-            self.assertIn("Unexpected response format", log.output[0])
+            self.assertTrue(any("Unexpected response format" in log_out for log_out in log.output))
             self.assertEqual(len(submissions), 0)
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")

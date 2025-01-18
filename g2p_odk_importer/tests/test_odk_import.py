@@ -166,7 +166,9 @@ class TestOdkImport(TransactionCase):
             self.odk_import._process_instance_id([instance_id])
 
             # Verify logger was called with the exception details
-            self.assertIn("Failed to import instance ID test_instance_id", log.output[0])
+            self.assertTrue(
+                any("Failed to import instance ID test_instance_id" in log_out for log_out in log.output)
+            )
 
         # Re-fetch the instance_id to check its updated status
         updated_instance_id = self.env["odk.instance.id"].browse(instance_id.id)

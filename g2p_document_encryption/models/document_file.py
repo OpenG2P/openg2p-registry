@@ -1,3 +1,5 @@
+import base64
+
 from odoo import api, fields, models
 
 
@@ -16,7 +18,7 @@ class G2PDocumentFile(models.Model):
 
             if enc_provider:
                 record.is_encrypted = True
-                record.data = enc_provider.encrypt_data(record.data)
+                record.data = base64.b64encode(enc_provider.encrypt_data(record.data))
 
             record.backend_id.sudo().add(
                 record.relative_path,
@@ -33,7 +35,7 @@ class G2PDocumentFile(models.Model):
             if record.relative_path and not record._context.get("bin_size"):
                 dec_provider = record.backend_id.get_decryption_provider()
                 if record.is_encrypted and dec_provider:
-                    record.data = dec_provider.decrypt_data(record.data)
+                    record.data = base64.b64encode(dec_provider.decrypt_data(base64.b64decode(record.data)))
 
     @api.depends("backend_id", "is_encrypted")
     def _compute_can_preview_encrypted(self):

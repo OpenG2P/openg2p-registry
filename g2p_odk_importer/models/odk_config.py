@@ -237,8 +237,8 @@ class OdkConfig(models.Model):
     def get_member_kind(self, record):
         kind_as_str = record.get("kind", None)
         if kind_as_str:
-            kind = self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
-        return kind
+            return self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
+        return None
 
     def get_member_relationship(self, source_id, record):
         member_relation = record.get("relationship_with_head", None)

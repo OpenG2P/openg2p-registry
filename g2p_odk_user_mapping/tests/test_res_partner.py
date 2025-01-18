@@ -28,16 +28,16 @@ class TestResPartner(TransactionCase):
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_fetch_app_users_failure(self, mock_get, mock_login):
+    def test_fetch_odk_app_users_failure(self, mock_get, mock_login):
         mock_get.return_value.status_code = 500
 
         mock_login.return_value = "test_session_token"
 
         with self.assertRaises(UserError):
-            self.partner._fetch_app_users()
+            self.partner._fetch_odk_app_users()
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
-    @patch("odoo.addons.g2p_odk_user_mapping.models.res_partner.ResPartner._fetch_app_users")
+    @patch("odoo.addons.g2p_odk_user_mapping.models.res_partner.ResPartner._fetch_odk_app_users")
     def test_onchange_odk_config_id(self, mock_fetch, mock_login):
         mock_fetch.return_value = [{"id": 1, "displayName": "User One"}]
 

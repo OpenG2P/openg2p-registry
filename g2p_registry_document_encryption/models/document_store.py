@@ -43,7 +43,8 @@ class G2PDocumentStore(models.Model):
         return super().get_decryption_provider()
 
     @api.model
-    def set_encryption_stragies_to_registry(self, records):
+    def set_encryption_stragies_to_registry(self, record_ids):
+        records = self.browse(record_ids)
         records.write(
             {"encryption_strategy": "registry_based", "viewing_decryption_strategy": "registry_based"}
         )

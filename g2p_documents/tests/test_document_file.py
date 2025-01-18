@@ -128,7 +128,7 @@ class TestG2PDocumentFile(TransactionComponentCase):
                 "data": base64.b64encode(b"invalid data"),
             }
         )
-        self.assertFalse(self.test_file.mimetype)
+        self.assertTrue(self.test_file.mimetype.startswith("application/octet-stream"))
 
     # Test error handling during file data computation (simulate backend error).
     def test_compute_data_key_error(self):

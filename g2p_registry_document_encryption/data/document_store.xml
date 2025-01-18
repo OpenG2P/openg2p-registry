@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <function
-        id="set_encryption_for_default_backend"
         model="storage.backend"
         name="set_encryption_stragies_to_registry"
-        eval="(ref('storage_backend.default_storage_backend'),)"
+        eval="([ref('storage_backend.default_storage_backend'),],)"
     />
 </odoo>
