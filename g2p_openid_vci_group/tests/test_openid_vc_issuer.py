@@ -5,13 +5,11 @@ from unittest.mock import patch
 from jose import jwt
 from jwcrypto import jwk
 
-from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 from odoo.addons.g2p_encryption.models.encryption_provider import G2PEncryptionProvider
 
 
-@tagged("-at_install", "post_install")
 class TestVCIIssuerRegistryGroup(TransactionCase):
     """Test cases for VCI Issuer Registry Group functionality"""
 

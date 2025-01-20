@@ -1,10 +1,9 @@
 import json
 
-from odoo.tests.common import HttpCase, tagged
+from odoo.tests.common import HttpCase
 from odoo.tools import mute_logger
 
 
-@tagged("post_install", "-at_install")
 class TestG2PregistrationPortalBase(HttpCase):
     def setUp(self):
         super().setUp()

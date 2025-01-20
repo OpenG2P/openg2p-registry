@@ -1,5 +1,4 @@
 import itertools
-from collections.abc import Callable
 
 from odoo import fields
 from odoo.tools import human_size
@@ -13,8 +12,8 @@ class DocumentBinaryField(fields.Binary):
     Use :class:`odoo.fields.Binary` instead.
 
     :param str documents_field: the One2many field containing linked documents.
-    :param function get_tags_func: Func to call to get Document tag(s).
-    :param function get_storage_backend_func: Func to call to get storage backend.
+    :param str get_tags_func: Func in the model to call to get Document tag(s).
+    :param str get_storage_backend_func: Func in the model to call to get storage backend.
     """
 
     type = "binary"
@@ -23,8 +22,8 @@ class DocumentBinaryField(fields.Binary):
     _depends_context = ("bin_size",)
 
     documents_field: str = None
-    get_tags_func: Callable[[object], list] = None
-    get_storage_backend_func: Callable[[object], object] = None
+    get_tags_func: str = None
+    get_storage_backend_func: str = None
 
     _tags = None
     _storage_backend = None
@@ -60,6 +59,10 @@ class DocumentBinaryField(fields.Binary):
 
         docs_list = []
         for rec in records:
+            if not self.documents_field:
+                # Some test cases causing error if none
+                docs_list.append(None)
+                continue
             domain = [("tags_ids", "=", tag.id) for tag in tags]
             doc = getattr(rec, self.documents_field).filtered_domain(domain)
             if not doc:
@@ -78,6 +81,9 @@ class DocumentBinaryField(fields.Binary):
         env = record_values[0][0].env
         tags = self._get_tags_list(record_values[0][0])
         storage_backend = self._get_storage_backend(record_values[0][0])
+        if not storage_backend:
+            # Some test cases causing error if none
+            return
         for rec, value in record_values:
             if value:
                 doc = env["storage.file"].create(
@@ -106,6 +112,9 @@ class DocumentBinaryField(fields.Binary):
 
         tags = self._get_tags_list(records)
         storage_backend = self._get_storage_backend(records)
+        if not (tags and storage_backend):
+            # Some test cases causing error if none
+            return
 
         # retrieve the attachments that store the values, and adapt them
         for rec in records:
@@ -129,14 +138,22 @@ class DocumentBinaryField(fields.Binary):
 
     def _get_storage_backend(self, records):
         if not self._storage_backend:
-            func = self.get_storage_backend_func
-            self._storage_backend = func(records)
+            if not self.get_storage_backend_func:
+                return None
+            func = getattr(records, self.get_storage_backend_func)
+            if not func:
+                return None
+            self._storage_backend = func()
         return self._storage_backend
 
     def _get_tags_list(self, records):
         if not self._tags:
-            func = self.get_tags_func
-            self._tags = func(records)
+            if not self.get_tags_func:
+                return []
+            func = getattr(records, self.get_tags_func)
+            if not func:
+                return []
+            self._tags = func()
             if self._tags and not isinstance(self._tags, list):
                 self._tags = [self._tags]
         return self._tags

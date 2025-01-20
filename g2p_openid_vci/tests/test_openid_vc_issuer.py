@@ -7,14 +7,12 @@ import requests
 from jose import jws, jwt
 from jwcrypto import jwk
 
-from odoo.tests import tagged
 from odoo.tests.common import TransactionCase, _super_send
 from odoo.tools import misc
 
 from ..json_encoder import VCJSONEncoder
 
 
-@tagged("-at_install", "post_install")
 class TestVCIIssuerRegistry(TransactionCase):
     def setUp(self):
         super().setUp()

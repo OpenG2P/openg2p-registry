@@ -15,14 +15,22 @@ class G2PDocumentFile(models.Model):
             record.write(record._prepare_meta_for_file())
 
             enc_provider = record.backend_id.get_encryption_provider()
+            dec_provider = record.backend_id.get_decryption_provider()
+
+            decrypted_data = record.data
+            encrypted_data = None
 
             if enc_provider:
                 record.is_encrypted = True
-                record.data = base64.b64encode(enc_provider.encrypt_data(record.data))
+                encrypted_data = base64.b64encode(enc_provider.encrypt_data(base64.b64decode(decrypted_data)))
+                if not dec_provider:
+                    # If decryption is not enabled, the data record.data in cache
+                    # will have to be encrypted data.
+                    record.data = encrypted_data
 
             record.backend_id.sudo().add(
                 record.relative_path,
-                record.data,
+                encrypted_data if enc_provider else decrypted_data,
                 mimetype=record.mimetype,
                 binary=False,
             )

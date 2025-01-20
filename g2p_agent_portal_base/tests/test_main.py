@@ -1,7 +1,6 @@
-from odoo.tests.common import HttpCase, tagged
+from odoo.tests.common import HttpCase
 
 
-@tagged("post_install", "-at_install")
 class TestAgentPortalBase(HttpCase):
     def setUp(self):
         super().setUp()

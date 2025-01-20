@@ -64,7 +64,7 @@ class TestG2PDocumentFile(TransactionComponentCase):
         self, mock_get_decryption_provider, mock_get_encryption_provider
     ):
         mock_get_encryption_provider.return_value.encrypt_data.return_value = b"Test Encrypted Data"
-        mock_get_decryption_provider.return_value.decrypt_data.return_value = b"Test Decrypted Data"
+        mock_get_decryption_provider.return_value.decrypt_data.return_value = b"test_data"
 
         self.test_file = self.env["storage.file"].create(
             {
@@ -76,7 +76,7 @@ class TestG2PDocumentFile(TransactionComponentCase):
 
         # Verify that the file is marked as encrypted
         self.assertTrue(self.test_file.is_encrypted)
-        self.assertEqual(self.test_file.data, base64.b64encode(b"Test Decrypted Data"))
+        self.assertEqual(base64.b64decode(self.test_file.data), b"test_data")
 
     @patch(
         "odoo.addons.g2p_document_encryption.models.document_store.G2PDocumentStore.get_encryption_provider"
@@ -100,4 +100,4 @@ class TestG2PDocumentFile(TransactionComponentCase):
 
         # Verify that the file is marked as encrypted
         self.assertTrue(self.test_file.is_encrypted)
-        self.assertEqual(self.test_file.data, base64.b64encode(b"Test Encrypted Data"))
+        self.assertEqual(base64.b64decode(self.test_file.data), b"Test Encrypted Data")
