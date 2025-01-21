@@ -108,6 +108,11 @@ msgid "Bi-directional"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields.selection,name:g2p_registry_base.selection__g2p_que_background_task__task_status__completed
+msgid "COMPLETED"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Cancel"
 msgstr ""
@@ -196,6 +201,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_uid
@@ -208,6 +214,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_date
@@ -291,6 +298,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__display_name
@@ -321,6 +329,11 @@ msgid "Expiry Date"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields.selection,name:g2p_registry_base.selection__g2p_que_background_task__task_status__failed
+msgid "FAILED"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__message_follower_ids
 msgid "Followers"
 msgstr ""
@@ -333,6 +346,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_district
 msgid "G2P District"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_g2p_que_background_task
+msgid "G2P Queue Background Task"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -367,6 +385,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__id
@@ -479,10 +498,21 @@ msgid "Is Related to:"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__last_attempt_datetime
+msgid "Last Attempt Datetime"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__last_attempt_error_code
+msgid "Last Attempt Error Code"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_uid
@@ -495,6 +525,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
@@ -526,6 +557,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
 msgid "Name"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__number_of_attempts
+msgid "Number Of Attempts"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -565,6 +601,11 @@ msgid "OpenG2P Module Access"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields.selection,name:g2p_registry_base.selection__g2p_que_background_task__task_status__pending
+msgid "PENDING"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_phone_number
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_phone_number__phone_no
 msgid "Phone Number"
@@ -590,6 +631,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.openg2p_inherit_res_config_settings_view_form
 msgid "Phone number validation"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__queued_datetime
+msgid "Queued Datetime"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -813,6 +859,11 @@ msgid "Tags"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__task_status
+msgid "Task Status"
+msgstr ""
+
+#. module: g2p_registry_base
 #. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #, python-format
@@ -856,6 +907,16 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,help:g2p_registry_base.field_g2p_reg_rel__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__worker_payload
+msgid "Worker Payload"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__worker_type
+msgid "Worker Type"
 msgstr ""
 
 #. module: g2p_registry_base

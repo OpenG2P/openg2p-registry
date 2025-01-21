@@ -23,6 +23,8 @@ g2p_phone_number_registrar,Phone Number Registrar Access,g2p_registry_base.model
 g2p_reg_id_registrar,Registrant ID Registrar Access,g2p_registry_base.model_g2p_reg_id,g2p_registry_base.group_g2p_registrar,1,1,1,0
 g2p_id_type_registrar,ID Type Registrar Access,g2p_registry_base.model_g2p_id_type,g2p_registry_base.group_g2p_registrar,1,0,0,0
 g2p_district_registrar,District Registrar Access,g2p_registry_base.model_g2p_district,,1,0,0,0
+g2p_que_background_task_admin,Queue Background Task Admin Access,g2p_registry_base.model_g2p_que_background_task,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_que_background_task,Queue Background Task Registrar Access,g2p_registry_base.model_g2p_que_background_task,,1,0,0,0
 
 g2p_gender_type_registrar_admin,Gender Type Accesss Admin,g2p_registry_base.model_gender_type,g2p_registry_base.group_g2p_admin,1,1,1,1
 g2p_gender_type_registrar_registrar,Gender Type Accesss,g2p_registry_base.model_gender_type,,1,0,0,0
