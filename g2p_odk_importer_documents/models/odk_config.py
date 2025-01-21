@@ -41,7 +41,7 @@ class OdkConfig(models.Model):
 
         default_storage_backend_id = None
         if kwargs.get("importer"):
-            default_storage_backend_id = kwargs.get("importer").storage_backend_id
+            default_storage_backend_id = kwargs.get("odk_import").storage_backend_id
         if not default_storage_backend_id:
             default_storage_backend_id = self.env["res.partner"].get_registry_documents_store()
         if default_storage_backend_id:

@@ -241,7 +241,7 @@ class OdkImport(models.Model):
                     self.json_formatter,
                     self.target_registry,
                     instance_id=instance.instance_id,
-                    odk_import=instance.odk_import,
+                    odk_import=instance.odk_import_id,
                 )
                 instance.write({"status": "processing"})
             except Exception as exc:
