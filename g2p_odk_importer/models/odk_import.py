@@ -58,6 +58,7 @@ class OdkImport(models.Model):
             self.target_registry,
             instance_id=self.instance_id,
             last_sync_time=self.last_sync_time,
+            odk_import=self,
         )
         if "form_updated" in imported:
             message = "ODK form records is imported successfully."
@@ -135,7 +136,10 @@ class OdkImport(models.Model):
             return self.process_pending_instances()
         else:
             imported = self.odk_config.import_records(
-                self.json_formatter, self.target_registry, last_sync_time=self.last_sync_time
+                self.json_formatter,
+                self.target_registry,
+                last_sync_time=self.last_sync_time,
+                odk_import=self,
             )
             if "form_updated" in imported:
                 partner_count = imported.get("partner_count", 0)
@@ -234,7 +238,10 @@ class OdkImport(models.Model):
             instance.status = "processing"
             try:
                 instance.odk_import_id.odk_config.import_records(
-                    self.json_formatter, self.target_registry, instance_id=instance.instance_id
+                    self.json_formatter,
+                    self.target_registry,
+                    instance_id=instance.instance_id,
+                    odk_import=instance.odk_import,
                 )
                 instance.write({"status": "processing"})
             except Exception as exc:

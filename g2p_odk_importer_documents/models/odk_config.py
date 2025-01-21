@@ -1,12 +1,18 @@
 import base64
 
-from odoo import models
+from odoo import fields, models
+
+
+class OdkImport(models.Model):
+    _inherit = "odk.import"
+
+    storage_backend_id = fields.Many2one("storage.backend", string="Storage Backend")
 
 
 class OdkConfig(models.Model):
     _inherit = "odk.config"
 
-    def handle_media_import(self, mapped_json, member):
+    def handle_media_import(self, mapped_json, member, **kwargs):
         """Image import is handled by super module.
         Supporting documents import is handled here.
         The jq_format and the final mapped_json should look like this:
@@ -33,7 +39,13 @@ class OdkConfig(models.Model):
         if not instance_id:
             return res
 
-        registry_storage_backend_id = self.env["res.partner"].get_registry_documents_store().id
+        default_storage_backend_id = None
+        if kwargs.get("importer"):
+            default_storage_backend_id = kwargs.get("importer").storage_backend_id
+        if not default_storage_backend_id:
+            default_storage_backend_id = self.env["res.partner"].get_registry_documents_store()
+        if default_storage_backend_id:
+            default_storage_backend_id = default_storage_backend_id.id
 
         DOC_TAGS = self.env["g2p.document.tag"].sudo()
 
@@ -47,7 +59,7 @@ class OdkConfig(models.Model):
             if filename:
                 attachm = self.download_attachment(instance_id, filename)
 
-            storage_backend_id = doc_mapping.get("backend_id", registry_storage_backend_id)
+            storage_backend_id = doc_mapping.get("backend_id", default_storage_backend_id)
 
             doc_file = {
                 "backend_id": storage_backend_id,
