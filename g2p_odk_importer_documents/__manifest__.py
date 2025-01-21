@@ -12,7 +12,9 @@
         "g2p_odk_importer",
         "g2p_registry_documents",
     ],
-    "data": [],
+    "data": [
+        "views/odk_import.xml",
+    ],
     "external_dependencies": {},
     "application": False,
     "installable": True,

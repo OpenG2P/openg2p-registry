@@ -69,7 +69,15 @@ class OdkConfig(models.Model):
             _logger.exception("Connection test failed: %s", e)
             raise ValidationError(f"Connection test failed: {e}") from e
 
-    def import_records(self, jq_format, target_registry, instance_id=None, last_sync_time=None, skip=0):
+    def import_records(
+        self,
+        jq_format,
+        target_registry,
+        instance_id=None,
+        last_sync_time=None,
+        skip=0,
+        **kwargs
+    ):
         self.ensure_one()
         url = f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/Submissions"
         params = {
@@ -113,10 +121,10 @@ class OdkConfig(models.Model):
             elif target_registry == "group":
                 mapped_json.update({"is_registrant": True, "is_group": True})
 
-            self.handle_one2many_fields(mapped_json, target_registry)
-            self.handle_media_import(mapped_json, member)
+            self.handle_one2many_fields(mapped_json, target_registry, **kwargs)
+            self.handle_media_import(mapped_json, member, **kwargs)
 
-            self.handle_addl_data(mapped_json)
+            self.handle_addl_data(mapped_json, **kwargs)
 
             self.env["res.partner"].sudo().create(mapped_json)
             partner_count += 1
@@ -126,7 +134,7 @@ class OdkConfig(models.Model):
 
         return data
 
-    def get_submissions(self, fields=None, last_sync_time=None):
+    def get_submissions(self, fields=None, last_sync_time=None, **kwargs):
         self.ensure_one()
         # Construct the API endpoint
         endpoint = f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/Submissions"
@@ -159,7 +167,7 @@ class OdkConfig(models.Model):
 
         return submissions
 
-    def handle_one2many_fields(self, mapped_json, target_registry):
+    def handle_one2many_fields(self, mapped_json, target_registry, **kwargs):
         self.ensure_one()
         if "phone_number_ids" in mapped_json:
             mapped_json["phone_number_ids"] = [
@@ -220,7 +228,7 @@ class OdkConfig(models.Model):
                     )
                 )
 
-    def handle_media_import(self, mapped_json, member):
+    def handle_media_import(self, mapped_json, member, **kwargs):
         self.ensure_one()
         instance_id = member.get("meta", {}).get("instanceID")
         if not instance_id:
@@ -230,7 +238,7 @@ class OdkConfig(models.Model):
             if attachm:
                 mapped_json["image_1920"] = base64.b64encode(attachm)
 
-    def handle_addl_data(self, mapped_json):
+    def handle_addl_data(self, mapped_json, **kwargs):
         # Override this method to add more data
         return mapped_json
 
