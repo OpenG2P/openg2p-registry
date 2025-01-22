@@ -85,7 +85,7 @@ class OpenIDVCIssuerGroup(models.Model):
 
         group_dict["members"] = group_memberships_dict
         group_dict["head"] = head_member_dict
-        _logger.info("HEAD HEAD %s", group_dict["head"])
+        _logger.info("VC Group: Details gathered. Generating credential.")
 
         curr_datetime = f'{datetime.now().isoformat(timespec = "milliseconds")}Z'
         credential = jq.first(
@@ -100,9 +100,7 @@ class OpenIDVCIssuerGroup(models.Model):
                 },
             ),
         )
-        import json
 
-        _logger.info("TEST VC JSON %s", json.dumps(credential, cls=VCJSONEncoder))
         credential_response = {
             "credential": self.sign_and_issue_credential(credential),
             "format": credential_request["format"],

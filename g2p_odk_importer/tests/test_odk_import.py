@@ -32,10 +32,10 @@ class TestOdkImport(TransactionCase):
             }
         )
 
-    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.download_records")
-    def test_fetch_record_by_instance_id(self, mock_download_record):
+    @patch("odoo.addons.g2p_odk_importer.models.odk_import.OdkImport.process_records")
+    def test_fetch_record_by_instance_id(self, mock_get):
         # Test fetch record by instance ID method
-        mock_download_record.return_value = {"form_updated": True}
+        mock_get.return_value = {"form_updated": True}
 
         self.odk_import.instance_id = "test_instance_id"
         result = self.odk_import.fetch_record_by_instance_id()
@@ -180,49 +180,30 @@ class TestOdkImport(TransactionCase):
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.download_records")
     def test_process_records_individual(self, mock_get):
         # Mock response for submissions
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {"value": [{"name": "Test Name"}]}
+        mock_get.return_value = {"value": [{"name": "Test Name"}]}
 
         # Set target_registry to "individual"
         self.odk_import.target_registry = "individual"
 
-        self.odk_import.process_records()
+        result = self.odk_import.process_records()
 
         # Check if "is_registrant" and "is_group" were set correctly
         partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
         self.assertTrue(partner.is_registrant)
         self.assertFalse(partner.is_group)
         self.assertEqual(partner.name, "Test Name")
-
-    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.download_records")
-    def test_process_records_by_instance_id_individual(self, mock_get):
-        # Mock response for submissions
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {"value": [{"name": "Doe John"}]}
-
-        # Set target_registry to "individual"
-        self.odk_import.target_registry = "individual"
-
-        result = self.odk_import.process_records(instance_id="test_instance_id")
-
-        # Check if "is_registrant" and "is_group" were set correctly
-        partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
-        self.assertTrue(partner.is_registrant)
-        self.assertFalse(partner.is_group)
-        self.assertEqual(partner.name, "Doe John")
         self.assertTrue(result["form_updated"])
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.download_records")
-    def test_process_records_by_instance_id_group(self, mock_get):
+    def test_process_records_group(self, mock_get):
         """Test import of record by instance ID for group registry"""
         # Mock response data
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {"value": [{"name": "Family Group"}]}
+        mock_get.return_value = {"value": [{"name": "Family Group"}]}
 
         # Test group registry
         self.odk_import.target_registry = "group"
 
-        result = self.odk_import.process_records(instance_id="test-instance-123")
+        result = self.odk_import.process_records()
 
         # Verify the created partner data had correct flags
         group = self.env["res.partner"].search(
@@ -253,6 +234,7 @@ class TestOdkImport(TransactionCase):
             ]
         }
 
+        self.odk_import.target_registry = "group"
         self.odk_import.process_records_handle_one2many_fields(mapped_json)
 
         # Verify individual creation
@@ -287,6 +269,7 @@ class TestOdkImport(TransactionCase):
         # Test handling when no relationship is found
         mapped_json = {"group_membership_ids": [{"name": "Test Person"}]}
 
+        self.odk_import.target_registry = "group"
         self.odk_import.process_records_handle_one2many_fields(mapped_json)
 
         ind = self.env["res.partner"].search(
@@ -312,6 +295,7 @@ class TestOdkImport(TransactionCase):
             "reg_ids": [{"id_type": "National ID", "value": "12345", "expiry_date": "2024-12-31"}],
         }
 
+        self.odk_import.target_registry = "group"
         # Execute
         self.odk_import.process_records_handle_one2many_fields(mapped_json)
 
@@ -386,9 +370,7 @@ class TestOdkImport(TransactionCase):
         self.odk_import.process_records_handle_media_import(mapped_json, member)
         self.assertEqual(mapped_json, {})  # No changes should be made
 
-    def test_handle_media_import_no_attachments(self, mock_login):
-        mock_login.return_value = "test_token"
-
+    def test_handle_media_import_no_attachments(self):
         # Test with empty attachments
         member = {"meta": {"instanceID": "test_instance"}}
         mapped_json = {}
