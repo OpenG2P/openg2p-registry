@@ -8,6 +8,7 @@
             <tree>
                 <field name="odk_config_name" />
                 <field name="job_status" />
+                <field name="enable_async" />
                 <button
                     type="object"
                     name="odk_import_action_trigger"

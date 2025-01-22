@@ -1,9 +1,7 @@
-import base64
 import json
 import logging
 from datetime import datetime, timezone
 
-import jq
 import requests
 from dateutil import parser as dateutil_parser
 
@@ -69,9 +67,7 @@ class OdkConfig(models.Model):
             _logger.exception("Connection test failed: %s", e)
             raise ValidationError(f"Connection test failed: {e}") from e
 
-    def import_records(
-        self, jq_format, target_registry, instance_id=None, last_sync_time=None, skip=0, **kwargs
-    ):
+    def download_records(self, instance_id=None, last_sync_time=None, skip=0):
         self.ensure_one()
         url = f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/Submissions"
         params = {
@@ -105,30 +101,9 @@ class OdkConfig(models.Model):
                 else None,
             ),
         )
-        partner_count = 0
-        for member in data["value"]:
-            _logger.debug("ODK RAW DATA:%s" % member)
-
-            mapped_json = jq.first(jq_format, member)
-            if target_registry == "individual":
-                mapped_json.update({"is_registrant": True, "is_group": False})
-            elif target_registry == "group":
-                mapped_json.update({"is_registrant": True, "is_group": True})
-
-            self.handle_one2many_fields(mapped_json, target_registry, **kwargs)
-            self.handle_media_import(mapped_json, member, **kwargs)
-
-            self.handle_addl_data(mapped_json, **kwargs)
-
-            self.env["res.partner"].sudo().create(mapped_json)
-            partner_count += 1
-            data.update({"form_updated": True})
-
-        data.update({"partner_count": partner_count})
-
         return data
 
-    def get_submissions(self, fields=None, last_sync_time=None, **kwargs):
+    def get_submissions(self, fields=None, last_sync_time=None):
         self.ensure_one()
         # Construct the API endpoint
         endpoint = f"{self.base_url}/v1/projects/{self.project}/forms/{self.form_id}.svc/Submissions"
@@ -160,144 +135,6 @@ class OdkConfig(models.Model):
             endpoint = None
 
         return submissions
-
-    def handle_one2many_fields(self, mapped_json, target_registry, **kwargs):
-        self.ensure_one()
-        if "phone_number_ids" in mapped_json:
-            mapped_json["phone_number_ids"] = [
-                (
-                    0,
-                    0,
-                    {
-                        "phone_no": phone.get("phone_no"),
-                        "date_collected": phone.get("date_collected"),
-                        "disabled": phone.get("disabled"),
-                    },
-                )
-                for phone in mapped_json["phone_number_ids"]
-            ]
-
-        if "group_membership_ids" in mapped_json and target_registry == "group":
-            individual_ids = []
-            relationships_ids = []
-            group_membership_data = (
-                mapped_json.get("group_membership_ids")
-                if mapped_json.get("group_membership_ids") is not None
-                else []
-            )
-
-            for individual_mem in group_membership_data:
-                individual_data = self.get_individual_data(individual_mem)
-                individual = self.env["res.partner"].sudo().create(individual_data)
-                if individual:
-                    kind = self.get_member_kind(individual_mem)
-                    individual_data = {"individual": individual.id}
-                    if kind:
-                        individual_data["kind"] = [(4, kind.id)]
-                    relationship = self.get_member_relationship(individual.id, individual_mem)
-                    if relationship:
-                        relationships_ids.append((0, 0, relationship))
-                    individual_ids.append((0, 0, individual_data))
-            mapped_json["related_1_ids"] = relationships_ids
-            mapped_json["group_membership_ids"] = individual_ids
-
-        if "reg_ids" in mapped_json:
-            reg_ids = mapped_json["reg_ids"]
-            mapped_json["reg_ids"] = []
-            for reg_id in reg_ids:
-                id_type = self.env["g2p.id.type"].search([("name", "=", reg_id.get("id_type"))], limit=1)
-                if not id_type:
-                    raise ValidationError(
-                        f"ID Type not found while handling Reg IDs. {reg_id.get('id_type')}"
-                    )
-                mapped_json["reg_ids"].append(
-                    (
-                        0,
-                        0,
-                        {
-                            "id_type": id_type.id,
-                            "value": reg_id.get("value"),
-                            "expiry_date": reg_id.get("expiry_date"),
-                        },
-                    )
-                )
-
-    def handle_media_import(self, mapped_json, member, **kwargs):
-        self.ensure_one()
-        instance_id = member.get("meta", {}).get("instanceID")
-        if not instance_id:
-            return
-        if mapped_json.get("image_1920", None):
-            attachm = self.download_attachment(instance_id, mapped_json["image_1920"])
-            if attachm:
-                mapped_json["image_1920"] = base64.b64encode(attachm)
-
-    def handle_addl_data(self, mapped_json, **kwargs):
-        # Override this method to add more data
-        return mapped_json
-
-    def get_member_kind(self, record):
-        kind_as_str = record.get("kind", None)
-        if kind_as_str:
-            return self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
-        return None
-
-    def get_member_relationship(self, source_id, record):
-        member_relation = record.get("relationship_with_head", None)
-        if member_relation:
-            relation = self.env["g2p.relationship"].search([("name", "=", member_relation)], limit=1)
-
-            if relation:
-                return {"source": source_id, "relation": relation.id, "start_date": datetime.now()}
-
-        _logger.warning("No relation defined for member")
-
-        return None
-
-    def get_individual_data(self, record):
-        name = record.get("name", None)
-        if name is not None:
-            given_name = name.split(" ")[0]
-            family_name = name.split(" ")[-1]
-            addl_name = " ".join(name.split(" ")[1:-1])
-        else:
-            given_name = None
-            family_name = None
-            addl_name = None
-        dob = self.get_dob(record)
-        gender = self.get_gender(record.get("gender"))
-
-        return {
-            "name": name,
-            "given_name": given_name,
-            "family_name": family_name,
-            "addl_name": addl_name,
-            "is_registrant": True,
-            "is_group": False,
-            "birthdate": dob,
-            "gender": gender,
-        }
-
-    def get_gender(self, gender_val):
-        if gender_val:
-            gender = self.env["gender.type"].sudo().search([("value", "=", gender_val)], limit=1)
-            return gender.code if gender else None
-        return None
-
-    def get_dob(self, record):
-        dob = record.get("birthdate")
-        if dob:
-            return dob
-
-        age = record.get("age")
-        if age:
-            now = datetime.now()
-            birth_year = now.year - age
-            if birth_year < 0:
-                _logger.warning("Future birthdate is not allowed.")
-                return None
-            return now.replace(year=birth_year).strftime("%Y-%m-%d")
-        return None
 
     def list_expected_attachments(self, instance_id):
         url = (

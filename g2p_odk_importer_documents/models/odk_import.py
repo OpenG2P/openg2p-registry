@@ -8,11 +8,7 @@ class OdkImport(models.Model):
 
     storage_backend_id = fields.Many2one("storage.backend", string="Storage Backend")
 
-
-class OdkConfig(models.Model):
-    _inherit = "odk.config"
-
-    def handle_media_import(self, mapped_json, member, **kwargs):
+    def process_records_handle_media_import(self, mapped_json, member):
         """Image import is handled by super module.
         Supporting documents import is handled here.
         The jq_format and the final mapped_json should look like this:
@@ -34,14 +30,12 @@ class OdkConfig(models.Model):
         Recommended to not use "name" field of supporting document object. Instead
         use tags as shown above. Random ID gets generated in place of name.
         """
-        res = super().handle_media_import(mapped_json, member)
+        res = super().process_records_handle_media_import(mapped_json, member)
         instance_id = member.get("meta", {}).get("instanceID")
         if not instance_id:
             return res
 
-        default_storage_backend_id = None
-        if kwargs.get("importer"):
-            default_storage_backend_id = kwargs.get("odk_import").storage_backend_id
+        default_storage_backend_id = self.storage_backend_id
         if not default_storage_backend_id:
             default_storage_backend_id = self.env["res.partner"].get_registry_documents_store()
         if default_storage_backend_id:
@@ -57,7 +51,7 @@ class OdkConfig(models.Model):
 
             attachm = None
             if filename:
-                attachm = self.download_attachment(instance_id, filename)
+                attachm = self.odk_config.download_attachment(instance_id, filename)
 
             storage_backend_id = doc_mapping.get("backend_id", default_storage_backend_id)
 

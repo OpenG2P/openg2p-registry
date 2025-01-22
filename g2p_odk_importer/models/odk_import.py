@@ -1,3 +1,4 @@
+import base64
 import logging
 import traceback
 from datetime import datetime, timedelta
@@ -43,6 +44,7 @@ class OdkImport(models.Model):
     instance_id = fields.Char()
 
     def fetch_record_by_instance_id(self):
+        """This method is run when 'Fetch Record by Instance Id' button is clicked on UI."""
         self.ensure_one()
         if not self.enable_import_by_instance_id:
             raise UserError(_("Please enable the ODK import instanceID"))
@@ -53,12 +55,9 @@ class OdkImport(models.Model):
         if not self.instance_id:
             raise UserError(_("Please give the instance ID."))
 
-        imported = self.odk_config.import_records(
-            self.json_formatter,
-            self.target_registry,
+        imported = self.process_records(
             instance_id=self.instance_id,
             last_sync_time=self.last_sync_time,
-            odk_import=self,
         )
         if "form_updated" in imported:
             message = "ODK form records is imported successfully."
@@ -108,9 +107,10 @@ class OdkImport(models.Model):
         }
 
     def import_records(self):
+        """
+        This method runs inside the cron job that is created when button is clicked.
+        """
         self.ensure_one()
-        if not self.odk_config:
-            raise UserError(_("Please configure the ODK."))
 
         if self.enable_async:
             instance_ids = self.odk_config.get_submissions(fields="__id", last_sync_time=self.last_sync_time)
@@ -135,12 +135,7 @@ class OdkImport(models.Model):
             self.last_sync_time = fields.Datetime.now()
             return self.process_pending_instances()
         else:
-            imported = self.odk_config.import_records(
-                self.json_formatter,
-                self.target_registry,
-                last_sync_time=self.last_sync_time,
-                odk_import=self,
-            )
+            imported = self.process_records(last_sync_time=self.last_sync_time)
             if "form_updated" in imported:
                 partner_count = imported.get("partner_count", 0)
                 message = f"ODK form {partner_count} records were imported successfully."
@@ -164,7 +159,10 @@ class OdkImport(models.Model):
             }
 
     def odk_import_action_trigger(self):
+        """This method is called when 'Import Records' button is clicked on UI."""
         self.ensure_one()
+        if not self.odk_config:
+            raise UserError(_("Please configure the ODK."))
         if self.job_status == "draft" or self.job_status == "completed":
             _logger.info("Job Started")
             self.job_status = "started"
@@ -198,6 +196,10 @@ class OdkImport(models.Model):
 
     @api.model
     def process_pending_instances(self):
+        """
+        This method will be called when async mode is enabled, to checks for instances
+        pending to process.
+        """
         _logger.info("Processing the ODK Async using Job Queue")
         batch_size = 10  # Define the batch size as per your requirement
         pending_instance_ids = self.env["odk.instance.id"].sudo().search([("status", "=", "pending")])
@@ -219,7 +221,7 @@ class OdkImport(models.Model):
         for batch_start in range(0, len(pending_instance_ids), batch_size):
             batch = pending_instance_ids[batch_start : batch_start + batch_size]
             _logger.info(f"Submitting batch of {len(batch)} instance IDs.")
-            self.with_delay()._process_instance_id(batch)
+            self.with_delay()._process_pending_instance_id(batch)
 
         return {
             "type": "ir.actions.client",
@@ -232,19 +234,184 @@ class OdkImport(models.Model):
         }
 
     @api.model
-    def _process_instance_id(self, instance_ids):
+    def _process_pending_instance_id(self, instance_ids):
         for instance in instance_ids:
             _logger.info("Processing instance ID: %s", instance.instance_id)
             instance.status = "processing"
             try:
-                instance.odk_import_id.odk_config.import_records(
-                    self.json_formatter,
-                    self.target_registry,
-                    instance_id=instance.instance_id,
-                    odk_import=instance.odk_import_id,
-                )
+                instance.odk_import_id.process_records(instance_id=instance.instance_id)
                 instance.write({"status": "processing"})
             except Exception as exc:
                 _logger.error(traceback.format_exc())
                 _logger.error(f"Failed to import instance ID {instance.instance_id}: {exc}")
                 instance.status = "failed"
+
+    def process_records(self, instance_id=None, last_sync_time=None):
+        """This is a generic process_records api called by various above methods for importing records."""
+        self.ensure_one()
+
+        if not self.odk_config:
+            raise UserError(_("Please configure the ODK."))
+
+        data = self.odk_config.download_records(instance_id=instance_id, last_sync_time=last_sync_time)
+
+        partner_count = 0
+        for member in data["value"]:
+            _logger.debug("ODK RAW DATA:%s" % member)
+
+            mapped_json = jq.first(self.json_formatter, member)
+            if self.target_registry == "individual":
+                mapped_json.update({"is_registrant": True, "is_group": False})
+            elif self.target_registry == "group":
+                mapped_json.update({"is_registrant": True, "is_group": True})
+
+            self.process_records_handle_one2many_fields(mapped_json)
+            self.process_records_handle_media_import(mapped_json, member)
+
+            self.process_records_handle_addl_data(mapped_json)
+
+            self.env["res.partner"].sudo().create(mapped_json)
+            partner_count += 1
+            data.update({"form_updated": True})
+
+        data.update({"partner_count": partner_count})
+
+        return data
+
+    def process_records_handle_one2many_fields(self, mapped_json):
+        self.ensure_one()
+        if "phone_number_ids" in mapped_json:
+            mapped_json["phone_number_ids"] = [
+                (
+                    0,
+                    0,
+                    {
+                        "phone_no": phone.get("phone_no"),
+                        "date_collected": phone.get("date_collected"),
+                        "disabled": phone.get("disabled"),
+                    },
+                )
+                for phone in mapped_json["phone_number_ids"]
+            ]
+
+        if "group_membership_ids" in mapped_json and self.target_registry == "group":
+            individual_ids = []
+            relationships_ids = []
+            group_membership_data = (
+                mapped_json.get("group_membership_ids")
+                if mapped_json.get("group_membership_ids") is not None
+                else []
+            )
+
+            for individual_mem in group_membership_data:
+                individual_data = self.get_individual_data(individual_mem)
+                individual = self.env["res.partner"].sudo().create(individual_data)
+                if individual:
+                    kind = self.get_member_kind(individual_mem)
+                    individual_data = {"individual": individual.id}
+                    if kind:
+                        individual_data["kind"] = [(4, kind.id)]
+                    relationship = self.get_member_relationship(individual.id, individual_mem)
+                    if relationship:
+                        relationships_ids.append((0, 0, relationship))
+                    individual_ids.append((0, 0, individual_data))
+            mapped_json["related_1_ids"] = relationships_ids
+            mapped_json["group_membership_ids"] = individual_ids
+
+        if "reg_ids" in mapped_json:
+            reg_ids = mapped_json["reg_ids"]
+            mapped_json["reg_ids"] = []
+            for reg_id in reg_ids:
+                id_type = self.env["g2p.id.type"].search([("name", "=", reg_id.get("id_type"))], limit=1)
+                if not id_type:
+                    raise ValidationError(
+                        f"ID Type not found while handling Reg IDs. {reg_id.get('id_type')}"
+                    )
+                mapped_json["reg_ids"].append(
+                    (
+                        0,
+                        0,
+                        {
+                            "id_type": id_type.id,
+                            "value": reg_id.get("value"),
+                            "expiry_date": reg_id.get("expiry_date"),
+                        },
+                    )
+                )
+
+    def process_records_handle_media_import(self, mapped_json, member):
+        self.ensure_one()
+        instance_id = member.get("meta", {}).get("instanceID")
+        if not instance_id:
+            return
+        if mapped_json.get("image_1920", None):
+            attachm = self.odk_config.download_attachment(instance_id, mapped_json["image_1920"])
+            if attachm:
+                mapped_json["image_1920"] = base64.b64encode(attachm)
+
+    def process_records_handle_addl_data(self, mapped_json):
+        # Override this method to add more data
+        return mapped_json
+
+    def get_member_kind(self, record):
+        kind_as_str = record.get("kind", None)
+        if kind_as_str:
+            return self.env["g2p.group.membership.kind"].search([("name", "=", kind_as_str)], limit=1)
+        return None
+
+    def get_member_relationship(self, source_id, record):
+        member_relation = record.get("relationship_with_head", None)
+        if member_relation:
+            relation = self.env["g2p.relationship"].search([("name", "=", member_relation)], limit=1)
+
+            if relation:
+                return {"source": source_id, "relation": relation.id, "start_date": datetime.now()}
+
+        _logger.warning("No relation defined for member")
+
+        return None
+
+    def get_individual_data(self, record):
+        name = record.get("name", None)
+        if name is not None:
+            given_name = name.split(" ")[0]
+            family_name = name.split(" ")[-1]
+            addl_name = " ".join(name.split(" ")[1:-1])
+        else:
+            given_name = None
+            family_name = None
+            addl_name = None
+        dob = self.get_dob(record)
+        gender = self.get_gender(record.get("gender"))
+
+        return {
+            "name": name,
+            "given_name": given_name,
+            "family_name": family_name,
+            "addl_name": addl_name,
+            "is_registrant": True,
+            "is_group": False,
+            "birthdate": dob,
+            "gender": gender,
+        }
+
+    def get_gender(self, gender_val):
+        if gender_val:
+            gender = self.env["gender.type"].sudo().search([("value", "=", gender_val)], limit=1)
+            return gender.code if gender else None
+        return None
+
+    def get_dob(self, record):
+        dob = record.get("birthdate")
+        if dob:
+            return dob
+
+        age = record.get("age")
+        if age:
+            now = datetime.now()
+            birth_year = now.year - age
+            if birth_year < 0:
+                _logger.warning("Future birthdate is not allowed.")
+                return None
+            return now.replace(year=birth_year).strftime("%Y-%m-%d")
+        return None
