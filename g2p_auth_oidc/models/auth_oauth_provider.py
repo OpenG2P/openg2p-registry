@@ -278,7 +278,11 @@ class AuthOauthProvider(models.Model):
             for pair in self.token_map.strip().split(" "):
                 if pair:
                     from_key, to_key = (k.strip() for k in pair.split(":", 1))
-                    res[to_key] = validation.get(from_key, "")
+                    from_keys = from_key.split(".")
+                    to_val = validation
+                    for from_key in from_keys:
+                        to_val = to_val.get(from_key, {})
+                    res[to_key] = to_val
         return res
 
     def oidc_signin_create_user(self, validation, params, oauth_partner=None, access_denied_exception=None):
@@ -453,7 +457,7 @@ class AuthOauthProvider(models.Model):
             if isinstance(self.env[fields_model]._fields.get(key), fields._String) and isinstance(
                 value, dict | list
             ):
-                validation[key] = json.dumps(value)
+                validation[key] = json.dumps(value) if value else None
         if self.company_id and validation.get("company_id") != self.company_id.id:
             validation["company_id"] = self.company_id.id
         return validation
