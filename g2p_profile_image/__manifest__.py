@@ -13,6 +13,7 @@
     ],
     "data": [
         "data/tags.xml",
+        "views/res_config_settings.xml",
     ],
     "assets": {},
     "demo": [],
