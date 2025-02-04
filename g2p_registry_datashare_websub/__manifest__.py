@@ -9,6 +9,8 @@
     "license": "LGPL-3",
     "depends": [
         "queue_job",
+        # TODO: Split the following into submodules
+        "g2p_encryption",
         "g2p_registry_base",
         "g2p_registry_individual",
         "g2p_registry_group",
@@ -18,6 +20,7 @@
     "data": [
         "views/datashare_config_websub.xml",
         "security/ir.model.access.csv",
+        "wizard/manual_trigger.xml",
     ],
     "assets": {
         "web.assets_backend": [],
