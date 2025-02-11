@@ -53,32 +53,56 @@ class IndividualsTest(TransactionCase):
                 "is_registrant": True,
             }
         )
+        cls.registrant_no_given_name = cls.env["res.partner"].create(
+            {
+                "name": "Josephine Demophon",
+                "family_name": "Demophon",
+                "given_name": "",
+                "addl_name": "Josephine",
+                "is_group": False,
+                "is_registrant": True,
+            }
+        )
+        cls.registrant_no_addl_name = cls.env["res.partner"].create(
+            {
+                "name": "Amaphia Demophon",
+                "family_name": "Demophon",
+                "given_name": "Amaphia",
+                "addl_name": "",
+                "is_group": False,
+                "is_registrant": True,
+            }
+        )
+        cls.registrant_all_names = cls.env["res.partner"].create(
+            {
+                "name": "Amaphia Jospehine Demophon",
+                "family_name": "Demophon",
+                "given_name": "Amaphia",
+                "addl_name": "Josephine",
+                "is_group": False,
+                "is_registrant": True,
+            }
+        )
+        cls.registrant_no_family_name = cls.env["res.partner"].create(
+            {
+                "name": "Amaphia Jospehine",
+                "family_name": "",
+                "given_name": "Amaphia",
+                "addl_name": "Josephine",
+                "is_group": False,
+                "is_registrant": True,
+            }
+        )
 
-    def test_01_check_names(self):
-        self.registrant_1.name_change()
-        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
-            "JADDRANKA, HEIDI ",
-            self.registrant_1.name,
-        )
-        self.assertEqual(self.registrant_1.name, "JADDRANKA, HEIDI ", message)
-        self.registrant_2.name_change()
-        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
-            "KLEITOS, ANGUS ",
-            self.registrant_2.name,
-        )
-        self.assertEqual(self.registrant_2.name, "KLEITOS, ANGUS ", message)
-        self.registrant_3.name_change()
-        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
-            "CARATACOS, SORA ",
-            self.registrant_3.name,
-        )
-        self.assertEqual(self.registrant_3.name, "CARATACOS, SORA ", message)
-        self.registrant_4.name_change()
-        message = "NAME FAILED (EXPECTED {} but RESULT is {})".format(
-            "DEMOPHON, AMAPHIA ",
-            self.registrant_4.name,
-        )
-        self.assertEqual(self.registrant_4.name, "DEMOPHON, AMAPHIA ", message)
+    def test_01_check_name_change(self):
+        self.registrant_no_family_name.name_change()
+        self.assertEqual(self.registrant_no_family_name.name, "AMAPHIA JOSEPHINE")
+        self.registrant_all_names.name_change()
+        self.assertEqual(self.registrant_all_names.name, "DEMOPHON, AMAPHIA JOSEPHINE")
+        self.registrant_no_addl_name.name_change()
+        self.assertEqual(self.registrant_no_addl_name.name, "DEMOPHON, AMAPHIA")
+        self.registrant_no_given_name.name_change()
+        self.assertEqual(self.registrant_no_given_name.name, "DEMOPHON, JOSEPHINE")
 
     def test_02_age_calculation(self):
         start_date = date(2000, 1, 1)

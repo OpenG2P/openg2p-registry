@@ -30,13 +30,17 @@ class G2PIndividual(models.Model):
     def name_change(self):
         vals = {}
         if not self.is_group:
-            name = ""
-            if self.family_name:
-                name += self.family_name + ", "
-            if self.given_name:
-                name += self.given_name + " "
-            if self.addl_name:
-                name += self.addl_name + " "
+            name_vals = [
+                f"{self.family_name},"
+                if self.family_name and (self.given_name or self.addl_name)
+                else f"{self.family_name}"
+                if self.family_name
+                else "",
+                self.given_name,
+                self.addl_name,
+            ]
+
+            name = " ".join(filter(None, name_vals))
             vals.update({"name": name.upper()})
             self.update(vals)
 
