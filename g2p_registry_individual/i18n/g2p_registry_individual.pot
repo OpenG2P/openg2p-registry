@@ -126,6 +126,12 @@ msgid "Family Name..."
 msgstr ""
 
 #. module: g2p_registry_individual
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__gender
+#: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__gender
+msgid "Gender"
+msgstr ""
+
+#. module: g2p_registry_individual
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_partner__given_name
 #: model:ir.model.fields,field_description:g2p_registry_individual.field_res_users__given_name
 msgid "Given Name"
