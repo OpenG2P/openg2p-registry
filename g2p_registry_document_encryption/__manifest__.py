@@ -7,7 +7,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["g2p_registry_documents", "g2p_registry_encryption"],
+    "depends": ["g2p_registry_documents", "g2p_document_encryption", "g2p_registry_encryption"],
     "data": [
         "data/document_store.xml",
     ],
