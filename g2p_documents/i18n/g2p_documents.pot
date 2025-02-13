@@ -84,6 +84,16 @@ msgid "G2P Document Tag"
 msgstr ""
 
 #. module: g2p_documents
+#: model:ir.model.fields.selection,name:g2p_documents.selection__storage_backend__mimetype_strategy__from_data
+msgid "Guess from Data"
+msgstr ""
+
+#. module: g2p_documents
+#: model:ir.model.fields.selection,name:g2p_documents.selection__storage_backend__mimetype_strategy__from_file_name
+msgid "Guess from filename"
+msgstr ""
+
+#. module: g2p_documents
 #: model:ir.model.fields,field_description:g2p_documents.field_g2p_document_tag__id
 msgid "ID"
 msgstr ""
@@ -96,6 +106,23 @@ msgstr ""
 #. module: g2p_documents
 #: model:ir.model.fields,field_description:g2p_documents.field_g2p_document_tag__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_documents
+#: model:ir.model.fields,field_description:g2p_documents.field_storage_file__mimetype
+msgid "Mime Type"
+msgstr ""
+
+#. module: g2p_documents
+#: model:ir.model.fields,field_description:g2p_documents.field_storage_backend__mimetype_strategy
+msgid "Mimetype Strategy"
+msgstr ""
+
+#. module: g2p_documents
+#: model:ir.model.fields,help:g2p_documents.field_storage_backend__mimetype_strategy
+msgid ""
+"Mimetype of a file can be inferred from the filename or from the binary "
+"data."
 msgstr ""
 
 #. module: g2p_documents
@@ -122,6 +149,13 @@ msgstr ""
 #. module: g2p_documents
 #: model:ir.module.category,description:g2p_documents.g2p_documents_module
 msgid "OpenG2P Documents Permissions"
+msgstr ""
+
+#. module: g2p_documents
+#. odoo-javascript
+#: code:addons/g2p_documents/static/src/xml/preview_document.xml:0
+#, python-format
+msgid "Preview"
 msgstr ""
 
 #. module: g2p_documents
