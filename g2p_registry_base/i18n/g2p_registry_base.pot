@@ -38,6 +38,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__active
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__active
 msgid "Active"
 msgstr ""
 
@@ -69,6 +70,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
 msgid "Add a district!"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_gender_type
+msgid "Add an Gender Type!"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -134,6 +140,11 @@ msgid "Click the create button to enter a new district."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_gender_type
+msgid "Click the create button to enter a new gender type."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_relationship
 msgid "Click the create button to enter a new relationship."
 msgstr ""
@@ -163,6 +174,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__code
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__code
 msgid "Code"
 msgstr ""
 
@@ -206,6 +218,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -219,6 +232,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__create_date
 msgid "Created on"
 msgstr ""
 
@@ -303,6 +317,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -359,6 +374,31 @@ msgid "G2P Registry Settings"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_gender_type
+msgid "Gender Type"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_gender_type
+#: model:ir.ui.menu,name:g2p_registry_base.menu_gender_type
+msgid "Gender Types"
+msgstr ""
+
+#. module: g2p_registry_base
+#. odoo-python
+#: code:addons/g2p_registry_base/models/gender.py:0
+#, python-format
+msgid "Gender type should be unique"
+msgstr ""
+
+#. module: g2p_registry_base
+#. odoo-python
+#: code:addons/g2p_registry_base/models/gender.py:0
+#, python-format
+msgid "Gender type should not empty."
+msgstr ""
+
+#. module: g2p_registry_base
 #. odoo-python
 #: code:addons/g2p_registry_base/models/reg_relationship.py:0
 #: code:addons/g2p_registry_base/tests/test_reg_relationship.py:0
@@ -390,6 +430,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__id
 msgid "ID"
 msgstr ""
 
@@ -517,6 +558,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -530,6 +572,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -896,6 +939,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__value
+#: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__value
 msgid "Value"
 msgstr ""
 
