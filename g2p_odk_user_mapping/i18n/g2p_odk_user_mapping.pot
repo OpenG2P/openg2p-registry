@@ -94,12 +94,6 @@ msgid "Partner"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
-#: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_res_partner__session
-#: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_res_users__session
-msgid "Session Token"
-msgstr ""
-
-#. module: g2p_odk_user_mapping
 #: model:ir.actions.act_window,name:g2p_odk_user_mapping.view_odk_app_action
 msgid "odk.app.user.action"
 msgstr ""
