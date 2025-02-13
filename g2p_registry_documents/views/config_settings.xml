@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="g2p_registry_base.openg2p_inherit_res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <app name="g2p_config_settings" position="inside">
+                <block name="g2p_registry_documents_settings" title="G2P Registry Documents Settings">
+                    <setting
+                        string="Default Document Store Config"
+                        help="Select the document store to be used for default document creation"
+                    >
+                        <field name="g2p_registry_documents_store" />
+                    </setting>
+                </block>
+            </app>
+        </field>
+    </record>
+</odoo>

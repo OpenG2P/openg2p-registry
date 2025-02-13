@@ -6,4 +6,4 @@ from . import bank_details
 class GroupMembersInfoRequest(
     group_membership.GroupMembersInfoRequest, extends=group_membership.GroupMembersInfoRequest
 ):
-    bank_ids: list[bank_details.BankDetailsRequest] | None
+    bank_ids: list[bank_details.BankDetailsRequest] | None = None

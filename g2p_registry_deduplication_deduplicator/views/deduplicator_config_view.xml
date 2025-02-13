@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_g2p_registry_deduplicator_config_tree" model="ir.ui.view">
+        <field name="name">view_g2p_registry_deduplicator_config_tree</field>
+        <field name="model">g2p.registry.deduplication.deduplicator.config</field>
+        <field name="priority" eval="1" />
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="config_name" />
+                <field name="config_index_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_g2p_registry_deduplicator_config_form" model="ir.ui.view">
+        <field name="name">view_g2p_registry_deduplicator_config_form</field>
+        <field name="model">g2p.registry.deduplication.deduplicator.config</field>
+        <field name="priority" eval="1" />
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        type="object"
+                        class="btn-success"
+                        name="save_upload_config"
+                        title="Sync Config"
+                        string="Sync Config"
+                    />
+                </header>
+                <group name="dedupe_config_base" string="Base">
+                    <field name="name" />
+                    <field name="config_name" />
+                </group>
+                <group name="dedupe_config_params" string="Parameters">
+                    <field name="config_index_name" />
+                    <field name="dedupe_service_base_url" />
+                    <field name="config_fields">
+                        <tree editable="bottom">
+                            <field name="name" />
+                            <field name="fuzziness" />
+                            <field name="weightage" />
+                            <field name="exact" />
+                        </tree>
+                    </field>
+                    <field name="config_score_threshold" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_deduplicator_config" model="ir.actions.act_window">
+        <field name="name">Deduplicator Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">g2p.registry.deduplication.deduplicator.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add an Deduplicator Config!
+            </p><p>
+                Click the create button to configure a new Deduplicator.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="g2p_registry_deduplicator_config_menu"
+        name="Deduplicator Configs"
+        action="action_deduplicator_config"
+        parent="g2p_registry_base.g2p_configuration_menu_root"
+        sequence="2000"
+        groups="g2p_registry_base.group_g2p_admin,g2p_registry_base.group_g2p_registrar"
+    />
+</odoo>

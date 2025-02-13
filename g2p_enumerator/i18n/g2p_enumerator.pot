@@ -40,7 +40,6 @@ msgstr ""
 
 #. module: g2p_enumerator
 #: model:ir.model.fields,field_description:g2p_enumerator.field_g2p_enumerator__create_uid
-#: model_terms:ir.ui.view,arch_db:g2p_enumerator.view_groups_form_enumerator_details
 msgid "Created by"
 msgstr ""
 

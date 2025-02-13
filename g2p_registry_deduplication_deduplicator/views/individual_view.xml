@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_deduplicates_individual_form" model="ir.ui.view">
+        <field name="name">view_deduplicates_individual_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-copy"
+                    name="view_deduplicator_duplicates"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Get Duplicates</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

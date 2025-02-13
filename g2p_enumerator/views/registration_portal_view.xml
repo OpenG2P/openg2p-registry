@@ -21,16 +21,6 @@
         </field>
     </record>
 
-    <record id="view_groups_form_inherit_eid" model="ir.ui.view">
-        <field name="name">view.groups.form.inherit.eid</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='create_uid']" position="after">
-                <field name="creator_eid" readonly="1" />
-            </xpath>
-        </field>
-    </record>
+
 
 </odoo>
-<!-- invisible="context.get('default_supplier_rank') &lt; 1" -->

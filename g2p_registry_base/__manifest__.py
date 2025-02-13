@@ -22,6 +22,7 @@
         "views/tags_view.xml",
         "views/res_config_view.xml",
         "views/district_config.xml",
+        "views/gender_view.xml",
     ],
     "assets": {
         "web.assets_backend": [

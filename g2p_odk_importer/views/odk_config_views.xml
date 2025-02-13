@@ -29,7 +29,10 @@
                         <field name="project" />
                         <field name="form_id" />
                     </group>
-
+                    <group string="Session Details" groups="base.group_no_one">
+                        <field name="session_token" readonly="1" />
+                        <field name="session_expires_at" readonly="1" />
+                    </group>
                 </sheet>
             </form>
         </field>

@@ -1,8 +1,7 @@
-from datetime import date, datetime
+from datetime import datetime
 
-from .individual import IndividualInfoResponse
+from .individual import IndividualInfoRequest, IndividualInfoResponse
 from .naive_orm_model import NaiveOrmModel
-from .registrant import PhoneNumberRequest, RegistrantIDRequest
 
 
 class GroupMembershipKindInfo(NaiveOrmModel):
@@ -17,18 +16,5 @@ class GroupMembersInfoResponse(NaiveOrmModel):
     write_date: datetime = None
 
 
-class GroupMembersInfoRequest(NaiveOrmModel):
-    name: str
-    given_name: str = None
-    addl_name: str = None
-    family_name: str = None
-    ids: list[RegistrantIDRequest] = None
-    registration_date: date = None
-    phone_numbers: list[PhoneNumberRequest] = None
-    email: str | None
-    address: str | None
-    gender: str | None
-    birthdate: date = None
-    birth_place: str | None
-    is_group: bool = False
+class GroupMembersInfoRequest(IndividualInfoRequest):
     kind: list[GroupMembershipKindInfo] = None  # TODO: Would be nicer to have it as a list of str

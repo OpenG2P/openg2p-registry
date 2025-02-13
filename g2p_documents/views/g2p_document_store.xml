@@ -18,6 +18,11 @@
             <xpath expr="//header" postion="inside">
                 <button name="open_store_files_tree" type="object" string="Open Files" class="btn-success" />
             </xpath>
+            <group name="config" position="after">
+                <group name="addl_config">
+                    <field name="mimetype_strategy" />
+                </group>
+            </group>
         </field>
     </record>
 

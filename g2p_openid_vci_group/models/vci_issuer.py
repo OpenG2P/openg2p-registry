@@ -42,6 +42,7 @@ class OpenIDVCIssuerGroup(models.Model):
             raise ValueError("ID not found in DB. Invalid Subject Received in auth claims")
 
         head_kind = self.env.ref("g2p_registry_membership.group_membership_kind_head")
+        # Searches for the first group which in the individual is a HEAD.
         individual_group_membership = (
             self.env["g2p.group.membership"]
             .sudo()
@@ -84,7 +85,7 @@ class OpenIDVCIssuerGroup(models.Model):
 
         group_dict["members"] = group_memberships_dict
         group_dict["head"] = head_member_dict
-        _logger.info("HEAD HEAD %s", group_dict["head"])
+        _logger.info("VC Group: Details gathered. Generating credential.")
 
         curr_datetime = f'{datetime.now().isoformat(timespec = "milliseconds")}Z'
         credential = jq.first(
@@ -99,9 +100,7 @@ class OpenIDVCIssuerGroup(models.Model):
                 },
             ),
         )
-        import json
 
-        _logger.info("TEST VC JSON %s", json.dumps(credential, cls=VCJSONEncoder))
         credential_response = {
             "credential": self.sign_and_issue_credential(credential),
             "format": credential_request["format"],

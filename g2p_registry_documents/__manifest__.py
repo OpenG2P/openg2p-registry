@@ -10,17 +10,12 @@
     "depends": [
         "g2p_documents",
         "g2p_registry_base",
-        "g2p_registry_individual",
-        "g2p_registry_group",
     ],
     "data": [
-        "views/registrant_document_views.xml",
+        "data/config.xml",
+        "views/config_settings.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "g2p_registry_documents/static/src/js/preview_document.js",
-        ],
-    },
+    "assets": {},
     "demo": [],
     "images": [],
     "application": True,

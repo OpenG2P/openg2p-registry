@@ -1,60 +1,56 @@
 /** @odoo-module **/
 
-import {onMounted, useExternalListener, useState} from "@odoo/owl";
+import {markup, useRef, useState} from "@odoo/owl";
 import {TextField} from "@web/views/fields/text/text_field";
 import {_t} from "@web/core/l10n/translation";
 import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 
-export class JsonFieldWidget extends TextField {
+export class G2PRegistryAddlInfoComponent extends TextField {
+    static template = "g2p_registry_addl_info_tpl";
+
     setup() {
         super.setup();
-        this.state = useState({recordClicked: false, noValue: false});
+        this.state = useState({editingMode: false});
+        this.textareaRef = useRef("textarea");
         this.notification = useService("notification");
-        onMounted(() => this.validateValue());
-        useExternalListener(window, "click", this.onclick);
-        useExternalListener(window, "mouseup", this.onMouseup);
     }
 
-    validateValue() {
-        const val = this.props.record.data.additional_g2p_info;
-        if (val) {
-            if ((!(val.charAt(0) === "{") && !(val.charAt(val.length - 1) === "}")) || !val) {
-                this.state.noValue = true;
-            }
-        } else {
-            this.state.noValue = true;
+    editButtonClick() {
+        const val = this.props.record.data[this.props.name];
+        if (typeof val !== "string") {
+            this.props.record.data[this.props.name] = JSON.stringify(val);
         }
+        this.state.editingMode = true;
     }
 
-    onclick(event) {
-        if (this.editingRecord && event.target.closest(".json-widget")) {
-            this.state.recordClicked = true;
-            this.state.noValue = true;
+    doneButtonClick() {
+        let val = null;
+        try {
+            val = JSON.parse(this.textareaRef.el.value);
+        } catch (err) {
+            this.notification.add(_t("Registry Additional Info"), {
+                title: _t("Invalid Json Value"),
+                type: "danger",
+            });
+            console.error(err);
+            return;
         }
-        this.validateValue();
-    }
-
-    onMouseup(ev) {
-        if (!ev.target.closest(".o_field_g2p_registry_addl_info_widget textarea")) {
-            this.state.recordClicked = false;
-            this.state.noValue = false;
+        try {
+            this.props.record.update({[this.props.name]: val});
+            this.state.editingMode = false;
+        } catch (err) {
+            this.notification.add(_t("Registry Additional Info"), {
+                title: _t("Error Updating Json"),
+                type: "danger",
+            });
+            console.error(err);
         }
-        this.validateValue();
-    }
-
-    get editingRecord() {
-        return !this.props.readonly;
     }
 
     renderjson() {
+        const valuesJsonOrig = this.props.record.data[this.props.name];
         try {
-            const valuesJsonOrig = this.props.record.data.additional_g2p_info;
-            if (typeof valuesJsonOrig === "string" || valuesJsonOrig instanceof String) {
-                const parsedValue = JSON.parse(valuesJsonOrig);
-                return parsedValue;
-            }
-
             if (Array.isArray(valuesJsonOrig)) {
                 const sectionsJson = {};
                 valuesJsonOrig.forEach((element) => {
@@ -65,31 +61,51 @@ export class JsonFieldWidget extends TextField {
             const valuesJson = this.flattenJson(valuesJsonOrig);
             return valuesJson;
         } catch (err) {
-            this.notification.add(_t("Additional Information"), {
+            console.error(err);
+            this.notification.add(_t("Registry Additional Info"), {
                 title: _t("Invalid Json Value"),
                 type: "danger",
             });
-            this.state.recordClicked = true;
+            this.state.editingMode = true;
             return {};
         }
     }
 
     flattenJson(object) {
-        const jsonObject = JSON.parse(JSON.stringify(object));
+        let jsonObject = object;
+        if (typeof object === "string") {
+            jsonObject = JSON.parse(object);
+        }
         for (const key in jsonObject) {
-            if (typeof jsonObject[key] === "object") {
-                jsonObject[key] = JSON.stringify(jsonObject[key]);
+            if (!jsonObject[key]) {
+                continue;
+            } else if (
+                Array.isArray(jsonObject[key]) &&
+                jsonObject[key].length > 0 &&
+                typeof jsonObject[key][0] === "object" &&
+                "document_id" in jsonObject[key][0] &&
+                "document_slug" in jsonObject[key][0]
+            ) {
+                var documentFiles = "";
+                for (var i = 0; i < jsonObject[key].length; i++) {
+                    const document_slug = jsonObject[key][i].document_slug;
+                    const host = window.location.origin;
+                    if (i > 0) {
+                        documentFiles += `<br />`;
+                    }
+                    documentFiles += `<a href="${host}/storage.file/${document_slug}" target="_blank">${document_slug}<span class="fa fa-fw fa-external-link"></span></a>`;
+                }
+                jsonObject[key] = markup(documentFiles);
+            } else if (typeof jsonObject[key] === "object") {
+                jsonObject[key] = this.flattenJson(jsonObject[key]);
             }
         }
         return jsonObject;
     }
 }
 
-JsonFieldWidget.template = "addl_info_each_table";
-
-export const JsonField = {
-    component: JsonFieldWidget,
-    supportedTypes: ["json", "text", "html"],
+export const g2pRegistryAddlInfoWidget = {
+    component: G2PRegistryAddlInfoComponent,
+    supportedTypes: ["jsonb", "text", "html"],
 };
-
-registry.category("fields").add("g2p_registry_addl_info_widget", JsonField);
+registry.category("fields").add("g2p_registry_addl_info_widget", g2pRegistryAddlInfoWidget);

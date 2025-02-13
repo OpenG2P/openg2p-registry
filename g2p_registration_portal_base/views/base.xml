@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="custom_base" name="G2P Registration Portal Base" inherit_id="g2p_agent_portal_base.base">
+        <xpath expr="//header//img[@class='main-logo']" position="attributes">
+            <attribute name="src">/g2p_registration_portal_base/static/src/img/logo@2x.png</attribute>
+        </xpath>
+
+        <xpath expr="//footer//img[@class='main-logo']" position="attributes">
+            <attribute name="src">/g2p_registration_portal_base/static/src/img/logo@2x.png</attribute>
+        </xpath>
+    </template>
+</odoo>

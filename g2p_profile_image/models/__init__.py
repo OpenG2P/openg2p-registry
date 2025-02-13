@@ -1,1 +1,2 @@
-from . import profile_image, document_file
+from . import res_config_settings
+from . import registrant

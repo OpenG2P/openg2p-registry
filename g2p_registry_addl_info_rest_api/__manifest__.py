@@ -15,6 +15,6 @@
     "demo": [],
     "images": [],
     "application": False,
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }

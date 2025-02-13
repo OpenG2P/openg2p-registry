@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="view_datashare_websub_manual_trigger_form" model="ir.ui.view">
+        <field name="name">view_datashare_websub_manual_trigger_form</field>
+        <field name="model">g2p.datashare.config.websub.manual.trigger</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="domain" widget="domain" options="{'model': 'res.partner'}" />
+                </group>
+                <footer>
+                    <button
+                        name="publish_records_manually_trigger"
+                        string="Publish Records"
+                        title="Publish Records"
+                        type="object"
+                        class="oe_highlight btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

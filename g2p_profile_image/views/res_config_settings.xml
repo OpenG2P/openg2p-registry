@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="g2p_registry_base.openg2p_inherit_res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <app name="g2p_config_settings" position="inside">
+                <block name="g2p_profile_image_settings" title="G2P Profile Image Settings">
+                    <setting
+                        string="Image Document Store Config"
+                        help="Select the document store to be used for storing Profile Images. Restart Odoo after changing this."
+                    >
+                        <field name="g2p_profile_image_document_store" />
+                    </setting>
+                </block>
+            </app>
+        </field>
+    </record>
+</odoo>
