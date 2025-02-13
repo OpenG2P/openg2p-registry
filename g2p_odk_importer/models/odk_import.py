@@ -335,6 +335,7 @@ class OdkImport(models.Model):
                             "id_type": id_type.id,
                             "value": reg_id.get("value"),
                             "expiry_date": reg_id.get("expiry_date"),
+                            "status": reg_id.get("status"),
                         },
                     )
                 )
