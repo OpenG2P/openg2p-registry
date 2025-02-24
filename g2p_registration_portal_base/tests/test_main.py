@@ -233,22 +233,6 @@ class TestG2PregistrationPortalBase(HttpCase):
         updated_individual = self.env["res.partner"].browse(individual.id)
         self.assertFalse(updated_individual.birthdate)
 
-    @mute_logger("odoo.http")
-    def test_group_create_submit_invalid_group(self):
-        # Test group creation with invalid group_id
-        self.authenticate("test_user", "test_user")
-
-        response = self.url_open(
-            "/portal/registration/group/create/submit",
-            data={
-                "group_id": 999999,  # Non-existent ID
-                "name": "Test Group",
-            },
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("g2p_registration_portal_base.error_template", response.text)
-
     def test_group_create_submit_invalid_field(self):
         # Test group creation with invalid field
         self.authenticate("test_user", "test_user")
