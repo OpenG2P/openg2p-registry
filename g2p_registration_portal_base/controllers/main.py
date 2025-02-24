@@ -11,6 +11,11 @@ _logger = logging.getLogger(__name__)
 
 
 class G2PregistrationPortalBase(AgentPortalBase):
+    ################################################################################
+    #                      Controllers for Household Creation,                     #
+    #                        Submission, and Update                                #
+    ################################################################################
+
     @http.route("/portal/registration/group", type="http", auth="user", website=True)
     def group_list(self, **kw):
         user = request.env.user
@@ -64,7 +69,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         try:
             head_name = kw.get("name")
             beneficiary_id = None
-            # Group creation
             if kw.get("group_id"):
                 beneficiary_id = request.env["res.partner"].sudo().browse(int(kw.get("group_id"))).id
             else:
@@ -76,13 +80,55 @@ class G2PregistrationPortalBase(AgentPortalBase):
                         "is_registrant": True,
                         "is_group": True,
                         "birthdate": kw.get("birthdate"),
+                        "email": kw.get("email"),
+                        "address": kw.get("address"),
                         "gender": kw.get("gender"),
                         "user_id": user.id,
                     }
 
                     beneficiary_obj = request.env["res.partner"].sudo().create(data)
-
                     beneficiary_id = beneficiary_obj.id
+
+                    # Create a group head as member
+                    head_name_parts = head_name.split(" ")
+                    h_given_name = head_name_parts[0]
+                    h_family_name = head_name_parts[-1]
+
+                    if len(head_name_parts) > 2:
+                        h_addl_name = " ".join(head_name_parts[1:-1])
+                    else:
+                        h_addl_name = ""
+
+                    formatted_name = f"{h_family_name} , {h_given_name} {h_addl_name}"
+
+                    head_individual = (
+                        request.env["res.partner"]
+                        .sudo()
+                        .create(
+                            {
+                                "name": formatted_name,
+                                "given_name": h_given_name,
+                                "addl_name": h_addl_name,
+                                "family_name": h_family_name,
+                                "email": kw.get("email"),
+                                "address": kw.get("address"),
+                                "birthdate": kw.get("birthdate"),
+                                "gender": kw.get("gender"),
+                                "is_registrant": True,
+                                "is_group": False,
+                                "user_id": user.id,
+                            }
+                        )
+                    )
+
+                    # Create membership relationship between head and group
+                    group_membership_vals = [
+                        (0, 0, {"individual": head_individual.id, "group": beneficiary_id})
+                    ]
+
+                    # Update the group with this membership
+                    beneficiary_obj.write({"group_membership_ids": group_membership_vals})
+
             beneficiary = request.env["res.partner"].sudo().browse(beneficiary_id)
 
             if not beneficiary:
@@ -90,12 +136,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
                     "g2p_registration_portal_base.error_template",
                     {"error_message": "Beneficiary not found."},
                 )
-
-            for key, value in kw.items():
-                if key in beneficiary:
-                    beneficiary.write({key: value})
-                else:
-                    _logger.error(f"Ignoring invalid key: {key}")
 
             return request.redirect("/portal/registration/group")
 
@@ -175,7 +215,11 @@ class G2PregistrationPortalBase(AgentPortalBase):
                 {"error_message": "An error occurred. Please try again later."},
             )
 
-    # Creating Group members
+    ################################################################################
+    #                      Controllers for Member Creation,                        #
+    #                        Submission, and Update                                #
+    ################################################################################
+
     @http.route(
         ["/portal/registration/member/create/"],
         type="http",
@@ -189,7 +233,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
             user = request.env.user
             head_name = kw.get("Household_name")
             head_individual = None
-            # Group creation
+
             if kw.get("group_id"):
                 group_rec = request.env["res.partner"].sudo().browse(int(kw.get("group_id")))
             else:
@@ -201,9 +245,10 @@ class G2PregistrationPortalBase(AgentPortalBase):
                             {"name": head_name, "is_registrant": True, "is_group": True, "user_id": user.id}
                         )
                     )
-                    # Head creation
+
                     head_name_parts = head_name.split(" ")
                     h_given_name = head_name_parts[0]
+
                     h_family_name = head_name_parts[-1]
 
                     if len(head_name_parts) > 2:
@@ -211,21 +256,23 @@ class G2PregistrationPortalBase(AgentPortalBase):
                     else:
                         h_addl_name = ""
 
-                    name = f"{h_given_name}, {h_addl_name} {h_family_name}"
+                    name = f"{h_family_name} , {h_given_name} {h_addl_name}"
 
                     head_individual = (
                         request.env["res.partner"]
                         .sudo()
                         .create(
                             {
-                                "given_name": h_given_name,
                                 "name": name,
+                                "given_name": h_given_name,
                                 "addl_name": h_addl_name,
                                 "family_name": h_family_name,
                                 "birthdate": kw.get("Household_dob"),
                                 "gender": kw.get("Household_gender"),
                                 "email": kw.get("Household_email"),
                                 "address": kw.get("Household_address"),
+                                "is_registrant": True,
+                                "is_group": False,
                                 "user_id": user.id,
                             }
                         )
@@ -235,13 +282,13 @@ class G2PregistrationPortalBase(AgentPortalBase):
             family_name = kw.get("family_name")
             addl_name = kw.get("addl_name")
 
-            name = f"{given_name}, {addl_name} {family_name}"
+            name = f"{family_name}, {given_name} {addl_name}"
 
             partner_data = {
                 "name": name,
                 "given_name": given_name,
-                "family_name": family_name,
                 "addl_name": addl_name,
+                "family_name": family_name,
                 "birthdate": kw.get("dob"),
                 "gender": kw.get("gender"),
                 "email": kw.get("email"),
@@ -333,18 +380,17 @@ class G2PregistrationPortalBase(AgentPortalBase):
             member = request.env["res.partner"].sudo().browse(int(kw.get("member_id")))
             res = dict()
             if member:
-                # birthdate = datetime.strptime(kw["birthdate"], "%Y-%m-%d").date()
                 given_name = kw.get("given_name")
                 family_name = kw.get("family_name")
                 addl_name = kw.get("addl_name")
 
-                name = f"{given_name}, {addl_name} {family_name}"
+                name = f"{family_name}, {given_name} {addl_name}"
 
                 member.sudo().write(
                     {
+                        "name": name,
                         "given_name": given_name,
                         "addl_name": addl_name,
-                        "name": name,
                         "family_name": family_name,
                         "birthdate": kw.get("birthdate"),
                         "gender": kw.get("gender"),
@@ -352,7 +398,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                         "address": kw.get("address"),
                     }
                 )
-                # group = request.env["res.partner"].sudo().browse(int(kw.get("group_id")))
+
                 member_list = []
 
                 for membership in member:
@@ -379,7 +425,10 @@ class G2PregistrationPortalBase(AgentPortalBase):
             _logger.error("Error occurred during member submit: %s", e)
             return json.dumps({"error": "Failed to update member details"})
 
-    ############### Controller for Individual Creation ################
+    ################################################################################
+    #                      Controllers for Individual Creation,                   #
+    #                        Submission, and Update                               #
+    ################################################################################
 
     @http.route("/portal/registration/individual", type="http", auth="user", website=True)
     def individual_list(self, **kw):
@@ -436,29 +485,20 @@ class G2PregistrationPortalBase(AgentPortalBase):
             else:
                 birthdate = kw.get("birthdate")
 
-            registrant = (
-                request.env["res.partner"]
-                .sudo()
-                .create(
-                    {
-                        "given_name": kw.get("given_name"),
-                        "addl_name": kw.get("addl_name"),
-                        "family_name": kw.get("family_name"),
-                        "name": name,
-                        "birthdate": birthdate,
-                        "gender": kw.get("gender"),
-                        "email": kw.get("email"),
-                        "user_id": user.id,
-                        "is_registrant": True,
-                        "is_group": False,
-                    }
-                )
+            request.env["res.partner"].sudo().create(
+                {
+                    "name": name,
+                    "given_name": kw.get("given_name"),
+                    "addl_name": kw.get("addl_name"),
+                    "family_name": kw.get("family_name"),
+                    "birthdate": birthdate,
+                    "gender": kw.get("gender"),
+                    "email": kw.get("email"),
+                    "user_id": user.id,
+                    "is_registrant": True,
+                    "is_group": False,
+                }
             )
-            for key, value in kw.items():
-                if key in registrant:
-                    registrant.write({key: value})
-                else:
-                    _logger.error(f"Ignoring invalid key: {key}")
 
             return request.redirect("/portal/registration/individual")
 
@@ -524,22 +564,16 @@ class G2PregistrationPortalBase(AgentPortalBase):
 
                 member = member.sudo().write(
                     {
+                        "name": name,
                         "given_name": kw.get("given_name"),
                         "addl_name": kw.get("addl_name"),
                         "family_name": kw.get("family_name"),
-                        "name": name,
                         "birthdate": birthdate,
                         "gender": kw.get("gender"),
                         "email": kw.get("email"),
                         "address": kw.get("address"),
                     }
                 )
-
-                for key, value in kw.items():
-                    if key in member:
-                        member.write({key: value})
-                    else:
-                        _logger.error(f"Ignoring invalid key: {key}")
 
             return request.redirect("/portal/registration/individual")
 
