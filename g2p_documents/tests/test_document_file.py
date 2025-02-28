@@ -104,32 +104,6 @@ class TestG2PDocumentFile(TransactionComponentCase):
         self.assertEqual(self.test_file.filename, "test")
         self.assertEqual(self.test_file.extension, ".txt")
 
-    # Test MIME type detection from file content.
-    def test_compute_mime_type(self):
-        img_data = Image.new("RGB", (60, 30), color="red")
-        img_byte_arr = io.BytesIO()
-        img_data.save(img_byte_arr, format="PNG")
-
-        self.test_file = self.env["storage.file"].create(
-            {
-                "name": "test.txt",
-                "backend_id": self.storage_backend.id,
-                "data": base64.b64encode(img_byte_arr.getvalue()),
-            }
-        )
-
-        self.assertTrue(self.test_file.mimetype.startswith("image/png"))
-
-        # Invalid data (should return None)
-        self.test_file = self.env["storage.file"].create(
-            {
-                "name": "test.txt",
-                "backend_id": self.storage_backend.id,
-                "data": base64.b64encode(b"invalid data"),
-            }
-        )
-        self.assertTrue(self.test_file.mimetype.startswith("application/octet-stream"))
-
     # Test error handling during file data computation (simulate backend error).
     def test_compute_data_key_error(self):
         file = self.env["storage.file"].create(

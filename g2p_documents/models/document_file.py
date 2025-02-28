@@ -1,6 +1,5 @@
 import base64
 import logging
-import mimetypes
 import os
 import re
 import uuid
@@ -17,7 +16,7 @@ class G2PDocumentFile(models.Model):
 
     tags_ids = fields.Many2many("g2p.document.tag")
 
-    mimetype = fields.Char("Mime Type", compute="_compute_mime_type", store=True)
+    mimetype = fields.Char("Mime Type", compute="_compute_extract_filename", store=True)
     file_type = fields.Char(compute="_compute_file_type", store=False)
 
     @api.model
@@ -42,14 +41,27 @@ class G2PDocumentFile(models.Model):
             ]
         return self.filtered(lambda x: any((x.tags_ids and tag in x.tags_ids.name) for tag in tags))
 
-    @api.depends("name", "data", "backend_id")
-    def _compute_mime_type(self):
-        for rec in self:
-            if rec.backend_id.mimetype_strategy == "from_file_name" and rec.name:
-                rec.mimetype, __ = mimetypes.guess_type(rec.name)
-            elif rec.data:
-                # Defaults of "from_data" mode even if empty.
-                rec.mimetype = guess_mimetype(base64.b64decode(rec.data))
+    def _inverse_data(self):
+        for record in self:
+            record.write(record._prepare_meta_for_file())
+            if not record.mimetype:
+                binary_data = base64.b64decode(record.data)
+                mimetype = self._get_mime_type(binary_data)
+                record.mimetype = mimetype
+
+            record.backend_id.sudo().add(
+                record.relative_path,
+                record.data,
+                mimetype=record.mimetype,
+                binary=False,
+            )
+
+    def _get_mime_type(self, binary_data):
+        try:
+            return guess_mimetype(binary_data)
+        except OSError as e:
+            _logger.info(f"Unexpected error in MIME detection: {e}")
+            return None
 
     def _compute_extract_filename(self):
         for rec in self:
