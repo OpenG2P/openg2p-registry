@@ -267,6 +267,7 @@ class OdkImport(models.Model):
 
             self.process_records_handle_one2many_fields(mapped_json)
             self.process_records_handle_media_import(mapped_json, member)
+            self.process_records_handle_many2one_fields(mapped_json)
 
             self.process_records_handle_addl_data(mapped_json)
 
@@ -277,6 +278,15 @@ class OdkImport(models.Model):
         data.update({"partner_count": partner_count})
 
         return data
+
+    def process_records_handle_many2one_fields(self, mapped_json):
+        self.ensure_one()
+        if self.target_registry == "group" and "kind" in mapped_json:
+            kind_name = mapped_json.get("kind")
+            if kind_name:
+                kind_record = self.env["g2p.group.kind"].search([("name", "=", kind_name)], limit=1)
+                if kind_record:
+                    mapped_json["kind"] = kind_record.id
 
     def process_records_handle_one2many_fields(self, mapped_json):
         self.ensure_one()

@@ -52,6 +52,8 @@ class OdkImport(models.Model):
             attachm = None
             if filename:
                 attachm = self.odk_config.download_attachment(instance_id, filename)
+            else:
+                continue
 
             storage_backend_id = doc_mapping.get("backend_id", default_storage_backend_id)
 
