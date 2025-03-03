@@ -30,7 +30,7 @@ class OdkConfig(models.Model):
         if (
             self.session_token
             and self.session_expires_at
-            and self.session_expires_at.replace(tzinfo=timezone.utc) > datetime.now(tz=timezone.utc)
+            and self.session_expires_at > datetime.now().astimezone(timezone.utc).replace(tzinfo=None)
         ):
             return self.session_token
         login_url = f"{self.base_url}/v1/sessions"

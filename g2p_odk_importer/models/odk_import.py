@@ -268,6 +268,7 @@ class OdkImport(models.Model):
             self.process_records_handle_one2many_fields(mapped_json)
             self.process_records_handle_media_import(mapped_json, member)
             self.process_records_handle_many2one_fields(mapped_json)
+
             self.process_records_handle_addl_data(mapped_json)
 
             self.env["res.partner"].sudo().create(mapped_json)
