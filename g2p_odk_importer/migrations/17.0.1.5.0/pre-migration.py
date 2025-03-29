@@ -24,6 +24,11 @@ def migrate(cr, version):
         cr.execute(
             "SELECT COUNT(*) FROM ir_ui_view WHERE name = 'odk.res.config.settings.view.inherit.setup';"
         )
+        cr.execute(
+            "SELECT id FROM ir_model_data WHERE model='ir.ui.view' AND name='odk_res_config_settings_view_inherit_setup';")
+        res = cr.fetchone()
+        if res:
+            cr.execute("DELETE FROM ir_model_data WHERE id=%s", (res[0],))
         if cr.fetchone()[0] > 0:
             cr.execute("DELETE FROM ir_ui_view WHERE name = 'odk.res.config.settings.view.inherit.setup';")
 
