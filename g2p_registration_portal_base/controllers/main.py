@@ -24,20 +24,10 @@ class G2PregistrationPortalBase(AgentPortalBase):
             ("active", "=", True),
             ("is_registrant", "=", True),
             ("is_group", "=", True),
+            "|",
+            ("user_id", "=", user.id),
+            ("enumerator_id.enumerator_user_id", "=", user.id),
         ]
-
-        partner = user.partner_id
-
-        subdomain = [("user_id", "=", user.id)]
-
-        if partner and partner.odk_app_user:
-            subdomain = [
-                "|",
-                ("enumerator_id.enumerator_user_id", "=", partner.odk_app_user.odk_user_id),
-                ("user_id", "=", user.id),
-            ]
-
-        domain += subdomain
 
         group = request.env["res.partner"].sudo().search(domain)
 
@@ -442,7 +432,9 @@ class G2PregistrationPortalBase(AgentPortalBase):
                     ("active", "=", True),
                     ("is_registrant", "=", True),
                     ("is_group", "=", False),
+                    "|",
                     ("user_id", "=", user.id),
+                    ("enumerator_id.enumerator_user_id", "=", user.id),
                 ]
             )
         )

@@ -6,7 +6,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "account", "g2p_odk_importer"],
+    "depends": ["base", "account", "g2p_odk_importer", "g2p_enumerator", "g2p_registration_portal_base"],
     "data": [
         "security/ir.model.access.csv",
         "views/registration_user_backend_view.xml",
@@ -16,6 +16,9 @@
         "web.assets_frontend": [],
         "web.assets_common": [],
         "website.assets_wysiwyg": [],
+        "web.assets_backend": [
+            "g2p_odk_user_mapping/static/src/css/style.css",
+        ],
     },
     "application": True,
     "installable": True,
