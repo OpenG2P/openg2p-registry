@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <menuitem id="odk_menu_root" name="ODK" sequence="30" active="True" />
+    <menuitem
+        id="odk_menu_root"
+        name="ODK"
+        sequence="30"
+        active="True"
+        groups="g2p_odk_importer.group_g2p_odk"
+    />
     <menuitem
         id="odk_import_menu"
         name="ODK Import"
