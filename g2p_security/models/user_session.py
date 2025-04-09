@@ -1,13 +1,15 @@
-from odoo import api, models, tools, http
-from odoo.http import request, SessionExpiredException
+import logging
 from os import utime
 from os.path import getmtime
 from time import time
-import logging
+
+from odoo import api, http, models, tools
+from odoo.http import SessionExpiredException, request
 
 _logger = logging.getLogger(__name__)
 
 SESSION_TIMEOUT_KEY = "inactive_session_timeout_seconds"
+
 
 class IrConfigParameter(models.Model):
     _inherit = "ir.config_parameter"
@@ -20,7 +22,7 @@ class IrConfigParameter(models.Model):
             .sudo()
             .get_param(
                 SESSION_TIMEOUT_KEY,
-                7200,  
+                7200,
             )
         )
 
@@ -30,6 +32,7 @@ class IrConfigParameter(models.Model):
         if SESSION_TIMEOUT_KEY == self.key:
             self.env.registry.clear_cache()
         return result
+
 
 class IrHttp(models.AbstractModel):
     _inherit = "ir.http"
@@ -48,9 +51,10 @@ class IrHttp(models.AbstractModel):
             request.env.user._check_session_timeout()
         return result
 
+
 class ResUsers(models.Model):
     _inherit = "res.users"
-    
+
     @api.model
     def _calculate_session_expiry(self):
         config = self.env["ir.config_parameter"]
@@ -58,7 +62,7 @@ class ResUsers(models.Model):
         if timeout_delay <= 0:
             return False
         return time() - timeout_delay
-    
+
     @api.model
     def _logout_user_session(self, user_session):
         if user_session.db and user_session.uid:
@@ -73,7 +77,7 @@ class ResUsers(models.Model):
         user_session = http.request.session
         session_deadline = self._calculate_session_expiry()
         is_session_expired = False
-        
+
         if session_deadline:
             session_file_path = http.root.session_store.get_session_filename(user_session.sid)
             try:
@@ -82,14 +86,14 @@ class ResUsers(models.Model):
             except OSError:
                 _logger.exception("Error while reading session file's modification time.")
                 is_session_expired = True
-        
+
         session_terminated = False
         if is_session_expired:
             session_terminated = self._logout_user_session(user_session)
 
         if session_terminated:
             return SessionExpiredException("The session has expired.")
-        
+
         # Update the session file's modification time if the user is active
         if http.request.httprequest.path:
             session_file_path = http.root.session_store.get_session_filename(user_session.sid)
