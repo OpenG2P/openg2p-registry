@@ -6,12 +6,8 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": [
-        "base"
-    ],
-    "data": [
-        "data/ir_config_parameter_data.xml"
-    ],
+    "depends": ["base"],
+    "data": ["data/ir_config_parameter_data.xml"],
     "application": True,
     "installable": True,
     "auto_install": False,
