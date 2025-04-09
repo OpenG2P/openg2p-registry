@@ -1,0 +1,7 @@
+
+<odoo noupdate="1">
+    <record id="inactive_session_timeout" model="ir.config_parameter">
+        <field name="key">inactive_session_timeout_seconds</field>
+        <field name="value">7200</field>
+    </record>
+</odoo>
