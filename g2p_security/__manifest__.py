@@ -1,3 +1,5 @@
+# Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+
 {
     "name": "G2P Security",
     "category": "G2P",
@@ -6,8 +8,8 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base"],
-    "data": ["data/ir_config_parameter_data.xml"],
+    "depends": ["base", "auth_signup"],
+    "data": ["data/ir_config_parameter_data.xml", "security/security.xml"],
     "application": True,
     "installable": True,
     "auto_install": False,

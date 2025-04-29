@@ -3,4 +3,8 @@
         <field name="key">inactive_session_timeout_seconds</field>
         <field name="value">7200</field>
     </record>
+    <record id="hide_db_param" model="ir.config_parameter">
+        <field name="key">g2p_security.hide_db_param</field>
+        <field name="value">True</field>
+    </record>
 </odoo>
