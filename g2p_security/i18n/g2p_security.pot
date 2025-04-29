@@ -14,8 +14,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: g2p_security
+#: model:ir.model,name:g2p_security.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_security
 #: model:ir.model,name:g2p_security.model_ir_http
 msgid "HTTP Routing"
+msgstr ""
+
+#. module: g2p_security
+#: model:res.groups,name:g2p_security.group_restrict_debug_mode
+msgid "Restrict Debug Mode"
 msgstr ""
 
 #. module: g2p_security
