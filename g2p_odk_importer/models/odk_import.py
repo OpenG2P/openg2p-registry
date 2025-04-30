@@ -265,11 +265,13 @@ class OdkImport(models.Model):
             elif self.target_registry == "group":
                 mapped_json.update({"is_registrant": True, "is_group": True})
 
+            self.process_records_handle_enumerator_info(mapped_json, member)
             self.process_records_handle_one2many_fields(mapped_json)
             self.process_records_handle_media_import(mapped_json, member)
             self.process_records_handle_many2one_fields(mapped_json)
-
             self.process_records_handle_addl_data(mapped_json)
+
+            self.cleanup_enumerator_metadata(mapped_json)
 
             self.env["res.partner"].sudo().create(mapped_json)
             partner_count += 1
@@ -278,6 +280,14 @@ class OdkImport(models.Model):
         data.update({"partner_count": partner_count})
 
         return data
+
+    def process_records_handle_enumerator_info(self, mapped_json, member):
+        """Processes records from ODK and assigns odk_app_user_id"""
+        pass
+
+    def cleanup_enumerator_metadata(self, mapped_json):
+        """Removes temporary enumerator details that were used during processing"""
+        pass
 
     def process_records_handle_many2one_fields(self, mapped_json):
         self.ensure_one()
@@ -315,6 +325,9 @@ class OdkImport(models.Model):
 
             for individual_mem in group_membership_data:
                 individual_data = self.get_individual_data(individual_mem)
+
+                self.get_enumerator_info(mapped_json, individual_data)
+
                 individual = self.env["res.partner"].sudo().create(individual_data)
                 if individual:
                     kind = self.get_member_kind(individual_mem)
@@ -363,6 +376,10 @@ class OdkImport(models.Model):
     def process_records_handle_addl_data(self, mapped_json):
         # Override this method to add more data
         return mapped_json
+
+    def get_enumerator_info(self, mapped_json, individual_data):
+        """Assigns odk_app_user_id and enumerator details for group members."""
+        pass
 
     def get_member_kind(self, record):
         kind_as_str = record.get("kind", None)
