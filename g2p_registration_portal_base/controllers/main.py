@@ -74,6 +74,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                         "address": kw.get("address"),
                         "gender": kw.get("gender"),
                         "user_id": user.id,
+                        "creator_eid": user.partner_id.eid,
                     }
 
                     beneficiary_obj = request.env["res.partner"].sudo().create(data)
@@ -107,6 +108,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                                 "is_registrant": True,
                                 "is_group": False,
                                 "user_id": user.id,
+                                "creator_eid": user.partner_id.eid,
                             }
                         )
                     )
@@ -232,7 +234,13 @@ class G2PregistrationPortalBase(AgentPortalBase):
                         request.env["res.partner"]
                         .sudo()
                         .create(
-                            {"name": head_name, "is_registrant": True, "is_group": True, "user_id": user.id}
+                            {
+                                "name": head_name,
+                                "is_registrant": True,
+                                "is_group": True,
+                                "user_id": user.id,
+                                "creator_eid": user.partner_id.eid,
+                            }
                         )
                     )
 
@@ -264,6 +272,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                                 "is_registrant": True,
                                 "is_group": False,
                                 "user_id": user.id,
+                                "creator_eid": user.partner_id.eid,
                             }
                         )
                     )
@@ -286,6 +295,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                 "is_registrant": True,
                 "is_group": False,
                 "user_id": user.id,
+                "creator_eid": user.partner_id.eid,
             }
 
             # TODO: Relationship logic need to build later
@@ -487,6 +497,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
                     "gender": kw.get("gender"),
                     "email": kw.get("email"),
                     "user_id": user.id,
+                    "creator_eid": user.partner_id.eid,
                     "is_registrant": True,
                     "is_group": False,
                 }
