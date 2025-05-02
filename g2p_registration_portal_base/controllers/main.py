@@ -16,7 +16,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
     #                        Submission, and Update                                #
     ################################################################################
 
-    @http.route("/portal/registration/group", type="http", auth="user", website=True)
+    @http.route("/portal/registration/group", type="http", auth="user")
     def group_list(self, **kw):
         user = request.env.user
 
@@ -47,7 +47,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/group/create/"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def group_create(self, **kw):
@@ -62,7 +61,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/group/create/submit"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def group_create_submit(self, **kw):
@@ -150,7 +148,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/group/update/<int:_id>"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def group_update(self, _id, **kw):
@@ -183,7 +180,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/group/update/submit/"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def group_submit(self, **kw):
@@ -224,7 +220,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/member/create/"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def individual_create(self, **kw):
@@ -344,7 +339,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         "/portal/registration/member/update/",
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def update_member(self, **kw):
@@ -372,7 +366,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         "/portal/registration/member/update/submit/",
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def update_member_submit(self, **kw):
@@ -430,7 +423,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
     #                        Submission, and Update                               #
     ################################################################################
 
-    @http.route("/portal/registration/individual", type="http", auth="user", website=True)
+    @http.route("/portal/registration/individual", type="http", auth="user")
     def individual_list(self, **kw):
         user = request.env.user
 
@@ -452,7 +445,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/individual/create/"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def individual_registrar_create(self, **kw):
@@ -466,7 +458,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/individual/create/submit"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def individual_create_submit(self, **kw):
@@ -513,7 +504,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         ["/portal/registration/individual/update/<int:_id>"],
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def indvidual_update(self, _id, **kw):
@@ -543,7 +533,6 @@ class G2PregistrationPortalBase(AgentPortalBase):
         "/portal/registration/individual/update/submit",
         type="http",
         auth="user",
-        website=True,
         csrf=False,
     )
     def update_individual_submit(self, **kw):
