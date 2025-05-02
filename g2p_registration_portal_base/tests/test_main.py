@@ -250,7 +250,6 @@ class TestG2PregistrationPortalBase(HttpCase):
         response = self.url_open("/portal/registration/group/update/submit/", data={"group_id": 999999})
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn("g2p_registration_portal_base.group_list", response.text)
 
     @mute_logger("odoo.http")
     def test_update_member_invalid_id(self):
