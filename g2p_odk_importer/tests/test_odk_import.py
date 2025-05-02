@@ -14,7 +14,7 @@ class TestOdkImport(TransactionCase):
                 "name": "Test ODK Config",
                 "base_url": "http://example.com",
                 "username": "test_user",
-                "password": "test_password",
+                "password": "TestPassword1!",
                 "project": 1,
                 "form_id": "test_form_id",
             }
