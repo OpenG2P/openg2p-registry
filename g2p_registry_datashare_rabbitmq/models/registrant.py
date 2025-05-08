@@ -6,7 +6,9 @@ class ResPartner(models.Model):
 
     def _push_to_rabbitmq(self):
         """Push the record to RabbitMQ after applying JQ transformation."""
-        configs = self.env["g2p.datashare.config.rabbitmq"].search([("active", "=", True)])
+        configs = self.env["g2p.datashare.config.rabbitmq"].search(
+            [("active", "=", True), ("data_source", "=", "registry")]
+        )
         for rec in self:
             if rec.is_registrant:
                 rec_data = rec.read()[0]

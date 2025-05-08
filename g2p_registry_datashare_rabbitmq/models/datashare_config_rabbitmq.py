@@ -23,6 +23,15 @@ class G2PDatashareConfigRabbitMQ(models.Model):
     vhost = fields.Char(default="/")
     exchange = fields.Char(required=True)
     routing_key = fields.Char(required=True)
+
+    data_source = fields.Selection(
+        [
+            ("registry", "Registry"),
+        ],
+        required=True,
+        help="Specifies which data should be shared through this configuration",
+    )
+
     transform_data_jq = fields.Text(
         string="Data Transform JQ Expression",
         default="""{}""",

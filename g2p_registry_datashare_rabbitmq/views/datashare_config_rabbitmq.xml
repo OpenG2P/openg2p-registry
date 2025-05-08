@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="data_source" />
                 <field name="active" />
             </tree>
         </field>
@@ -19,6 +20,7 @@
                 <sheet>
                     <group name="basic_details">
                         <field name="name" />
+                        <field name="data_source" />
                         <field name="active" />
                     </group>
                     <group string="RabbitMQ Connection" name="rabbitmq_details">
