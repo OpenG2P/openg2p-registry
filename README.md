@@ -48,6 +48,7 @@ addon | version | maintainers | summary
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.5.0 |  | G2P Registry: Additional Info
 [g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.5.0 |  | G2P Registry: Additional Info REST API
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.5.0 |  | G2P Registry: Base
+[g2p_registry_datashare_rabbitmq](g2p_registry_datashare_rabbitmq/) | 17.0.1.5.0 |  | G2P Registry Datashare: RabbitMQ
 [g2p_registry_datashare_websub](g2p_registry_datashare_websub/) | 17.0.1.5.0 |  | G2P Registry Datashare: WebSub
 [g2p_registry_deduplication_deduplicator](g2p_registry_deduplication_deduplicator/) | 17.0.1.5.0 |  | OpenG2P Registry Deduplication - Deduplicator
 [g2p_registry_document_encryption](g2p_registry_document_encryption/) | 17.0.1.5.0 |  | G2P Registry Document Encryption
