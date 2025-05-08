@@ -15,6 +15,7 @@
         "g2p_registry_base",
     ],
     "data": [
+        "security/odk_groups.xml",
         "security/ir.model.access.csv",
         "views/odk_config_views.xml",
         "views/odk_import_views.xml",
