@@ -14,7 +14,8 @@ class ResPartner(models.Model):
                 rec_data = rec.read()[0]
                 for config in configs:
                     transformed = config.transform_data(rec_data)
-                    config.publish(transformed)
+                    if transformed is not None:
+                        config.publish(transformed)
 
     @api.model_create_multi
     def create(self, vals_list):

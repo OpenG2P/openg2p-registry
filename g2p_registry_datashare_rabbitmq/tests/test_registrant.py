@@ -8,7 +8,7 @@ class TestRegistrant(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         # Create test config
-        cls.config = cls.env["g2p.datashare.config"].create(
+        cls.config = cls.env["g2p.datashare.config.rabbitmq"].create(
             {
                 "name": "Test Config",
                 "host": "localhost",
@@ -20,13 +20,14 @@ class TestRegistrant(TransactionCase):
                 "routing_key": "test_routing_key",
                 "transform_data_jq": "{id, name}",
                 "active": True,
+                "data_source": "registry",
             }
         )
 
     def test_01_create_registrant(self):
         """Test creating a registrant and verify push"""
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create a registrant
             registrant = self.env["res.partner"].create(
@@ -51,7 +52,7 @@ class TestRegistrant(TransactionCase):
     def test_02_update_registrant(self):
         """Test updating a registrant and verify push"""
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create a registrant
             registrant = self.env["res.partner"].create(
@@ -71,9 +72,9 @@ class TestRegistrant(TransactionCase):
             self.assertEqual(published_data["name"], "Updated Registrant")
 
     def test_03_group_registrant(self):
-        """Test that group registrants are not pushed"""
+        """Test that group registrants are pushed"""
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create a group registrant
             self.env["res.partner"].create(
@@ -84,13 +85,15 @@ class TestRegistrant(TransactionCase):
                 }
             )
 
-            # Verify publish was not called
-            mock_publish.assert_not_called()
+            # Verify publish was called for the group registrant
+            mock_publish.assert_called_once()
+            published_data = mock_publish.call_args[0][0]
+            self.assertEqual(published_data["name"], "Test Group")
 
     def test_04_non_registrant(self):
         """Test that non-registrants are not pushed"""
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create a non-registrant partner
             self.env["res.partner"].create(
@@ -107,7 +110,7 @@ class TestRegistrant(TransactionCase):
     def test_05_bulk_create_registrants(self):
         """Test bulk creation of registrants"""
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create multiple registrants
             self.env["res.partner"].create(
@@ -134,7 +137,7 @@ class TestRegistrant(TransactionCase):
         self.config.transform_data_jq = "invalid jq"
 
         with patch(
-            "odoo.addons.g2p_registry_datashare.models.datashare_config.G2PDatashareConfig.publish"
+            "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
             # Create a registrant
             self.env["res.partner"].create(

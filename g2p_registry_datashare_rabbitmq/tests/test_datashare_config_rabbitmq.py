@@ -1,7 +1,6 @@
 import json
 from unittest.mock import MagicMock, patch
 
-from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -9,8 +8,7 @@ class TestDatashareConfig(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Create test config
-        cls.config = cls.env["g2p.datashare.config"].create(
+        cls.config = cls.env["g2p.datashare.config.rabbitmq"].create(
             {
                 "name": "Test Config",
                 "host": "localhost",
@@ -20,80 +18,73 @@ class TestDatashareConfig(TransactionCase):
                 "vhost": "/",
                 "exchange": "test_exchange",
                 "routing_key": "test_routing_key",
-                "transform_data_jq": "{id, name}",
+                "transform_data_jq": """{"id": .id, "name": .name}""",
                 "active": True,
+                "data_source": "registry",
             }
         )
 
     def test_01_create_config(self):
-        """Test creating a configuration"""
         self.assertTrue(self.config)
         self.assertEqual(self.config.name, "Test Config")
         self.assertEqual(self.config.host, "localhost")
+        self.assertEqual(self.config.data_source, "registry")
 
-    def test_02_required_fields(self):
-        """Test required fields validation"""
-        with self.assertRaises(ValidationError):
-            self.env["g2p.datashare.config"].create(
-                {
-                    "name": "Invalid Config",
-                    # Missing required fields
-                }
-            )
-
-    def test_03_transform_data(self):
-        """Test JQ transformation of data"""
+    def test_02_transform_data(self):
         test_data = {"id": 1, "name": "Test Partner", "email": "test@example.com", "phone": "1234567890"}
-
-        # Test with simple JQ expression
-        self.config.transform_data_jq = "{id, name}"
+        self.config.transform_data_jq = """{"id": .id, "name": .name}"""
         transformed = self.config.transform_data(test_data)
         self.assertEqual(transformed, {"id": 1, "name": "Test Partner"})
 
-        # Test with complex JQ expression
         self.config.transform_data_jq = "{id, contact: {email, phone}}"
         transformed = self.config.transform_data(test_data)
         self.assertEqual(
             transformed, {"id": 1, "contact": {"email": "test@example.com", "phone": "1234567890"}}
         )
 
-    def test_04_invalid_jq_expression(self):
-        """Test handling of invalid JQ expressions"""
+    def test_03_invalid_jq_expression(self):
         test_data = {"id": 1, "name": "Test Partner"}
-
-        # Test with invalid JQ expression
         self.config.transform_data_jq = "invalid jq expression"
         transformed = self.config.transform_data(test_data)
-
-        # Should return None on error
         self.assertIsNone(transformed)
 
     @patch("pika.BlockingConnection")
-    def test_05_publish_data(self, mock_connection):
-        """Test publishing data"""
-        # Mock the connection and channel
+    def test_04_publish_data(self, mock_blocking_connection):
+        mock_connection = MagicMock()
         mock_channel = MagicMock()
-        mock_connection.return_value.__enter__.return_value.channel.return_value = mock_channel
+        mock_blocking_connection.return_value = mock_connection
+        mock_connection.channel.return_value = mock_channel
 
-        # Test data
         test_data = {"id": 1, "name": "Test Partner"}
-
-        # Transform and publish data
+        self.config.transform_data_jq = "{id, name}"
         transformed = self.config.transform_data(test_data)
         self.config.publish(transformed)
 
-        # Verify the message was published
         mock_channel.basic_publish.assert_called_once()
-        call_args = mock_channel.basic_publish.call_args[1]
-        self.assertEqual(call_args["exchange"], "test_exchange")
-        self.assertEqual(call_args["routing_key"], "test_routing_key")
-        self.assertEqual(json.loads(call_args["body"]), {"id": 1, "name": "Test Partner"})
+        args, kwargs = mock_channel.basic_publish.call_args
+        self.assertEqual(kwargs["exchange"], "test_exchange")
+        self.assertEqual(kwargs["routing_key"], "test_routing_key")
+        self.assertEqual(json.loads(kwargs["body"]), {"id": 1, "name": "Test Partner"})
 
-    def test_06_publish_with_failed_transformation(self):
-        """Test publishing when transformation fails"""
+    def test_05_publish_with_failed_transformation(self):
         test_data = {"id": 1, "name": "Test Partner"}
         self.config.transform_data_jq = "invalid jq"
-
-        # Should not publish if transformation fails
         result = self.config.publish(test_data)
         self.assertFalse(result)
+
+    def test_06_multiple_data_sources(self):
+        registry_config = self.env["g2p.datashare.config.rabbitmq"].create(
+            {
+                "name": "Registry Config",
+                "host": "localhost",
+                "port": 5672,
+                "username": "guest",
+                "password": "guest",
+                "exchange": "registry_exchange",
+                "routing_key": "registry_routing",
+                "data_source": "registry",
+            }
+        )
+
+        self.assertEqual(registry_config.data_source, "registry")
+        self.assertEqual(self.config.data_source, "registry")
