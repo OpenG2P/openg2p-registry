@@ -49,7 +49,6 @@ class TestRegistrant(TransactionCase):
                 }
             )
 
-            # Simulate RabbitMQ push manually since it was bypassed in real time
             registrant._push_to_rabbitmq()
 
             mock_publish.assert_called()
@@ -103,9 +102,6 @@ class TestRegistrant(TransactionCase):
                     "value": "GROUP456",
                 }
             )
-
-            registrant._push_to_rabbitmq()
-
             mock_publish.assert_called_once()
             data = mock_publish.call_args[0][0]
             self.assertEqual(data["reg_id_value"], "GROUP456")
@@ -144,7 +140,6 @@ class TestRegistrant(TransactionCase):
                         "value": f"VAL{idx}",
                     }
                 )
-                partner._push_to_rabbitmq()
 
             self.assertEqual(mock_publish.call_count, 2)
 
