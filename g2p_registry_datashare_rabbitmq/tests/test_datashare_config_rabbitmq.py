@@ -8,7 +8,7 @@ class TestDatashareConfig(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.id_type = cls.env["g2p.id.type"].create({"name": "National ID"})
+        cls.id_type = cls.env["g2p.id.type"].create({"name": "Datashare National ID"})
         cls.partner = cls.env["res.partner"].create({"name": "Test Partner", "is_registrant": True})
         cls.reg_id = cls.env["g2p.reg.id"].create(
             {
@@ -39,7 +39,7 @@ class TestDatashareConfig(TransactionCase):
         self.assertEqual(self.config.name, "Test Config")
         self.assertEqual(self.config.host, "localhost")
         self.assertEqual(self.config.data_source, "registry")
-        self.assertEqual(self.config.id_type.name, "National ID")
+        self.assertEqual(self.config.id_type.name, "Datashare National ID")
 
     def test_02_transform_data_with_reg_id_value(self):
         rec_data = self.partner.read()[0]

@@ -8,7 +8,7 @@ class TestRegistrant(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         # Create ID type
-        cls.id_type = cls.env["g2p.id.type"].create({"name": "National ID"})
+        cls.id_type = cls.env["g2p.id.type"].create({"name": "Datashare National ID"})
 
         # Create test config
         cls.config = cls.env["g2p.datashare.config.rabbitmq"].create(
