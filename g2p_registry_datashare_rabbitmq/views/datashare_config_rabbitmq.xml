@@ -33,6 +33,7 @@
                         <field name="routing_key" />
                     </group>
                     <group string="Data Transformation" name="transform_details">
+                        <field name="id_type" />
                         <field
                             name="transform_data_jq"
                             widget="ace"

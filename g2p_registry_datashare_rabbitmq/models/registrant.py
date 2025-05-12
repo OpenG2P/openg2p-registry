@@ -13,9 +13,18 @@ class ResPartner(models.Model):
             if rec.is_registrant:
                 rec_data = rec.read()[0]
                 for config in configs:
+                    self.process_reg_id(config.id_type, rec_data)
                     transformed = config.transform_data(rec_data)
                     if transformed is not None:
                         config.publish(transformed)
+
+    def process_reg_id(self, id_type, rec_data):
+        if id_type.id:
+            reg_id = self.env["g2p.reg.id"].search(
+                [("id_type", "=", id_type.id), ("partner_id", "=", rec_data["partner_id"][0])], limit=1
+            )
+            if reg_id:
+                return rec_data.update({"reg_id_value": reg_id.value})
 
     @api.model_create_multi
     def create(self, vals_list):

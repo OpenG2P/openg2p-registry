@@ -32,6 +32,12 @@ class G2PDatashareConfigRabbitMQ(models.Model):
         help="Specifies which data should be shared through this configuration",
     )
 
+    id_type = fields.Many2one(
+        "g2p.id.type",
+        string="ID Type",
+        help="ID Type to be used for the data",
+    )
+
     transform_data_jq = fields.Text(
         string="Data Transform JQ Expression",
         default="""{}""",
