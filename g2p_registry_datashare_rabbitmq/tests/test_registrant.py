@@ -88,18 +88,21 @@ class TestRegistrant(TransactionCase):
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            registrant = self.env["res.partner"].create(
+            self.env["res.partner"].create(
                 {
                     "name": "Test Group",
                     "is_registrant": True,
                     "is_group": True,
-                }
-            )
-            self.env["g2p.reg.id"].create(
-                {
-                    "partner_id": registrant.id,
-                    "id_type": self.id_type.id,
-                    "value": "GROUP456",
+                    "reg_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "id_type": self.id_type.id,
+                                "value": "GROUP456",
+                            },
+                        )
+                    ],
                 }
             )
             mock_publish.assert_called_once()
