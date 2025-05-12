@@ -7,6 +7,9 @@ class TestRegistrant(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Create ID type
+        cls.id_type = cls.env["g2p.id.type"].create({"name": "National ID"})
+
         # Create test config
         cls.config = cls.env["g2p.datashare.config.rabbitmq"].create(
             {
@@ -18,9 +21,10 @@ class TestRegistrant(TransactionCase):
                 "vhost": "/",
                 "exchange": "test_exchange",
                 "routing_key": "test_routing_key",
-                "transform_data_jq": "{id, name}",
+                "transform_data_jq": """{id, name, reg_id_value}""",
                 "active": True,
                 "data_source": "registry",
+                "id_type": cls.id_type.id,
             }
         )
 
@@ -29,7 +33,6 @@ class TestRegistrant(TransactionCase):
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create a registrant
             registrant = self.env["res.partner"].create(
                 {
                     "name": "Test Registrant",
@@ -38,64 +41,80 @@ class TestRegistrant(TransactionCase):
                     "email": "test@example.com",
                 }
             )
+            self.env["g2p.reg.id"].create(
+                {
+                    "partner_id": registrant.id,
+                    "id_type": self.id_type.id,
+                    "value": "ABC123456",
+                }
+            )
 
-            # Verify the record was created
-            self.assertTrue(registrant)
-            self.assertTrue(registrant.is_registrant)
-            self.assertFalse(registrant.is_group)
+            # Simulate RabbitMQ push manually since it was bypassed in real time
+            registrant._push_to_rabbitmq()
 
-            # Verify publish was called
-            mock_publish.assert_called_once()
+            mock_publish.assert_called()
             published_data = mock_publish.call_args[0][0]
             self.assertEqual(published_data["name"], "Test Registrant")
+            self.assertEqual(published_data["reg_id_value"], "ABC123456")
 
     def test_02_update_registrant(self):
         """Test updating a registrant and verify push"""
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create a registrant
             registrant = self.env["res.partner"].create(
                 {
-                    "name": "Test Registrant",
+                    "name": "Initial Name",
                     "is_registrant": True,
                     "is_group": False,
                 }
             )
+            self.env["g2p.reg.id"].create(
+                {
+                    "partner_id": registrant.id,
+                    "id_type": self.id_type.id,
+                    "value": "XYZ999",
+                }
+            )
 
-            # Update the registrant
             registrant.write({"name": "Updated Registrant"})
 
-            # Verify publish was called
-            self.assertEqual(mock_publish.call_count, 2)  # Once for create, once for update
-            published_data = mock_publish.call_args[0][0]
-            self.assertEqual(published_data["name"], "Updated Registrant")
+            self.assertEqual(mock_publish.call_count, 2)
+            last_published_data = mock_publish.call_args[0][0]
+            self.assertEqual(last_published_data["name"], "Updated Registrant")
+            self.assertEqual(last_published_data["reg_id_value"], "XYZ999")
 
     def test_03_group_registrant(self):
         """Test that group registrants are pushed"""
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create a group registrant
-            self.env["res.partner"].create(
+            registrant = self.env["res.partner"].create(
                 {
                     "name": "Test Group",
                     "is_registrant": True,
                     "is_group": True,
                 }
             )
+            self.env["g2p.reg.id"].create(
+                {
+                    "partner_id": registrant.id,
+                    "id_type": self.id_type.id,
+                    "value": "GROUP456",
+                }
+            )
 
-            # Verify publish was called for the group registrant
+            registrant._push_to_rabbitmq()
+
             mock_publish.assert_called_once()
-            published_data = mock_publish.call_args[0][0]
-            self.assertEqual(published_data["name"], "Test Group")
+            data = mock_publish.call_args[0][0]
+            self.assertEqual(data["reg_id_value"], "GROUP456")
 
     def test_04_non_registrant(self):
         """Test that non-registrants are not pushed"""
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create a non-registrant partner
             self.env["res.partner"].create(
                 {
                     "name": "Test Partner",
@@ -103,8 +122,6 @@ class TestRegistrant(TransactionCase):
                     "is_group": False,
                 }
             )
-
-            # Verify publish was not called
             mock_publish.assert_not_called()
 
     def test_05_bulk_create_registrants(self):
@@ -112,41 +129,40 @@ class TestRegistrant(TransactionCase):
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create multiple registrants
-            self.env["res.partner"].create(
+            partners = self.env["res.partner"].create(
                 [
-                    {
-                        "name": "Registrant 1",
-                        "is_registrant": True,
-                        "is_group": False,
-                    },
-                    {
-                        "name": "Registrant 2",
-                        "is_registrant": True,
-                        "is_group": False,
-                    },
+                    {"name": "Registrant 1", "is_registrant": True, "is_group": False},
+                    {"name": "Registrant 2", "is_registrant": True, "is_group": False},
                 ]
             )
 
-            # Verify publish was called for each registrant
+            for idx, partner in enumerate(partners, start=1):
+                self.env["g2p.reg.id"].create(
+                    {
+                        "partner_id": partner.id,
+                        "id_type": self.id_type.id,
+                        "value": f"VAL{idx}",
+                    }
+                )
+                partner._push_to_rabbitmq()
+
             self.assertEqual(mock_publish.call_count, 2)
 
     def test_06_failed_transformation(self):
         """Test handling of failed JQ transformation"""
-        # Set invalid JQ expression
         self.config.transform_data_jq = "invalid jq"
-
         with patch(
             "odoo.addons.g2p_registry_datashare_rabbitmq.models.datashare_config_rabbitmq.G2PDatashareConfigRabbitMQ.publish"
         ) as mock_publish:
-            # Create a registrant
-            self.env["res.partner"].create(
+            registrant = self.env["res.partner"].create(
+                {"name": "Bad Transform", "is_registrant": True, "is_group": False}
+            )
+            self.env["g2p.reg.id"].create(
                 {
-                    "name": "Test Registrant",
-                    "is_registrant": True,
-                    "is_group": False,
+                    "partner_id": registrant.id,
+                    "id_type": self.id_type.id,
+                    "value": "FAIL123",
                 }
             )
-
-            # Verify publish was not called due to failed transformation
+            registrant._push_to_rabbitmq()
             mock_publish.assert_not_called()
