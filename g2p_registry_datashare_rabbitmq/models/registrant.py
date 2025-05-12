@@ -21,7 +21,7 @@ class ResPartner(models.Model):
     def process_reg_id(self, id_type, rec_data):
         if id_type.id:
             reg_id = self.env["g2p.reg.id"].search(
-                [("id_type", "=", id_type.id), ("partner_id", "=", rec_data["partner_id"][0])], limit=1
+                [("id_type", "=", id_type.id), ("partner_id", "=", rec_data["id"])], limit=1
             )
             if reg_id:
                 return rec_data.update({"reg_id_value": reg_id.value})
