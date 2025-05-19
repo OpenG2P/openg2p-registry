@@ -1,7 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-    <record id="inactive_session_timeout" model="ir.config_parameter">
+     <record id="inactive_session_timeout_seconds" model="ir.config_parameter">
         <field name="key">inactive_session_timeout_seconds</field>
         <field name="value">7200</field>
+    </record>
+   <record id="inactive_session_timeout_active" model="ir.config_parameter">
+        <field name="key">inactive_session_timeout_active</field>
+        <field name="value">False</field>
     </record>
     <record id="hide_db_param" model="ir.config_parameter">
         <field name="key">g2p_security.hide_db_param</field>
