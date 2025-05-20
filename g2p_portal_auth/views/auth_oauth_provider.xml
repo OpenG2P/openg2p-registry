@@ -8,6 +8,7 @@
             <field name="enabled" position="after">
                 <field name="g2p_self_service_allowed" />
                 <field name="g2p_service_provider_allowed" />
+                <field name="g2p_uca_portal_allowed" />
                 <field name="g2p_portal_oauth_callback_url" />
             </field>
         </field>
