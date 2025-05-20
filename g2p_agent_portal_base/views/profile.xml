@@ -43,7 +43,7 @@
                                         </label>
                                         <div class="beneficiary-value">
                                             <t
-                                                t-out="current_partner['eid'] if current_partner['eid'] else '&#8209;'"
+                                                t-out="current_partner['eid'] if 'eid' in current_partner._fields and current_partner['eid'] else '&#8209;'"
                                             />
                                         </div>
                                     </div>

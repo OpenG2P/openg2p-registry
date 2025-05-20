@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_g2p_document_store_form" model="ir.ui.view">
+        <field name="inherit_id" ref="g2p_documents.view_g2p_document_store_form" />
+        <field name="model">storage.backend</field>
+        <field name="arch" type="xml">
+            <group name="addl_config" position="after">
+                <group name="encryption_config">
+                    <field name="encryption_strategy" />
+                    <field name="viewing_decryption_strategy" />
+                    <field name="encryption_provider_id" />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -7,14 +7,12 @@ import requests
 from jose import jws, jwt
 from jwcrypto import jwk
 
-from odoo.tests import tagged
 from odoo.tests.common import TransactionCase, _super_send
 from odoo.tools import misc
 
 from ..json_encoder import VCJSONEncoder
 
 
-@tagged("-at_install", "post_install")
 class TestVCIIssuerRegistry(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -67,7 +65,7 @@ class TestVCIIssuerRegistry(TransactionCase):
                 "iss": "http://openg2p.local/auth",
                 "aud": "http://openg2p.local/api/v1/vci/credential",
                 "sub": self.registrant_national_id,
-                "exp": int(datetime.utcnow().timestamp()) + 5 * 60,
+                "exp": int(datetime.now().timestamp()) + 5 * 60,
             },
             self.jwk,
             algorithm="RS256",
@@ -107,12 +105,12 @@ class TestVCIIssuerRegistry(TransactionCase):
         cred_subject = cred["credentialSubject"]
 
         self.assertTrue("OpenG2PRegistryVerifiableCredential" in cred["type"])
-        self.assertTrue("Givenname Familyname" in [name["value"] for name in cred_subject["name"]])
+        self.assertTrue("Givenname Familyname" in [name["value"] for name in cred_subject["fullName"]])
         self.assertTrue(not cred_subject["email"])
         self.assertTrue(not cred_subject["phone"])
         self.assertTrue(not cred_subject["addressLine1"])
         self.assertTrue(not cred_subject["postalCode"])
-        self.assertEqual("123456789", cred_subject["UIN"])
+        self.assertEqual("54321987", cred_subject["UIN"])
         self.assertEqual(f"data:image/png;base64,{self.registrant_face_bytes.decode()}", cred_subject["face"])
         self.assertEqual("ldp_vc", res["format"])
 
@@ -144,7 +142,7 @@ class TestVCIIssuerRegistry(TransactionCase):
                         "iss": "http://openg2p.local/auth",
                         "aud": "http://openg2p.local/api/v1/vci/credential",
                         "sub": self.registrant_national_id,
-                        "exp": int(datetime.utcnow().timestamp()) + 5 * 60,
+                        "exp": int(datetime.now().timestamp()) + 5 * 60,
                     },
                     self.jwk,
                     algorithm="RS256",
@@ -164,7 +162,7 @@ class TestVCIIssuerRegistry(TransactionCase):
                         "iss": "http://openg2p.local/auth",
                         "aud": "http://openg2p.local/api/v1/vci/credential",
                         "sub": "random-value",
-                        "exp": int(datetime.utcnow().timestamp()) + 5 * 60,
+                        "exp": int(datetime.now().timestamp()) + 5 * 60,
                     },
                     self.jwk,
                     algorithm="RS256",
@@ -187,7 +185,7 @@ class TestVCIIssuerRegistry(TransactionCase):
                         "iss": "http://openg2p.local/auth",
                         "aud": ["http://random.url/credential"],
                         "sub": self.registrant_national_id,
-                        "exp": int(datetime.utcnow().timestamp()) + 5 * 60,
+                        "exp": int(datetime.now().timestamp()) + 5 * 60,
                     },
                     self.jwk,
                     algorithm="RS256",
@@ -207,7 +205,7 @@ class TestVCIIssuerRegistry(TransactionCase):
                         "iss": "http://openg2p.local/auth",
                         "aud": "http://openg2p.local/api/v1/vci/credential",
                         "sub": self.registrant_national_id,
-                        "exp": int(datetime.utcnow().timestamp()) - 5 * 60,
+                        "exp": int(datetime.now().timestamp()) - 5 * 60,
                     },
                     self.jwk,
                     algorithm="RS256",

@@ -34,7 +34,7 @@
                         }
                     ]
                 },
-               "dateOfBirth": {
+                "dateOfBirth": {
                     "display": [
                         {
                             "name": "Date of Birth",
@@ -42,10 +42,26 @@
                         }
                     ]
                 },
-                "address": {
+                "addressLine1": {
                     "display": [
                         {
-                            "name": "Address",
+                            "name": "Address Line 1",
+                            "locale": "en"
+                        }
+                    ]
+                },
+                "locality": {
+                    "display": [
+                        {
+                            "name": "Locality",
+                            "locale": "en"
+                        }
+                    ]
+                },
+                "region": {
+                    "display": [
+                        {
+                            "name": "region",
                             "locale": "en"
                         }
                     ]
@@ -53,7 +69,7 @@
                 "UIN": {
                     "display": [
                         {
-                            "name": "Beneficiary ID",
+                            "name": "Registrant ID",
                             "locale": "en"
                         }
                     ]
@@ -76,14 +92,18 @@
                     "url": (.web_base_url + "/g2p_openid_vci/static/description/icon.png"),
                     "alt_text": "a square logo of a OpenG2P"
                 },
-                "background_color": "#12107c",
-                "text_color": "#FFFFFF"
+                "background_color": "#13b9cf",
+                "text_color": "#19234f"
             }
         ],
         "order": [
             "fullName",
+            "UIN",
             "gender",
-            "dateOfBirth"
+            "dateOfBirth",
+            "addressLine1",
+            "locality",
+            "region"
         ]
     }
 ]

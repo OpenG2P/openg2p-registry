@@ -81,7 +81,9 @@ $(document).on("click", "#member_submit", function () {
     var group = $("input[name='group_id']").val();
     var Householdname = $("#name").val();
     var Householddob = $("#birthdate").val();
-    var Householgender = $("select[name='gender']").val();
+    var Householdgender = $("select[name='gender']").val();
+    var Householdemail = $("#email").val();
+    var Householdaddress = $("#address").val();
     var firstName = $("#memberDetailModal #given_name").val();
     var middleName = $("#memberDetailModal #addl_name").val();
     var lastName = $("#memberDetailModal #family_name").val();
@@ -90,6 +92,8 @@ $(document).on("click", "#member_submit", function () {
     var relationship = $('#memberDetailModal select[name="relationship"]').val();
     var isValid = true;
     var modal = $("#memberDetailModal");
+    var email = $("#memberDetailModal #email").val();
+    var address = $("#memberDetailModal #address").val();
 
     $(".form-control, .form-select").removeClass("is-invalid");
 
@@ -115,15 +119,19 @@ $(document).on("click", "#member_submit", function () {
         method: "POST",
         data: {
             group_id: group,
-            household_name: Householdname,
+            Household_name: Householdname,
             Household_dob: Householddob,
-            Househol_gender: Householgender,
+            Household_gender: Householdgender,
+            Household_email: Householdemail,
+            Household_address: Householdaddress,
             given_name: firstName,
-            family_name: middleName,
-            addl_name: lastName,
+            addl_name: middleName,
+            family_name: lastName,
             dob: dob,
             gender: gender,
             relationship: relationship,
+            email: email,
+            address: address,
         },
         dataType: "json",
         success: function (response) {
@@ -207,6 +215,8 @@ $(document).on("click", "#mem-update", function () {
             modal.find("#family_name").val(response.family_name);
             modal.find("#birthdate").val(response.dob);
             modal.find('select[name="gender"]').val(response.gender);
+            modal.find("#email").val(response.email);
+            modal.find("#address").val(response.address);
 
             $("#member_submit").replaceWith(
                 '<div id="update-member-btn" store="' +
@@ -234,6 +244,8 @@ $(document).on("click", "#update-member-btn", function () {
     var dob = $("#memberDetailModal #birthdate").val();
     var gender = $('#memberDetailModal select[name="gender"]').val();
     var isValid = true;
+    var address = $("#memberDetailModal #address").val();
+    var email = $("#memberDetailModal #email").val();
 
     $(".form-control, .form-select").removeClass("is-invalid");
 
@@ -262,6 +274,8 @@ $(document).on("click", "#update-member-btn", function () {
             family_name: lastName,
             birthdate: dob,
             gender: gender,
+            address: address,
+            email: email,
         },
         dataType: "json",
         success: function (response) {

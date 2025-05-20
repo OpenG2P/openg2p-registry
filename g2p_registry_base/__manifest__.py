@@ -2,7 +2,7 @@
 {
     "name": "G2P Registry: Base",
     "category": "G2P",
-    "version": "17.0.1.4.0",
+    "version": "17.0.0.0.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
@@ -22,6 +22,7 @@
         "views/tags_view.xml",
         "views/res_config_view.xml",
         "views/district_config.xml",
+        "views/gender_view.xml",
     ],
     "assets": {
         "web.assets_backend": [

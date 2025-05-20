@@ -96,6 +96,11 @@
     opacity: 1;
 }
 
+.table-container table td {
+    text-align: left;
+    vertical-align: middle;
+    padding-left: 10px;
+}
 .table-head-container .search-box {
     width: 273px;
     height: 40px;
@@ -1886,7 +1891,7 @@ li div p {
 }
 #memberDetailModal .modal-dialog {
     max-width: 800px;
-    max-height: 400px;
+    max-height: 600px;
 }
 .active-logo {
     width: 20px;

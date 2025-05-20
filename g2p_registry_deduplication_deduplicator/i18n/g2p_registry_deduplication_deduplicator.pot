@@ -1,0 +1,225 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_registry_deduplication_deduplicator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.view_deduplicates_individual_form
+msgid "<span class=\"o_stat_text\">Get Duplicates</span>"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.actions.act_window,help:g2p_registry_deduplication_deduplicator.action_deduplicator_config
+msgid "Add an Deduplicator Config!"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.view_g2p_registry_deduplicator_config_form
+msgid "Base"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-javascript
+#: code:addons/g2p_registry_deduplication_deduplicator/static/src/js/view_duplicates.js:0
+#, python-format
+msgid "Cannot retrieve duplicates"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.actions.act_window,help:g2p_registry_deduplication_deduplicator.action_deduplicator_config
+msgid "Click the create button to configure a new Deduplicator."
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__config_fields
+msgid "Config Fields"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__config_index_name
+msgid "Config Index Name"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__config_name
+msgid "Config Name"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__config_score_threshold
+msgid "Config Score Threshold"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model,name:g2p_registry_deduplication_deduplicator.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model,name:g2p_registry_deduplication_deduplicator.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__create_date
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__dedupe_config_id
+msgid "Dedupe Config"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.constraint,message:g2p_registry_deduplication_deduplicator.constraint_g2p_registry_deduplication_deduplicator_config_unique_config_name
+msgid "Dedupe Config with same config name already exists !"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__dedupe_service_api_timeout
+msgid "Dedupe Service Api Timeout"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__dedupe_service_base_url
+msgid "Dedupe Service Base Url"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.actions.act_window,name:g2p_registry_deduplication_deduplicator.action_deduplicator_config
+#: model:ir.model,name:g2p_registry_deduplication_deduplicator.model_g2p_registry_deduplication_deduplicator_config
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_res_config_settings__deduplicator_config_id
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.res_config_settings_updated_form
+msgid "Deduplicator Config"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model,name:g2p_registry_deduplication_deduplicator.model_g2p_registry_deduplication_deduplicator_config_field
+msgid "Deduplicator Config Field"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.ui.menu,name:g2p_registry_deduplication_deduplicator.g2p_registry_deduplicator_config_menu
+msgid "Deduplicator Configs"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__display_name
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-python
+#: code:addons/g2p_registry_deduplication_deduplicator/models/registrant.py:0
+#, python-format
+msgid "Duplicates"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-python
+#: code:addons/g2p_registry_deduplication_deduplicator/models/dedupe_config.py:0
+#, python-format
+msgid "Error retrieving duplicates"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-python
+#: code:addons/g2p_registry_deduplication_deduplicator/models/dedupe_config.py:0
+#, python-format
+msgid "Error uploading config"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__exact
+msgid "Exact"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__fuzziness
+msgid "Fuzziness"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.res_config_settings_updated_form
+msgid "G2P Registry Deduplicator Settings"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-javascript
+#: code:addons/g2p_registry_deduplication_deduplicator/static/src/xml/view_duplicates_template.xml:0
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__id
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__id
+#, python-format
+msgid "ID"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__write_date
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-javascript
+#: code:addons/g2p_registry_deduplication_deduplicator/static/src/xml/view_duplicates_template.xml:0
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config__name
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__name
+#, python-format
+msgid "Name"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.view_g2p_registry_deduplicator_config_form
+msgid "Parameters"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#. odoo-javascript
+#: code:addons/g2p_registry_deduplication_deduplicator/static/src/xml/view_duplicates_template.xml:0
+#, python-format
+msgid "Score"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.res_config_settings_updated_form
+msgid "Select the config to be used for deduplication"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model_terms:ir.ui.view,arch_db:g2p_registry_deduplication_deduplicator.view_g2p_registry_deduplicator_config_form
+msgid "Sync Config"
+msgstr ""
+
+#. module: g2p_registry_deduplication_deduplicator
+#: model:ir.model.fields,field_description:g2p_registry_deduplication_deduplicator.field_g2p_registry_deduplication_deduplicator_config_field__weightage
+msgid "Weightage"
+msgstr ""

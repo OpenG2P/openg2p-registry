@@ -45,7 +45,7 @@ class RegistrantInfoResponse(NaiveOrmModel):
     name: str
     ids: list[RegistrantIDResponse] | None = Field([], alias="reg_ids")
     is_group: bool
-    registration_date: date = None
+    registration_date: date | None = None
     phone_numbers: list[PhoneNumberResponse] | None = Field([], alias="phone_number_ids")
     email: str | None = None
     address: str | None = None

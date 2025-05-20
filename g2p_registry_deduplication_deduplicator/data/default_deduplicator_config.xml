@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record model="g2p.registry.deduplication.deduplicator.config" id="default_deduplicator_config">
+        <field name="name">Default</field>
+        <field name="active" eval="1" />
+    </record>
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('g2p_registry_deduplication_deduplicator.deduplicator_config_id', ref('g2p_registry_deduplication_deduplicator.default_deduplicator_config'))"
+    />
+</odoo>

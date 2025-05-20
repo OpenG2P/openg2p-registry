@@ -10,12 +10,6 @@
     "credentialSubject": {
         "vcVer": "VC-V1",
         "id": (.web_base_url  + "/api/v1/registry/individual/" + (.partner.id | tostring)),
-        "name": [
-            {
-                "language": "eng",
-                "value": (.partner.name // null)
-            }
-        ],
         "fullName": [
             {
                 "language": "eng",
@@ -37,7 +31,7 @@
                 "value": .partner_address.street_address
             }
         ] else null end),
-        "province": (if .partner_address.locality then [
+        "locality": (if .partner_address.locality then [
             {
                 "language": "eng",
                 "value": .partner_address.locality
@@ -51,6 +45,10 @@
         ] else null end),
         "postalCode": .partner_address.postal_code,
         "face": .partner_face,
-        "UIN": .reg_ids["NATIONAL ID"]?.value
+        "nationalID": (.reg_ids["NATIONAL ID"]?.value // null),
+        "UIN": (.partner.ref_id? // (
+            (.reg_ids["NATIONAL ID"]?.value[0:5] | explode | reverse | implode)
+            + (.reg_ids["NATIONAL ID"]?.value[6:10] | explode | reverse| implode)
+        ))
     }
 }

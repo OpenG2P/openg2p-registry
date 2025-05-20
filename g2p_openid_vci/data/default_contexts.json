@@ -11,14 +11,6 @@
             "@type": "@id",
             "@context": {
               "@vocab": "https://openg2p.org/credential#OpenG2PRegistryVerifiableCredential#credentialSubject#",
-              "name": {
-                "@id": "name",
-                "@type": "@id",
-                "@context": {
-                  "value": "@value",
-                  "language": "@language"
-                }
-              },
               "fullName": {
                 "@id": "fullName",
                 "@type": "@id",
@@ -62,8 +54,8 @@
                   "language": "@language"
                 }
               },
-              "province": {
-                "@id": "province",
+              "locality": {
+                "@id": "locality",
                 "@type": "@id",
                 "@context": {
                   "value": "@value",
@@ -81,7 +73,8 @@
               "postalCode": "postalCode",
               "face": "face",
               "vcVer": "vcVer",
-              "UIN": "UIN"
+              "UIN": "UIN",
+              "nationalID": "nationalID"
             }
           }
         }

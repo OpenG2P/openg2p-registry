@@ -2,8 +2,6 @@ from fastapi import APIRouter
 
 from odoo import api, fields, models
 
-from ..routers.well_known import well_known_router
-
 
 class SecurityFastApiEndpoint(models.Model):
     _inherit = "fastapi.endpoint"
@@ -15,6 +13,8 @@ class SecurityFastApiEndpoint(models.Model):
     def _get_fastapi_routers(self) -> list[APIRouter]:
         routers = super()._get_fastapi_routers()
         if self.app == "security":
+            from ..routers.well_known import well_known_router
+
             routers.append(well_known_router)
         return routers
 

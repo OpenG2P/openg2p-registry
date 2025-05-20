@@ -17,6 +17,6 @@ class GroupInfoResponse(RegistrantInfoResponse):
 
 class GroupInfoRequest(RegistrantInfoRequest):
     is_group: bool = True
-    members: list[GroupMembersInfoRequest]
-    kind: str | None
-    is_partial_group: bool | None
+    members: list[GroupMembersInfoRequest] = []
+    kind: str | None = None
+    is_partial_group: bool | None = None

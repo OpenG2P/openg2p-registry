@@ -6,6 +6,6 @@ class ProcessIndividualMixin(models.AbstractModel):
 
     def _process_individual(self, individual):
         res = super()._process_individual(individual)
-        if individual.dict().get("additional_g2p_info", None):
+        if individual.model_dump().get("additional_g2p_info", None):
             res["additional_g2p_info"] = individual.additional_g2p_info
         return res

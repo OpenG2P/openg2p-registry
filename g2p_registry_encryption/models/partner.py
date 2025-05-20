@@ -89,14 +89,15 @@ class EncryptedPartner(models.Model):
         )
         if not is_decrypt_fields:
             return res
-        for record in self:
-            is_encrypted, encrypted_val = record.get_encrypted_val()[0]
-            if is_encrypted and encrypted_val:
-                decrypted_vals = json.loads(prov.decrypt_data(encrypted_val).decode())
+        if len(self) == 1 and self.is_registrant:
+            for record in self:
+                is_encrypted, encrypted_val = record.get_encrypted_val()[0]
+                if is_encrypted and encrypted_val:
+                    decrypted_vals = json.loads(prov.decrypt_data(encrypted_val).decode())
+                    for field_name in enc_fields_set:
+                        if field_name in decrypted_vals and field_name in record and record[field_name]:
+                            self.env.cache.set(record, self._fields[field_name], decrypted_vals[field_name])
 
-                for field_name in enc_fields_set:
-                    if field_name in decrypted_vals and field_name in record and record[field_name]:
-                        self.env.cache.set(record, self._fields[field_name], decrypted_vals[field_name])
         return res
 
     def get_encrypted_val(self):

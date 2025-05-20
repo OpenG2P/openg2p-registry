@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "OpenG2PRegistryGroupVerifiableCredential": {
+      "@id": "https://openg2p.org/credential#OpenG2PRegistryGroupVerifiableCredential",
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        {
+          "@vocab": "https://openg2p.org/credential#OpenG2PRegistryGroupVerifiableCredential#",
+          "credentialSubject": {
+            "@id": "credentialSubject",
+            "@type": "@id",
+            "@context": {
+              "@vocab": "https://openg2p.org/credential#OpenG2PRegistryGroupVerifiableCredential#credentialSubject#",
+              "name": {
+                "@id": "name",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "addressLine1": {
+                "@id": "addressLine1",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "addressLine2": {
+                "@id": "addressLine2",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "addressLine3": {
+                "@id": "addressLine3",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "locality": {
+                "@id": "locality",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "region": {
+                "@id": "region",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "postalCode": "postalCode",
+              "face": "face",
+              "vcVer": "vcVer",
+              "UIN": "UIN",
+              "headName": {
+                "@id": "headName",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "headGender": {
+                "@id": "headGender",
+                "@type": "@id",
+                "@context": {
+                  "value": "@value",
+                  "language": "@language"
+                }
+              },
+              "headDateOfBirth": "headDateOfBirth",
+              "headNationalID": "headNationalID",
+              "members": "members"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

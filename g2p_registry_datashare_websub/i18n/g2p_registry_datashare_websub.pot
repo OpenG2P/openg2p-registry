@@ -1,0 +1,295 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_registry_datashare_websub
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__body_string
+msgid "Body"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__condition_jq
+msgid "Condition JQ Expression"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__config_id
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__config_id
+msgid "Config"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model,name:g2p_registry_datashare_websub.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__create_date
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__create_date
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__transform_data_jq
+msgid "Data Transform JQ Expression"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__data_type
+msgid "Data Type"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__display_name
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__display_name
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__encryption_provider_id
+msgid "Encryption Provider"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__event_type
+msgid "Event Type"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__extra_fields
+msgid "Extra Fields"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__domain
+msgid "Filter"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.actions.server,name:g2p_registry_datashare_websub.action_datashare_config_websub_force_unlink
+msgid "Force Delete"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model,name:g2p_registry_datashare_websub.model_g2p_datashare_config_websub
+msgid "G2P Datashare Config WebSub"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model,name:g2p_registry_datashare_websub.model_g2p_datashare_config_websub_extra_field
+msgid "G2P Datashare Config WebSub Extra Field"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model,name:g2p_registry_datashare_websub.model_g2p_datashare_config_websub_manual_trigger
+msgid "G2P Datashare Config WebSub Manual Trigger"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_group_created
+msgid "Group Created"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_group_deleted
+msgid "Group Deleted"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_group_updated
+msgid "Group Updated"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__id
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__id
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_individual_created
+msgid "Individual Created"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_individual_deleted
+msgid "Individual Deleted"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub__event_type__websub_individual_updated
+msgid "Individual Updated"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub_extra_field__data_type__json
+msgid "JSON"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub_extra_field__data_type__jwt
+msgid "JWT"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__write_date
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__write_date
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_manual_trigger__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model_terms:ir.actions.act_window,help:g2p_registry_datashare_websub.action_datashare_config_websub
+msgid "Manage datashare configs."
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__name
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub_extra_field__name
+msgid "Name"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__partner_id
+msgid "Partner ID"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model_terms:ir.ui.view,arch_db:g2p_registry_datashare_websub.view_datashare_websub_manual_trigger_form
+msgid "Publish Records"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#. odoo-python
+#: code:addons/g2p_registry_datashare_websub/models/datashare_config_websub.py:0
+#: model_terms:ir.ui.view,arch_db:g2p_registry_datashare_websub.view_datashare_config_websub_form
+#, python-format
+msgid "Publish Records Manually"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#. odoo-python
+#: code:addons/g2p_registry_datashare_websub/models/datashare_config_websub.py:0
+#, python-format
+msgid "Publisher(s) synced with Websub."
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.actions.server,name:g2p_registry_datashare_websub.action_datashare_config_sync_with_websub
+msgid "Re-sync with Websub"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#. odoo-python
+#: code:addons/g2p_registry_datashare_websub/wizard/manual_trigger.py:0
+#, python-format
+msgid "Records manual publishing started."
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields.selection,name:g2p_registry_datashare_websub.selection__g2p_datashare_config_websub_extra_field__data_type__string
+msgid "String"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#. odoo-python
+#: code:addons/g2p_registry_datashare_websub/models/datashare_config_websub.py:0
+#, python-format
+msgid "Synced with Websub"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__topic_joiner
+msgid "Topic Joiner"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_api_timeout
+msgid "WebSub API Timeout"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_auth_client_id
+msgid "WebSub Auth Client ID"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_auth_url
+msgid "WebSub Auth URL (Token Endpoint)"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_base_url
+msgid "WebSub Base URL"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.actions.act_window,name:g2p_registry_datashare_websub.action_datashare_config_websub
+#: model:ir.ui.menu,name:g2p_registry_datashare_websub.menu_datashare_config_websub
+msgid "WebSub Datashare Configs"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model_terms:ir.ui.view,arch_db:g2p_registry_datashare_websub.view_datashare_config_websub_form
+msgid "WebSub Details"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_access_token
+msgid "Websub Access Token"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_access_token_expiry
+msgid "Websub Access Token Expiry"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_auth_client_secret
+msgid "Websub Auth Client Secret"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#: model:ir.model.fields,field_description:g2p_registry_datashare_websub.field_g2p_datashare_config_websub__websub_auth_grant_type
+msgid "Websub Auth Grant Type"
+msgstr ""
+
+#. module: g2p_registry_datashare_websub
+#. odoo-python
+#: code:addons/g2p_registry_datashare_websub/wizard/manual_trigger.py:0
+#, python-format
+msgid "Websub Manual Publish"
+msgstr ""

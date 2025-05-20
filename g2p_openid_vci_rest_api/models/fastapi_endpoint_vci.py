@@ -2,8 +2,6 @@ from fastapi import APIRouter
 
 from odoo import api, fields, models
 
-from ..routers.openid_vci import openid_vci_router
-
 
 class VCIFastApiEndpoint(models.Model):
     _inherit = "fastapi.endpoint"
@@ -13,6 +11,8 @@ class VCIFastApiEndpoint(models.Model):
     def _get_fastapi_routers(self) -> list[APIRouter]:
         routers = super()._get_fastapi_routers()
         if self.app == "vci":
+            from ..routers.openid_vci import openid_vci_router
+
             routers.append(openid_vci_router)
         return routers
 

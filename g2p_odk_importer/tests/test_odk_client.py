@@ -1,233 +1,226 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import MagicMock, patch
 
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
-
-from odoo.addons.g2p_odk_importer.models.odk_client import ODKClient
 
 
 class TestODKClient(TransactionCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.env_mock = MagicMock()
-        cls.base_url = "http://example.com"
-        cls.username = "test_user"
-        cls.password = "test_password"
-        cls.project_id = 5
-        cls.form_id = "test_form_id"
-        cls.target_registry = "group"
-        cls.json_formatter = "."
-        cls.client = ODKClient(
-            cls.env_mock,
-            1,
-            cls.base_url,
-            cls.username,
-            cls.password,
-            cls.project_id,
-            cls.form_id,
-            cls.target_registry,
-            cls.json_formatter,
+    def setUp(self):
+        super().setUp()
+        self.odk_config = self.env["odk.config"].create(
+            {
+                "name": "Test Config",
+                "base_url": "http://example.com",
+                "username": "test_user",
+                "password": "test_password",
+                "project": 5,
+                "form_id": "test_form_id",
+            }
         )
 
     @patch("requests.post")
     def test_login_success(self, mock_post):
+        # Test login success method
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"token": "test_token"}
+        mock_response.json.return_value = {
+            "token": "test_token",
+            "expiresAt": datetime.now(tz=timezone.utc).isoformat(),
+        }
         mock_post.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        token = self.odk_config.login_get_session_token()
+        self.assertEqual(token, "test_token")
 
-        odk_client.login()
-        self.assertEqual(odk_client.session, "test_token")
+    @patch("requests.post")
+    def test_login_exception(self, mock_post):
+        # Test login exception handling
+        mock_post.side_effect = Exception("Network error")
 
+        with self.assertRaises(ValidationError) as cm:
+            self.odk_config.login_get_session_token()
+
+        self.assertEqual(str(cm.exception), "Login failed: Network error")
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_test_connection_success(self, mock_get):
+    def test_test_connection_success(self, mock_get, mock_login):
+        # Test successful connection
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"displayName": "test_user"}
         mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        mock_login.return_value = "test_token"
+        test_connection = self.odk_config.test_connection()
 
-        odk_client.session = "test_token"
-        self.assertTrue(odk_client.test_connection())
+        self.assertTrue(test_connection)
 
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_import_delta_records_success(self, mock_get):
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {"value": [{"name": "John Doe"}]}
-        mock_get.return_value = mock_response
+    def test_connection_failure(self, mock_get, mock_login):
+        # Test connection failure handling
+        mock_get.side_effect = Exception("Connection error")
+        mock_login.return_value = "test_token"
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        with self.assertRaises(ValidationError) as cm:
+            self.odk_config.test_connection()
 
-        odk_client.session = "test_token"
-        result = odk_client.import_delta_records()
+            self.assertEqual(str(cm.exception), "Connection test failed: Connection error")
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
+    @patch("requests.get")
+    def test_download_records_success(self, mock_get, mock_login):
+        # Test importing delta records successfully
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"value": [{"name": "John Doe"}]}
+
+        mock_login.return_value = "test_token"
+
+        result = self.odk_config.download_records()
+
+        actual_params = mock_get.call_args[1]["params"]
+        # Verify the request was made without filter parameter
+        self.assertNotIn("$filter", actual_params)
         self.assertIn("value", result)
 
-    def test_handle_one2many_fields(self):
-        mapped_json = {
-            "phone_number_ids": [
-                {"phone_no": "123456789", "date_collected": "2024-07-01", "disabled": False}
-            ],
-            "group_membership_ids": [],
-            "reg_ids": [{"id_type": "National ID", "value": "12345", "expiry_date": "2024-12-31"}],
-        }
-        self.client.handle_one2many_fields(mapped_json)
-        self.assertIn("phone_number_ids", mapped_json)
-        self.assertIn("reg_ids", mapped_json)
-
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_handle_media_import(self, mock_get):
-        member = {"meta": {"instanceID": "test_instance"}}
-        mapped_json = {}
+    def test_download_records_with_timestamp(self, mock_get, mock_login):
+        """Test importing records with a last sync timestamp"""
+        # Mock the response
         mock_get.return_value.status_code = 200
-        mock_get.return_value.content = b"fake_image_data"
-        mock_get.return_value.json.return_value = [{"name": "test_image.jpg"}]
+        mock_get.return_value.json.return_value = {"value": [{"name": "Test Name"}]}
+        mock_login.return_value = "test_token"
 
-        self.client.handle_media_import(member, mapped_json)
-        self.assertIn("supporting_documents_ids", mapped_json)
+        # Create a timestamp for testing
+        test_timestamp = datetime(2024, 1, 1, 8, 0, 0)
+        expected_filter = "__system/submissionDate ge 2024-01-01T08:00:00.000Z"
 
-    def test_get_dob(self):
-        record = {"birthdate": "2000-01-01", "age": 4}
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        # Call the method with timestamp
+        self.odk_config.download_records(last_sync_time=test_timestamp)
 
-        dob = odk_client.get_dob(record)
-        self.assertEqual(dob, "2000-01-01")
+        # Verify the request was made with correct parameters
+        actual_params = mock_get.call_args[1]["params"]
+        self.assertIn("$filter", actual_params)
+        self.assertEqual(actual_params["$filter"], expected_filter)
 
-        record = {"age": 4}
-        dob = odk_client.get_dob(record)
-        self.assertEqual(dob[:4], str(datetime.now().year - 4))
-
-    def test_is_image(self):
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
-
-        result = odk_client.is_image("test.jpg")
-        self.assertTrue(result)
-
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_list_expected_attachments(self, mock_get):
+    def test_download_records_request_exception(self, mock_get, mock_login):
+        """Test handling of RequestException during import"""
+        mock_login.return_value = "test_token"
+        # Simulate a request exception
+        mock_get.side_effect = OSError("Network error")
+
+        # Verify that ValidationError is raised with the correct message
+        with self.assertRaises(ValidationError) as context:
+            self.odk_config.download_records()
+
+            self.assertIn("Failed to parse response: Network error", str(context.exception))
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
+    @patch("requests.get")
+    def test_download_records_with_skip(self, mock_get, mock_login):
+        """Test importing records with skip parameter"""
+        # Mock the response
         mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = [{"name": "test.jpg"}]
+        mock_get.return_value.json.return_value = {"value": [{"name": "Test Name"}]}
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        mock_login.return_value = "test_token"
 
-        result = odk_client.list_expected_attachments(
-            "http://example.com", "1", "1", "test_instance", "fake_token"
-        )
-        self.assertIn({"name": "test.jpg"}, result)
+        # Call the method with skip parameter
+        skip_value = 10
+        self.odk_config.download_records(skip=skip_value)
 
+        # Verify the request was made with correct skip parameter
+        actual_params = mock_get.call_args[1]["params"]
+        self.assertEqual(actual_params["$skip"], skip_value)
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_download_attachment(self, mock_get):
+    def test_download_records_timestamp_and_skip(self, mock_get, mock_login):
+        """Test importing records with both timestamp and skip parameters"""
+        # Mock the response
         mock_get.return_value.status_code = 200
-        mock_get.return_value.content = b"fake_image_data"
+        mock_get.return_value.json.return_value = {"value": [{"name": "Test Name"}]}
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        mock_login.return_value = "test_token"
 
-        result = odk_client.download_attachment(
-            "http://example.com", "1", "1", "test_instance", "test.jpg", "fake_token"
-        )
-        self.assertEqual(result, b"fake_image_data")
+        test_timestamp = datetime(2024, 1, 1, 8, 0, 0)
+        skip_value = 10
+        expected_filter = "__system/submissionDate ge 2024-01-01T08:00:00.000Z"
 
+        # Call the method with both parameters
+        self.odk_config.download_records(last_sync_time=test_timestamp, skip=skip_value)
+
+        # Verify all parameters are correct
+        actual_params = mock_get.call_args[1]["params"]
+        self.assertEqual(actual_params["$skip"], skip_value)
+        self.assertEqual(actual_params["$filter"], expected_filter)
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
     @patch("requests.get")
-    def test_import_record_by_instance_id_success(self, mock_get):
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {
+    def test_get_submissions_with_fields(self, mock_get, mock_login):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"value": [{"field1": "value1"}]}
+
+        mock_login.return_value = "test_token"
+
+        fields = "field1,field2"
+
+        submissions = self.odk_config.get_submissions(fields=fields)
+
+        self.assertIn("$select", mock_get.call_args[1]["params"])
+        self.assertEqual(mock_get.call_args[1]["params"]["$select"], fields)
+        self.assertEqual(submissions[0]["field1"], "value1")
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
+    @patch("requests.get")
+    def test_get_submissions_with_last_sync_time(self, mock_get, mock_login):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"value": [{"id": 1}]}
+
+        mock_login.return_value = "test_token"
+
+        last_sync_time = datetime(2024, 12, 25, 10, 0, 0)
+        expected_filter = "__system/submissionDate ge 2024-12-25T10:00:00.000Z"
+
+        submissions = self.odk_config.get_submissions(last_sync_time=last_sync_time)
+
+        self.assertIn("$filter", mock_get.call_args[1]["params"])
+        self.assertEqual(mock_get.call_args[1]["params"]["$filter"], expected_filter)
+        self.assertEqual(submissions[0]["id"], 1)
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
+    @patch("requests.get")
+    def test_get_submissions_invalid_response(self, mock_get, mock_login):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = [{"field1": "value1"}]  # Not a dict
+
+        mock_login.return_value = "test_token"
+
+        with self.assertLogs(level="ERROR") as log:
+            submissions = self.odk_config.get_submissions()
+            self.assertTrue(any("Unexpected response format" in log_out for log_out in log.output))
+            self.assertEqual(len(submissions), 0)
+
+    @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.login_get_session_token")
+    @patch("requests.get")
+    def test_get_submissions_success(self, mock_get, mock_login):
+        # Test importing submission successfully
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {
             "value": [
-                {
-                    "full_name": "Test",
-                }
+                {"id": 2, "field1": "value1", "field2": "value2"},
+                {"id": 3, "field1": "value3", "field2": "value4"},
             ]
         }
-        mock_get.return_value = mock_response
 
-        odk_client = ODKClient(
-            self.env_mock,
-            1,
-            self.base_url,
-            self.username,
-            self.password,
-            self.project_id,
-            self.form_id,
-            self.target_registry,
-            self.json_formatter,
-        )
+        mock_login.return_value = "test_token"
 
-        instance_id = "test_instance_id"
-        result = odk_client.import_record_by_instance_id(instance_id)
+        submissions = self.odk_config.get_submissions()
 
-        self.assertIn("form_updated", result)
-        self.assertTrue(result["form_updated"])
+        self.assertEqual(submissions[0]["id"], 2)
+        self.assertEqual(submissions[1]["id"], 3)

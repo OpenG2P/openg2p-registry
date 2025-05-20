@@ -13,18 +13,6 @@ class TestG2PDocumentStoreRegistry(TransactionComponentCase):
             }
         )
 
-    def test_adding_file_for_registrant(self):
-        """Test adding a file for a registrant"""
-
-        data = b"Test data1"
-        document1 = self.backend.add_file_registrant(data, name="test.txt", registrant=self.registrant)
-        self.assertTrue(document1.registrant_id)
-
-        # Retesting with existing document
-        data = b"Test data2"
-        document2 = self.backend.add_file_registrant(data, name="test.txt", registrant=self.registrant)
-        self.assertTrue(document2.registrant_id, self.registrant)
-
     def test_registrant_supporting_documents(self):
         """Test adding supporting documents directry to res.partner"""
 

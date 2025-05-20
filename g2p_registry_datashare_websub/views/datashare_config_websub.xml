@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="view_datashare_config_websub_tree" model="ir.ui.view">
+        <field name="name">view_datashare_config_websub_tree</field>
+        <field name="model">g2p.datashare.config.websub</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="event_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_datashare_config_websub_form" model="ir.ui.view">
+        <field name="name">view_datashare_config_websub_form</field>
+        <field name="model">g2p.datashare.config.websub</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="open_manual_trigger_wizard"
+                        type="object"
+                        title="Publish Records Manually"
+                        string="Publish Records Manually"
+                        icon="fa-files-o"
+                        class="btn-primary"
+                    />
+                </header>
+                <group name="basic_details">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="event_type" />
+                    <field name="topic_joiner" />
+                    <field name="transform_data_jq" />
+                    <field name="condition_jq" />
+                    <field name="encryption_provider_id" groups="g2p_encryption.crypto_admin" />
+                    <field name="active" />
+                </group>
+                <group name="extra_fields">
+                    <field name="extra_fields">
+                        <tree>
+                            <field name="name" />
+                            <field name="data_type" />
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name" />
+                                <field name="data_type" />
+                                <field name="body_string" />
+                            </group>
+                        </form>
+                    </field>
+                </group>
+                <group string="WebSub Details" name="websub_details">
+                    <field name="websub_base_url" />
+                    <field name="websub_auth_url" />
+                    <field name="websub_auth_client_id" />
+                    <field name="websub_auth_client_secret" password="True" />
+                    <field name="websub_auth_grant_type" />
+                    <field name="websub_api_timeout" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_datashare_config_websub" model="ir.actions.act_window">
+        <field name="name">WebSub Datashare Configs</field>
+        <field name="res_model">g2p.datashare.config.websub</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">Manage datashare configs.</field>
+    </record>
+
+    <record id="action_datashare_config_sync_with_websub" model="ir.actions.server">
+        <field name="name">Re-sync with Websub</field>
+        <field name="model_id" ref="g2p_registry_datashare_websub.model_g2p_datashare_config_websub" />
+        <field
+            name="binding_model_id"
+            ref="g2p_registry_datashare_websub.model_g2p_datashare_config_websub"
+        />
+        <field name="state">code</field>
+        <field name="code">
+            action = records.manual_register_websub_action()
+        </field>
+    </record>
+
+    <record id="action_datashare_config_websub_force_unlink" model="ir.actions.server">
+        <field name="name">Force Delete</field>
+        <field name="model_id" ref="g2p_registry_datashare_websub.model_g2p_datashare_config_websub" />
+        <field
+            name="binding_model_id"
+            ref="g2p_registry_datashare_websub.model_g2p_datashare_config_websub"
+        />
+        <field name="state">code</field>
+        <field name="code">
+            records.with_context(force_delete=True).unlink()
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_datashare_config_websub"
+        name="WebSub Datashare Configs"
+        parent="base.menu_administration"
+        sequence="900"
+        action="action_datashare_config_websub"
+        groups="g2p_registry_base.group_g2p_admin"
+    />
+</odoo>

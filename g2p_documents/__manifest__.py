@@ -2,15 +2,12 @@
 {
     "name": "G2P Documents Store",
     "category": "G2P",
-    "version": "17.0.1.4.0",
+    "version": "17.0.0.0.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": [
-        "storage_backend_s3",
-        "storage_file",
-    ],
+    "depends": ["storage_backend_s3", "storage_file", "web"],
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
@@ -21,7 +18,12 @@
         "data/storage_backend.xml",
     ],
     "external_dependencies": {"python": ["boto3<=1.15.18", "python_slugify"]},
-    "assets": {},
+    "assets": {
+        "web.assets_backend": [
+            "g2p_documents/static/src/xml/preview_document.xml",
+            "g2p_documents/static/src/js/preview_document.js",
+        ],
+    },
     "demo": [],
     "images": [],
     "application": True,

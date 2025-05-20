@@ -97,7 +97,7 @@ class G2PAuthIDOidcProvider(models.Model):
                 append = True
                 if oauth_partner:
                     for phone_num in oauth_partner.phone_number_ids:
-                        if phone_num == phone:  # TODO: Check without country code
+                        if phone_num.phone_no == phone:  # TODO: Check without country code
                             validation.pop("phone")
                             append = False
                             break

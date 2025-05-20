@@ -35,8 +35,20 @@ msgid ""
 msgstr ""
 
 #. module: g2p_registration_portal_base
-#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
 #: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
+msgid ""
+"<option value=\"relationship\">\n"
+"                                                                                        select</option>\n"
+"                                                                                    <option value=\"Household head\">Household\n"
+"                                                                                        head</option>\n"
+"                                                                                    <option value=\"Spouse\">\n"
+"                                                                                        Spouse</option>\n"
+"                                                                                    <option value=\"Member/dependent\">\n"
+"                                                                                        Member/dependent</option>"
+msgstr ""
+
+#. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
 msgid ""
 "<select id=\"relation\" name=\"relationship\" class=\"form-select\">\n"
 "                                                                                    <option value=\"\">\n"
@@ -55,6 +67,22 @@ msgstr ""
 msgid ""
 "<span class=\"fa fa-check-circle\"/>\n"
 "                                    <span>Updated <b>successfully</b></span>"
+msgstr ""
+
+#. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">Address\n"
+"                                                                </span>"
+msgstr ""
+
+#. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Address</span>"
 msgstr ""
 
 #. module: g2p_registration_portal_base
@@ -90,6 +118,16 @@ msgid ""
 msgstr ""
 
 #. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">Email\n"
+"                                                                                        </span>"
+msgstr ""
+
+#. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
 #: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.individual_registrant_form_template
 #: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.individual_update_form_template
 msgid ""
@@ -338,9 +376,17 @@ msgid "Edit"
 msgstr ""
 
 #. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
 #: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.individual_registrant_form_template
 #: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.individual_update_form_template
 msgid "Email"
+msgstr ""
+
+#. module: g2p_registration_portal_base
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_registration_portal_base.group_update_form_template
+msgid "Enter Address"
 msgstr ""
 
 #. module: g2p_registration_portal_base

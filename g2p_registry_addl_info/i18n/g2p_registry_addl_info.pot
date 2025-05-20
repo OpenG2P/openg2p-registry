@@ -14,13 +14,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: g2p_registry_addl_info
-#. odoo-javascript
-#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
 #: model:ir.model.fields,field_description:g2p_registry_addl_info.field_res_partner__additional_g2p_info
 #: model:ir.model.fields,field_description:g2p_registry_addl_info.field_res_users__additional_g2p_info
 #: model_terms:ir.ui.view,arch_db:g2p_registry_addl_info.view_g2p_registrant_group_addl_info
 #: model_terms:ir.ui.view,arch_db:g2p_registry_addl_info.view_g2p_registrant_individual_addl_info
-#, python-format
 msgid "Additional Information"
 msgstr ""
 
@@ -31,7 +28,38 @@ msgstr ""
 
 #. module: g2p_registry_addl_info
 #. odoo-javascript
+#: code:addons/g2p_registry_addl_info/static/src/xml/g2p_additional_info.xml:0
+#, python-format
+msgid "Done"
+msgstr ""
+
+#. module: g2p_registry_addl_info
+#. odoo-javascript
+#: code:addons/g2p_registry_addl_info/static/src/xml/g2p_additional_info.xml:0
+#, python-format
+msgid "Edit"
+msgstr ""
+
+#. module: g2p_registry_addl_info
+#. odoo-javascript
+#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
+#, python-format
+msgid "Error Updating Json"
+msgstr ""
+
+#. module: g2p_registry_addl_info
+#. odoo-javascript
+#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
 #: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
 #, python-format
 msgid "Invalid Json Value"
+msgstr ""
+
+#. module: g2p_registry_addl_info
+#. odoo-javascript
+#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
+#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
+#: code:addons/g2p_registry_addl_info/static/src/js/g2p_additional_info.js:0
+#, python-format
+msgid "Registry Additional Info"
 msgstr ""

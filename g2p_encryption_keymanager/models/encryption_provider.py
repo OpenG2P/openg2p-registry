@@ -39,7 +39,7 @@ class KeymanagerEncryptionProvider(models.Model):
 
     @api.model
     def km_generate_current_time(self):
-        return f'{datetime.utcnow().isoformat(timespec = "milliseconds")}Z'
+        return f'{datetime.now().isoformat(timespec = "milliseconds")}Z'
 
     keymanager_api_base_url = fields.Char("Keymanager API Base URL", default=KEYMANAGER_API_BASE_URL)
     keymanager_api_timeout = fields.Integer("Keymanager API Timeout", default=10)
@@ -261,7 +261,7 @@ class KeymanagerEncryptionProvider(models.Model):
         if (
             self.keymanager_access_token
             and self.keymanager_access_token_expiry
-            and self.keymanager_access_token_expiry > datetime.utcnow()
+            and self.keymanager_access_token_expiry > datetime.now()
         ):
             return self.keymanager_access_token
         data = {

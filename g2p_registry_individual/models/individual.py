@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 class G2PIndividual(models.Model):
     _inherit = "res.partner"
 
-    def _get_dynamic_selection(self):
+    def _get_gender_dynamic_selection(self):
         options = self.env["gender.type"].search([])
         return [(option.value, option.code) for option in options]
 
@@ -24,19 +24,23 @@ class G2PIndividual(models.Model):
     birthdate_not_exact = fields.Boolean("Approximate Birthdate")
     birthdate = fields.Date("Date of Birth")
     age = fields.Char(compute="_compute_calc_age", size=50, readonly=True)
-    gender = fields.Selection(selection=_get_dynamic_selection)
+    gender = fields.Selection(selection=_get_gender_dynamic_selection)
 
     @api.onchange("is_group", "family_name", "given_name", "addl_name")
     def name_change(self):
         vals = {}
         if not self.is_group:
-            name = ""
-            if self.family_name:
-                name += self.family_name + ", "
-            if self.given_name:
-                name += self.given_name + " "
-            if self.addl_name:
-                name += self.addl_name + " "
+            name_vals = [
+                f"{self.family_name},"
+                if self.family_name and (self.given_name or self.addl_name)
+                else f"{self.family_name}"
+                if self.family_name
+                else "",
+                self.given_name,
+                self.addl_name,
+            ]
+
+            name = " ".join(filter(None, name_vals))
             vals.update({"name": name.upper()})
             self.update(vals)
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template xml:space="preserve">
+    <t t-name="g2p_registry_deduplicator_view_duplicates_tpl">
+        <t t-if="this.state.dataLoading === 'not_loaded'">
+            <!-- TODO: loading animation -->
+        </t>
+        <t t-elif="this.state.dataLoading === 'loaded'">
+            <t t-call="g2p_registry_deduplicator_view_duplicates_data_tpl" />
+        </t>
+        <t t-elif="this.state.dataLoading === 'error'">
+            <p><t t-esc="this.displayError" /></p>
+        </t>
+    </t>
+    <t t-name="g2p_registry_deduplicator_view_duplicates_data_tpl">
+        <table class="o_list_table table table-sm table-hover o_list_table_ungrouped table-striped">
+            <thead>
+                <tr>
+                    <th
+                        data-name="id_type"
+                        class="align-middle o_column_sortable cursor-pointer opacity-trigger-hover"
+                    >
+                        <span class="d-block min-w-0 text-truncate">ID</span>
+                        <i class="fa fa-lg fa-angle-down opacity-0 opacity-75-hover" />
+                    </th>
+                    <th
+                        data-name="value"
+                        class="align-middle o_column_sortable cursor-pointer opacity-trigger-hover"
+                    >
+                        <span class="d-block min-w-0 text-truncate">Name</span>
+                        <i class="fa fa-lg fa-angle-down opacity-0 opacity-75-hover" />
+                    </th>
+                    <th
+                        data-name="expiry_date"
+                        class="align-middle o_column_sortable cursor-pointer opacity-trigger-hover"
+                    >
+                        <span class="d-block min-w-0 text-truncate flex-grow-1">Score</span>
+                        <i class="fa fa-lg fa-angle-down opacity-0 opacity-75-hover" />
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="ui-sortable">
+                <t t-if="this.duplicatesData">
+                    <t t-foreach="this.duplicatesData" t-as="duplicate" t-key="duplicate.id">
+                        <tr>
+                            <td><t t-esc="duplicate.id" /></td>
+                        </tr>
+                        <tr>
+                            <td><t t-esc="duplicate.name" /></td>
+                        </tr>
+                        <tr>
+                            <td><t t-esc="duplicate.match_score" /></td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-else="">
+                    <!-- TODO: Render no duplicates -->
+                </t>
+            </tbody>
+        </table>
+    </t>
+</template>

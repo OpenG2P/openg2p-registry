@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo noupdate="1">
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('g2p_registry_documents.document_store', ref('storage_backend.default_storage_backend'))"
+    />
+</odoo>

@@ -25,15 +25,19 @@
         <field name="priority" eval="99" />
         <field name="inherit_id" ref="storage_file.storage_file_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']/.." position="after">
-                <label for="tags_ids" />
-                <h2>
-                    <field name="tags_ids" widget="many2many_tags" />
-                </h2>
-            </xpath>
-            <xpath expr="//field[@name='data']" position="replace">
-                <field name="data" readonly="id" filename="filename" required="1" />
-            </xpath>
+            <label for="name" position="replace">
+                <label for="tags_ids" class="oe_edit_only" />
+            </label>
+            <field name="name" position="replace">
+                <field name="tags_ids" widget="many2many_tags" />
+            </field>
+            <field name="id" position="before">
+                <field name="name" readonly="1" invisible="1" />
+                <field name="name" readonly="id" groups="base.group_no_one" />
+            </field>
+            <field name="backend_id" position="replace">
+                <field name="backend_id" required="0" readonly="id" />
+            </field>
         </field>
     </record>
 

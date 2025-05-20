@@ -136,7 +136,7 @@ class OpenIDVCIssuer(models.Model):
         partner_dict = partner.read()[0]
         reg_ids_dict = {reg_id.id_type.name: reg_id.read()[0] for reg_id in partner.reg_ids}
 
-        curr_datetime = f'{datetime.utcnow().isoformat(timespec = "milliseconds")}Z'
+        curr_datetime = f'{datetime.now().isoformat(timespec = "milliseconds")}Z'
         credential = jq.first(
             self.credential_format,
             VCJSONEncoder.python_dict_to_json_dict(
@@ -183,7 +183,7 @@ class OpenIDVCIssuer(models.Model):
 
     def build_empty_ld_proof(self):
         self.ensure_one()
-        curr_datetime = f'{datetime.utcnow().isoformat(timespec = "milliseconds")}Z'
+        curr_datetime = f'{datetime.now().isoformat(timespec = "milliseconds")}Z'
         web_base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url").rstrip("/")
         # TODO: Remove this hardcoding
         return {
