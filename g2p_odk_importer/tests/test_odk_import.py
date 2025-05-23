@@ -32,6 +32,14 @@ class TestOdkImport(TransactionCase):
             }
         )
 
+        self.member = {
+            "__system": {
+                "submitterName": "Test Enumerator",
+                "submitterId": "1",
+                "submissionDate": "2024-05-01T12:00:00.000Z",
+            }
+        }
+
     @patch("odoo.addons.g2p_odk_importer.models.odk_import.OdkImport.process_records")
     def test_fetch_record_by_instance_id(self, mock_get):
         # Test fetch record by instance ID method
@@ -179,11 +187,24 @@ class TestOdkImport(TransactionCase):
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.download_records")
     def test_process_records_individual(self, mock_get):
-        # Mock response for submissions
-        mock_get.return_value = {"value": [{"name": "Test Name"}]}
+        # Mock response data
+        mock_get.return_value = {
+            "value": [
+                {
+                    "name": "Test Name",
+                    "__system": {
+                        "submitterName": "User G 1",
+                        "submitterId": "52",
+                        "submissionDate": "2025-03-28T16:42:07.669Z",
+                    },
+                }
+            ]
+        }
 
         # Set target_registry to "individual"
         self.odk_import.target_registry = "individual"
+
+        self.odk_import.json_formatter = "{name: .name}"
 
         result = self.odk_import.process_records()
 
@@ -198,10 +219,23 @@ class TestOdkImport(TransactionCase):
     def test_process_records_group(self, mock_get):
         """Test import of record by instance ID for group registry"""
         # Mock response data
-        mock_get.return_value = {"value": [{"name": "Family Group"}]}
+        mock_get.return_value = {
+            "value": [
+                {
+                    "name": "Family Group",
+                    "__system": {
+                        "submitterName": "User G 1",
+                        "submitterId": "52",
+                        "submissionDate": "2025-03-28T16:42:07.669Z",
+                    },
+                }
+            ]
+        }
 
         # Test group registry
         self.odk_import.target_registry = "group"
+
+        self.odk_import.json_formatter = "{name: .name}"
 
         result = self.odk_import.process_records()
 
@@ -235,7 +269,7 @@ class TestOdkImport(TransactionCase):
         }
 
         self.odk_import.target_registry = "group"
-        self.odk_import.process_records_handle_one2many_fields(mapped_json)
+        self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
 
         # Verify individual creation
         partner = self.env["res.partner"].search([("is_registrant", "=", True)], limit=1)
@@ -270,7 +304,7 @@ class TestOdkImport(TransactionCase):
         mapped_json = {"group_membership_ids": [{"name": "Test Person"}]}
 
         self.odk_import.target_registry = "group"
-        self.odk_import.process_records_handle_one2many_fields(mapped_json)
+        self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
 
         ind = self.env["res.partner"].search(
             [("is_registrant", "=", True), ("is_group", "=", False)], limit=1
@@ -297,7 +331,7 @@ class TestOdkImport(TransactionCase):
 
         self.odk_import.target_registry = "group"
         # Execute
-        self.odk_import.process_records_handle_one2many_fields(mapped_json)
+        self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
 
         # Assert phone_number_ids structure
         self.assertIn("phone_number_ids", mapped_json)
@@ -327,14 +361,14 @@ class TestOdkImport(TransactionCase):
 
         # Test should raise a ValidationError
         with self.assertRaises(ValidationError) as cm:
-            self.odk_import.process_records_handle_one2many_fields(mapped_json)
+            self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
 
             self.assertIn("ID Type not found", str(cm.exception))
 
     def test_handle_one2many_fields_empty(self):
         """Test handling empty mapped_json"""
         mapped_json = {}
-        self.odk_import.process_records_handle_one2many_fields(mapped_json)
+        self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
         self.assertEqual(mapped_json, {})
 
     def test_handle_one2many_fields_only_phone(self):
@@ -342,7 +376,7 @@ class TestOdkImport(TransactionCase):
         mapped_json = {
             "phone_number_ids": [{"phone_no": "123456789", "date_collected": "2024-07-01", "disabled": False}]
         }
-        self.odk_import.process_records_handle_one2many_fields(mapped_json)
+        self.odk_import.process_records_handle_one2many_fields(mapped_json, self.member)
         self.assertEqual(len(mapped_json["phone_number_ids"]), 1)
         self.assertEqual(mapped_json["phone_number_ids"][0][2]["phone_no"], "123456789")
 
