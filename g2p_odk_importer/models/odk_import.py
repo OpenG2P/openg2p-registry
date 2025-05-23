@@ -266,12 +266,10 @@ class OdkImport(models.Model):
                 mapped_json.update({"is_registrant": True, "is_group": True})
 
             self.process_records_handle_enumerator_info(mapped_json, member)
-            self.process_records_handle_one2many_fields(mapped_json)
+            self.process_records_handle_one2many_fields(mapped_json, member)
             self.process_records_handle_media_import(mapped_json, member)
             self.process_records_handle_many2one_fields(mapped_json)
             self.process_records_handle_addl_data(mapped_json)
-
-            self.cleanup_enumerator_metadata(mapped_json)
 
             self.env["res.partner"].sudo().create(mapped_json)
             partner_count += 1
@@ -281,13 +279,28 @@ class OdkImport(models.Model):
 
         return data
 
+    def _create_enumerator_from_member(self, member):
+        """Creates an enumerator record from ODK member data."""
+        system_data = member.get("__system", {})
+        submitter_name = str(system_data.get("submitterName"))
+        submitter_id = str(system_data.get("submitterId"))
+        submission_date_str = system_data.get("submissionDate")
+        submission_date = datetime.strptime(submission_date_str, "%Y-%m-%dT%H:%M:%S.%fZ").date()
+
+        enumerator = self.env["g2p.enumerator"].create(
+            {
+                "name": submitter_name,
+                "enumerator_user_id": submitter_id,
+                "data_collection_date": submission_date,
+            }
+        )
+        return enumerator
+
     def process_records_handle_enumerator_info(self, mapped_json, member):
         """Processes records from ODK and assigns odk_app_user_id"""
-        pass
-
-    def cleanup_enumerator_metadata(self, mapped_json):
-        """Removes temporary enumerator details that were used during processing"""
-        pass
+        enumerator = self._create_enumerator_from_member(member)
+        mapped_json["enumerator_id"] = enumerator.id
+        return enumerator
 
     def process_records_handle_many2one_fields(self, mapped_json):
         self.ensure_one()
@@ -298,7 +311,7 @@ class OdkImport(models.Model):
                 if kind_record:
                     mapped_json["kind"] = kind_record.id
 
-    def process_records_handle_one2many_fields(self, mapped_json):
+    def process_records_handle_one2many_fields(self, mapped_json, member):
         self.ensure_one()
         if "phone_number_ids" in mapped_json:
             mapped_json["phone_number_ids"] = [
@@ -326,7 +339,7 @@ class OdkImport(models.Model):
             for individual_mem in group_membership_data:
                 individual_data = self.get_individual_data(individual_mem)
 
-                self.get_enumerator_info(mapped_json, individual_data)
+                self.get_enumerator_info(member, individual_data)
 
                 individual = self.env["res.partner"].sudo().create(individual_data)
                 if individual:
@@ -377,9 +390,15 @@ class OdkImport(models.Model):
         # Override this method to add more data
         return mapped_json
 
-    def get_enumerator_info(self, mapped_json, individual_data):
+    def get_enumerator_info(self, member, individual_data):
         """Assigns odk_app_user_id and enumerator details for group members."""
-        pass
+        enumerator = self._create_enumerator_from_member(member)
+        individual_data.update(
+            {
+                "enumerator_id": enumerator.id,
+            }
+        )
+        return enumerator
 
     def get_member_kind(self, record):
         kind_as_str = record.get("kind", None)

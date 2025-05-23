@@ -6,7 +6,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "account", "g2p_odk_importer", "g2p_enumerator"],
+    "depends": ["base", "account", "g2p_odk_importer"],
     "data": [
         "security/ir.model.access.csv",
         "views/registration_user_backend_view.xml",

@@ -11,7 +11,7 @@ class G2PRegistrant(models.Model):
     data_collection_date = fields.Date(related="enumerator_id.data_collection_date")
 
     eid = fields.Char(string="EID", copy=False, readonly=True, index=True)
-    creator_eid = fields.Char(string="Creator's EID")
+    creator_eid = fields.Char(string="Creator's EID", compute="_compute_creator_eid")
 
     @api.model
     def create(self, vals):
@@ -24,3 +24,12 @@ class G2PRegistrant(models.Model):
 
     def generate_eid(self):
         return self.env["ir.sequence"].next_by_code("enumeratorCode") or "New"
+
+    @api.depends("create_uid")
+    def _compute_creator_eid(self):
+        for partner in self:
+            if partner.create_uid:
+                creator = partner.create_uid.partner_id
+                partner.creator_eid = creator.eid if creator else False
+            else:
+                partner.creator_eid = False
