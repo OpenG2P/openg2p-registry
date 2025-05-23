@@ -11,6 +11,7 @@
         "g2p_registry_membership",
         "g2p_enumerator",
         "website",
+        "g2p_odk_user_mapping",
     ],
     "data": [
         "views/base.xml",
