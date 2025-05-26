@@ -279,7 +279,7 @@ class OdkImport(models.Model):
 
         return data
 
-    def _create_enumerator_from_member(self, member):
+    def create_enumerator(self, member):
         """Creates an enumerator record from ODK member data."""
         system_data = member.get("__system", {})
         submitter_name = str(system_data.get("submitterName"))
@@ -298,7 +298,7 @@ class OdkImport(models.Model):
 
     def process_records_handle_enumerator_info(self, mapped_json, member):
         """Processes records from ODK and assigns odk_app_user_id"""
-        enumerator = self._create_enumerator_from_member(member)
+        enumerator = self.create_enumerator(member)
         mapped_json["enumerator_id"] = enumerator.id
         return enumerator
 
@@ -392,7 +392,7 @@ class OdkImport(models.Model):
 
     def get_enumerator_info(self, member, individual_data):
         """Assigns odk_app_user_id and enumerator details for group members."""
-        enumerator = self._create_enumerator_from_member(member)
+        enumerator = self.create_enumerator(member)
         individual_data.update(
             {
                 "enumerator_id": enumerator.id,

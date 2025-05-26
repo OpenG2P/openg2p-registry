@@ -61,6 +61,19 @@ class TestG2PRegistrant(TransactionCase):
         self.assertEqual(partner.enumerator_user_id, "TEST001")
         self.assertEqual(partner.data_collection_date, datetime.date(2024, 1, 1))
 
+    def test_compute_creator_eid_no_creator(self):
+        # Test creator_eid computation
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+            }
+        )
+
+        partner.create_uid = False
+        partner._compute_creator_eid()
+
+        self.assertFalse(partner.creator_eid)
+
     def test_generate_eid(self):
         # Test generate eid method
         partner = self.env["res.partner"].create(
