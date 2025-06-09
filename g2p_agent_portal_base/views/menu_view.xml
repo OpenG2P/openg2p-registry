@@ -22,5 +22,6 @@
         name="Registration Portal User"
         action="account.res_partner_action_supplier"
         sequence="5"
+        groups="base.group_system"
     />
 </odoo>

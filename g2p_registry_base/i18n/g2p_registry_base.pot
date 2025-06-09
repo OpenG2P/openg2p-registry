@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: g2p_registry_base
+#: model:res.groups,name:g2p_registry_base.group_g2p_restrict_access_to_self
+msgid " Restrict Access To Self "
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_phone_number_form
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.view_reg_rel_form
 msgid "<span class=\"o_stat_text\">Disable</span>"
@@ -961,6 +966,20 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__worker_type
 msgid "Worker Type"
+msgstr ""
+
+#. module: g2p_registry_base
+#. odoo-python
+#: code:addons/g2p_registry_base/controllers/mail.py:0
+#, python-format
+msgid "You do not have permission to delete this attachment."
+msgstr ""
+
+#. module: g2p_registry_base
+#. odoo-python
+#: code:addons/g2p_registry_base/controllers/mail.py:0
+#, python-format
+msgid "You do not have permission to update this message."
 msgstr ""
 
 #. module: g2p_registry_base

@@ -1,7 +1,7 @@
 {
     "name": "G2P Registration Portal :Base",
     "category": "G2P",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.5.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
@@ -10,7 +10,6 @@
         "g2p_agent_portal_base",
         "g2p_registry_membership",
         "g2p_enumerator",
-        "website",
     ],
     "data": [
         "views/base.xml",
@@ -26,7 +25,6 @@
             "g2p_registration_portal_base/static/src/css/style.css",
         ],
         "web.assets_common": [],
-        "website.assets_wysiwyg": [],
     },
     "demo": [],
     "images": [],

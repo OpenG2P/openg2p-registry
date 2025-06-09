@@ -1,12 +1,12 @@
 {
     "name": "G2P Agent Portal: Base",
     "category": "OpenG2P",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.5.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["account", "website"],
+    "depends": ["account"],
     "data": [
         "views/about_us.xml",
         "views/base.xml",
@@ -21,7 +21,6 @@
     "assets": {
         "web.assets_frontend": [],
         "web.assets_common": [],
-        "website.assets_wysiwyg": [],
     },
     "demo": [],
     "images": [],

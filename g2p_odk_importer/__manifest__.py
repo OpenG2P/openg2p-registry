@@ -4,7 +4,7 @@
     "name": "G2P ODK Importer",
     "category": "G2P",
     "summary": "Import records from ODK",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.5.0",
     "sequence": 3,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
@@ -15,6 +15,7 @@
         "g2p_registry_base",
     ],
     "data": [
+        "security/odk_groups.xml",
         "security/ir.model.access.csv",
         "views/odk_config_views.xml",
         "views/odk_import_views.xml",
