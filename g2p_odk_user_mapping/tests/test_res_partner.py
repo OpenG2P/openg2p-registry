@@ -13,7 +13,7 @@ class TestResPartner(TransactionCase):
                 "base_url": "http://test.odk.com",
                 "project": "test_project",
                 "username": "testuser",
-                "password": "testpassword",
+                "password": "TestPassword1!",
                 "name": "Test ODK Config",
                 "create_date": fields.Datetime.now(),
                 "create_uid": 1,

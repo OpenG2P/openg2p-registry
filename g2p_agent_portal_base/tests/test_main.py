@@ -20,7 +20,7 @@ class TestAgentPortalBase(HttpCase):
                 "groups_id": [(6, 0, [self.env.ref("base.group_user").id])],
             }
         )
-        self.agent_user.write({"password": "agent_user"})
+        self.agent_user.write({"password": "AgentUser1!"})
 
         # Create a regular partner and mark as not a supplier
         regular_partner = self.env["res.partner"].create(
@@ -38,11 +38,11 @@ class TestAgentPortalBase(HttpCase):
                 "groups_id": [(6, 0, [self.env.ref("base.group_user").id])],
             }
         )
-        self.regular_user.write({"password": "regular_user"})
+        self.regular_user.write({"password": "RegularUser1!"})
 
     def test_portal_root_redirect_logged_in(self):
         # Test if /portal redirects properly for authenticated user
-        self.authenticate("agent_user", "agent_user")
+        self.authenticate("agent_user", "AgentUser1!")
 
         response = self.url_open("/portal")
 
@@ -58,7 +58,7 @@ class TestAgentPortalBase(HttpCase):
 
     def test_registration_login_redirect_logged_in(self):
         # Test redirection if user is already logged in
-        self.authenticate("agent_user", "agent_user")  # Log in the test user
+        self.authenticate("agent_user", "AgentUser1!")  # Log in the test user
 
         # Should redirect to /portal/home
         response = self.url_open("/portal/login")
@@ -75,14 +75,14 @@ class TestAgentPortalBase(HttpCase):
 
     def test_portal_home_access_logged_in(self):
         # Test /portal/home for agents
-        self.authenticate("agent_user", "agent_user")
+        self.authenticate("agent_user", "AgentUser1!")
 
         response = self.url_open("/portal/home")
         self.assertEqual(response.status_code, 200)
 
     def test_portal_profile(self):
         # Test /portal/myprofile for logged-in users
-        self.authenticate("agent_user", "agent_user")
+        self.authenticate("agent_user", "AgentUser1!")
 
         response = self.url_open("/portal/myprofile")
 

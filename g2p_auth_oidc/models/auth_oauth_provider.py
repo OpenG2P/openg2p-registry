@@ -43,6 +43,8 @@ class AuthOauthProvider(models.Model):
         help="Leave blank to use token endpoint for Client Assertion Aud.",
     )
 
+    logout_uri = fields.Char(string="Logout URL", help="The URL to redirect to upon logout")
+
     client_authentication_method = fields.Selection(
         [
             ("client_secret_basic", "Client Secret (Basic)"),
