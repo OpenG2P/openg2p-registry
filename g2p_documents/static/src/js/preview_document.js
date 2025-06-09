@@ -3,7 +3,7 @@ import {Component} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 
-class Widgetpreview extends Component {
+export class Widgetpreview extends Component {
     setup() {
         super.setup();
         this.fileViewer = useFileViewer();

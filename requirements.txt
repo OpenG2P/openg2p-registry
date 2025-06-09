@@ -5,6 +5,7 @@ cryptography>36,<37
 extendable-pydantic
 jq
 jwcrypto
+pika
 pydantic
 python-jose
 python_slugify

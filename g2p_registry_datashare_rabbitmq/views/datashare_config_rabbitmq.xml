@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_datashare_config_rabbitmq_tree" model="ir.ui.view">
+        <field name="name">view_datashare_config_rabbitmq_tree</field>
+        <field name="model">g2p.datashare.config.rabbitmq</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="data_source" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_datashare_config_rabbitmq_form" model="ir.ui.view">
+        <field name="name">view_datashare_config_rabbitmq_form</field>
+        <field name="model">g2p.datashare.config.rabbitmq</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="basic_details">
+                        <field name="name" />
+                        <field name="data_source" />
+                        <field name="active" />
+                    </group>
+                    <group string="RabbitMQ Connection" name="rabbitmq_details">
+                        <field name="host" />
+                        <field name="port" />
+                        <field name="username" />
+                        <field name="password" password="True" />
+                        <field name="vhost" />
+                        <field name="exchange" />
+                        <field name="routing_key" />
+                    </group>
+                    <group string="Data Transformation" name="transform_details">
+                        <field name="id_type" />
+                        <field
+                            name="transform_data_jq"
+                            widget="ace"
+                            options="{'mode': 'jq'}"
+                            placeholder="Enter JQ expression to transform data"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_datashare_config_rabbitmq" model="ir.actions.act_window">
+        <field name="name">RabbitMQ Datashare Configs</field>
+        <field name="res_model">g2p.datashare.config.rabbitmq</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new RabbitMQ configuration
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_datashare_config_rabbitmq"
+        name="RabbitMQ Datashare"
+        parent="base.menu_administration"
+        sequence="900"
+        action="action_datashare_config_rabbitmq"
+        groups="base.group_system"
+    />
+</odoo>

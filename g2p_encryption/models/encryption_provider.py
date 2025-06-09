@@ -42,9 +42,9 @@ class G2PEncryptionProvider(models.Model):
             raise NotImplementedError() from e
         return jwt_func(
             data,
-            include_payload=True,
-            include_certificate=False,
-            include_cert_hash=False,
+            include_payload=include_payload,
+            include_certificate=include_certificate,
+            include_cert_hash=include_cert_hash,
             **kwargs,
         )
 
