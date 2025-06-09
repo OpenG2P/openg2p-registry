@@ -6,7 +6,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["account", "website"],
+    "depends": ["account"],
     "data": [
         "views/about_us.xml",
         "views/base.xml",
@@ -21,7 +21,6 @@
     "assets": {
         "web.assets_frontend": [],
         "web.assets_common": [],
-        "website.assets_wysiwyg": [],
     },
     "demo": [],
     "images": [],

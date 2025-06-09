@@ -12,14 +12,14 @@ _logger = logging.getLogger(__name__)
 
 
 class AgentPortalBase(http.Controller):
-    @http.route(["/portal"], type="http", auth="public", website=True)
+    @http.route(["/portal"], type="http", auth="public")
     def portal_root(self, **kwargs):
         if request.session and request.session.uid:
             return request.redirect("/portal/home")
         else:
             return request.redirect("/portal/login")
 
-    @http.route(["/portal/login"], type="http", auth="public", website=True)
+    @http.route(["/portal/login"], type="http", auth="public")
     def registration_login(self, **kwargs):
         redirect_uri = request.params.get("redirect") or "/portal/home"
         if request.session and request.session.uid:
@@ -36,12 +36,12 @@ class AgentPortalBase(http.Controller):
 
         return request.render("g2p_agent_portal_base.login_page", qcontext=context)
 
-    @http.route(["/portal/home"], type="http", auth="user", website=True)
+    @http.route(["/portal/home"], type="http", auth="user")
     def portal_home(self, **kwargs):
         self.check_roles("Agent")
         return request.render("g2p_agent_portal_base.home_page")
 
-    @http.route(["/portal/myprofile"], type="http", auth="public", website=True)
+    @http.route(["/portal/myprofile"], type="http", auth="public")
     def portal_profile(self, **kwargs):
         if request.session and request.session.uid:
             current_partner = request.env.user.partner_id
@@ -52,15 +52,15 @@ class AgentPortalBase(http.Controller):
                 },
             )
 
-    @http.route(["/portal/aboutus"], type="http", auth="public", website=True)
+    @http.route(["/portal/aboutus"], type="http", auth="public")
     def portal_about_us(self, **kwargs):
         return request.render("g2p_agent_portal_base.about_us_page")
 
-    @http.route(["/portal/contactus"], type="http", auth="public", website=True)
+    @http.route(["/portal/contactus"], type="http", auth="public")
     def portal_contact_us(self, **kwargs):
         return request.render("g2p_agent_portal_base.contact_us_page")
 
-    @http.route(["/portal/otherpage"], type="http", auth="public", website=True)
+    @http.route(["/portal/otherpage"], type="http", auth="public")
     def portal_other_page(self, **kwargs):
         return request.render("g2p_agent_portal_base.other_page")
 
