@@ -29,6 +29,7 @@ dependencies = [
     "odoo-addon-g2p_registry_addl_info @ {root:uri}/g2p_registry_addl_info",
     "odoo-addon-g2p_registry_addl_info_rest_api @ {root:uri}/g2p_registry_addl_info_rest_api",
     "odoo-addon-g2p_registry_base @ {root:uri}/g2p_registry_base",
+    "odoo-addon-g2p_registry_datashare_rabbitmq @ {root:uri}/g2p_registry_datashare_rabbitmq",
     "odoo-addon-g2p_registry_datashare_websub @ {root:uri}/g2p_registry_datashare_websub",
     "odoo-addon-g2p_registry_deduplication_deduplicator @ {root:uri}/g2p_registry_deduplication_deduplicator",
     "odoo-addon-g2p_registry_document_encryption @ {root:uri}/g2p_registry_document_encryption",
