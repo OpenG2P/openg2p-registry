@@ -5,17 +5,26 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
-                <group string="ODk User Configuration">
-                    <field
-                        name="odk_config_id"
-                        options="{'no_create': True}"
-                        invisible="context.get('default_supplier_rank')  &lt; 1"
-                    />
-                    <field
-                        name="odk_app_user"
-                        options="{'no_create': True}"
-                        invisible="context.get('default_supplier_rank') &lt; 1"
-                    />
+                <group
+                    string="ODK User Configuration"
+                    invisible="context.get('default_supplier_rank') &lt; 1"
+                >
+                    <group col="6" colspan="6">
+                        <group colspan="3">
+                            <field name="odk_config_id" options="{'no_create': True}" />
+                            <field name="odk_app_user" options="{'no_create': True}" />
+                        </group>
+                        <group colspan="3">
+                            <button
+                                class="oe_highlight"
+                                name="fetch_odk_app_users"
+                                string="Sync ODK Users"
+                                type="object"
+                                style="width: 100%; text-align: center;"
+                                invisible="not odk_config_id"
+                            />
+                        </group>
+                    </group>
                 </group>
             </xpath>
         </field>

@@ -5,12 +5,13 @@
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
-    "license": "Other OSI approved licence",
+    "license": "LGPL-3",
     "depends": [
         "g2p_agent_portal_base",
         "g2p_registry_membership",
         "g2p_enumerator",
         "website",
+        "g2p_odk_user_mapping",
     ],
     "data": [
         "views/base.xml",

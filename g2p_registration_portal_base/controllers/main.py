@@ -242,7 +242,12 @@ class G2PregistrationPortalBase(AgentPortalBase):
                         request.env["res.partner"]
                         .sudo()
                         .create(
-                            {"name": head_name, "is_registrant": True, "is_group": True, "user_id": user.id}
+                            {
+                                "name": head_name,
+                                "is_registrant": True,
+                                "is_group": True,
+                                "user_id": user.id,
+                            }
                         )
                     )
 
@@ -434,18 +439,27 @@ class G2PregistrationPortalBase(AgentPortalBase):
     def individual_list(self, **kw):
         user = request.env.user
 
-        individual = (
-            request.env["res.partner"]
-            .sudo()
-            .search(
-                [
-                    ("active", "=", True),
-                    ("is_registrant", "=", True),
-                    ("is_group", "=", False),
-                    ("user_id", "=", user.id),
-                ]
-            )
-        )
+        domain = [
+            ("active", "=", True),
+            ("is_registrant", "=", True),
+            ("is_group", "=", False),
+        ]
+
+        partner = user.partner_id
+
+        subdomain = [("user_id", "=", user.id)]
+
+        if partner and partner.odk_app_user:
+            subdomain = [
+                "|",
+                ("enumerator_id.enumerator_user_id", "=", partner.odk_app_user.odk_user_id),
+                ("user_id", "=", user.id),
+            ]
+
+        domain += subdomain
+
+        individual = request.env["res.partner"].sudo().search(domain)
+
         return request.render("g2p_registration_portal_base.individual_list", {"individual": individual})
 
     @http.route(
