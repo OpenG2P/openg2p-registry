@@ -8,7 +8,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "auth_signup"],
+    "depends": ["base", "auth_signup", "password_security"],
     "data": ["data/ir_config_parameter_data.xml", "security/security.xml"],
     "application": True,
     "installable": True,
