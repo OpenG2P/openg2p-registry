@@ -13,6 +13,7 @@
         "base",
         "queue_job",
         "g2p_registry_base",
+        "g2p_enumerator",
     ],
     "data": [
         "security/odk_groups.xml",
