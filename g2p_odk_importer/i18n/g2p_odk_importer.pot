@@ -226,6 +226,11 @@ msgid "ODK"
 msgstr ""
 
 #. module: g2p_odk_importer
+#: model:res.groups,name:g2p_odk_importer.group_g2p_odk
+msgid "ODK Access"
+msgstr ""
+
+#. module: g2p_odk_importer
 #: model:ir.model.fields,field_description:g2p_odk_importer.field_odk_import__odk_config
 msgid "ODK Config"
 msgstr ""
@@ -249,6 +254,16 @@ msgstr ""
 #. module: g2p_odk_importer
 #: model:ir.model,name:g2p_odk_importer.model_odk_instance_id
 msgid "ODK Instance ID"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.module.category,name:g2p_odk_importer.g2p_odk_config
+msgid "ODK Module"
+msgstr ""
+
+#. module: g2p_odk_importer
+#: model:ir.module.category,description:g2p_odk_importer.g2p_odk_config
+msgid "OpenG2P ODK Permissions"
 msgstr ""
 
 #. module: g2p_odk_importer

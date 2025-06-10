@@ -29,6 +29,7 @@
                 <field name="token_endpoint" />
                 <field name="jwks_uri" />
                 <field name="jwt_assertion_aud" />
+                <field name="logout_uri" />
             </field>
             <field name="data_endpoint" position="after">
                 <field name="extra_authorize_params" />

@@ -12,6 +12,7 @@
         sequence="1"
         action="action_superset_dashboard_embedded"
         web_icon="g2p_superset_dashboard,static/description/dashboard_icon.png"
+        groups="g2p_superset_dashboard.group_superset_dashboard_admin"
     />
 
 </odoo>

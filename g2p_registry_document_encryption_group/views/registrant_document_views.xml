@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='supporting_documents_ids']/tree" position="inside">
                 <field name="is_encrypted" string="Encrypted" readonly="1" />
-                <field name="can_preview_encrypted" invisible="1" />
+                <field name="can_preview_encrypted" column_invisible="1" />
             </xpath>
         </field>
     </record>

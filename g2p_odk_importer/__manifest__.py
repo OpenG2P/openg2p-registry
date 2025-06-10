@@ -16,6 +16,7 @@
         "g2p_enumerator",
     ],
     "data": [
+        "security/odk_groups.xml",
         "security/ir.model.access.csv",
         "views/odk_config_views.xml",
         "views/odk_import_views.xml",

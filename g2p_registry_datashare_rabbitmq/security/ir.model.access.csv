@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+datashare_rabbitmq_config_admin,Datashare Config RabbitMQ Admin,g2p_registry_datashare_rabbitmq.model_g2p_datashare_config_rabbitmq,g2p_registry_base.group_g2p_admin,1,1,1,1
+datashare_rabbitmq_config_user,Datashare Config RabbitMQ User,g2p_registry_datashare_rabbitmq.model_g2p_datashare_config_rabbitmq,base.group_user,1,0,0,0
