@@ -21,6 +21,7 @@
             <group name="config" position="after">
                 <group name="addl_config">
                     <field name="mimetype_strategy" />
+                    <field name="virus_scan_url" />
                 </group>
             </group>
         </field>

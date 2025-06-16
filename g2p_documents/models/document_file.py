@@ -5,6 +5,8 @@ import os
 import re
 import uuid
 
+import requests
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.mimetypes import guess_mimetype
@@ -95,3 +97,31 @@ class G2PDocumentFile(models.Model):
             return res
         # Return empty recordset if slug doesnt match
         return self
+
+    def _inverse_data(self):
+        for record in self:
+            scan_url = record.backend_id.virus_scan_url
+
+            if scan_url:
+                binary_data = base64.b64decode(record.data)
+                try:
+                    response = requests.post(
+                        scan_url,
+                        files={"file": (record.name or "uploaded_file", binary_data)},
+                        timeout=10,
+                    )
+                except requests.RequestException as e:
+                    raise UserError(_("Virus scan failed: %s") % str(e)) from e
+
+                if response.status_code == 418:
+                    raise UserError(_("Upload aborted: Virus found in the uploaded file."))
+                elif response.status_code != 200:
+                    raise UserError(_("Unexpected error during virus scan: HTTP %s") % response.status_code)
+
+            record.write(record._prepare_meta_for_file())
+            record.backend_id.sudo().add(
+                record.relative_path,
+                record.data,
+                mimetype=record.mimetype,
+                binary=False,
+            )

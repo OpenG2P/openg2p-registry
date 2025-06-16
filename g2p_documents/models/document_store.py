@@ -10,6 +10,8 @@ class G2PDocumentStore(models.Model):
         help="Mimetype of a file can be inferred from the filename or from the binary data.",
     )
 
+    virus_scan_url = fields.Char(string="Virus Scan URL")
+
     @property
     def _server_env_fields(self):
         env_fields = super()._server_env_fields
