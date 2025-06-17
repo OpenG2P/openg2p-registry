@@ -172,3 +172,29 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_documents.field_storage_file__tags_ids
 msgid "Tags"
 msgstr ""
+
+#. module: g2p_documents
+#. odoo-python
+#: code:addons/g2p_documents/models/document_file.py:0
+#, python-format
+msgid "Unexpected error during virus scan: HTTP %s"
+msgstr ""
+
+#. module: g2p_documents
+#. odoo-python
+#: code:addons/g2p_documents/models/document_file.py:0
+#, python-format
+msgid "Upload aborted: Virus found in the uploaded file."
+msgstr ""
+
+#. module: g2p_documents
+#: model:ir.model.fields,field_description:g2p_documents.field_storage_backend__virus_scan_url
+msgid "Virus Scan URL"
+msgstr ""
+
+#. module: g2p_documents
+#. odoo-python
+#: code:addons/g2p_documents/models/document_file.py:0
+#, python-format
+msgid "Virus scan failed: %s"
+msgstr ""
