@@ -15,7 +15,7 @@ class G2PDocumentStore(models.Model):
     @property
     def _server_env_fields(self):
         env_fields = super()._server_env_fields
-        env_fields.update({"mimetype_strategy": {}})
+        env_fields.update({"mimetype_strategy": {}, "virus_scan_url": {}})
         return env_fields
 
     def open_store_files_tree(self):

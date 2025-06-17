@@ -118,10 +118,4 @@ class G2PDocumentFile(models.Model):
                 elif response.status_code != 200:
                     raise UserError(_("Unexpected error during virus scan: HTTP %s") % response.status_code)
 
-            record.write(record._prepare_meta_for_file())
-            record.backend_id.sudo().add(
-                record.relative_path,
-                record.data,
-                mimetype=record.mimetype,
-                binary=False,
-            )
+        return super()._inverse_data()
