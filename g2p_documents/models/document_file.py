@@ -119,3 +119,17 @@ class G2PDocumentFile(models.Model):
                     raise UserError(_("Unexpected error during virus scan: HTTP %s") % response.status_code)
 
         return super()._inverse_data()
+
+    def write(self, vals):
+        for rec in self:
+            name = vals.get("name", rec.name)
+            data = vals.get("data", rec.data)
+            mimetype = vals.get("mimetype", rec.mimetype)
+
+            # Auto-add extension if file has data, name, but no extension
+            if data and name and not os.path.splitext(name)[1] and mimetype:
+                guessed_ext = mimetypes.guess_extension(mimetype)
+                if guessed_ext:
+                    vals["name"] = f"{name}{guessed_ext}"
+
+        return super().write(vals)
