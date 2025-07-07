@@ -6,7 +6,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["account"],
+    "depends": ["account", "g2p_registry_base"],
     "data": [
         "views/about_us.xml",
         "views/base.xml",
