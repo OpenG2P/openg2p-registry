@@ -23,7 +23,7 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.portal_password or partner.portal_password_confirm:
                 if partner.portal_password != partner.portal_password_confirm:
-                    raise ValidationError(_("Portal Password and Confirm Password must match."))
+                    raise ValidationError(_("Password and confirm password do not match."))
 
     def write(self, vals):
         res = super().write(vals)
