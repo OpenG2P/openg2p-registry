@@ -1,11 +1,38 @@
 import werkzeug.urls
 
-from odoo import _, models
-from odoo.exceptions import UserError
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+    portal_password = fields.Char()
+    portal_password_confirm = fields.Char()
+    show_portal_password = fields.Boolean(compute="_compute_show_portal_password", store=False, default=False)
+
+    def _compute_show_portal_password(self):
+        show_fields = (
+            self.env["ir.config_parameter"].sudo().get_param("g2p_security.show_portal_password", False)
+        )
+        for record in self:
+            record.show_portal_password = bool(show_fields)
+
+    @api.constrains("portal_password", "portal_password_confirm")
+    def _check_password_match(self):
+        for partner in self:
+            if partner.portal_password or partner.portal_password_confirm:
+                if partner.portal_password != partner.portal_password_confirm:
+                    raise ValidationError(_("Portal Password and Confirm Password must match."))
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "portal_password" in vals:
+            for partner in self:
+                user = partner.user_ids[:1]
+                if user and user.has_group("base.group_portal"):
+                    user.sudo().write({"password": vals["portal_password"]})
+        return res
 
     def _get_signup_url_for_action(self, *args, **kwargs):
         res = super()._get_signup_url_for_action(*args, **kwargs)
@@ -22,37 +49,3 @@ class ResPartner(models.Model):
                     cleaned_url = parsed.replace(query=werkzeug.urls.url_encode(query)).to_url()
                     res[pid] = cleaned_url
         return res
-
-    def action_change_password(self):
-        """Open change password wizard for partner's user account"""
-        if not self.user_ids:
-            raise UserError(_("No user account found for this partner"))
-
-        user = self.user_ids[0]
-
-        wizard = self.env["change.password.wizard"].create(
-            {
-                "user_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "user_id": user.id,
-                            "user_login": user.login,
-                            "new_passwd": "",
-                        },
-                    )
-                ]
-            }
-        )
-
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Change Password"),
-            "res_model": "change.password.wizard",
-            "res_id": wizard.id,
-            "view_mode": "form",
-            "view_id": self.env.ref("base.change_password_wizard_view").id,
-            "target": "new",
-            "context": {"default_user_ids": wizard.user_ids.ids},
-        }

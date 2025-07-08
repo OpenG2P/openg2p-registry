@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_change_password_wizard_admin,change.password.wizard,base.model_change_password_wizard,g2p_registry_base.group_g2p_admin,1,1,1,0
-access_change_password_user_admin,change.password.user,base.model_change_password_user,g2p_registry_base.group_g2p_admin,1,1,1,0
-
-access_change_password_wizard_registrar,change.password.wizard,base.model_change_password_wizard,g2p_registry_base.group_g2p_registrar,1,1,1,0
-access_change_password_user_registrar,change.password.user,base.model_change_password_user,g2p_registry_base.group_g2p_registrar,1,1,1,0
-
-access_res_users_g2p_registrar,User Access for Registrar,base.model_res_users,g2p_registry_base.group_g2p_registrar,1,1,1,0
-access_res_users_g2p_admin,User Access for Admin,base.model_res_users,g2p_registry_base.group_g2p_admin,1,1,1,0
