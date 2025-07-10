@@ -1,0 +1,21 @@
+<odoo>
+    <record id="g2p_security_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">g2p_security.res.config.settings.view.inherit.portal</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1015" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <app name="g2p_config_settings" position="inside">
+                <block
+                    name="portal_password_settings_block"
+                    title="G2P Portal Password Settings"
+                    groups="base.group_system"
+                >
+                    <setting string="Enable Portal Password Fields">
+                        <field name="show_portal_password" />
+                    </setting>
+                </block>
+            </app>
+        </field>
+    </record>
+</odoo>

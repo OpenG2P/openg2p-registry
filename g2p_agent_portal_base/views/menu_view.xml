@@ -22,6 +22,6 @@
         name="Registration Portal User"
         action="account.res_partner_action_supplier"
         sequence="5"
-        groups="base.group_system"
+        groups="g2p_registry_base.group_g2p_admin,g2p_registry_base.group_g2p_registrar"
     />
 </odoo>
