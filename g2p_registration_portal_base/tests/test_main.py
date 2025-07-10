@@ -15,14 +15,15 @@ class TestG2PregistrationPortalBase(HttpCase):
                 "email": "test@example.com",
             }
         )
-        self.test_partner = self.env["res.partner"].create(
+
+        self.test_user.partner_id.write(
             {
-                "name": "Test Partner",
+                "supplier_rank": 1,
                 "is_registrant": True,
                 "is_group": True,
-                "user_id": self.test_user.id,
             }
         )
+
         self.test_user.write({"password": "TestUser1!"})
 
         self.gender = self.env["gender.type"].create({"value": "Male", "code": "male"})

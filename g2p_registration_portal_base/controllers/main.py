@@ -18,6 +18,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
 
     @http.route("/portal/registration/group", type="http", auth="user")
     def group_list(self, **kw):
+        self.check_roles("Agent")
         user = request.env.user
 
         domain = [
@@ -50,6 +51,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def group_create(self, **kw):
+        self.check_roles("Agent")
         gender = request.env["gender.type"].sudo().search([])
 
         return request.render(
@@ -64,6 +66,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def group_create_submit(self, **kw):
+        self.check_roles("Agent")
         try:
             head_name = kw.get("name")
             beneficiary_id = None
@@ -151,6 +154,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def group_update(self, _id, **kw):
+        self.check_roles("Agent")
         try:
             gender = request.env["gender.type"].sudo().search([])
             beneficiary = request.env["res.partner"].sudo().browse(_id)
@@ -183,6 +187,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def group_submit(self, **kw):
+        self.check_roles("Agent")
         try:
             beneficiary_id = int(kw.get("group_id"))
 
@@ -223,6 +228,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def individual_create(self, **kw):
+        self.check_roles("Agent")
         res = dict()
         try:
             user = request.env.user
@@ -342,6 +348,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def update_member(self, **kw):
+        self.check_roles("Agent")
         member_id = kw.get("member_id")
         try:
             beneficiary = request.env["res.partner"].sudo().browse(int(member_id))
@@ -369,6 +376,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def update_member_submit(self, **kw):
+        self.check_roles("Agent")
         try:
             member = request.env["res.partner"].sudo().browse(int(kw.get("member_id")))
             res = dict()
@@ -425,6 +433,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
 
     @http.route("/portal/registration/individual", type="http", auth="user")
     def individual_list(self, **kw):
+        self.check_roles("Agent")
         user = request.env.user
 
         individual = (
@@ -448,6 +457,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def individual_registrar_create(self, **kw):
+        self.check_roles("Agent")
         gender = request.env["gender.type"].sudo().search([])
         return request.render(
             "g2p_registration_portal_base.individual_registrant_form_template",
@@ -461,6 +471,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def individual_create_submit(self, **kw):
+        self.check_roles("Agent")
         user = request.env.user
 
         try:
@@ -507,6 +518,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def indvidual_update(self, _id, **kw):
+        self.check_roles("Agent")
         try:
             gender = request.env["gender.type"].sudo().search([])
             beneficiary = request.env["res.partner"].sudo().browse(_id)
@@ -536,6 +548,7 @@ class G2PregistrationPortalBase(AgentPortalBase):
         csrf=False,
     )
     def update_individual_submit(self, **kw):
+        self.check_roles("Agent")
         try:
             member = request.env["res.partner"].sudo().browse(int(kw.get("group_id")))
             if member:
