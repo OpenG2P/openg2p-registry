@@ -5,5 +5,5 @@ g2p_document_read_file_access,G2P Document Read File,storage_file.model_storage_
 g2p_document_write_backend_access,G2P Document Write Backend,storage_backend.model_storage_backend,g2p_documents.group_g2p_document_write,1,0,0,0
 g2p_document_read_backend_access,G2P Document Read Backend,storage_backend.model_storage_backend,g2p_documents.group_g2p_document_read,1,0,0,0
 
-g2p_document_write_tag_access,G2P Document Write Backend,g2p_documents.model_g2p_document_tag,g2p_documents.group_g2p_document_write,1,1,1,1
-g2p_document_read_tag_access,G2P Document Read Backend,g2p_documents.model_g2p_document_tag,g2p_documents.group_g2p_document_read,1,0,0,0
+g2p_document_write_tag_access,G2P Document Write Tag,g2p_documents.model_g2p_document_tag,g2p_documents.group_g2p_document_write,1,1,1,1
+g2p_document_read_tag_access,G2P Document Read Tag,g2p_documents.model_g2p_document_tag,g2p_documents.group_g2p_document_read,1,0,0,0
