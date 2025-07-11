@@ -33,6 +33,7 @@ class TestG2PRegistrant(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Supplier",
+                "email": "test@email.com",
                 "supplier_rank": 1,
             }
         )
