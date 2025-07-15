@@ -6,13 +6,13 @@ import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 import {useService} from "@web/core/utils/hooks";
 
-class G2PDocumentPreview extends Component {
+class Widgetpreview extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.fileViewer = useFileViewer();
     }
 
-    async clickPreview() {
+    clickPreview() {
         const record = this.props.record?.data || {};
         const {id, name, url, mimetype = ""} = record;
 
@@ -30,11 +30,11 @@ class G2PDocumentPreview extends Component {
                 isPdf,
             });
         } else if (url) {
-            await this.downloadUnPreviewedFile(url, name);
+            this.downloadUnPreviewedFile(url, name);
         }
     }
 
-    async downloadUnPreviewedFile(url, filename) {
+    downloadUnPreviewedFile(url, filename) {
         const fileName = filename || "file";
 
         this.dialog.add(ConfirmationDialog, {
@@ -55,31 +55,9 @@ class G2PDocumentPreview extends Component {
             },
         });
     }
-
-    getFileIcon() {
-        const filename = this.props.record?.data?.name || "";
-        const ext = filename.split(".").pop()?.toLowerCase();
-        const icons = {
-            pdf: "pdf",
-            jpg: "image",
-            jpeg: "image",
-            png: "image",
-            gif: "image",
-            webp: "image",
-            txt: "text",
-            csv: "text",
-            doc: "word",
-            docx: "word",
-            xls: "excel",
-            xlsx: "excel",
-            ppt: "powerpoint",
-            pptx: "powerpoint",
-        };
-        return `fa-file-${icons[ext] || "o"}-o`;
-    }
 }
 
-G2PDocumentPreview.template = "g2p_documents.Widgetpreview";
+Widgetpreview.template = "g2p_documents.Widgetpreview";
 registry.category("view_widgets").add("g2p_documents_action_preview", {
-    component: G2PDocumentPreview,
+    component: Widgetpreview,
 });
