@@ -784,7 +784,7 @@
                                                                     onclick="hideToast()"
                                                                 >
                                                                     <img
-                                                                        src="/g2p_service_provider_portal_base/static/src/img/close_icon@2x.png"
+                                                                        src="/g2p_agent_portal_base/static/src/img/close_icon@2x.png"
                                                                     />
                                                                 </button>
                                                             </div>
@@ -1426,7 +1426,7 @@
                                                                     onclick="hideToast()"
                                                                 >
                                                                     <img
-                                                                        src="/g2p_service_provider_portal_base/static/src/img/close_icon@2x.png"
+                                                                        src="/g2p_agent_portal_base/static/src/img/close_icon@2x.png"
                                                                     />
                                                                 </button>
                                                             </div>
