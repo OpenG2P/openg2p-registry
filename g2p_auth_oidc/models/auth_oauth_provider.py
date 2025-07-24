@@ -51,9 +51,8 @@ class AuthOauthProvider(models.Model):
             ("client_secret_post", "Client Secret (Post)"),
             # ("client_secret_jwt", "Signed Client Secret (JWT)"), # Not implemented
             ("private_key_jwt", "Private Key JWT"),
-            ("none", "None"),
         ],
-        required=True,
+        required=False,
         default="client_secret_post",
     )
     client_secret = fields.Char()
@@ -140,7 +139,7 @@ class AuthOauthProvider(models.Model):
         if not oidc_redirect_uri:
             oidc_redirect_uri = request.httprequest.base_url
 
-        if self.client_authentication_method == "none":
+        if not self.client_authentication_method:
             token_request_data = dict(
                 client_id=self.client_id,
                 grant_type="authorization_code",
@@ -275,16 +274,22 @@ class AuthOauthProvider(models.Model):
     def map_validation_values(self, validation, params):
         res = {}
         if self.token_map and self.token_map.strip():
-            if self.token_map.endswith("*:*"):
+            token_map: str = self.token_map
+            token_map = token_map.strip()
+            if token_map.endswith("*:*"):
+                token_map = token_map.removesuffix("*:*").strip()
                 res = validation
-            for pair in self.token_map.strip().split(" "):
+            for pair in token_map.split(" "):
                 if pair:
                     from_key, to_key = (k.strip() for k in pair.split(":", 1))
-                    from_keys = from_key.split(".")
-                    to_val = validation
-                    for from_key in from_keys:
-                        to_val = to_val.get(from_key, {})
-                    res[to_key] = to_val
+                    if len(from_key.split(".")) <= 1:
+                        res[to_key] = validation.get(from_key)
+                    else:
+                        from_keys = from_key.split(".")
+                        to_val = validation
+                        for from_key in from_keys:
+                            to_val = to_val.get(from_key, {})
+                        res[to_key] = to_val
         return res
 
     def oidc_signin_create_user(self, validation, params, oauth_partner=None, access_denied_exception=None):
@@ -405,9 +410,11 @@ class AuthOauthProvider(models.Model):
         return validation
 
     def oidc_signin_process_gender(self, validation, params, oauth_partner=None, oauth_user=None):
-        gender = validation.get("gender", "").capitalize()
+        gender = validation.get("gender")
         if gender:
-            validation["gender"] = gender
+            validation["gender"] = gender.capitalize()
+        elif "gender" in validation:
+            validation.pop("gender")
         return validation
 
     def oidc_signin_process_birthdate(self, validation, params, oauth_partner=None, oauth_user=None):

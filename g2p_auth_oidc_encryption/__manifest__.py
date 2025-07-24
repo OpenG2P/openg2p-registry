@@ -1,0 +1,15 @@
+{
+    "name": "OpenID Connect Authentication - Encryption Provider",
+    "version": "17.0.0.0.0",
+    "author": "OpenG2P",
+    "website": "https://openg2p.org",
+    "license": "LGPL-3",
+    "depends": ["g2p_auth_oidc", "g2p_encryption"],
+    "data": ["views/auth_oauth_provider.xml"],
+    "assets": {},
+    "demo": [],
+    "images": [],
+    "application": False,
+    "installable": True,
+    "auto_install": True,
+}

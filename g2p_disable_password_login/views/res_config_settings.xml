@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_disable_login_view_form" model="ir.ui.view">
+        <field name="name">res_config_settings_disable_login_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block name="integration" position="after">
+                <block name="g2p_disable_password_login" title="Disable Password Login">
+                    <setting
+                        string="Redirect Login to Oauth Provider"
+                        help="If Oauth provider selected here, /web/login will be redirected to it."
+                    >
+                        <field name="g2p_disable_password_login_direct_oauth_provider" />
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>

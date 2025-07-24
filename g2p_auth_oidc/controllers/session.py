@@ -12,10 +12,9 @@ class OAuthLogoutController(Session):
         user = request.env.user
         provider = user.oauth_provider_id
 
-        request.session.logout()
-
         # Redirect to OAuth provider logout URL if configured
         if provider and provider.logout_uri:
+            request.session.logout()
             redirect = provider.logout_uri
             return werkzeug_redirect(redirect, 302)
 
