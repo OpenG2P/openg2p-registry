@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [g2p_agent_portal_base](g2p_agent_portal_base/) | 17.0.1.5.0 |  | G2P Agent Portal: Base
 [g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.1.5.0 |  | G2P Auth: OIDC - Reg ID
 [g2p_auth_oidc](g2p_auth_oidc/) | 17.0.1.5.0 |  | OpenID Connect Authentication
+[g2p_auth_oidc_encryption](g2p_auth_oidc_encryption/) | 17.0.1.5.0 |  | OpenID Connect Authentication - Encryption Provider
 [g2p_bank](g2p_bank/) | 17.0.1.5.0 |  | G2P Registry: Bank Details
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.5.0 |  | G2P Registry: Bank Details Rest API
 [g2p_change_log](g2p_change_log/) | 17.0.1.5.0 |  | OpenG2P Change Log
