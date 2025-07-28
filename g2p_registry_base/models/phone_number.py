@@ -18,6 +18,7 @@ class G2PPhoneNumber(models.Model):
         "res.partner",
         "Registrant",
         required=True,
+        index=True,
         domain=[("is_registrant", "=", True)],
     )
     phone_no = fields.Char("Phone Number", required=True)
