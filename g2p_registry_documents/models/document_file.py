@@ -4,7 +4,7 @@ from odoo import fields, models
 class G2PDocumentRegistry(models.Model):
     _inherit = "storage.file"
 
-    registrant_id = fields.Many2one("res.partner")
+    registrant_id = fields.Many2one("res.partner", index=True)
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
