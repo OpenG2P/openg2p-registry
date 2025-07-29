@@ -12,6 +12,7 @@ _logger = logging.getLogger(__name__)
 
 class G2PRegistrant(models.Model):
     _inherit = "res.partner"
+    _order = "id DESC"
 
     # Custom Fields
     address = fields.Text()
