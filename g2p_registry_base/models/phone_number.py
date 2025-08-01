@@ -54,7 +54,7 @@ class G2PPhoneNumber(models.Model):
 
     @api.onchange("phone_no", "country_id")
     def _onchange_phone_validation(self):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
+        PHONE_REGEX = self.env["ir.config_parameter"].sudo().get_param("g2p_registry.phone_regex")
         if not self.phone_no:
             return
         self.phone_no = self.env["g2p.phone.number"]._phone_format(number=self.phone_no)
