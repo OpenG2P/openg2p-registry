@@ -6,7 +6,7 @@ import {registry} from "@web/core/registry";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 import {useService} from "@web/core/utils/hooks";
 
-class Widgetpreview extends Component {
+export class Widgetpreview extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.fileViewer = useFileViewer();
