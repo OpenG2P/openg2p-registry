@@ -45,8 +45,10 @@ addon | version | maintainers | summary
 [g2p_portal_auth](g2p_portal_auth/) | 17.0.1.5.0 |  | G2P Portal Auth
 [g2p_profile_image](g2p_profile_image/) | 17.0.1.5.0 |  | OpenG2P Profile Image
 [g2p_registration_portal_base](g2p_registration_portal_base/) | 17.0.1.5.0 |  | G2P Registration Portal :Base
+[g2p_registry](g2p_registry/) | 17.0.1.5.0 |  | G2P Registry
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.5.0 |  | G2P Registry: Additional Info
 [g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.5.0 |  | G2P Registry: Additional Info REST API
+[g2p_registry_app_filter](g2p_registry_app_filter/) | 17.0.1.5.0 |  | G2P Registry App Filter
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.5.0 |  | G2P Registry: Base
 [g2p_registry_datashare_websub](g2p_registry_datashare_websub/) | 17.0.1.5.0 |  | G2P Registry Datashare: WebSub
 [g2p_registry_deduplication_deduplicator](g2p_registry_deduplication_deduplicator/) | 17.0.1.5.0 |  | OpenG2P Registry Deduplication - Deduplicator
