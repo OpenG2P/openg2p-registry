@@ -15,7 +15,7 @@
         "views/res_partner.xml",
         "views/res_config_settings.xml",
     ],
-    "application": True,
+    "application": False,
     "installable": True,
     "auto_install": False,
 }

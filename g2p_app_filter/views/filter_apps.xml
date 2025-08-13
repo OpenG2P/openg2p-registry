@@ -8,7 +8,7 @@
             <xpath expr="//filter[@name='app']" position="attributes">
                 <attribute
                     name="domain"
-                >[('application', '=', True), ('name', '=', 'g2p_registry')]</attribute>
+                >[('application', '=', True), ('category_id.name', '=', 'G2P')]</attribute>
             </xpath>
         </field>
     </record>
