@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [g2p_agent_portal_base](g2p_agent_portal_base/) | 17.0.1.5.0 |  | G2P Agent Portal: Base
+[g2p_app_filter](g2p_app_filter/) | 17.0.1.5.0 |  | G2P App Filter
 [g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.1.5.0 |  | G2P Auth: OIDC - Reg ID
 [g2p_auth_oidc](g2p_auth_oidc/) | 17.0.1.5.0 |  | OpenID Connect Authentication
 [g2p_bank](g2p_bank/) | 17.0.1.5.0 |  | G2P Registry: Bank Details
@@ -45,6 +46,7 @@ addon | version | maintainers | summary
 [g2p_portal_auth](g2p_portal_auth/) | 17.0.1.5.0 |  | G2P Portal Auth
 [g2p_profile_image](g2p_profile_image/) | 17.0.1.5.0 |  | OpenG2P Profile Image
 [g2p_registration_portal_base](g2p_registration_portal_base/) | 17.0.1.5.0 |  | G2P Registration Portal :Base
+[g2p_registry](g2p_registry/) | 17.0.1.5.0 |  | G2P Registry
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.5.0 |  | G2P Registry: Additional Info
 [g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.5.0 |  | G2P Registry: Additional Info REST API
 [g2p_registry_base](g2p_registry_base/) | 17.0.1.5.0 |  | G2P Registry: Base
