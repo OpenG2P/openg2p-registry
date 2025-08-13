@@ -44,6 +44,7 @@ dependencies = [
     "odoo-addon-g2p_registry_individual @ {root:uri}/g2p_registry_individual",
     "odoo-addon-g2p_registry_membership @ {root:uri}/g2p_registry_membership",
     "odoo-addon-g2p_registry_rest_api @ {root:uri}/g2p_registry_rest_api",
+    "odoo-addon-g2p_security @ {root:uri}/g2p_security",
     "odoo-addon-g2p_superset_dashboard @ {root:uri}/g2p_superset_dashboard",
     "odoo-addon-mts_connector @ {root:uri}/mts_connector",
 ]
