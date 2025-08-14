@@ -1,0 +1,28 @@
+<odoo>
+    <record id="view_res_partner_form_inherit_portal_password" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.portal.password</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="show_portal_password" invisible="1" />
+                <group
+                    string="Portal Access"
+                    invisible="context.get('default_supplier_rank', 0) &lt; 1 or not show_portal_password"
+                >
+                    <field name="portal_password" password="True" string="Password" placeholder="********" />
+                    <field
+                        name="portal_password_confirm"
+                        password="True"
+                        string="Confirm password"
+                        placeholder="********"
+                    />
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="readonly">show_portal_password</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

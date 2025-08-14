@@ -10,10 +10,12 @@ class G2PDocumentStore(models.Model):
         help="Mimetype of a file can be inferred from the filename or from the binary data.",
     )
 
+    virus_scan_url = fields.Char(string="Virus Scan URL")
+
     @property
     def _server_env_fields(self):
         env_fields = super()._server_env_fields
-        env_fields.update({"mimetype_strategy": {}})
+        env_fields.update({"mimetype_strategy": {}, "virus_scan_url": {}})
         return env_fields
 
     def open_store_files_tree(self):

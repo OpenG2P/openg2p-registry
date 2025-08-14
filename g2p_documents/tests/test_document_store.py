@@ -36,6 +36,6 @@ class TestG2PDocumentStore(TransactionComponentCase):
 
         # Verify the file name includes the extension and correct data
         self.assertEqual(file.filename, "test-uuid")
-        self.assertFalse(file.extension)
+        self.assertEqual(file.extension, ".bin")
         self.assertEqual(file.backend_id, self.storage_backend)
         self.assertEqual(file.data, base64.b64encode(test_data))

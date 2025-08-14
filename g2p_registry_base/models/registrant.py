@@ -12,6 +12,7 @@ _logger = logging.getLogger(__name__)
 
 class G2PRegistrant(models.Model):
     _inherit = "res.partner"
+    _order = "id DESC"
 
     # Custom Fields
     address = fields.Text()
@@ -93,7 +94,7 @@ class G2PRegistrant(models.Model):
             rec._validate_phone(rec.mobile, _("Invalid mobile number!"))
 
     def _validate_phone(self, number, error_message):
-        PHONE_REGEX = self.env["ir.config_parameter"].get_param("g2p_registry.phone_regex")
+        PHONE_REGEX = self.env["ir.config_parameter"].sudo().get_param("g2p_registry.phone_regex")
         if PHONE_REGEX and number and not re.match(PHONE_REGEX, number):
             raise ValidationError(error_message)
 

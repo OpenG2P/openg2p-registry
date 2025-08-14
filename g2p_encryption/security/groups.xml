@@ -9,8 +9,4 @@
         <field name="name">Crypto Admin</field>
         <field name="category_id" ref="security_module" />
     </record>
-    <record id="crypto_dummy" model="res.groups">
-        <field name="name">Crypto Dummy</field>
-        <field name="category_id" ref="security_module" />
-    </record>
 </odoo>
