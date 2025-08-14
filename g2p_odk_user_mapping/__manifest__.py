@@ -17,7 +17,7 @@
         "web.assets_common": [],
         "website.assets_wysiwyg": [],
     },
-    "application": False,
+    "application": True,
     "installable": True,
     "auto_install": False,
 }

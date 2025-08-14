@@ -15,7 +15,7 @@
     ],
     "demo": [],
     "installable": True,
-    "application": False,
+    "application": True,
     "assets": {
         "web.assets_backend": [
             "g2p_superset_dashboard/static/src/components/**/*.js",
