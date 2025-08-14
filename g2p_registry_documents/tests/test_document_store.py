@@ -125,7 +125,7 @@ class TestG2PDocumentStoreRegistry(TransactionComponentCase):
             }
         )
 
-        new_name = "Document 5 - Updated"
+        new_name = "Document 5 - Updated" + ".bin"
         partner.supporting_documents_ids[0].write({"name": new_name})
 
         self.assertEqual(partner.supporting_documents_ids[0].name, new_name)

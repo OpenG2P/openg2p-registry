@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="g2p_documents.Widgetpreview">
-        <button class="btn btn-primary" icon="fa-file-text-o" t-on-click="clickPreview">
-            Preview
-        </button>
+        <button t-on-click="clickPreview" class="btn btn-primary">Preview</button>
     </t>
 </templates>

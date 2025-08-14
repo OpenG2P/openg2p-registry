@@ -26,7 +26,7 @@ class TestVCIIssuerRegistryGroup(TransactionCase):
     def _setup_base_config(self):
         """Configure base system settings"""
         # Set the base URL for the system
-        self.env["ir.config_parameter"].set_param("web.base.url", "http://openg2p.local")
+        self.env["ir.config_parameter"].sudo().set_param("web.base.url", "http://openg2p.local")
 
         # Check if the id_type exists, if not, create one
         self.id_type = self.env["g2p.id.type"].search([("name", "=", "National ID")], limit=1)

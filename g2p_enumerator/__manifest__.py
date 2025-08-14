@@ -20,7 +20,7 @@
         "web.assets_common": [],
         "website.assets_wysiwyg": [],
     },
-    "application": True,
+    "application": False,
     "installable": True,
     "auto_install": False,
 }
