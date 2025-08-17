@@ -159,13 +159,6 @@ msgid "Preview"
 msgstr ""
 
 #. module: g2p_documents
-#. odoo-javascript
-#: code:addons/g2p_documents/static/src/xml/preview_document.xml:0
-#, python-format
-msgid "Preview File"
-msgstr ""
-
-#. module: g2p_documents
 #: model:ir.model,name:g2p_documents.model_storage_backend
 msgid "Storage Backend"
 msgstr ""
