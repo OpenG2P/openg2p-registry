@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.1.5.0 |  | G2P Auth: OIDC - Reg ID
 [g2p_auth_oidc](g2p_auth_oidc/) | 17.0.1.5.0 |  | OpenID Connect Authentication
 [g2p_auth_oidc_encryption](g2p_auth_oidc_encryption/) | 17.0.1.5.0 |  | OpenID Connect Authentication - Encryption Provider
+[g2p_auth_oidc_keycloak](g2p_auth_oidc_keycloak/) | 17.0.1.5.0 |  | Bootstrap OIDC Auth - Keycloak
 [g2p_bank](g2p_bank/) | 17.0.1.5.0 |  | G2P Registry: Bank Details
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.1.5.0 |  | G2P Registry: Bank Details Rest API
 [g2p_change_log](g2p_change_log/) | 17.0.1.5.0 |  | OpenG2P Change Log
@@ -32,6 +33,7 @@ addon | version | maintainers | summary
 [g2p_document_encryption](g2p_document_encryption/) | 17.0.1.5.0 |  | G2P Documents Encryption
 [g2p_document_field](g2p_document_field/) | 17.0.1.5.0 |  | G2P Document Field
 [g2p_documents](g2p_documents/) | 17.0.1.5.0 |  | G2P Documents Store
+[g2p_documents_bootstrap_s3](g2p_documents_bootstrap_s3/) | 17.0.1.5.0 |  | Bootstrap G2P Documents - S3
 [g2p_encryption](g2p_encryption/) | 17.0.1.5.0 |  | G2P Encryption: Base
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.1.5.0 |  | G2P Encryption: Keymanager
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.1.5.0 |  | G2P Encryption: Rest API

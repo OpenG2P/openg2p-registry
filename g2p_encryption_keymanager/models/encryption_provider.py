@@ -28,6 +28,11 @@ KEYMANAGER_AUTH_CLIENT_ID = os.getenv("KEYMANAGER_AUTH_CLIENT_ID", "openg2p-admi
 KEYMANAGER_AUTH_CLIENT_SECRET = os.getenv("KEYMANAGER_AUTH_CLIENT_SECRET", "")
 KEYMANAGER_AUTH_GRANT_TYPE = os.getenv("KEYMANAGER_AUTH_GRANT_TYPE", "client_credentials")
 
+KEYMANAGER_ENCRYPT_APP_ID = os.getenv("KEYMANAGER_ENCRYPT_APP_ID", "OPENG2P_SR")
+KEYMANAGER_ENCRYPT_REF_ID = os.getenv("KEYMANAGER_ENCRYPT_REF_ID", "ENCRYPT")
+KEYMANAGER_SIGN_APP_ID = os.getenv("KEYMANAGER_SIGN_APP_ID", "OPENG2P_SR")
+KEYMANAGER_SIGN_REF_ID = os.getenv("KEYMANAGER_SIGN_REF_ID", "")
+
 
 class KeymanagerEncryptionProvider(models.Model):
     _inherit = "g2p.encryption.provider"
@@ -54,12 +59,16 @@ class KeymanagerEncryptionProvider(models.Model):
     keymanager_access_token_expiry = fields.Datetime()
 
     keymanager_encrypt_application_id = fields.Char(
-        "Keymanager Encrypt Application ID", default="REGISTRATION"
+        "Keymanager Encrypt Application ID", default=KEYMANAGER_ENCRYPT_APP_ID
     )
-    keymanager_encrypt_reference_id = fields.Char("Keymanager Encrypt Reference ID", default="ENCRYPT")
+    keymanager_encrypt_reference_id = fields.Char(
+        "Keymanager Encrypt Reference ID", default=KEYMANAGER_ENCRYPT_REF_ID
+    )
 
-    keymanager_sign_application_id = fields.Char("Keymanager Sign Application ID", default="ID_REPO")
-    keymanager_sign_reference_id = fields.Char("Keymanager Sign Reference ID", default="")
+    keymanager_sign_application_id = fields.Char(
+        "Keymanager Sign Application ID", default=KEYMANAGER_SIGN_APP_ID
+    )
+    keymanager_sign_reference_id = fields.Char("Keymanager Sign Reference ID", default=KEYMANAGER_SIGN_REF_ID)
 
     keymanager_encrypt_salt = fields.Char(default=_km_random_secret)
     keymanager_encrypt_aad = fields.Char(default=_km_random_secret)
