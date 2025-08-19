@@ -19,7 +19,13 @@ msgid "Encryption Strategy"
 msgstr ""
 
 #. module: g2p_registry_document_encryption
+#: model:ir.model.fields,field_description:g2p_registry_document_encryption.field_storage_backend__x_encryption_strategy_env_default
+msgid "Encryption Strategy Env Default"
+msgstr ""
+
+#. module: g2p_registry_document_encryption
 #: model:ir.model.fields,help:g2p_registry_document_encryption.field_storage_backend__encryption_strategy
+#: model:ir.model.fields,help:g2p_registry_document_encryption.field_storage_backend__x_encryption_strategy_env_default
 msgid "Leave blank for no encryption"
 msgstr ""
 
@@ -40,7 +46,13 @@ msgid "Viewing Decryption Strategy"
 msgstr ""
 
 #. module: g2p_registry_document_encryption
+#: model:ir.model.fields,field_description:g2p_registry_document_encryption.field_storage_backend__x_viewing_decryption_strategy_env_default
+msgid "Viewing Decryption Strategy Env Default"
+msgstr ""
+
+#. module: g2p_registry_document_encryption
 #: model:ir.model.fields,help:g2p_registry_document_encryption.field_storage_backend__viewing_decryption_strategy
+#: model:ir.model.fields,help:g2p_registry_document_encryption.field_storage_backend__x_viewing_decryption_strategy_env_default
 msgid ""
 "Whether or not to decrypt document for viewing it. Leave blank to never "
 "decrypt documents"

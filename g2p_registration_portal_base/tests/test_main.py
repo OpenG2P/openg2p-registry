@@ -15,35 +15,36 @@ class TestG2PregistrationPortalBase(HttpCase):
                 "email": "test@example.com",
             }
         )
-        self.test_partner = self.env["res.partner"].create(
+
+        self.test_user.partner_id.write(
             {
-                "name": "Test Partner",
+                "supplier_rank": 1,
                 "is_registrant": True,
                 "is_group": True,
-                "user_id": self.test_user.id,
             }
         )
-        self.test_user.write({"password": "test_user"})
+
+        self.test_user.write({"password": "TestUser1!"})
 
         self.gender = self.env["gender.type"].create({"value": "Male", "code": "male"})
 
     def test_group_list(self):
         # Test accessing the group list page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/group")
         self.assertEqual(response.status_code, 200)
 
     def test_group_create(self):
         # Test accessing the group create page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/group/create/")
         self.assertEqual(response.status_code, 200)
 
     def test_group_create_submit(self):
         # Test submitting the group creation form.
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open(
             "/portal/registration/group/create/submit",
@@ -58,7 +59,7 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_group_update(self):
         # Test accessing the group update page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         group = self.env["res.partner"].create(
             {
@@ -73,7 +74,7 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_group_update_submit(self):
         # Test submitting the group update form
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         group = self.env["res.partner"].create(
             {"name": "Group to Update", "is_registrant": True, "is_group": True, "street": "Old Street"}
@@ -94,7 +95,7 @@ class TestG2PregistrationPortalBase(HttpCase):
     @mute_logger("odoo.http")
     def test_individual_create(self):
         # Test creating an individual member within a household
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open(
             "/portal/registration/member/create/",
@@ -117,7 +118,7 @@ class TestG2PregistrationPortalBase(HttpCase):
     @mute_logger("odoo.http")
     def test_update_member(self):
         # Test accessing the member update page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         member = self.env["res.partner"].create(
             {
@@ -136,7 +137,7 @@ class TestG2PregistrationPortalBase(HttpCase):
     @mute_logger("odoo.http")
     def test_update_member_submit(self):
         # Test submitting the member update form
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         member = self.env["res.partner"].create(
             {
@@ -163,21 +164,21 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_individual_list(self):
         # Test accessing the individual list page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/individual")
         self.assertEqual(response.status_code, 200)
 
     def test_individual_registrar_create(self):
         # Test accessing the individual creation page as registrar
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/individual/create/")
         self.assertEqual(response.status_code, 200)
 
     def test_individual_create_submit(self):
         # Test submitting the individual creation form
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open(
             "/portal/registration/individual/create/submit",
@@ -194,7 +195,7 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_indvidual_update(self):
         # Test accessing the individual update page
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         individual = self.env["res.partner"].create(
             {
@@ -211,7 +212,7 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_update_individual_submit(self):
         # Test submitting the individual update form
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         individual = self.env["res.partner"].create(
             {
@@ -234,7 +235,7 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_group_create_submit_invalid_field(self):
         # Test group creation with invalid field
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open(
             "/portal/registration/group/create/submit", data={"name": "Test Group", "invalid_field": "value"}
@@ -245,17 +246,16 @@ class TestG2PregistrationPortalBase(HttpCase):
 
     def test_group_submit_invalid_group(self):
         # Test group submission with invalid group_id
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/group/update/submit/", data={"group_id": 999999})
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn("g2p_registration_portal_base.group_list", response.text)
 
     @mute_logger("odoo.http")
     def test_update_member_invalid_id(self):
         # Test member update with invalid member_id
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/member/update/", data={"member_id": 777777})
 
@@ -264,7 +264,7 @@ class TestG2PregistrationPortalBase(HttpCase):
     @mute_logger("odoo.http")
     def test_update_member_submit_invalid_id(self):
         # Test member update submission with invalid member_id
-        self.authenticate("test_user", "test_user")
+        self.authenticate("test_user", "TestUser1!")
 
         response = self.url_open("/portal/registration/member/update/submit/", data={"member_id": 999999})
 

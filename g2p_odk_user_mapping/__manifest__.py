@@ -16,8 +16,11 @@
         "web.assets_frontend": [],
         "web.assets_common": [],
         "website.assets_wysiwyg": [],
+        "web.assets_backend": [
+            "g2p_odk_user_mapping/static/src/css/style.css",
+        ],
     },
-    "application": True,
+    "application": False,
     "installable": True,
-    "auto_install": False,
+    "auto_install": True,
 }

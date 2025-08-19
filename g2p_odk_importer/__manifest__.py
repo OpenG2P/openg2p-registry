@@ -13,6 +13,7 @@
         "base",
         "queue_job",
         "g2p_registry_base",
+        "g2p_enumerator",
     ],
     "data": [
         "security/odk_groups.xml",
@@ -26,7 +27,7 @@
             "jq",
         ]
     },
-    "application": True,
+    "application": False,
     "installable": True,
     "auto_install": False,
 }

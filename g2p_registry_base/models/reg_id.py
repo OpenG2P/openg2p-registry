@@ -15,6 +15,7 @@ class G2PRegistrantID(models.Model):
         "res.partner",
         "Registrant",
         required=True,
+        index=True,
         domain=[("is_registrant", "=", True)],
     )
     id_type = fields.Many2one("g2p.id.type", "ID Type", required=True)

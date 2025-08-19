@@ -111,6 +111,11 @@ msgid "Leave blank to use token endpoint for Client Assertion Aud."
 msgstr ""
 
 #. module: g2p_auth_oidc
+#: model:ir.model.fields,field_description:g2p_auth_oidc.field_auth_oauth_provider__logout_uri
+msgid "Logout URL"
+msgstr ""
+
+#. module: g2p_auth_oidc
 #: model:ir.model.fields.selection,name:g2p_auth_oidc.selection__auth_oauth_provider__sync_user_groups__never
 msgid "Never"
 msgstr ""
@@ -173,6 +178,11 @@ msgstr ""
 #. module: g2p_auth_oidc
 #: model:ir.model.fields,field_description:g2p_auth_oidc.field_auth_oauth_provider__sync_user_groups
 msgid "Sync User Groups"
+msgstr ""
+
+#. module: g2p_auth_oidc
+#: model:ir.model.fields,help:g2p_auth_oidc.field_auth_oauth_provider__logout_uri
+msgid "The URL to redirect to upon logout"
 msgstr ""
 
 #. module: g2p_auth_oidc

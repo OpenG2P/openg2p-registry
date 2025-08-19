@@ -7,7 +7,7 @@
                 <tree>
                     <field name="odk_user_id" />
                     <field name="name" />
-                    <field name="partner_id" />
+                    <field name="odk_config_id" />
                 </tree>
             </field>
         </record>

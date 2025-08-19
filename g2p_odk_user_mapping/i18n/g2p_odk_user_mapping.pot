@@ -42,7 +42,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/g2p_odk_user_mapping/models/res_partner.py:0
 #, python-format
-msgid "Failed to fetch app users"
+msgid "Failed to fetch ODK App Users: %s"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
@@ -58,6 +58,13 @@ msgstr ""
 #. module: g2p_odk_user_mapping
 #: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_odk_app_user__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_odk_user_mapping
+#. odoo-python
+#: code:addons/g2p_odk_user_mapping/models/res_partner.py:0
+#, python-format
+msgid "No new users found."
 msgstr ""
 
 #. module: g2p_odk_user_mapping
@@ -78,19 +85,31 @@ msgid "ODK App User Name"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
+#. odoo-python
+#: code:addons/g2p_odk_user_mapping/models/res_partner.py:0
+#, python-format
+msgid "ODK App Users fetched successfully."
+msgstr ""
+
+#. module: g2p_odk_user_mapping
 #: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_res_partner__odk_config_id
 #: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_res_users__odk_config_id
 msgid "ODK Config"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
-#: model_terms:ir.ui.view,arch_db:g2p_odk_user_mapping.view_res_partner_form_inherit_registration
-msgid "ODk User Configuration"
+#: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_odk_app_user__odk_config_id
+msgid "ODK Config ID"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
-#: model:ir.model.fields,field_description:g2p_odk_user_mapping.field_odk_app_user__partner_id
-msgid "Partner"
+#: model_terms:ir.ui.view,arch_db:g2p_odk_user_mapping.view_res_partner_form_inherit_registration
+msgid "ODK User Configuration"
+msgstr ""
+
+#. module: g2p_odk_user_mapping
+#: model_terms:ir.ui.view,arch_db:g2p_odk_user_mapping.view_res_partner_form_inherit_registration
+msgid "Sync ODK Users"
 msgstr ""
 
 #. module: g2p_odk_user_mapping
