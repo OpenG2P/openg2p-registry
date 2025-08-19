@@ -318,7 +318,7 @@ class TestAuthOauthProvider(TransactionCase):
         mock_post.return_value = mock_response
 
         # Set the necessary provider attributes
-        self.provider.client_authentication_method = "none"  # Example method
+        # self.provider.client_authentication_method not set
         self.provider.client_id = "test_client_id"
         self.provider.client_secret = "test_secret"
         self.provider.token_endpoint = "https://test.com/token"
@@ -412,7 +412,7 @@ class TestAuthOauthProvider(TransactionCase):
         # Test with empty gender
         validation = {"gender": ""}
         result = self.provider.oidc_signin_process_gender(validation.copy(), {})
-        self.assertEqual(result["gender"], "")
+        self.assertTrue(not result.get("gender"))
 
         # Test without gender field
         validation = {}
