@@ -56,6 +56,7 @@ def post_init_hook(env):
             "sync_user_groups": KEYCLOAK_SYNC_USER_GROUPS,
         }
     )
+    env["ir.config_parameter"].set_param("auth_oauth.authorization_header", "True")
     env["ir.config_parameter"].set_param(
         "g2p_disable_password_login.direct_oauth_provider",
         str(keycloak_provider.id),

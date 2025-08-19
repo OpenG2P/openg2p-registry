@@ -36,8 +36,16 @@ def post_init_hook(env):
         photos_store = env["storage.backend"].create(
             {
                 "name": "Photos Document Store",
-                "is_public": True,
+                "backend_type": "filesystem",
+            }
+        )
+
+        # A direct create is not working properly. Hence have to create and update seperately.
+        env.cr.commit()
+        photos_store.write(
+            {
                 "backend_type": "amazon_s3",
+                "is_public": True,
                 "aws_host": S3_URL,
                 "aws_region": S3_REGION,
                 "aws_access_key_id": S3_ACCESS_KEY_ID,
