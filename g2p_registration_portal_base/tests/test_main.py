@@ -13,6 +13,7 @@ class TestG2PregistrationPortalBase(HttpCase):
                 "name": "Test User",
                 "login": "test_user",
                 "email": "test@example.com",
+                "image_1920": False,
             }
         )
 
