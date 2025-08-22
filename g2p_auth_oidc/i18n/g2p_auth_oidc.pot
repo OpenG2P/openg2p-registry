@@ -121,11 +121,6 @@ msgid "Never"
 msgstr ""
 
 #. module: g2p_auth_oidc
-#: model:ir.model.fields.selection,name:g2p_auth_oidc.selection__auth_oauth_provider__client_authentication_method__none
-msgid "None"
-msgstr ""
-
-#. module: g2p_auth_oidc
 #: model:ir.model.fields.selection,name:g2p_auth_oidc.selection__auth_oauth_provider__flow__oauth2
 msgid "OAuth2"
 msgstr ""
