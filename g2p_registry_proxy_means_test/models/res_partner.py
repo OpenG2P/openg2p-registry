@@ -10,7 +10,7 @@ class ResPartner(models.Model):
     def _compute_pmt_score(self):
         for partner in self:
             score = 0.0
-            pmt_params = self.env["sr.proxy.means.test.params"]
+            pmt_params = self.env["g2p.proxy.means.test.params"]
 
             if partner.is_group:
                 pmt_params = pmt_params.search(
@@ -47,7 +47,7 @@ class ResPartner(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        pmt_params = self.env["sr.proxy.means.test.params"]
+        pmt_params = self.env["g2p.proxy.means.test.params"]
 
         if self.is_group:
             pmt_params = pmt_params.search([("target", "=", "group"), ("kind", "=", self.kind.id)], limit=1)

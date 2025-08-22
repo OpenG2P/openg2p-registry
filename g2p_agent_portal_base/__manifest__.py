@@ -1,6 +1,6 @@
 {
     "name": "G2P Agent Portal: Base",
-    "category": "OpenG2P",
+    "category": "G2P",
     "version": "17.0.0.0.0",
     "sequence": 1,
     "author": "OpenG2P",

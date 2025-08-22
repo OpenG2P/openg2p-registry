@@ -43,7 +43,9 @@ class TestMaterializedViewInit(TransactionCase):
         self.assertTrue(
             any("CREATE MATERIALIZED VIEW g2p_age_distribution_view" in sql for sql in executed_sqls)
         )
-        self.assertTrue(any("CREATE MATERIALIZED VIEW g2p_sr_dashboard_data" in sql for sql in executed_sqls))
+        self.assertTrue(
+            any("CREATE MATERIALIZED VIEW g2p_registry_dashboard_data" in sql for sql in executed_sqls)
+        )
 
     def test_init_materialized_view_fails(self):
         # Simulate exception

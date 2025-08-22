@@ -1,6 +1,6 @@
 {
     "name": "OpenG2P Registry MTS Connector",
-    "category": "MTS",
+    "category": "G2P",
     "version": "17.0.0.0.0",
     "author": "OpenG2P",
     "website": "https://openg2p.org",

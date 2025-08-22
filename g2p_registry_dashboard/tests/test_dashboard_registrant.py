@@ -34,7 +34,7 @@ class TestResPartnerDashboard(TransactionCase):
             mock_cr.execute.assert_called_once_with(
                 """
             SELECT total_registrants, gender_spec, age_distribution
-            FROM g2p_sr_dashboard_data
+            FROM g2p_registry_dashboard_data
             WHERE company_id = %s
         """,
                 (company_id,),

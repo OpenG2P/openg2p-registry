@@ -7,7 +7,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "mail", "g2p_registry", "g2p_registry_addl_info", "web"],
+    "depends": ["base", "mail", "g2p_registry_membership", "g2p_registry_addl_info", "web"],
     "data": [
         "security/rules.xml",
         "security/ir.model.access.csv",

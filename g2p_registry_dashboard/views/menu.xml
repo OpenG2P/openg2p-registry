@@ -4,16 +4,16 @@
 -->
 <odoo>
 
-   <record id="sr_dashboard_action" model="ir.actions.client">
+   <record id="g2p_registry_dashboard_action" model="ir.actions.client">
       <field name="name">Dashboard</field>
-      <field name="tag">g2p_registry_dashboard.sr_dashboard_tag</field>
+      <field name="tag">g2p_registry_dashboard.g2p_registry_dashboard_tag</field>
    </record>
 
    <menuitem
         name="Dashboard"
-        id="sr_dashboard"
+        id="registry_dashboard"
         sequence="0"
-        action="sr_dashboard_action"
+        action="g2p_registry_dashboard_action"
         parent="g2p_registry_base.g2p_main_menu_root"
     />
 

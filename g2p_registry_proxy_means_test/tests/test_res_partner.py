@@ -8,11 +8,11 @@ class TestResPartner(TransactionCase):
         super().setUp()
         self.group_kind = self.env["g2p.group.kind"].create({"name": "Test Kind"})
 
-        self.pmt_params = self.env["sr.proxy.means.test.params"].create(
+        self.pmt_params = self.env["g2p.proxy.means.test.params"].create(
             {"pmt_name": "Test PMT", "target": "individual", "kind": self.group_kind.id}
         )
 
-        self.pmt_line = self.env["sr.proxy.means.test.line"].create(
+        self.pmt_line = self.env["g2p.proxy.means.test.line"].create(
             {"pmt_id": self.pmt_params.id, "pmt_field": "income", "pmt_weightage": 0.5}
         )
 
@@ -25,11 +25,11 @@ class TestResPartner(TransactionCase):
         self.assertEqual(self.partner.pmt_score, 500)
 
     def test_compute_pmt_score_group(self):
-        group_pmt = self.env["sr.proxy.means.test.params"].create(
+        group_pmt = self.env["g2p.proxy.means.test.params"].create(
             {"pmt_name": "Group PMT", "target": "group", "kind": self.group_kind.id}
         )
 
-        self.env["sr.proxy.means.test.line"].create(
+        self.env["g2p.proxy.means.test.line"].create(
             {"pmt_id": group_pmt.id, "pmt_field": "income", "pmt_weightage": 0.75}
         )
 
@@ -41,7 +41,7 @@ class TestResPartner(TransactionCase):
         self.assertEqual(group_partner.pmt_score, 750)
 
     def test_compute_pmt_score_no_params(self):
-        self.env["sr.proxy.means.test.params"].search([]).unlink()
+        self.env["g2p.proxy.means.test.params"].search([]).unlink()
 
         self.partner._compute_pmt_score()
         self.assertEqual(self.partner.pmt_score, 0)

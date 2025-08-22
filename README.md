@@ -1,8 +1,8 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=17.0-develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3A17.0-develop)
-[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=17.0-develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3A17.0-develop)
-[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/17.0-develop/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
+[![Pre-commit Status](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml/badge.svg?branch=develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/pre-commit.yml?query=branch%3Adevelop)
+[![Build Status](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/openg2p/openg2p-registry/actions/workflows/test.yml?query=branch%3Adevelop)
+[![codecov](https://codecov.io/gh/openg2p/openg2p-registry/branch/develop/graph/badge.svg)](https://codecov.io/gh/openg2p/openg2p-registry)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
@@ -29,16 +29,17 @@ addon | version | maintainers | summary
 [g2p_auth_oidc_keycloak](g2p_auth_oidc_keycloak/) | 17.0.0.0.0 |  | Bootstrap OIDC Auth - Keycloak
 [g2p_bank](g2p_bank/) | 17.0.0.0.0 |  | G2P Registry: Bank Details
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Bank Details Rest API
-[g2p_change_log](g2p_change_log/) | 17.0.0.0.0 |  | OpenG2P Change Log
 [g2p_disable_password_login](g2p_disable_password_login/) | 17.0.0.0.0 |  | Disable Password Login
 [g2p_document_encryption](g2p_document_encryption/) | 17.0.0.0.0 |  | G2P Documents Encryption
 [g2p_document_field](g2p_document_field/) | 17.0.0.0.0 |  | G2P Document Field
 [g2p_documents](g2p_documents/) | 17.0.0.0.0 |  | G2P Documents Store
 [g2p_documents_bootstrap_s3](g2p_documents_bootstrap_s3/) | 17.0.0.0.0 |  | Bootstrap G2P Documents - S3
+[g2p_draft_publish](g2p_draft_publish/) | 17.0.0.0.0 |  | OpenG2P Draft Publish
 [g2p_encryption](g2p_encryption/) | 17.0.0.0.0 |  | G2P Encryption: Base
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.0.0.0 |  | G2P Encryption: Keymanager
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.0.0.0 |  | G2P Encryption: Rest API
 [g2p_enumerator](g2p_enumerator/) | 17.0.0.0.0 |  | G2P Enumerator
+[g2p_leaflet_map](g2p_leaflet_map/) | 17.0.0.0.0 |  | OpenG2P Leaflet Map
 [g2p_mts](g2p_mts/) | 17.0.0.0.0 |  | OpenG2P Registry MTS Connector
 [g2p_odk_importer](g2p_odk_importer/) | 17.0.0.0.0 |  | Import records from ODK
 [g2p_odk_importer_documents](g2p_odk_importer_documents/) | 17.0.0.0.0 |  | ODK Import Records with Documents
@@ -53,6 +54,7 @@ addon | version | maintainers | summary
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.0.0.0 |  | G2P Registry: Additional Info
 [g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Additional Info REST API
 [g2p_registry_base](g2p_registry_base/) | 17.0.0.0.0 |  | G2P Registry: Base
+[g2p_registry_dashboard](g2p_registry_dashboard/) | 17.0.0.0.0 |  | OpenG2P Registry: Dashboard
 [g2p_registry_datashare_rabbitmq](g2p_registry_datashare_rabbitmq/) | 17.0.0.0.0 |  | G2P Registry Datashare: RabbitMQ
 [g2p_registry_datashare_websub](g2p_registry_datashare_websub/) | 17.0.0.0.0 |  | G2P Registry Datashare: WebSub
 [g2p_registry_deduplication_deduplicator](g2p_registry_deduplication_deduplicator/) | 17.0.0.0.0 |  | OpenG2P Registry Deduplication - Deduplicator
@@ -63,11 +65,16 @@ addon | version | maintainers | summary
 [g2p_registry_documents_group](g2p_registry_documents_group/) | 17.0.0.0.0 |  | G2P Registry Documents: Group
 [g2p_registry_documents_individual](g2p_registry_documents_individual/) | 17.0.0.0.0 |  | G2P Registry Documents: Individual
 [g2p_registry_encryption](g2p_registry_encryption/) | 17.0.0.0.0 |  | G2P Registry: Encryption
+[g2p_registry_g2p_connect_rest_api](g2p_registry_g2p_connect_rest_api/) | 17.0.0.0.0 |  | OpenG2P: G2P Connect REST API
 [g2p_registry_group](g2p_registry_group/) | 17.0.0.0.0 |  | G2P Registry: Groups
+[g2p_registry_id_deduplication](g2p_registry_id_deduplication/) | 17.0.0.0.0 |  | OpenG2P Registry ID Deduplication
 [g2p_registry_individual](g2p_registry_individual/) | 17.0.0.0.0 |  | G2P Registry: Individual
 [g2p_registry_membership](g2p_registry_membership/) | 17.0.0.0.0 |  | G2P Registry: Membership
+[g2p_registry_proxy_means_test](g2p_registry_proxy_means_test/) | 17.0.0.0.0 |  | G2P Registry: PMT
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Rest API
+[g2p_registry_theme](g2p_registry_theme/) | 17.0.0.0.0 |  | OpenG2P Registry: Theme
 [g2p_security](g2p_security/) | 17.0.0.0.0 |  | G2P Security
+[g2p_social_registry_model](g2p_social_registry_model/) | 17.0.0.0.0 |  | G2P Social Registry: Model
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.0.0.0 |  | OpenG2P Superset Dashboard
 [mts_connector](mts_connector/) | 17.0.0.0.0 |  | MTS Connector
 

@@ -1,6 +1,7 @@
 # Part of OpenG2P. See LICENSE file for full copyright and licensing details.
 
 import logging
+
 from odoo import api, models
 
 _logger = logging.getLogger(__name__)
@@ -15,23 +16,26 @@ class ResPartnerDashboard(models.Model):
         company_id = self.env.company.id
 
         # First check if the materialized view exists
-        self.env.cr.execute("""
+        self.env.cr.execute(
+            """
             SELECT matviewname
             FROM pg_matviews
-            WHERE matviewname = 'g2p_sr_dashboard_data';
-        """)
-        
+            WHERE matviewname = 'g2p_registry_dashboard_data';
+        """
+        )
+
         if not self.env.cr.fetchone():
             # Materialized view doesn't exist, try to create it
             try:
                 from . import init_materialized_view
+
                 init_materialized_view(self.env)
             except Exception as e:
                 _logger.warning("Could not create materialized view: %s", str(e))
 
         query = """
             SELECT total_registrants, gender_spec, age_distribution
-            FROM g2p_sr_dashboard_data
+            FROM g2p_registry_dashboard_data
             WHERE company_id = %s
         """
         self.env.cr.execute(query, (company_id,))
@@ -80,6 +84,7 @@ class ResPartnerDashboard(models.Model):
         """Manually refresh the dashboard materialized views."""
         try:
             from .. import init_materialized_view
+
             init_materialized_view(self.env)
             return {"success": True, "message": "Dashboard data refreshed successfully"}
         except Exception as e:

@@ -7,18 +7,18 @@ class TestSRProxyMeanTestParams(TransactionCase):
         super().setUp()
         self.group_kind = self.env["g2p.group.kind"].create({"name": "Test Kind"})
 
-        self.pmt_params = self.env["sr.proxy.means.test.params"].create(
+        self.pmt_params = self.env["g2p.proxy.means.test.params"].create(
             {"pmt_name": "Test PMT", "target": "individual", "kind": self.group_kind.id}
         )
 
     def test_create_duplicate_pmt(self):
         with self.assertRaises(ValidationError):
-            self.env["sr.proxy.means.test.params"].create(
+            self.env["g2p.proxy.means.test.params"].create(
                 {"pmt_name": "Duplicate PMT", "target": "individual", "kind": self.group_kind.id}
             )
 
     def test_write_duplicate_pmt(self):
-        other_pmt = self.env["sr.proxy.means.test.params"].create(
+        other_pmt = self.env["g2p.proxy.means.test.params"].create(
             {"pmt_name": "Other PMT", "target": "group", "kind": self.group_kind.id}
         )
 
@@ -37,7 +37,7 @@ class TestSRProxyMeanTestParams(TransactionCase):
     def test_unlink(self):
         partner = self.env["res.partner"].create({"name": "Test Partner", "kind": self.group_kind.id})
 
-        self.env["sr.proxy.means.test.line"].create(
+        self.env["g2p.proxy.means.test.line"].create(
             {"pmt_id": self.pmt_params.id, "pmt_field": "income", "pmt_weightage": 1.0}
         )
 
@@ -50,7 +50,7 @@ class TestSRProxyMeanTestParams(TransactionCase):
             {"name": "Test Partner", "kind": self.group_kind.id, "income": 1000}
         )
 
-        self.env["sr.proxy.means.test.line"].create(
+        self.env["g2p.proxy.means.test.line"].create(
             {"pmt_id": self.pmt_params.id, "pmt_field": "income", "pmt_weightage": 0.5}
         )
 
@@ -58,6 +58,6 @@ class TestSRProxyMeanTestParams(TransactionCase):
         self.assertEqual(partner.pmt_score, 500)
 
     def test_invalid_computation_conditions(self):
-        invalid_pmt = self.env["sr.proxy.means.test.params"].create({"pmt_name": False, "target": False})
+        invalid_pmt = self.env["g2p.proxy.means.test.params"].create({"pmt_name": False, "target": False})
 
         invalid_pmt.compute_related_partners_pmt_score()

@@ -5,11 +5,11 @@ import {KpiComponent} from "../components/kpi/kpi";
 import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 
-class SRDashboard extends Component {
+class G2PRegistryDashboard extends Component {
     setup() {
         super.setup();
         this.orm = useService("orm");
-        this.dashboard_title = "SR Dashboard";
+        this.dashboard_title = "Registry Dashboard";
 
         this.dashboard_data = useState({
             total_groups: 0,
@@ -43,7 +43,7 @@ class SRDashboard extends Component {
     }
 }
 
-SRDashboard.template = "g2p_registry_dashboard.dashboard_template";
-SRDashboard.components = {ChartComponent, KpiComponent};
+G2PRegistryDashboard.template = "g2p_registry_dashboard.dashboard_template";
+G2PRegistryDashboard.components = {ChartComponent, KpiComponent};
 
-registry.category("actions").add("g2p_registry_dashboard.sr_dashboard_tag", SRDashboard);
+registry.category("actions").add("g2p_registry_dashboard.g2p_registry_dashboard_tag", G2PRegistryDashboard);
