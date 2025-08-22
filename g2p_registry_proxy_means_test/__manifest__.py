@@ -7,7 +7,14 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "web", "g2p_registry_base", "g2p_registry"],
+    "depends": [
+        "base",
+        "web",
+        "g2p_registry_base",
+        "g2p_registry_individual",
+        "g2p_registry_group",
+        "g2p_registry_membership",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/pmt_config_view.xml",
@@ -19,5 +26,5 @@
     "images": [],
     "application": False,
     "installable": True,
-    "auto_install": True,
+    "auto_install": False,
 }

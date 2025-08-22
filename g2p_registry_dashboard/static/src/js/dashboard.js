@@ -9,7 +9,7 @@ class SRDashboard extends Component {
     setup() {
         super.setup();
         this.orm = useService("orm");
-        this.dashboard_title = "SR Dashboard";
+        this.dashboard_title = "Registry Dashboard";
 
         this.dashboard_data = useState({
             total_groups: 0,

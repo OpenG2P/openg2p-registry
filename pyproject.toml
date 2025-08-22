@@ -48,6 +48,14 @@ dependencies = [
     "odoo-addon-g2p_security @ {root:uri}/g2p_security",
     "odoo-addon-g2p_superset_dashboard @ {root:uri}/g2p_superset_dashboard",
     "odoo-addon-mts_connector @ {root:uri}/mts_connector",
+    "odoo-addon-g2p_draft_publish @ {root:uri}/g2p_draft_publish",
+    "odoo-addon-g2p_leaflet_map @ {root:uri}/g2p_leaflet_map",
+    "odoo-addon-g2p_registry_g2p_connect_rest_api @ {root:uri}/g2p_registry_g2p_connect_rest_api",
+    "odoo-addon-g2p_registry_id_deduplication @ {root:uri}/g2p_registry_id_deduplication",
+    "odoo-addon-g2p_registry_dashboard @ {root:uri}/g2p_registry_dashboard",
+    "odoo-addon-g2p_social_registry_model @ {root:uri}/g2p_social_registry_model",
+    "odoo-addon-g2p_registry_proxy_means_test @ {root:uri}/g2p_registry_proxy_means_test",
+    "odoo-addon-g2p_registry_theme @ {root:uri}/g2p_registry_theme",
 ]
 
 [tool.hatch.metadata]
