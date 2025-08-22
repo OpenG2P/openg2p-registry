@@ -24,6 +24,11 @@ msgid "Allowed in Service Provider Portal"
 msgstr ""
 
 #. module: g2p_portal_auth
+#: model:ir.model.fields,field_description:g2p_portal_auth.field_auth_oauth_provider__g2p_uca_portal_allowed
+msgid "Allowed in UCA"
+msgstr ""
+
+#. module: g2p_portal_auth
 #: model:ir.model.fields,field_description:g2p_portal_auth.field_auth_oauth_provider__g2p_portal_oauth_callback_url
 msgid "G2P Portal Oauth Callback Url"
 msgstr ""

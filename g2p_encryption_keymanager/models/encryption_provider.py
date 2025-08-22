@@ -19,6 +19,7 @@ from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 KEYMANAGER_API_BASE_URL = os.getenv("KEYMANAGER_API_BASE_URL", "http://keymanager.keymanager/v1/keymanager")
+KEYMANAGER_AUTH_ENABLED = os.getenv("KEYMANAGER_AUTH_ENABLED", "").lower() != "false"
 KEYMANAGER_AUTH_URL = os.getenv(
     "KEYMANAGER_AUTH_URL",
     "http://keycloak.keycloak/realms/openg2p/protocol/openid-connect/token",
@@ -26,6 +27,11 @@ KEYMANAGER_AUTH_URL = os.getenv(
 KEYMANAGER_AUTH_CLIENT_ID = os.getenv("KEYMANAGER_AUTH_CLIENT_ID", "openg2p-admin-client")
 KEYMANAGER_AUTH_CLIENT_SECRET = os.getenv("KEYMANAGER_AUTH_CLIENT_SECRET", "")
 KEYMANAGER_AUTH_GRANT_TYPE = os.getenv("KEYMANAGER_AUTH_GRANT_TYPE", "client_credentials")
+
+KEYMANAGER_ENCRYPT_APP_ID = os.getenv("KEYMANAGER_ENCRYPT_APP_ID", "OPENG2P_SR")
+KEYMANAGER_ENCRYPT_REF_ID = os.getenv("KEYMANAGER_ENCRYPT_REF_ID", "ENCRYPT")
+KEYMANAGER_SIGN_APP_ID = os.getenv("KEYMANAGER_SIGN_APP_ID", "OPENG2P_SR")
+KEYMANAGER_SIGN_REF_ID = os.getenv("KEYMANAGER_SIGN_REF_ID", "")
 
 
 class KeymanagerEncryptionProvider(models.Model):
@@ -43,6 +49,7 @@ class KeymanagerEncryptionProvider(models.Model):
 
     keymanager_api_base_url = fields.Char("Keymanager API Base URL", default=KEYMANAGER_API_BASE_URL)
     keymanager_api_timeout = fields.Integer("Keymanager API Timeout", default=10)
+    keymanager_auth_enabled = fields.Boolean(default=KEYMANAGER_AUTH_ENABLED)
     keymanager_auth_url = fields.Char("Keymanager Auth URL", default=KEYMANAGER_AUTH_URL)
     keymanager_auth_client_id = fields.Char("Keymanager Auth Client ID", default=KEYMANAGER_AUTH_CLIENT_ID)
     keymanager_auth_client_secret = fields.Char(default=KEYMANAGER_AUTH_CLIENT_SECRET)
@@ -52,22 +59,27 @@ class KeymanagerEncryptionProvider(models.Model):
     keymanager_access_token_expiry = fields.Datetime()
 
     keymanager_encrypt_application_id = fields.Char(
-        "Keymanager Encrypt Application ID", default="REGISTRATION"
+        "Keymanager Encrypt Application ID", default=KEYMANAGER_ENCRYPT_APP_ID
     )
-    keymanager_encrypt_reference_id = fields.Char("Keymanager Encrypt Reference ID", default="ENCRYPT")
+    keymanager_encrypt_reference_id = fields.Char(
+        "Keymanager Encrypt Reference ID", default=KEYMANAGER_ENCRYPT_REF_ID
+    )
 
-    keymanager_sign_application_id = fields.Char("Keymanager Sign Application ID", default="ID_REPO")
-    keymanager_sign_reference_id = fields.Char("Keymanager Sign Reference ID", default="")
+    keymanager_sign_application_id = fields.Char(
+        "Keymanager Sign Application ID", default=KEYMANAGER_SIGN_APP_ID
+    )
+    keymanager_sign_reference_id = fields.Char("Keymanager Sign Reference ID", default=KEYMANAGER_SIGN_REF_ID)
 
     keymanager_encrypt_salt = fields.Char(default=_km_random_secret)
     keymanager_encrypt_aad = fields.Char(default=_km_random_secret)
 
     def encrypt_data_keymanager(self, data: bytes, **kwargs) -> bytes:
         self.ensure_one()
-        access_token = self.km_get_access_token()
         current_time = self.km_generate_current_time()
         url = f"{self.keymanager_api_base_url}/encrypt"
-        headers = {"Cookie": f"Authorization={access_token}"}
+        cookies = {}
+        if self.keymanager_auth_enabled:
+            cookies["Authorization"] = self.km_get_access_token()
         payload = {
             "id": "string",
             "version": "string",
@@ -82,7 +94,7 @@ class KeymanagerEncryptionProvider(models.Model):
                 "aad": self.keymanager_encrypt_aad,
             },
         }
-        response = requests.post(url, json=payload, headers=headers, timeout=self.keymanager_api_timeout)
+        response = requests.post(url, json=payload, cookies=cookies, timeout=self.keymanager_api_timeout)
         _logger.debug("Keymanager Encrypt API response: %s", response.text)
         response.raise_for_status()
         if response:
@@ -95,10 +107,11 @@ class KeymanagerEncryptionProvider(models.Model):
 
     def decrypt_data_keymanager(self, data: bytes, **kwargs) -> bytes:
         self.ensure_one()
-        access_token = self.km_get_access_token()
         current_time = self.km_generate_current_time()
         url = f"{self.keymanager_api_base_url}/decrypt"
-        headers = {"Cookie": f"Authorization={access_token}"}
+        cookies = {}
+        if self.keymanager_auth_enabled:
+            cookies["Authorization"] = self.km_get_access_token()
         payload = {
             "id": "string",
             "version": "string",
@@ -113,7 +126,7 @@ class KeymanagerEncryptionProvider(models.Model):
                 "aad": self.keymanager_encrypt_aad,
             },
         }
-        response = requests.post(url, json=payload, headers=headers, timeout=self.keymanager_api_timeout)
+        response = requests.post(url, json=payload, cookies=cookies, timeout=self.keymanager_api_timeout)
         _logger.debug("Keymanager Decrypt API response: %s", response.text)
         response.raise_for_status()
         if response:
@@ -138,10 +151,11 @@ class KeymanagerEncryptionProvider(models.Model):
         elif isinstance(data, str):
             data = data.encode()
 
-        access_token = self.km_get_access_token()
         current_time = self.km_generate_current_time()
         url = f"{self.keymanager_api_base_url}/jwtSign"
-        headers = {"Cookie": f"Authorization={access_token}"}
+        cookies = {}
+        if self.keymanager_auth_enabled:
+            cookies["Authorization"] = self.km_get_access_token()
         payload = {
             "id": "string",
             "version": "string",
@@ -156,7 +170,7 @@ class KeymanagerEncryptionProvider(models.Model):
                 "includeCertHash": include_cert_hash,
             },
         }
-        response = requests.post(url, json=payload, headers=headers, timeout=self.keymanager_api_timeout)
+        response = requests.post(url, json=payload, cookies=cookies, timeout=self.keymanager_api_timeout)
         _logger.debug("Keymanager JWT Sign API response: %s", response.text)
         response.raise_for_status()
         if response:
@@ -169,10 +183,11 @@ class KeymanagerEncryptionProvider(models.Model):
 
     def jwt_verify_keymanager(self, data: str, **kwargs):
         self.ensure_one()
-        access_token = self.km_get_access_token()
         current_time = self.km_generate_current_time()
         url = f"{self.keymanager_api_base_url}/jwtVerify"
-        headers = {"Cookie": f"Authorization={access_token}"}
+        cookies = {}
+        if self.keymanager_auth_enabled:
+            cookies["Authorization"] = self.km_get_access_token()
         payload = {
             "id": "string",
             "version": "string",
@@ -185,7 +200,7 @@ class KeymanagerEncryptionProvider(models.Model):
                 "validateTrust": False,
             },
         }
-        response = requests.post(url, json=payload, headers=headers, timeout=self.keymanager_api_timeout)
+        response = requests.post(url, json=payload, cookies=cookies, timeout=self.keymanager_api_timeout)
         _logger.debug("Keymanager JWT Verify API response: %s", response.text)
         response.raise_for_status()
         if response:
@@ -203,8 +218,10 @@ class KeymanagerEncryptionProvider(models.Model):
     def get_jwks_keymanager(self, **kwargs):
         # TODO: Cache this JWKS response somehow
         self.ensure_one()
-        access_token = self.km_get_access_token()
         jwks = []
+        cookies = {}
+        if self.keymanager_auth_enabled:
+            cookies["Authorization"] = self.km_get_access_token()
         for app_id, ref_id, use in (
             (
                 self.keymanager_encrypt_application_id or "",
@@ -222,8 +239,7 @@ class KeymanagerEncryptionProvider(models.Model):
                 url += f"?applicationId={app_id}"
             if self.keymanager_sign_reference_id:
                 url += f"&referenceId={ref_id}"
-            headers = {"Cookie": f"Authorization={access_token}"}
-            response = requests.get(url, headers=headers, timeout=self.keymanager_api_timeout)
+            response = requests.get(url, cookies=cookies, timeout=self.keymanager_api_timeout)
             _logger.debug("Keymanager get Certificate API response: %s", response.text)
             response.raise_for_status()
             certs = response.json().get("response", {}).get("allCertificates", [])

@@ -59,6 +59,11 @@ msgid "Keymanager Auth Client Secret"
 msgstr ""
 
 #. module: g2p_encryption_keymanager
+#: model:ir.model.fields,field_description:g2p_encryption_keymanager.field_g2p_encryption_provider__keymanager_auth_enabled
+msgid "Keymanager Auth Enabled"
+msgstr ""
+
+#. module: g2p_encryption_keymanager
 #: model:ir.model.fields,field_description:g2p_encryption_keymanager.field_g2p_encryption_provider__keymanager_auth_grant_type
 msgid "Keymanager Auth Grant Type"
 msgstr ""
