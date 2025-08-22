@@ -17,6 +17,7 @@ class TestKeymanagerEncryptionProvider(TransactionCase):
             {
                 "name": "Test Keymanager",
                 "type": "keymanager",
+                "keymanager_auth_enabled": True,
                 "keymanager_encrypt_application_id": "TEST_APP",
                 "keymanager_encrypt_reference_id": "TEST_REF",
                 "keymanager_sign_application_id": "TEST_SIGN_APP",

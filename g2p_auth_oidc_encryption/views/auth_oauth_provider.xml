@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_oauth_provider_oidc_enc_form" model="ir.ui.view">
+        <field name="name">view_oauth_provider_oidc_enc_form</field>
+        <field name="model">auth.oauth.provider</field>
+        <field name="inherit_id" ref="g2p_auth_oidc.view_oauth_provider_oidc_form" />
+        <field name="arch" type="xml">
+            <field name="client_private_key" position="after">
+                <field
+                    name="client_private_key_enc_provider"
+                    required="True"
+                    invisible="client_authentication_method != 'private_key_jwt_enc_provider'"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

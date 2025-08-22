@@ -49,6 +49,7 @@ coverage.xml
 # Visual Studio cache/options directory
 .vs/
 .vscode
+**/odools.toml
 
 # OSX Files
 .DS_Store
