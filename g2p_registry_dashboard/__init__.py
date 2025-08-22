@@ -19,7 +19,7 @@ def init_materialized_view(env):
         "g2p_gender_count_view",
         "g2p_age_distribution_view",
         "g2p_total_registrants_view",
-        "g2p_sr_dashboard_data",
+        "g2p_registry_dashboard_data",
     ]
 
     try:
@@ -109,9 +109,9 @@ def init_materialized_view(env):
             cr.execute(total_registrants_query)
             _logger.info("Created materialized view: g2p_total_registrants_view")
 
-        if "g2p_sr_dashboard_data" not in existing_views:
+        if "g2p_registry_dashboard_data" not in existing_views:
             dashboard_query = """
-                CREATE MATERIALIZED VIEW g2p_sr_dashboard_data AS
+                CREATE MATERIALIZED VIEW g2p_registry_dashboard_data AS
                 SELECT
                     trv.company_id,
                     trv.total_registrants,
@@ -130,7 +130,7 @@ def init_materialized_view(env):
                     trv.company_id, trv.total_registrants, adv.age_distribution;
             """
             cr.execute(dashboard_query)
-            _logger.info("Created materialized view: g2p_sr_dashboard_data")
+            _logger.info("Created materialized view: g2p_registry_dashboard_data")
 
     except Exception as exc:
         _logger.error("Error while creating materialized views: %s", str(exc))
@@ -149,7 +149,7 @@ def drop_materialized_view(env):
     cr = env.cr
 
     matviews_to_drop = [
-        "g2p_sr_dashboard_data",
+        "g2p_registry_dashboard_data",
         "g2p_gender_count_view",
         "g2p_age_distribution_view",
         "g2p_total_registrants_view",

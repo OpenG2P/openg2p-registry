@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class SRProxyMeanTestParams(models.Model):
-    _name = "sr.proxy.means.test.params"
+    _name = "g2p.proxy.means.test.params"
     _description = "Proxy Means Test Params"
     _rec_name = "pmt_name"
 
@@ -17,7 +17,7 @@ class SRProxyMeanTestParams(models.Model):
         "g2p.group.kind",
     )
 
-    pmt_line_ids = fields.One2many("sr.proxy.means.test.line", "pmt_id", string="Proxy Means Test Lines")
+    pmt_line_ids = fields.One2many("g2p.proxy.means.test.line", "pmt_id", string="Proxy Means Test Lines")
 
     target_name = fields.Boolean(default=True)
 

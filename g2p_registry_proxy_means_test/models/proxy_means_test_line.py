@@ -3,10 +3,10 @@ from odoo.exceptions import ValidationError
 
 
 class SRProxyMeanTestLine(models.Model):
-    _name = "sr.proxy.means.test.line"
+    _name = "g2p.proxy.means.test.line"
     _description = "Proxy Means Test Line"
 
-    pmt_id = fields.Many2one("sr.proxy.means.test.params", string="Proxy Means Test")
+    pmt_id = fields.Many2one("g2p.proxy.means.test.params", string="Proxy Means Test")
     pmt_field = fields.Selection(selection="get_fields_label", string="Field")
     pmt_weightage = fields.Float(string="Weightage")
 

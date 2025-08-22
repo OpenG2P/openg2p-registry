@@ -11,11 +11,11 @@ class TestSRProxyMeanTestLine(TransactionCase):
     def setUp(self):
         super().setUp()
 
-        self.pmt_params = self.env["sr.proxy.means.test.params"].create(
+        self.pmt_params = self.env["g2p.proxy.means.test.params"].create(
             {"pmt_name": "Test PMT", "target": "individual", "kind": self.group_kind.id, "target_name": True}
         )
 
-        self.pmt_line = self.env["sr.proxy.means.test.line"].create(
+        self.pmt_line = self.env["g2p.proxy.means.test.line"].create(
             {"pmt_id": self.pmt_params.id, "pmt_field": "income", "pmt_weightage": 1.0}
         )
 
@@ -26,7 +26,7 @@ class TestSRProxyMeanTestLine(TransactionCase):
 
     def test_check_unique_field_weightage(self):
         with self.assertRaises(ValidationError):
-            self.env["sr.proxy.means.test.line"].create(
+            self.env["g2p.proxy.means.test.line"].create(
                 {"pmt_id": self.pmt_params.id, "pmt_field": "income", "pmt_weightage": 2.0}
             )
 

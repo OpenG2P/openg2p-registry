@@ -18,7 +18,7 @@ class DashboardCron(models.Model):
             "g2p_gender_count_view",
             "g2p_age_distribution_view",
             "g2p_total_registrants_view",
-            "g2p_sr_dashboard_data",
+            "g2p_registry_dashboard_data",
         ]
 
         for matview in matviews_to_refresh:

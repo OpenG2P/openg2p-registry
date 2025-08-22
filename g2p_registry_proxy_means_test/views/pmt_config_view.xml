@@ -2,7 +2,7 @@
 <odoo>
     <record id="view_pmt_config_tree" model="ir.ui.view">
         <field name="name">view_pmt_config_tree</field>
-        <field name="model">sr.proxy.means.test.params</field>
+        <field name="model">g2p.proxy.means.test.params</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
             <tree>
@@ -16,7 +16,7 @@
 
     <record id="view_pmt_config_form" model="ir.ui.view">
         <field name="name">view_pmt_config_form</field>
-        <field name="model">sr.proxy.means.test.params</field>
+        <field name="model">g2p.proxy.means.test.params</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
             <form string="PMT Config">
@@ -45,7 +45,7 @@
     <record id="action_pmt_config" model="ir.actions.act_window">
         <field name="name">PMT Config</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">sr.proxy.means.test.params</field>
+        <field name="res_model">g2p.proxy.means.test.params</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

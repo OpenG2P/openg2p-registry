@@ -20,7 +20,7 @@ class ResPartnerDashboard(models.Model):
             """
             SELECT matviewname
             FROM pg_matviews
-            WHERE matviewname = 'g2p_sr_dashboard_data';
+            WHERE matviewname = 'g2p_registry_dashboard_data';
         """
         )
 
@@ -35,7 +35,7 @@ class ResPartnerDashboard(models.Model):
 
         query = """
             SELECT total_registrants, gender_spec, age_distribution
-            FROM g2p_sr_dashboard_data
+            FROM g2p_registry_dashboard_data
             WHERE company_id = %s
         """
         self.env.cr.execute(query, (company_id,))
