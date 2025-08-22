@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_social_registry_proxy_means_test
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_social_registry_proxy_means_test
+#. odoo-python
+#: code:addons/g2p_social_registry_proxy_means_test/models/proxy_means_test_params.py:0
+#: code:addons/g2p_social_registry_proxy_means_test/models/proxy_means_test_params.py:0
+#: code:addons/g2p_social_registry_proxy_means_test/models/proxy_means_test_params.py:0
+#: code:addons/g2p_social_registry_proxy_means_test/models/proxy_means_test_params.py:0
+#, python-format
+msgid "A Proxy Means Test for this kind and target already exists."
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model,name:g2p_social_registry_proxy_means_test.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model_terms:ir.actions.act_window,help:g2p_social_registry_proxy_means_test.action_pmt_config
+msgid "Create a new PMT!"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__create_uid
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__create_date
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__display_name
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__pmt_field
+msgid "Field"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields.selection,name:g2p_social_registry_proxy_means_test.selection__sr_proxy_means_test_params__target__group
+msgid "Group"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__id
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields.selection,name:g2p_social_registry_proxy_means_test.selection__sr_proxy_means_test_params__target__individual
+msgid "Individual"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__kind
+msgid "Kind"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__write_uid
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__write_date
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.actions.act_window,name:g2p_social_registry_proxy_means_test.action_pmt_config
+#: model:ir.ui.menu,name:g2p_social_registry_proxy_means_test.menu_pmt_config
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_proxy_means_test.view_pmt_config_form
+msgid "PMT Config"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__pmt_name
+msgid "PMT Name"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_proxy_means_test.view_pmt_config_form
+msgid "PMT Params"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_res_partner__pmt_score
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_res_users__pmt_score
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_proxy_means_test.view_group_form_inherit
+msgid "PMT Score"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_proxy_means_test.view_group_form_inherit
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_proxy_means_test.view_individual_form_inherit
+msgid "PMT Score:"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__pmt_id
+msgid "Proxy Means Test"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model,name:g2p_social_registry_proxy_means_test.model_sr_proxy_means_test_line
+msgid "Proxy Means Test Line"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__pmt_line_ids
+msgid "Proxy Means Test Lines"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model,name:g2p_social_registry_proxy_means_test.model_sr_proxy_means_test_params
+msgid "Proxy Means Test Params"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__target
+msgid "Target"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_params__target_name
+msgid "Target Name"
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#. odoo-python
+#: code:addons/g2p_social_registry_proxy_means_test/models/proxy_means_test_line.py:0
+#, python-format
+msgid "The combination of PMT field and weightage already exist."
+msgstr ""
+
+#. module: g2p_social_registry_proxy_means_test
+#: model:ir.model.fields,field_description:g2p_social_registry_proxy_means_test.field_sr_proxy_means_test_line__pmt_weightage
+msgid "Weightage"
+msgstr ""

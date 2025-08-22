@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+g2p_group_kind_deduplication_config_admin,Deduplication Admin Access,g2p_registry_id_deduplication.model_g2p_group_kind_deduplication_config,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_group_kind_deduplication_config_registrar,Deduplication Registrar Access,g2p_registry_id_deduplication.model_g2p_group_kind_deduplication_config,g2p_registry_base.group_g2p_registrar,1,0,0,0

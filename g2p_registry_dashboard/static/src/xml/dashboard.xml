@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<templates>
+    <t t-name="g2p_registry_dashboard.dashboard_template">
+        <div style="max-width: 1200px; margin: auto; padding: 20px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size: 2rem;"><t t-esc="dashboard_title" /></h1>
+            </div>
+
+            <!-- Main Layout -->
+            <div style="display: flex; gap: 20px; align-items: stretch;">
+                <!-- Left Section: KPIs and Bar Chart -->
+                <div style="flex: 2; display: flex; flex-direction: column; gap: 20px;">
+                    <!-- KPIs Section -->
+                    <div style="display: flex; justify-content: space-around; gap: 20px;">
+                        <KpiComponent
+                            title="'Groups'"
+                            data="dashboard_data.total_groups"
+                            icon_class="'fa fa-group'"
+                        />
+                        <KpiComponent
+                            title="'Individuals'"
+                            data="dashboard_data.total_individuals"
+                            icon_class="'fa fa-user'"
+                        />
+                    </div>
+
+                    <!-- Bar Chart -->
+                    <div
+                        style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); flex-grow: 1;"
+                    >
+                        <t t-if="dataLoaded.flag">
+                            <ChartComponent
+                                type="'bar'"
+                                labels="dashboard_data.age_distribution_keys"
+                                data="dashboard_data.age_distribution_values"
+                                data_label="'Age Distribution'"
+                                backgroundColor="['#C4C4C4']"
+                            />
+                        </t>
+                    </div>
+                </div>
+
+                <!-- Right Section: Pie Chart -->
+                <div
+                    style="flex: 1; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: center; flex-grow: 1;"
+                >
+                    <t t-if="dataLoaded.flag">
+                        <ChartComponent
+                            type="'pie'"
+                            labels="dashboard_data.gender_distribution_keys"
+                            data="dashboard_data.gender_distribution_values"
+                            title="'Gender Distribution'"
+                            backgroundColor="['#88498F', '#F07B1A', '#C4C4C4']"
+                        />
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

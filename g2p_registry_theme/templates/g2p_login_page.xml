@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<template id="g2ptheme_login" inherit_id="auth_signup.login" name="Sign up - Reset Password" priority="99">
+		<xpath expr="//a[contains(@t-attf-href,'/web/reset_password')]/.." position="replace" />
+	</template>
+
+    <template id="login" inherit_id="web.login" name="Login Inherit" priority="99">
+		<xpath expr="//input[@name='login']" position="attributes">
+			<attribute name="placeholder" />
+		</xpath>
+        <xpath expr="//input[@name='password']" position="attributes">
+			<attribute name="placeholder" />
+		</xpath>
+		<xpath expr="//form" position="before">
+            <t t-set="no_header" t-value="True" />
+            <t t-set="no_footer" t-value="True" />
+        </xpath>
+		<xpath expr="//label[@for='login']" position="replace">
+			<label for="name">Email / Username</label>
+		</xpath>
+		<div class="mb-3" t-if="databases and len(databases) &gt; 1" position="before">
+			  <div t-attf-class="text-center pb-3 {{'mb-3' if form_small else 'mb-4'}}">
+		        <img
+                    t-attf-src="/g2p_registry_theme/static/src/img/sr_logo.png{{ '?dbname='+db if db else '' }}"
+                    alt="Organization Logo"
+                    style="max-height:120px; max-width: 100%; width:auto; border-radius:12px"
+                />
+		    </div>
+        </div>
+
+		<xpath expr="//input[@name='login']" position="attributes">
+			<attribute name="placeholder">Enter email address</attribute>
+		</xpath>
+		<xpath expr="//input[@name='password']" position="attributes">
+			<attribute name="placeholder">Enter password</attribute>
+		</xpath>
+		<xpath expr="//form" position="before">
+			<xpath expr="//p[@class='alert alert-success']" position="move" />
+			<xpath expr="//p[@class='alert alert-danger']" position="move" />
+		</xpath>
+		<button type="submit" name="redirect" position="replace" />
+
+		<xpath expr="//label[@for='password']" position="after">
+			<span class="reset-password">
+				<a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+			</span>
+		</xpath>
+
+    </template>
+
+
+    <template id="login_layout" inherit_id="web.login_layout" name="G2P Login Layout">
+
+
+		<!-- Append 'g2p_login_container' class to 'card-body' div to apply custom background image -->
+		<xpath expr="//div[@class='card-body']" position="attributes">
+			<attribute name="class">card-body g2p_login_container</attribute>
+		</xpath>
+
+        <xpath
+            expr="//div[contains(@t-attf-class,'card') and contains(@t-attf-class,'o_database_list')]"
+            position="attributes"
+        >
+            <attribute name="t-attf-class">g2p_login</attribute>
+            <attribute name="style" />
+        </xpath>
+
+        <!-- Hide the logo image -->
+        <xpath expr="//img[contains(@t-attf-src, '/web/binary/company_logo')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <!-- Hide the horizontal line below the logo -->
+        <xpath expr="//div[contains(@t-attf-class, 'border-bottom')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <!-- Hide the horizontal line below the login box, 'Manage Databases' and 'Powered by Odoo' -->
+        <xpath expr="//div[@class='text-center small mt-4 pt-3 border-top']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+    </template>
+
+
+</odoo>

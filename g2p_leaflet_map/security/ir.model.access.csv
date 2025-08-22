@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_g2p_osm_config,g2p.osm.config.g2p_osm_config,model_g2p_osm_config,base.group_user,1,1,1,1
+access_g2p_map_view,g2p.map.view,model_g2p_map_view,base.group_user,1,1,1,1

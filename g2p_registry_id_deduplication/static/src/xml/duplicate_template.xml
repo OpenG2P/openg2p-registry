@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template xml:space="preserve">
+    <t t-name="custom.web.ListView" t-inherit="web.ListView" t-inherit-mode="extension">
+        <xpath expr="//t[@t-set-slot='control-panel-additional-actions']" position="inside">
+                <button
+                t-if="model.root.resModel == 'res.partner'
+                        and ! model.root.context['default_is_duplicate']
+                        and ! nbSelected and model.root.count > 0"
+                type="button"
+                name="deduplicate_registrants"
+                t-on-click="click_deduplicate"
+                class="btn btn-primary"
+                accesskey="p"
+                title="Deduplicate"
+            >
+                    Deduplicate
+                </button>
+        </xpath>
+    </t>
+
+    <t t-name="test.template" t-inherit="web.ListView.Buttons" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <button type="button" class="btn btn-primary" t-on-click="click_deduplicate">Manoj</button>
+        </xpath>
+    </t>
+
+</template>

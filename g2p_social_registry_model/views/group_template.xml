@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<!-- Update form template -->
+	<template
+        id="social_registry_model_group_update_form_template"
+        name="Social Registry Model Group Update Form"
+        inherit_id="g2p_registration_portal_base.group_update_form_template"
+    >
+		<xpath expr="//div[@id='member_header']" position="after">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button
+                        class="accordion-button collapsed card-header form-card-header"
+                        style="padding:15px;font-weight:500;"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#social_status"
+                        aria-expanded="false"
+                        aria-controls="social_status"
+                    >
+						Social Status Information
+					</button>
+				</h2>
+			</div>
+			<div class="s_website_form_rows collapse" id="social_status" data-bs-parent="#accordion">
+				<div class="card-body" style="padding: 0 15px;">
+					<!-- Pregnancy & Nutrition -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_preg_lact_women">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Pregnant and Lactating Women
+									</span>
+								</label>
+								<input
+                                    type="number"
+                                    id="num_preg_lact_women"
+                                    name="num_preg_lact_women"
+                                    class="form-control"
+                                    t-att-value="beneficiary.num_preg_lact_women"
+                                />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_malnourished_children">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Malnourished Children Under 5
+									</span>
+								</label>
+								<input
+                                    type="number"
+                                    id="num_malnourished_children"
+                                    name="num_malnourished_children"
+                                    class="form-control"
+                                    t-att-value="beneficiary.num_malnourished_children"
+                                />
+							</div>
+						</div>
+					</div>
+					<!-- Disability Information -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_disabled">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										No. of Members with Disability
+									</span>
+								</label>
+								<input
+                                    type="number"
+                                    id="num_disabled"
+                                    name="num_disabled"
+                                    class="form-control"
+                                    t-att-value="beneficiary.num_disabled"
+                                />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="type_of_disability">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Type of Disability
+									</span>
+								</label>
+								<select class="form-select" name="type_of_disability" id="type_of_disability">
+									<option value="" t-att-selected="not beneficiary.type_of_disability">
+										Select
+									</option>
+									<option value="visual_impairment" t-att-selected="beneficiary.type_of_disability == 'visual_impairment'">
+										Visual Impairment
+									</option>
+									<option value="hearing_impairment" t-att-selected="beneficiary.type_of_disability == 'hearing_impairment'">
+										Hearing Impairment
+									</option>
+									<option value="physical_disability" t-att-selected="beneficiary.type_of_disability == 'physical_disability'">
+										Physical Disability
+									</option>
+									<option
+                                        value="cognitive_disability"
+                                        t-att-selected="beneficiary.type_of_disability == 'cognitive_disability'"
+                                    >
+										Cognitive Disability
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Protected Groups -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="belong_to_protected_groups">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Belong to Protected Groups
+									</span>
+								</label>
+								<select class="form-select" name="belong_to_protected_groups" id="belong_to_protected_groups">
+									<option value="" t-att-selected="not beneficiary.belong_to_protected_groups">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.belong_to_protected_groups == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.belong_to_protected_groups == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="other_vulnerable_status">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Under any Other Vulnerable Status?
+									</span>
+								</label>
+								<select class="form-select" name="other_vulnerable_status" id="other_vulnerable_status">
+									<option value="" t-att-selected="not beneficiary.other_vulnerable_status">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.other_vulnerable_status == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.other_vulnerable_status == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Ethnic & Vulnerability -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="caste_ethnic_group">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Caste/Ethnic Group
+									</span>
+								</label>
+								<select class="form-select" name="caste_ethnic_group" id="caste_ethnic_group">
+									<option value="" t-att-selected="not beneficiary.caste_ethnic_group">
+										Select
+									</option>
+									<option value="bantu" t-att-selected="beneficiary.caste_ethnic_group == 'bantu'">
+										Bantu
+									</option>
+									<option value="nilotic" t-att-selected="beneficiary.caste_ethnic_group == 'nilotic'">
+										Nilotic
+									</option>
+									<option value="afro_asian" t-att-selected="beneficiary.caste_ethnic_group == 'afro_asian'">
+										Afro-Asiatic
+									</option>
+									<option value="khoisan" t-att-selected="beneficiary.caste_ethnic_group == 'khoisan'">
+										Khoisan
+									</option>
+									<option value="pygmy" t-att-selected="beneficiary.caste_ethnic_group == 'pygmy'">
+										Pygmy
+									</option>
+									<option value="other" t-att-selected="beneficiary.caste_ethnic_group == 'other'">
+										Other
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button
+                        class="accordion-button collapsed card-header form-card-header"
+                        style="padding:15px;font-weight:500;"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#economic_status"
+                        aria-expanded="false"
+                        aria-controls="economic_status"
+                    >
+						Economic Status Information
+					</button>
+				</h2>
+			</div>
+			<div class="s_website_form_rows collapse" id="economic_status" data-bs-parent="#accordion">
+				<div class="card-body" style="padding: 0 15px;">
+					<!-- Sources of Income -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="income_sources">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Sources of Income
+									</span>
+								</label>
+								<select class="form-select" name="income_sources" id="income_sources">
+									<option value="" t-att-selected="not beneficiary.income_sources">
+										Select
+									</option>
+									<option value="agriculture" t-att-selected="beneficiary.income_sources == 'agriculture'">
+										Agriculture
+									</option>
+									<option value="business" t-att-selected="beneficiary.income_sources == 'business'">
+										Business
+									</option>
+									<option value="mining" t-att-selected="beneficiary.income_sources == 'mining'">
+										Mining
+									</option>
+									<option value="manufacturing" t-att-selected="beneficiary.income_sources == 'manufacturing'">
+										Manufacturing
+									</option>
+									<option value="construction" t-att-selected="beneficiary.income_sources == 'construction'">
+										Construction
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="annual_income">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Annual Income
+									</span>
+								</label>
+								<select class="form-select" name="annual_income" id="annual_income">
+									<option value="" t-att-selected="not beneficiary.annual_income">
+										Select
+									</option>
+									<option value="below_5000" t-att-selected="beneficiary.annual_income == 'below_5000'">
+										Below 5000
+									</option>
+									<option value="5001_10000" t-att-selected="beneficiary.annual_income == '5001_10000'">
+										5001-10,000
+									</option>
+									<option value="above_10000" t-att-selected="beneficiary.annual_income == 'above_10000'">
+										Above 10,000
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Vehicle Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_two_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Two-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_two_wheeler" id="owns_two_wheeler">
+									<option value="" t-att-selected="not beneficiary.owns_two_wheeler">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_two_wheeler == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_two_wheeler == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_three_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Three-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_three_wheeler" id="owns_three_wheeler">
+									<option value="" t-att-selected="not beneficiary.owns_three_wheeler">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_three_wheeler == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_three_wheeler == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Four-Wheeler and Cart Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_four_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Four-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_four_wheeler" id="owns_four_wheeler">
+									<option value="" t-att-selected="not beneficiary.owns_four_wheeler">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_four_wheeler == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_four_wheeler == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_cart">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Cart
+									</span>
+								</label>
+								<select class="form-select" name="owns_cart" id="owns_cart">
+									<option value="" t-att-selected="not beneficiary.owns_cart">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_cart == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_cart == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Land Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="land_ownership">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Land Ownership
+									</span>
+								</label>
+								<select class="form-select" name="land_ownership" id="land_ownership">
+									<option value="" t-att-selected="not beneficiary.land_ownership">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.land_ownership == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.land_ownership == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="type_of_land_owned">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Type of Land Owned
+									</span>
+								</label>
+								<select class="form-select" name="type_of_land_owned" id="type_of_land_owned">
+									<option value="" t-att-selected="not beneficiary.type_of_land_owned">
+										Select
+									</option>
+									<option value="agricultural" t-att-selected="beneficiary.type_of_land_owned == 'agricultural'">
+										Agricultural Land
+									</option>
+									<option value="residential" t-att-selected="beneficiary.type_of_land_owned == 'residential'">
+										Residential Land
+									</option>
+									<option value="pastoral" t-att-selected="beneficiary.type_of_land_owned == 'pastoral'">
+										Pastoral Land
+									</option>
+									<option value="forest" t-att-selected="beneficiary.type_of_land_owned == 'forest'">
+										Forest Land
+									</option>
+									<option value="commercial" t-att-selected="beneficiary.type_of_land_owned == 'commercial'">
+										Commercial Land
+									</option>
+									<option value="communal" t-att-selected="beneficiary.type_of_land_owned == 'communal'">
+										Communal Land
+									</option>
+									<option value="other" t-att-selected="beneficiary.type_of_land_owned == 'other'">
+										Other
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Land Size and Livestock Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="land_size">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Land Size (in Acres)
+									</span>
+								</label>
+								<input
+                                    type="number"
+                                    name="land_size"
+                                    id="land_size"
+                                    class="form-control"
+                                    t-att-value="beneficiary.land_size"
+                                />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_house">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a House
+									</span>
+								</label>
+								<select class="form-select" name="owns_house" id="owns_house">
+									<option value="" t-att-selected="not beneficiary.owns_house">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_house == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_house == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Livestock Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_livestock">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns Livestock
+									</span>
+								</label>
+								<select class="form-select" name="owns_livestock" id="owns_livestock">
+									<option value="" t-att-selected="not beneficiary.owns_livestock">
+										Select
+									</option>
+									<option value="yes" t-att-selected="beneficiary.owns_livestock == 'yes'">
+										Yes
+									</option>
+									<option value="no" t-att-selected="beneficiary.owns_livestock == 'no'">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</xpath>
+	</template>
+	<!-- Create form template -->
+	<template
+        id="social_registry_model_group_create_form_template"
+        name="Social Registry Model Group Create Form"
+        inherit_id="g2p_registration_portal_base.group_create_form_template"
+    >
+		<xpath expr="//div[@id='member_header']" position="after">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button
+                        class="accordion-button collapsed card-header form-card-header"
+                        style="padding:15px;font-weight:500;"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#social_status"
+                        aria-expanded="false"
+                        aria-controls="social_status"
+                    >
+						Social Status Information
+					</button>
+				</h2>
+			</div>
+			<div class="s_website_form_rows collapse" id="social_status" data-bs-parent="#accordion">
+				<div class="card-body" style="padding: 0 15px;">
+					<!-- Pregnancy & Nutrition -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_preg_lact_women">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Pregnant and Lactating Women
+									</span>
+								</label>
+								<input type="number" id="num_preg_lact_women" name="num_preg_lact_women" class="form-control" />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_malnourished_children">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Malnourished Children Under 5
+									</span>
+								</label>
+								<input type="number" id="num_malnourished_children" name="num_malnourished_children" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<!-- Disability Information -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="num_disabled">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										No. of Members with Disability"
+									</span>
+								</label>
+								<input type="number" id="num_disabled" name="num_disabled" class="form-control" />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="type_of_disability">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Type of Disability
+									</span>
+								</label>
+								<select class="form-select" name="type_of_disability" id="type_of_disability">
+									<option value="">
+										Select
+									</option>
+									<option value="visual_impairment">
+										Visual Impairment
+									</option>
+									<option value="hearing_impairment">
+										Hearing Impairment
+									</option>
+									<option value="physical_disability">
+										Physical Disability
+									</option>
+									<option value="cognitive_disability">
+										Cognitive Disability
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Protected Groups -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="belong_to_protected_groups">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Belong to Protected Groups?
+									</span>
+								</label>
+								<select class="form-select" name="belong_to_protected_groups" id="belong_to_protected_groups">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="other_vulnerable_status">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Under any Other Vulnerable Status?
+									</span>
+								</label>
+								<select class="form-select" name="other_vulnerable_status" id="other_vulnerable_status">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Ethnic & Vulnerability -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="caste_ethnic_group">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Caste/Ethnic Group
+									</span>
+								</label>
+								<select class="form-select" name="caste_ethnic_group" id="caste_ethnic_group">
+									<option value="">
+										Select
+									</option>
+									<option value="bantu">
+										Bantu
+									</option>
+									<option value="nilotic">
+										Nilotic
+									</option>
+									<option value="afro_asian">
+										Afro-Asiatic
+									</option>
+									<option value="khoisan">
+										Khoisan
+									</option>
+									<option value="pygmy">
+										Pygmy
+									</option>
+									<option value="other">
+										Other
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button
+                        class="accordion-button collapsed card-header form-card-header"
+                        style="padding:15px;font-weight:500;"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#economic_status"
+                        aria-expanded="false"
+                        aria-controls="economic_status"
+                    >
+						Economic Status Information
+					</button>
+				</h2>
+			</div>
+			<div class="s_website_form_rows collapse" id="economic_status" data-bs-parent="#accordion">
+				<div class="card-body" style="padding: 0 15px;">
+					<!-- Sources of Income -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="income_sources">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Sources of Income
+									</span>
+								</label>
+								<select class="form-select" name="income_sources" id="income_sources">
+									<option value="">
+										Select
+									</option>
+									<option value="agriculture">
+										Agriculture
+									</option>
+									<option value="business">
+										Business
+									</option>
+									<option value="mining">
+										Mining
+									</option>
+									<option value="manufacturing">
+										Manufacturing
+									</option>
+									<option value="construction">
+										Construction
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="annual_income">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Annual Income
+									</span>
+								</label>
+								<select class="form-select" name="annual_income" id="annual_income">
+									<option value="">
+										Select
+									</option>
+									<option value="below_5000">
+										Below 5000
+									</option>
+									<option value="5001_10000">
+										5001-10,000
+									</option>
+									<option value="above_10000">
+										Above 10,000
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Vehicle Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_two_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Two-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_two_wheeler" id="owns_two_wheeler">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_three_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Three-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_three_wheeler" id="owns_three_wheeler">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Four-Wheeler and Cart Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_four_wheeler">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Four-Wheeler
+									</span>
+								</label>
+								<select class="form-select" name="owns_four_wheeler" id="owns_four_wheeler">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_cart">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a Cart
+									</span>
+								</label>
+								<select class="form-select" name="owns_cart" id="owns_cart">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Land Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="land_ownership">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Land Ownership
+									</span>
+								</label>
+								<select class="form-select" name="land_ownership" id="land_ownership">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="type_of_land_owned">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Type of Land Owned
+									</span>
+								</label>
+								<select class="form-select" name="type_of_land_owned" id="type_of_land_owned">
+									<option value="">
+										Select
+									</option>
+									<option value="agricultural">
+										Agricultural Land
+									</option>
+									<option value="residential">
+										Residential Land
+									</option>
+									<option value="pastoral">
+										Pastoral Land
+									</option>
+									<option value="forest">
+										Forest Land
+									</option>
+									<option value="commercial">
+										Commercial Land
+									</option>
+									<option value="communal">
+										Communal Land
+									</option>
+									<option value="other">
+										Other
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Land Size and Livestock Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="land_size">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Land Size (in Acres)
+									</span>
+								</label>
+								<input type="number" name="land_size" id="land_size" class="form-control" />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_house">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns a House
+									</span>
+								</label>
+								<select class="form-select" name="owns_house" id="owns_house">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Livestock Ownership -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="s_website_form_field">
+								<label class="s_website_form_label" for="owns_livestock">
+									<span class="s_website_form_label_content" style="color: #666666;">
+										Owns Livestock
+									</span>
+								</label>
+								<select class="form-select" name="owns_livestock" id="owns_livestock">
+									<option value="">
+										Select
+									</option>
+									<option value="yes">
+										Yes
+									</option>
+									<option value="no">
+										No
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</xpath>
+	</template>
+</odoo>

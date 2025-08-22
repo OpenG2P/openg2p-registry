@@ -1,0 +1,46 @@
+<odoo>
+<record id="view_inherit_map_location_form_individual" model="ir.ui.view">
+    <field name="name">view_registrant_g2p_map_location_form_individual</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='other']" position="after">
+            <page string="Location On Map" name="location_on_map">
+                <button class="btn btn-info" name="show_map" string="Open Map" type="object" />
+            </page>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_inherit_map_location_form_group" model="ir.ui.view">
+    <field name="name">view_registrant_g2p_map_location_form_group</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='other']" position="after">
+            <page string="Location On Map" name="location_on_map">
+                <button class="btn btn-info" name="show_map" string="Open Map" type="object" />
+            </page>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="g2p_map_view_id" model="ir.ui.view">
+    <field name="name">res.partner.map.view</field>
+    <field name="model">g2p.map.view</field>
+    <field name="arch" type="xml">
+        <lmap string="Partner Map">
+        </lmap>
+    </field>
+</record>
+
+
+<record id="action_g2p_partner_map_view" model="ir.actions.act_window">
+    <field name="name">land Map</field>
+    <field name="res_model">g2p.map.view</field>
+    <field name="view_mode">lmap</field>
+    <field name="view_id" ref="g2p_map_view_id" />
+    <field name="target">current</field>
+</record>
+</odoo>

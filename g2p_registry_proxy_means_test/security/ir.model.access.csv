@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sr_proxy_means_test_params,access.sr.proxy.means.test.params,model_sr_proxy_means_test_params,base.group_user,1,1,1,1
+access_sr_proxy_means_test_line,access.sr.proxy.means.test.line,model_sr_proxy_means_test_line,base.group_user,1,1,1,1

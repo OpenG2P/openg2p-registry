@@ -1,0 +1,11 @@
+<odoo>
+    <template id="custom_web_layout" name="Custom Web Layout" inherit_id="web.layout" priority="100">
+        <xpath expr="//head/link[@rel='shortcut icon']" position="replace">
+            <link
+                type="image/x-icon"
+                rel="shortcut icon"
+                t-att-href="x_icon or '/g2p_registry_theme/static/src/img/favicon-white-background.png'"
+            />
+        </xpath>
+    </template>
+</odoo>

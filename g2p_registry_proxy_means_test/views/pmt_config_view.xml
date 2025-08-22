@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pmt_config_tree" model="ir.ui.view">
+        <field name="name">view_pmt_config_tree</field>
+        <field name="model">sr.proxy.means.test.params</field>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="target_name" column_invisible="1" />
+                <field name="pmt_name" />
+                <field name="target" />
+                <field name="kind" invisible="target_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pmt_config_form" model="ir.ui.view">
+        <field name="name">view_pmt_config_form</field>
+        <field name="model">sr.proxy.means.test.params</field>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <form string="PMT Config">
+                <sheet>
+                    <group>
+                        <field name="target_name" invisible="1" />
+                        <field name="pmt_name" required="1" />
+                        <field name="target" required="1" />
+                        <field name="kind" required="1" invisible="target_name" />
+                    </group>
+                    <notebook name="pmt_params">
+                        <page string="PMT Params" name="pmt_params">
+                            <field name="pmt_line_ids">
+                                <tree editable="top">
+                                    <field name="pmt_field" required="True" />
+                                    <field name="pmt_weightage" required="True" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pmt_config" model="ir.actions.act_window">
+        <field name="name">PMT Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sr.proxy.means.test.params</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new PMT!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_pmt_config_tree_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pmt_config_tree" />
+        <field name="act_window_id" ref="action_pmt_config" />
+    </record>
+
+    <record id="action_pmt_config_form_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_pmt_config_form" />
+        <field name="act_window_id" ref="action_pmt_config" />
+    </record>
+
+    <menuitem
+        id="menu_pmt_config"
+        name="PMT Config"
+        action="action_pmt_config"
+        parent="g2p_registry_base.g2p_configuration_menu_root"
+        sequence="2000"
+        groups="g2p_registry_base.group_g2p_admin,g2p_registry_base.group_g2p_registrar"
+    />
+
+</odoo>

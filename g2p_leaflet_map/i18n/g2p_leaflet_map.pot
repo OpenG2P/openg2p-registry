@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_leaflet_map
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_leaflet_map
+#: model:ir.model,name:g2p_leaflet_map.model_ir_actions_act_window_view
+msgid "Action Window View"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model,name:g2p_leaflet_map.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__create_uid
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__create_date
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__display_name
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__id
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__write_uid
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_map_view__write_date
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields.selection,name:g2p_leaflet_map.selection__ir_actions_act_window_view__view_mode__lmap
+#: model:ir.model.fields.selection,name:g2p_leaflet_map.selection__ir_ui_view__type__lmap
+msgid "Leaflet Map"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_inherit_map_location_form_group
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_inherit_map_location_form_individual
+msgid "Location On Map"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model,name:g2p_leaflet_map.model_g2p_map_view
+msgid "Map View"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model,name:g2p_leaflet_map.model_g2p_osm_config
+#: model:ir.ui.menu,name:g2p_leaflet_map.osm_config
+msgid "OSM Configuration"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.actions.act_window,name:g2p_leaflet_map.action_osm_config
+msgid "OSM Configurations"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_inherit_map_location_form_group
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_inherit_map_location_form_individual
+msgid "Open Map"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.g2p_map_view_id
+msgid "Partner Map"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_g2p_osm_config__tile_server_url
+msgid "Tile Server Url"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_osm_config_form
+#: model_terms:ir.ui.view,arch_db:g2p_leaflet_map.view_osm_config_tree
+msgid "Tile Server url"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model,name:g2p_leaflet_map.model_ir_ui_view
+msgid "View"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_ir_actions_act_window_view__view_mode
+#: model:ir.model.fields,field_description:g2p_leaflet_map.field_ir_ui_view__type
+msgid "View Type"
+msgstr ""
+
+#. module: g2p_leaflet_map
+#: model:ir.actions.act_window,name:g2p_leaflet_map.action_g2p_partner_map_view
+msgid "land Map"
+msgstr ""

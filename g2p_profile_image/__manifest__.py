@@ -1,4 +1,4 @@
-# Part of OpenG2P Social Registry. See LICENSE file for full copyright and licensing details.
+# Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 {
     "name": "OpenG2P Profile Image",
     "category": "G2P",

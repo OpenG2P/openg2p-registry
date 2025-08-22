@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_groups_sr_demo" model="ir.ui.view">
+        <field name="name">view_groups_sr_demo</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ids']" position="after">
+                <page string="Economic Status Information" name="economic_status_info">
+                    <group>
+                        <field name="income_sources" string="Source Of Income" />
+                        <field name="annual_income" />
+                        <field name="owns_two_wheeler" string="Owns a Two-Wheeler" />
+                        <field name="owns_three_wheeler" string="Owns a Three-Wheeler" />
+                        <field name="owns_four_wheeler" string="Owns a Four-Wheeler" />
+                        <field name="owns_cart" string="Owns a Cart" />
+                        <field name="land_ownership" />
+                        <field name="type_of_land_owned" />
+                        <field name="land_size" />
+                        <field name="owns_house" />
+                        <field name="owns_livestock" />
+                    </group>
+                </page>
+                <page string="Social Status Information" name="social_status_info">
+                    <group>
+                        <field name="num_preg_lact_women" string="Pregnant &amp; Lactating Women" />
+                        <field name="num_malnourished_children" string="Malnourished Children Under 5" />
+                        <field name="num_disabled" string="No. of member with Disability" />
+                        <field name="type_of_disability" />
+                        <field name="caste_ethnic_group" string="Caste/Ethnic Group" />
+                        <field name="belong_to_protected_groups" string="Belong to any protected groups?" />
+                        <field name="other_vulnerable_status" string="Under any other vulnerable status?" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

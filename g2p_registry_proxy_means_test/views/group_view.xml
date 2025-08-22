@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_group_form_inherit" model="ir.ui.view">
+        <field name="name">Group Form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='kind']" position="after">
+                <label
+                    for="pmt_score"
+                    string="PMT Score:  "
+                    class="bg-success text-dark"
+                    style="padding: 5px; border-radius: 3px; font-weight: bold;"
+                />
+                <div class="o_row">
+                    <field name="pmt_score" string="PMT Score" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

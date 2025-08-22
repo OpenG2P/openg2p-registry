@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <!-- Groups -->
+    <record id="action_duplicate_groups" model="ir.actions.act_window">
+        <field name="name">Duplicated Groups</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="g2p_registry_group.view_registry_groups_filter" />
+        <field name="context">
+            {'default_is_registrant':True,'default_is_group':True,'registrant_form':True,'create':0}</field>
+        <field name="domain">[('is_registrant', '=',
+            True),('is_group','=',True),('is_duplicated','=',True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Check duplicates group registrant!
+            </p>
+        </field>
+    </record>
+
+    <!-- Individuals -->
+    <record id="action_duplicate_individuals" model="ir.actions.act_window">
+        <field name="name">Duplicated Individuals</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="g2p_registry_individual.view_registry_individuals_filter" />
+        <field name="context">
+            {'default_is_registrant':True,'default_is_group':False,'registrant_form':True,'create':0}</field>
+        <field name="domain">
+            [('is_registrant','=',True),('is_group','=',False),('is_duplicated','=',True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Check duplicates individual registrant!
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_duplicate_groups_list_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="g2p_registry_group.view_groups_list_tree" />
+        <field name="act_window_id" ref="action_duplicate_groups" />
+    </record>
+
+    <record id="action_duplicate_groups_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="act_window_id" ref="action_duplicate_groups" />
+    </record>
+
+    <record id="action_duplicate_individuals_list_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="g2p_registry_individual.view_individuals_list_tree" />
+        <field name="act_window_id" ref="action_duplicate_individuals" />
+    </record>
+
+    <record id="action_duplicate_individuals_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="act_window_id" ref="action_duplicate_individuals" />
+    </record>
+
+
+    <menuitem
+        id="g2p_deduplication_menu"
+        name="Duplicates"
+        parent="g2p_registry_base.g2p_main_menu_root"
+        sequence="30"
+        groups="g2p_registry_base.group_g2p_admin,g2p_registry_base.group_g2p_registrar"
+    />
+
+    <menuitem
+        id="g2p_deduplication_group_menu"
+        name="Groups"
+        action="g2p_registry_id_deduplication.action_duplicate_groups"
+        parent="g2p_registry_id_deduplication.g2p_deduplication_menu"
+        sequence="10"
+    />
+
+	<menuitem
+        id="g2p_deduplication_individual_menu"
+        name="Individuals"
+        action="g2p_registry_id_deduplication.action_duplicate_individuals"
+        parent="g2p_registry_id_deduplication.g2p_deduplication_menu"
+        sequence="20"
+    />
+</odoo>

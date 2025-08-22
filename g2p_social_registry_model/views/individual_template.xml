@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+
+    <!-- Update Form Template -->
+    <template
+        id="social_registry_model_individual_update_form_template"
+        name="Social Registry Model Individual Update Form"
+        inherit_id="g2p_registration_portal_base.individual_update_form_template"
+    >
+        <xpath expr="//div[@id='demographic']" position="inside">
+            <div class="row">
+                <!-- Address Field -->
+                <div class="col-lg-6">
+                    <div class="s_website_form_field">
+                        <label class="s_website_form_label" for="address">
+                            <span class="s_website_form_label_content" style="color: #666666;">Address</span>
+                        </label>
+                        <textarea
+                            id="address"
+                            name="address"
+                            class="form-control"
+                            rows="2"
+                            cols="10"
+                            placeholder="Enter Address"
+                        ><t t-esc="beneficiary.address" /></textarea>
+                    </div>
+                </div>
+
+                <!-- Occupation Field -->
+                <div class="col-lg-6">
+                    <div class="s_website_form_field">
+                        <label class="s_website_form_label" for="occupation">
+                            <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Occupation</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="occupation"
+                            name="occupation"
+                            class="form-control"
+                            placeholder="Enter Occupation"
+                            t-att-value="beneficiary.occupation"
+                        />
+                    </div>
+                </div>
+        </div>
+
+        <div class="row">
+            <!-- Income Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="income">
+                        <span class="s_website_form_label_content" style="color: #666666;">Income</span>
+                    </label>
+                    <input
+                            type="number"
+                            id="income"
+                            name="income"
+                            class="form-control"
+                            placeholder="Enter Income"
+                            step="1000"
+                            t-att-value="beneficiary.income"
+                        />
+                </div>
+            </div>
+
+            <!-- Education Level Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="education_level">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Education Level</span>
+                    </label>
+                    <select
+                            id="education_level"
+                            name="education_level"
+                            class="form-select"
+                            t-att-value="beneficiary.education_level"
+                        >
+
+                        <option value="" t-att-selected="not beneficiary.education_level">Select</option>
+                        <option
+                                value="primary"
+                                t-att-selected="beneficiary.education_level == 'primary'"
+                            >Primary</option>
+                        <option
+                                value="secondary"
+                                t-att-selected="beneficiary.education_level == 'secondary'"
+                            >Secondary</option>
+                        <option
+                                value="higher_secondary"
+                                t-att-selected="beneficiary.education_level == 'higher_secondary'"
+                            >Higher Secondary</option>
+                        <option
+                                value="bachelors"
+                                t-att-selected="beneficiary.education_level == 'bachelors'"
+                            >Bachelors</option>
+                        <option
+                                value="masters"
+                                t-att-selected="beneficiary.education_level == 'masters'"
+                            >Masters</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Employment Status Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="employment_status">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Employment Status</span>
+                    </label>
+                    <select
+                            id="employment_status"
+                            name="employment_status"
+                            class="form-select"
+                            t-att-value="beneficiary.employment_status"
+                        >
+
+
+                        <option value="" t-att-selected="not beneficiary.employment_status">Select</option>
+                        <option
+                                value="employed_full"
+                                t-att-selected="beneficiary.employment_status == 'employed_full'"
+                            >Employed - Full Time</option>
+                        <option
+                                value="employed_part"
+                                t-att-selected="beneficiary.employment_status == 'employed_part'"
+                            >Employed - Part Time</option>
+                        <option
+                                value="self_employed"
+                                t-att-selected="beneficiary.employment_status == 'self_employed'"
+                            >Self-employed</option>
+                        <option
+                                value="unemployed"
+                                t-att-selected="beneficiary.employment_status == 'unemployed'"
+                            >Unemployed</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Marital Status Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="marital_status">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Marital Status</span>
+                    </label>
+                    <select id="marital_status" name="marital_status" class="form-select">
+
+                        <option value="" t-att-selected="not beneficiary.marital_status">Select</option>
+                        <option
+                                value="single"
+                                t-att-selected="beneficiary.marital_status == 'single'"
+                            >Single</option>
+                        <option
+                                value="married"
+                                t-att-selected="beneficiary.marital_status == 'married'"
+                            >Married</option>
+                        <option
+                                value="divorced"
+                                t-att-selected="beneficiary.marital_status == 'divorced'"
+                            >Divorced</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </xpath>
+    </template>
+
+    <!-- Registrant Form Template -->
+    <template
+        id="social_registry_model_individual_registrant_form_template"
+        name="Social Registry Model Individual Registrant Form"
+        inherit_id="g2p_registration_portal_base.individual_registrant_form_template"
+    >
+        <xpath expr="//div[@id='demographic']" position="inside">
+            <div class="row">
+            <!-- Address Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="address">
+                        <span class="s_website_form_label_content" style="color: #666666;">Address</span>
+                    </label>
+                    <textarea
+                            id="address"
+                            name="address"
+                            class="form-control"
+                            rows="2"
+                            cols="10"
+                            placeholder="Enter Address"
+                        />
+
+                </div>
+            </div>
+
+            <!-- Occupation Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="occupation">
+                        <span class="s_website_form_label_content" style="color: #666666;">Occupation</span>
+                    </label>
+                    <input
+                            type="text"
+                            id="occupation"
+                            name="occupation"
+                            class="form-control"
+                            placeholder="Enter Occupation"
+                        />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Income Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="income">
+                        <span class="s_website_form_label_content" style="color: #666666;">Income</span>
+                    </label>
+                    <input
+                            type="number"
+                            id="income"
+                            name="income"
+                            class="form-control"
+                            placeholder="Enter Income"
+                            step="1000"
+                        />
+                </div>
+            </div>
+
+            <!-- Education Level Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="education_level">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Education Level</span>
+                    </label>
+                    <select id="education_level" name="education_level" class="form-select">
+                        <option value="">Select</option>
+                        <option value="primary">Primary</option>
+                        <option value="secondary">Secondary</option>
+                        <option value="higher_secondary">Higher Secondary</option>
+                        <option value="bachelors">Bachelors</option>
+                        <option value="masters">Masters</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Employment Status Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="employment_status">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Employment Status</span>
+                    </label>
+                    <select id="employment_status" name="employment_status" class="form-select">
+                        <option value="">Select</option>
+                        <option value="employed_full">Employed - Full Time</option>
+                        <option value="employed_part">Employed - Part Time</option>
+                        <option value="self_employed">Self-employed</option>
+                        <option value="unemployed">Unemployed</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Marital Status Field -->
+            <div class="col-lg-6">
+                <div class="s_website_form_field">
+                    <label class="s_website_form_label" for="marital_status">
+                        <span
+                                class="s_website_form_label_content"
+                                style="color: #666666;"
+                            >Marital Status</span>
+                    </label>
+                    <select id="marital_status" name="marital_status" class="form-select">
+                        <option value="">Select</option>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </xpath>
+    </template>
+
+</odoo>

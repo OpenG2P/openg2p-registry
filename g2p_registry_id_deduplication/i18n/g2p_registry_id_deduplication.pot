@@ -1,0 +1,209 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_registry_id_deduplication
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.actions.act_window,help:g2p_registry_id_deduplication.action_duplicate_groups
+msgid "Check duplicates group registrant!"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.actions.act_window,help:g2p_registry_id_deduplication.action_duplicate_individuals
+msgid "Check duplicates individual registrant!"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model,name:g2p_registry_id_deduplication.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model,name:g2p_registry_id_deduplication.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-python
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#, python-format
+msgid "Database Query Error: %s"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-javascript
+#: code:addons/g2p_registry_id_deduplication/static/src/xml/duplicate_template.xml:0
+#: code:addons/g2p_registry_id_deduplication/static/src/xml/duplicate_template.xml:0
+#, python-format
+msgid "Deduplicate"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model,name:g2p_registry_id_deduplication.model_g2p_group_kind_deduplication_config
+msgid "Deduplication Mapping between Group Kind and ID Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-python
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#, python-format
+msgid "Deduplication is not configured"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-python
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#, python-format
+msgid "Duplicate"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.view_deduplication_groups_form
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.view_deduplication_individual_form
+msgid "Duplicated"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.actions.act_window,name:g2p_registry_id_deduplication.action_duplicate_groups
+msgid "Duplicated Groups"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.actions.act_window,name:g2p_registry_id_deduplication.action_duplicate_individuals
+msgid "Duplicated Individuals"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.ui.menu,name:g2p_registry_id_deduplication.g2p_deduplication_menu
+msgid "Duplicates"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.openg2p_inherit_res_config_settings_view_form
+msgid "G2P Registry Deduplication Settings"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.openg2p_inherit_res_config_settings_view_form
+msgid "Group ID Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.ui.menu,name:g2p_registry_id_deduplication.g2p_deduplication_group_menu
+msgid "Groups"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_res_config_settings__grp_deduplication_id_types_ids
+msgid "Grp Deduplication Id Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model,name:g2p_registry_id_deduplication.model_g2p_id_type
+msgid "ID Type"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__id_type_ids
+msgid "ID Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_res_config_settings__ind_deduplication_id_types_ids
+msgid "Ind Deduplication Id Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.openg2p_inherit_res_config_settings_view_form
+msgid "Individual ID Types"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.ui.menu,name:g2p_registry_id_deduplication.g2p_deduplication_individual_menu
+msgid "Individuals"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_res_partner__is_duplicated
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_res_users__is_duplicated
+msgid "Is Duplicated"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__kind_id
+msgid "Kind"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.fields,field_description:g2p_registry_id_deduplication.field_g2p_group_kind_deduplication_config__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-javascript
+#: code:addons/g2p_registry_id_deduplication/static/src/xml/duplicate_template.xml:0
+#, python-format
+msgid "Manoj"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#. odoo-python
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#: code:addons/g2p_registry_id_deduplication/models/registrant.py:0
+#, python-format
+msgid "No Configured ID Types found in the System"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.openg2p_inherit_res_config_settings_view_form
+msgid "Select the group id types on which deduplication needs to be performed"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model_terms:ir.ui.view,arch_db:g2p_registry_id_deduplication.openg2p_inherit_res_config_settings_view_form
+msgid ""
+"Select the individual id types on which deduplication needs to be performed"
+msgstr ""
+
+#. module: g2p_registry_id_deduplication
+#: model:ir.model.constraint,message:g2p_registry_id_deduplication.constraint_g2p_group_kind_deduplication_config_unique_group_kind
+msgid "The Kind must be unique."
+msgstr ""

@@ -1,0 +1,12 @@
+<templates>
+    <t t-name="g2p_registry_dashboard.ChartTemplate" owl="1">
+        <div t-att-class="props.size">
+            <h3
+                t-if="props.title"
+                t-esc="props.title"
+                style="font-size: 1rem; color: #7f8c8d; text-align: center; margin-bottom: 10px;"
+            />
+            <canvas id="chart" t-ref="canvas" style="width: 100%; height: auto;" />
+        </div>
+    </t>
+</templates>

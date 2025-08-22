@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('g2p_registry_g2p_connect_rest_api.auth_iss', 'https://keycloak.openg2p.sandbox.net')"
+    />
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('g2p_registry_g2p_connect_rest_api.auth_jwks_uri', 'http://keycloak.keycloak/realms/openg2p/protocol/openid-connect/certs')"
+    />
+</odoo>

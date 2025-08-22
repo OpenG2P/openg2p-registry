@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="fastapi.endpoint" id="fastapi_endpoint_g2p_connect_registry">
+        <field name="name">G2P Connect Registry FastAPI Endpoint</field>
+        <field name="description">This module implements G2P Connect Registry APIs.</field>
+        <field name="app">g2p_connect_registry</field>
+        <field name="root_path">/api/v1/g2p-connect</field>
+    </record>
+
+    <function
+        model="fastapi.endpoint"
+        name="sync_endpoint_id_with_registry"
+        eval="(ref('g2p_registry_g2p_connect_rest_api.fastapi_endpoint_g2p_connect_registry'),)"
+    />
+</odoo>

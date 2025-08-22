@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="g2p_leaflet_map.MapView">
+        <Layout display="{ controlPanel:{} }">
+            <G2PLeafletMapRenderer
+                t-props="{
+                polygonCoords: props.context?.polygon_coords || [],
+                partnerLatitude: props.context?.partner_latitiude || null,
+                partnerLongitude: props.context?.partner_longitude || null
+            }"
+            />
+        </Layout>
+    </t>
+</templates>

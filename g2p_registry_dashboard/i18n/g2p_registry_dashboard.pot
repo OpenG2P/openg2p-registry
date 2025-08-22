@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_social_registry_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_social_registry_dashboard
+#: model:ir.model,name:g2p_social_registry_dashboard.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#: model:ir.actions.client,name:g2p_social_registry_dashboard.sr_dashboard_action
+#: model:ir.ui.menu,name:g2p_social_registry_dashboard.sr_dashboard
+msgid "Dashboard"
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#. odoo-python
+#: code:addons/g2p_social_registry_dashboard/__init__.py:0
+#, python-format
+msgid ""
+"Failed to create the materialized views.Please check the logs for details or"
+" Manually create it."
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#. odoo-python
+#: code:addons/g2p_social_registry_dashboard/__init__.py:0
+#, python-format
+msgid ""
+"Failed to drop the materialized views.Please check the logs for details or "
+"manually delete the view."
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#. odoo-python
+#: code:addons/g2p_social_registry_dashboard/models/cron.py:0
+#, python-format
+msgid ""
+"Failed to refresh materialized view '%s'. Please check the logs for details."
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#. odoo-python
+#: code:addons/g2p_social_registry_dashboard/models/cron.py:0
+#, python-format
+msgid "Materialized view '%s' does not exist. Please create it first."
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#: model:ir.actions.server,name:g2p_social_registry_dashboard.ir_cron_refresh_materialized_view_ir_actions_server
+msgid "Refresh Materialized View Cron Job"
+msgstr ""
+
+#. module: g2p_social_registry_dashboard
+#: model:ir.model,name:g2p_social_registry_dashboard.model_ir_cron
+msgid "Scheduled Actions"
+msgstr ""

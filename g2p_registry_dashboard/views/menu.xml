@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+
+   <record id="sr_dashboard_action" model="ir.actions.client">
+      <field name="name">Dashboard</field>
+      <field name="tag">g2p_registry_dashboard.sr_dashboard_tag</field>
+   </record>
+
+   <menuitem
+        name="Dashboard"
+        id="sr_dashboard"
+        sequence="0"
+        action="sr_dashboard_action"
+        parent="g2p_registry_base.g2p_main_menu_root"
+    />
+
+</odoo>

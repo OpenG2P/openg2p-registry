@@ -1,0 +1,1053 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_social_registry_model
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_social_registry_model
+#: model:ir.model,name:g2p_social_registry_model.model_process_group_rest_mixin
+msgid ""
+"\n"
+"        Process Group REST API Mixin\n"
+"    "
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model,name:g2p_social_registry_model.model_process_individual_rest_mixin
+msgid ""
+"\n"
+"        Process Individual REST API Mixin\n"
+"    "
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__annual_income__5001_10000
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "5001-10,000"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"annual_income\" id=\"annual_income\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"below_5000\">\n"
+"\t\t\t\t\t\t\t\t\t\tBelow 5000\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"5001_10000\">\n"
+"\t\t\t\t\t\t\t\t\t\t5001-10,000\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"above_10000\">\n"
+"\t\t\t\t\t\t\t\t\t\tAbove 10,000\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"belong_to_protected_groups\" id=\"belong_to_protected_groups\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"caste_ethnic_group\" id=\"caste_ethnic_group\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"bantu\">\n"
+"\t\t\t\t\t\t\t\t\t\tBantu\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"nilotic\">\n"
+"\t\t\t\t\t\t\t\t\t\tNilotic\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"afro_asian\">\n"
+"\t\t\t\t\t\t\t\t\t\tAfro-Asiatic\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"khoisan\">\n"
+"\t\t\t\t\t\t\t\t\t\tKhoisan\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"pygmy\">\n"
+"\t\t\t\t\t\t\t\t\t\tPygmy\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"other\">\n"
+"\t\t\t\t\t\t\t\t\t\tOther\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"income_sources\" id=\"income_sources\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"agriculture\">\n"
+"\t\t\t\t\t\t\t\t\t\tAgriculture\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"business\">\n"
+"\t\t\t\t\t\t\t\t\t\tBusiness\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"mining\">\n"
+"\t\t\t\t\t\t\t\t\t\tMining\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"manufacturing\">\n"
+"\t\t\t\t\t\t\t\t\t\tManufacturing\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"construction\">\n"
+"\t\t\t\t\t\t\t\t\t\tConstruction\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"land_ownership\" id=\"land_ownership\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"other_vulnerable_status\" id=\"other_vulnerable_status\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_cart\" id=\"owns_cart\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_four_wheeler\" id=\"owns_four_wheeler\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_house\" id=\"owns_house\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_livestock\" id=\"owns_livestock\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_three_wheeler\" id=\"owns_three_wheeler\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"owns_two_wheeler\" id=\"owns_two_wheeler\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"yes\">\n"
+"\t\t\t\t\t\t\t\t\t\tYes\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"no\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"type_of_disability\" id=\"type_of_disability\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"visual_impairment\">\n"
+"\t\t\t\t\t\t\t\t\t\tVisual Impairment\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"hearing_impairment\">\n"
+"\t\t\t\t\t\t\t\t\t\tHearing Impairment\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"physical_disability\">\n"
+"\t\t\t\t\t\t\t\t\t\tPhysical Disability\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"cognitive_disability\">\n"
+"\t\t\t\t\t\t\t\t\t\tCognitive Disability\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<select class=\"form-select\" name=\"type_of_land_owned\" id=\"type_of_land_owned\">\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\tSelect\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"agricultural\">\n"
+"\t\t\t\t\t\t\t\t\t\tAgricultural Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"residential\">\n"
+"\t\t\t\t\t\t\t\t\t\tResidential Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"pastoral\">\n"
+"\t\t\t\t\t\t\t\t\t\tPastoral Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"forest\">\n"
+"\t\t\t\t\t\t\t\t\t\tForest Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"commercial\">\n"
+"\t\t\t\t\t\t\t\t\t\tCommercial Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"communal\">\n"
+"\t\t\t\t\t\t\t\t\t\tCommunal Land\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t\t<option value=\"other\">\n"
+"\t\t\t\t\t\t\t\t\t\tOther\n"
+"\t\t\t\t\t\t\t\t\t</option>\n"
+"\t\t\t\t\t\t\t\t</select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+msgid ""
+"<select id=\"education_level\" name=\"education_level\" class=\"form-select\">\n"
+"                        <option value=\"\">Select</option>\n"
+"                        <option value=\"primary\">Primary</option>\n"
+"                        <option value=\"secondary\">Secondary</option>\n"
+"                        <option value=\"higher_secondary\">Higher Secondary</option>\n"
+"                        <option value=\"bachelors\">Bachelors</option>\n"
+"                        <option value=\"masters\">Masters</option>\n"
+"                    </select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+msgid ""
+"<select id=\"employment_status\" name=\"employment_status\" class=\"form-select\">\n"
+"                        <option value=\"\">Select</option>\n"
+"                        <option value=\"employed_full\">Employed - Full Time</option>\n"
+"                        <option value=\"employed_part\">Employed - Part Time</option>\n"
+"                        <option value=\"self_employed\">Self-employed</option>\n"
+"                        <option value=\"unemployed\">Unemployed</option>\n"
+"                    </select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+msgid ""
+"<select id=\"marital_status\" name=\"marital_status\" class=\"form-select\">\n"
+"                        <option value=\"\">Select</option>\n"
+"                        <option value=\"single\">Single</option>\n"
+"                        <option value=\"married\">Married</option>\n"
+"                        <option value=\"divorced\">Divorced</option>\n"
+"                    </select>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tAnnual Income\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tBelong to Protected Groups\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tBelong to Protected Groups?\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tCaste/Ethnic Group\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tLand Ownership\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tLand Size (in Acres)\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tMalnourished Children Under 5\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo. of Members with Disability\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tNo. of Members with Disability\"\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns Livestock\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns a Cart\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns a Four-Wheeler\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns a House\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns a Three-Wheeler\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tOwns a Two-Wheeler\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tPregnant and Lactating Women\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tSources of Income\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tType of Disability\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tType of Land Owned\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: #666666;\">\n"
+"\t\t\t\t\t\t\t\t\t\tUnder any Other Vulnerable Status?\n"
+"\t\t\t\t\t\t\t\t\t</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Address</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Education Level</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Employment Status</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Income</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Marital Status</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid ""
+"<span class=\"s_website_form_label_content\" style=\"color: "
+"#666666;\">Occupation</span>"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__annual_income__above_10000
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Above 10,000"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__afro_asian
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Afro-Asiatic"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__agricultural
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Agricultural Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__income_sources__agriculture
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Agriculture"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__annual_income
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__annual_income
+msgid "Annual Income"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__education_level__bachelors
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Bachelors"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__bantu
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Bantu"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__belong_to_protected_groups
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__belong_to_protected_groups
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Belong to any protected groups?"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__annual_income__below_5000
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Below 5000"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__income_sources__business
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Business"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__caste_ethnic_group
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__caste_ethnic_group
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Caste/Ethnic Group"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__house_condition__cement
+msgid "Cement"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_disability__cognitive_disability
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Cognitive Disability"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__commercial
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Commercial Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__communal
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Communal Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__income_sources__construction
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Construction"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model,name:g2p_social_registry_model.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Divorced"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Economic Status Information"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__education_level
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__education_level
+msgid "Education Level"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__electricity_access
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__electricity_access
+msgid "Electricity Access"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__employment_status__employed_full
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Employed - Full Time"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__employment_status__employed_part
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Employed - Part Time"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__employment_status
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__employment_status
+msgid "Employment Status"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Enter Address"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Enter Income"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_registrant_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Enter Occupation"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__forest
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Forest Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_disability__hearing_impairment
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Hearing Impairment"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__education_level__higher_secondary
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Higher Secondary"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__house_condition
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__house_condition
+msgid "House Condition"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__khoisan
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Khoisan"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__land_ownership
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__land_ownership
+msgid "Land Ownership"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__land_size
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__land_size
+msgid "Land Size"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__num_malnourished_children
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__num_malnourished_children
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Malnourished Children Under 5"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__income_sources__manufacturing
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Manufacturing"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__marital_status
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__marital_status
+msgid "Marital Status"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__marital_status__married
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Married"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__education_level__masters
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Masters"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__income_sources__mining
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Mining"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__house_condition__mud
+msgid "Mud"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__nilotic
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Nilotic"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__belong_to_protected_groups__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__electricity_access__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__land_ownership__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__other_vulnerable_status__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_cart__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_four_wheeler__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_house__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_livestock__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_three_wheeler__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_two_wheeler__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__sanitation_condition__no
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__water_access__no
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "No"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__num_disabled
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__num_disabled
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "No. of member with Disability"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model,name:g2p_social_registry_model.model_odk_import
+msgid "ODK Import"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__other
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__other
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Other"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_house
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_house
+msgid "Owns House"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_livestock
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_livestock
+msgid "Owns Livestock"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_cart
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_cart
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Owns a Cart"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_four_wheeler
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_four_wheeler
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Owns a Four-Wheeler"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_three_wheeler
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_three_wheeler
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Owns a Three-Wheeler"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__owns_two_wheeler
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__owns_two_wheeler
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Owns a Two-Wheeler"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__pastoral
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Pastoral Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__housing_type__permanent
+msgid "Permanent"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_disability__physical_disability
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Physical Disability"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__num_preg_lact_women
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__num_preg_lact_women
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Pregnant & Lactating Women"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__education_level__primary
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Primary"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__caste_ethnic_group__pygmy
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Pygmy"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_land_owned__residential
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Residential Land"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__sanitation_condition
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__sanitation_condition
+msgid "Sanitation Condition"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__education_level__secondary
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Secondary"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Select"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__employment_status__self_employed
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Self-employed"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__marital_status__single
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Single"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_create_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Social Status Information"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Source Of Income"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__income_sources
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__income_sources
+msgid "Sources of Income"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__housing_type__temporary
+msgid "Temporary"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__type_of_disability
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__type_of_disability
+msgid "Type Of Disability"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__type_of_land_owned
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__type_of_land_owned
+msgid "Type Of Land Owned"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__housing_type
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__housing_type
+msgid "Type of Housing"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__other_vulnerable_status
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__other_vulnerable_status
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.view_groups_sr_demo
+msgid "Under any other vulnerable status?"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__employment_status__unemployed
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_individual_update_form_template
+msgid "Unemployed"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__type_of_disability__visual_impairment
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Visual Impairment"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_partner__water_access
+#: model:ir.model.fields,field_description:g2p_social_registry_model.field_res_users__water_access
+msgid "Water Access"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__belong_to_protected_groups__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__electricity_access__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__land_ownership__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__other_vulnerable_status__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_cart__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_four_wheeler__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_house__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_livestock__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_three_wheeler__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__owns_two_wheeler__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__sanitation_condition__yes
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__water_access__yes
+#: model_terms:ir.ui.view,arch_db:g2p_social_registry_model.social_registry_model_group_update_form_template
+msgid "Yes"
+msgstr ""
+
+#. module: g2p_social_registry_model
+#: model:ir.model.fields.selection,name:g2p_social_registry_model.selection__res_partner__marital_status__divorced
+msgid "divorced"
+msgstr ""

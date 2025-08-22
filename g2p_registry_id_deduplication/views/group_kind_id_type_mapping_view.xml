@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Part of OpenG2P. See LICENSE file for full copyright and licensing details.
+-->
+<odoo>
+    <record id="view_group_kind_deduplication_tree" model="ir.ui.view">
+        <field name="name">g2p.group.kind.deduplication.config.tree</field>
+        <field name="model">g2p.group.kind.deduplication.config</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="kind_id" />
+                <field name="id_type_ids" widget="many2many_tags" options="{'no_create': True}" />
+            </tree>
+        </field>
+    </record>
+</odoo>
