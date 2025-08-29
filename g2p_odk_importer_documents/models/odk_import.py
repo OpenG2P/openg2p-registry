@@ -60,7 +60,7 @@ class OdkImport(models.Model):
             doc_file = {
                 "backend_id": storage_backend_id,
                 "tags_ids": [(4, DOC_TAGS.get_or_create_tag_from_name(tag).id) for tag in tags],
-                "data": base64.b64encode(attachm) if attachm else None,
+                "data": base64.b64encode(attachm).decode("utf-8") if attachm else None,
             }
             if doc_mapping.get("name"):
                 doc_file["name"] = doc_mapping["name"]
