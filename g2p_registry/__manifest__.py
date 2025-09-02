@@ -58,7 +58,7 @@
         "g2p_registry_proxy_means_test",
         "g2p_security",
         "g2p_profile_image",
-        # "g2p_registry_theme",
+        "g2p_registry_theme",
     ],
     "external_dependencies": {"python": ["python-jose"]},
     "data": [
