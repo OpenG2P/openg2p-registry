@@ -384,7 +384,7 @@ class OdkImport(models.Model):
         if mapped_json.get("image_1920", None):
             attachm = self.odk_config.download_attachment(instance_id, mapped_json["image_1920"])
             if attachm:
-                mapped_json["image_1920"] = base64.b64encode(attachm)
+                mapped_json["image_1920"] = base64.b64encode(attachm).decode("utf-8")
 
     def process_records_handle_addl_data(self, mapped_json):
         # Override this method to add more data
