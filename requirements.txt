@@ -1,6 +1,5 @@
 # generated from manifests external_dependencies
 PyLD
-boto3<=1.15.18
 cryptography>36,<37
 extendable-pydantic
 jq
@@ -8,5 +7,4 @@ jwcrypto
 pika
 pydantic
 python-jose
-python_slugify
 schwifty
