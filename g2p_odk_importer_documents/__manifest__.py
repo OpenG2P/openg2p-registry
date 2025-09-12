@@ -3,7 +3,7 @@
     "name": "G2P ODK Importer: Documents",
     "category": "G2P",
     "summary": "ODK Import Records with Documents",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.6.0",
     "sequence": 3,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
