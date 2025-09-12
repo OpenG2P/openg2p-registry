@@ -1,1 +1,2 @@
-git+https://github.com/OpenG2P/openg2p-social-registry-community-addons@17.0-develop
+git+https://github.com/OpenG2P/openg2p-social-registry-community-addons@develop
+git+https://github.com/OpenG2P/openg2p-odoo-commons@develop

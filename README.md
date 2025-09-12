@@ -22,25 +22,18 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [g2p_agent_portal_base](g2p_agent_portal_base/) | 17.0.0.0.0 |  | G2P Agent Portal: Base
-[g2p_app_filter](g2p_app_filter/) | 17.0.0.0.0 |  | G2P App Filter
 [g2p_auth_id_oidc](g2p_auth_id_oidc/) | 17.0.0.0.0 |  | G2P Auth: OIDC - Reg ID
-[g2p_auth_oidc](g2p_auth_oidc/) | 17.0.0.0.0 |  | OpenID Connect Authentication
 [g2p_auth_oidc_encryption](g2p_auth_oidc_encryption/) | 17.0.0.0.0 |  | OpenID Connect Authentication - Encryption Provider
-[g2p_auth_oidc_keycloak](g2p_auth_oidc_keycloak/) | 17.0.0.0.0 |  | Bootstrap OIDC Auth - Keycloak
 [g2p_bank](g2p_bank/) | 17.0.0.0.0 |  | G2P Registry: Bank Details
 [g2p_bank_rest_api](g2p_bank_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Bank Details Rest API
-[g2p_disable_password_login](g2p_disable_password_login/) | 17.0.0.0.0 |  | Disable Password Login
 [g2p_document_encryption](g2p_document_encryption/) | 17.0.0.0.0 |  | G2P Documents Encryption
 [g2p_document_field](g2p_document_field/) | 17.0.0.0.0 |  | G2P Document Field
-[g2p_documents](g2p_documents/) | 17.0.0.0.0 |  | G2P Documents Store
-[g2p_documents_bootstrap_s3](g2p_documents_bootstrap_s3/) | 17.0.0.0.0 |  | Bootstrap G2P Documents - S3
 [g2p_draft_publish](g2p_draft_publish/) | 17.0.0.0.0 |  | OpenG2P Draft Publish
 [g2p_encryption](g2p_encryption/) | 17.0.0.0.0 |  | G2P Encryption: Base
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.0.0.0 |  | G2P Encryption: Keymanager
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.0.0.0 |  | G2P Encryption: Rest API
 [g2p_enumerator](g2p_enumerator/) | 17.0.0.0.0 |  | G2P Enumerator
 [g2p_leaflet_map](g2p_leaflet_map/) | 17.0.0.0.0 |  | OpenG2P Leaflet Map
-[g2p_mts](g2p_mts/) | 17.0.0.0.0 |  | OpenG2P Registry MTS Connector
 [g2p_odk_importer](g2p_odk_importer/) | 17.0.0.0.0 |  | Import records from ODK
 [g2p_odk_importer_documents](g2p_odk_importer_documents/) | 17.0.0.0.0 |  | ODK Import Records with Documents
 [g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.0.0.0 |  | ODK App User Mapping
@@ -73,10 +66,9 @@ addon | version | maintainers | summary
 [g2p_registry_proxy_means_test](g2p_registry_proxy_means_test/) | 17.0.0.0.0 |  | G2P Registry: PMT
 [g2p_registry_rest_api](g2p_registry_rest_api/) | 17.0.0.0.0 |  | G2P Registry: Rest API
 [g2p_registry_theme](g2p_registry_theme/) | 17.0.0.0.0 |  | OpenG2P Registry: Theme
-[g2p_security](g2p_security/) | 17.0.0.0.0 |  | G2P Security
 [g2p_social_registry_model](g2p_social_registry_model/) | 17.0.0.0.0 |  | G2P Social Registry: Model
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.0.0.0 |  | OpenG2P Superset Dashboard
-[mts_connector](mts_connector/) | 17.0.0.0.0 |  | MTS Connector
+[g2p_user_security](g2p_user_security/) | 17.0.0.0.0 |  | G2P User Security
 
 
 Unported addons
