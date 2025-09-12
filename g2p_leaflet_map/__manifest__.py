@@ -1,7 +1,7 @@
 {
     "name": "OpenG2P Leaflet Map",
     "category": "G2P",
-    "version": "17.0.0.0.0",
+    "version": "17.0.1.6.0",
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
