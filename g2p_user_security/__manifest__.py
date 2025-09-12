@@ -1,7 +1,7 @@
 # Part of OpenG2P. See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "G2P Security",
+    "name": "G2P User Security",
     "category": "G2P",
     "version": "17.0.0.0.0",
     "sequence": 1,

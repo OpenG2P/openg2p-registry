@@ -68,7 +68,7 @@ addon | version | maintainers | summary
 [g2p_registry_theme](g2p_registry_theme/) | 17.0.0.0.0 |  | OpenG2P Registry: Theme
 [g2p_social_registry_model](g2p_social_registry_model/) | 17.0.0.0.0 |  | G2P Social Registry: Model
 [g2p_superset_dashboard](g2p_superset_dashboard/) | 17.0.0.0.0 |  | OpenG2P Superset Dashboard
-[g2p_user_security](g2p_user_security/) | 17.0.0.0.0 |  | G2P Security
+[g2p_user_security](g2p_user_security/) | 17.0.0.0.0 |  | G2P User Security
 
 
 Unported addons
