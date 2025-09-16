@@ -797,3 +797,20 @@ input::-webkit-inner-spin-button {
 .btn-primary {
     border-color: #704880 !important;
 }
+
+.ssp-login-box:has(.alert.alert-danger) {
+    height: 75vh;
+}
+@media (max-width: 992px) {
+    .ssp-login-box:has(.alert.alert-danger) {
+        height: auto;
+        min-height: 70vh;
+    }
+}
+
+@media (max-width: 576px) {
+    .ssp-login-box:has(.alert.alert-danger) {
+        height: auto;
+        min-height: 60vh;
+    }
+}
