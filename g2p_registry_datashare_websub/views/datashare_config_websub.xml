@@ -97,11 +97,21 @@
         </field>
     </record>
 
+    <!-- Parent WebSub Menu -->
     <menuitem
-        id="menu_datashare_config_websub"
-        name="WebSub Datashare Configs"
+        id="menu_websub_main"
+        name="WebSub Datashare"
         parent="base.menu_administration"
         sequence="900"
+        groups="g2p_registry_base.group_g2p_admin"
+    />
+
+    <!-- WebSub Configuration Menu -->
+    <menuitem
+        id="menu_datashare_config_websub"
+        name="Configurations"
+        parent="g2p_registry_datashare_websub.menu_websub_main"
+        sequence="10"
         action="action_datashare_config_websub"
         groups="g2p_registry_base.group_g2p_admin"
     />

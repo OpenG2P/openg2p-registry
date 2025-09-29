@@ -8,6 +8,12 @@
                 <group>
                     <field name="domain" widget="domain" options="{'model': 'res.partner'}" />
                 </group>
+
+                <!-- Batch Processing Options -->
+                <group>
+                    <field name="batch_size" />
+                </group>
+
                 <footer>
                     <button
                         name="publish_records_manually_trigger"

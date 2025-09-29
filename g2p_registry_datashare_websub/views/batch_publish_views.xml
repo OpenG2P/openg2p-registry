@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Batch Publish Form View -->
+    <record id="view_websub_batch_publish_form" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_form</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_start_batch_publish"
+                        string="Start Batch Publish"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_cancel_batch"
+                        string="Cancel"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="state in ['completed', 'failed', 'cancelled']"
+                    />
+                    <button
+                        name="action_view_partners"
+                        string="View Partners"
+                        type="object"
+                        class="btn-info"
+                        invisible="state == 'draft'"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,completed" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sequence_display" readonly="1" />
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="config_id" readonly="1" />
+                            <field name="batch_size" />
+                        </group>
+
+                        <!-- <group>
+                            <field name="total_records" readonly="1"/>
+                            <field name="processed_records" readonly="1"/>
+                            <field name="successful_records" readonly="1"/>
+                            <field name="failed_records" readonly="1"/>
+                            <field name="skipped_records" readonly="1"/>
+                        </group> -->
+
+                        <group>
+                            <field name="progress_percentage" widget="progressbar" readonly="1" />
+                        </group>
+                    </group>
+
+                    <!-- <group> -->
+                        <!-- <field name="partner_domain" widget="domain"
+                               options="{'model': 'res.partner'}"
+                               placeholder="[('is_registrant', '=', True)]"
+                               nolabel="1"/> -->
+
+                    <field name="partner_domain" widget="domain" options="{'model': 'res.partner'}" />
+
+                    <!-- </group> -->
+
+                    <notebook>
+                        <page string="Results" name="results">
+
+                        <group>
+
+                            <field name="total_records" readonly="1" />
+                            <field name="processed_records" readonly="1" />
+                            <field name="successful_records" readonly="1" />
+                            <field name="failed_records" readonly="1" />
+                            <field name="skipped_records" readonly="1" />
+
+                            </group>
+
+
+<group>
+
+                            <field name="result_message" readonly="1" />
+                            <field name="error_log" readonly="1" invisible="not error_log" />
+
+                </group>
+                        </page>
+                        <page string="Timing" name="timing">
+                            <group>
+                                <field name="start_time" readonly="1" />
+                                <field name="end_time" readonly="1" />
+                                <field name="duration" readonly="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch Publish Tree View -->
+    <record id="view_websub_batch_publish_tree" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_tree</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence_display" />
+                <field name="config_id" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'completed'"
+                    decoration-warning="state == 'running'"
+                    decoration-danger="state == 'failed'"
+                    decoration-muted="state == 'cancelled'"
+                />
+                <field name="total_records" />
+                <field name="processed_records" />
+                <field name="successful_records" />
+                <field name="failed_records" />
+                <field name="progress_percentage" widget="progressbar" />
+                <field name="start_time" />
+                <field name="end_time" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Batch Publish Search View -->
+    <record id="view_websub_batch_publish_search" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_search</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="sequence_display" />
+                <field name="config_id" />
+                <field name="state" />
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
+                <filter string="Running" name="running" domain="[('state', '=', 'running')]" />
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]" />
+                <filter string="Failed" name="failed" domain="[('state', '=', 'failed')]" />
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]" />
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}" />
+                    <filter string="Config" name="group_config" context="{'group_by': 'config_id'}" />
+                    <filter string="Date" name="group_date" context="{'group_by': 'create_date:day'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Batch Publish Action -->
+    <record id="action_websub_batch_publish" model="ir.actions.act_window">
+        <field name="name">WebSub Batch Publish</field>
+        <field name="res_model">g2p.websub.batch.publish</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_websub_batch_publish_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new batch publish job
+            </p>
+            <p>
+                Use batch publishing to process large numbers of existing records
+                in manageable chunks using job queues.
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Batch Publish Form View -->
+    <record id="view_websub_batch_publish_form" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_form</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_start_batch_publish"
+                        string="Start Batch Publish"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_cancel_batch"
+                        string="Cancel"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="state in ['completed', 'failed', 'cancelled']"
+                    />
+                    <button
+                        name="action_view_partners"
+                        string="View Partners"
+                        type="object"
+                        class="btn-info"
+                        invisible="state == 'draft'"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,completed" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sequence_display" readonly="1" />
+                        </h1>
+                    </div>
+                    <group style="margin-bottom: 30px;">
+                        <group>
+                            <field name="config_id" readonly="1" />
+                            <field name="batch_size" />
+                        </group>
+
+                        <group>
+                            <field name="total_records" readonly="1" />
+                            <field name="processed_records" readonly="1" />
+                            <field name="successful_records" readonly="1" />
+                            <field name="failed_records" readonly="1" />
+                            <field name="skipped_records" readonly="1" />
+                        <field name="progress_percentage" widget="progressbar" readonly="1" />
+
+                        </group>
+                    </group>
+
+
+
+
+
+<div style="margin-top: 30px; margin-bottom: 30px;">
+
+
+                        <field
+                            name="partner_domain"
+                            widget="domain"
+                            options="{'model': 'res.partner'}"
+                            placeholder="[('is_registrant', '=', True)]"
+                            nolabel="1"
+                        />
+
+</div>
+
+                    <notebook>
+                        <page string="Results" name="results">
+                            <field name="result_message" readonly="1" />
+                            <field name="error_log" readonly="1" invisible="not error_log" />
+                        </page>
+                        <page string="Timing" name="timing">
+                            <group>
+                                <field name="start_time" readonly="1" />
+                                <field name="end_time" readonly="1" />
+                                <field name="duration" readonly="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch Publish Tree View -->
+    <record id="view_websub_batch_publish_tree" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_tree</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence_display" />
+                <field name="config_id" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'completed'"
+                    decoration-warning="state == 'running'"
+                    decoration-danger="state == 'failed'"
+                    decoration-muted="state == 'cancelled'"
+                />
+                <field name="total_records" />
+                <field name="processed_records" />
+                <field name="successful_records" />
+                <field name="failed_records" />
+                <field name="progress_percentage" widget="progressbar" />
+                <field name="start_time" />
+                <field name="end_time" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Batch Publish Search View -->
+    <record id="view_websub_batch_publish_search" model="ir.ui.view">
+        <field name="name">view_websub_batch_publish_search</field>
+        <field name="model">g2p.websub.batch.publish</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="sequence_display" />
+                <field name="config_id" />
+                <field name="state" />
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
+                <filter string="Running" name="running" domain="[('state', '=', 'running')]" />
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]" />
+                <filter string="Failed" name="failed" domain="[('state', '=', 'failed')]" />
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]" />
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}" />
+                    <filter string="Config" name="group_config" context="{'group_by': 'config_id'}" />
+                    <filter string="Date" name="group_date" context="{'group_by': 'create_date:day'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Batch Publish Action -->
+    <record id="action_websub_batch_publish" model="ir.actions.act_window">
+        <field name="name">WebSub Batch Publish</field>
+        <field name="res_model">g2p.websub.batch.publish</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_websub_batch_publish_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new batch publish job
+            </p>
+            <p>
+                Use batch publishing to process large numbers of existing records
+                in manageable chunks using job queues.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem
+        id="menu_websub_batch_publish"
+        name="Batch Publish"
+        parent="g2p_registry_datashare_websub.menu_websub_main"
+        action="action_websub_batch_publish"
+        sequence="20"
+    />
+
+</odoo>

@@ -19,6 +19,7 @@
     "external_dependencies": {"python": ["jq"]},
     "data": [
         "views/datashare_config_websub.xml",
+        "views/batch_publish_views.xml",
         "security/ir.model.access.csv",
         "wizard/manual_trigger.xml",
     ],
