@@ -26,7 +26,6 @@
         "g2p_auth_oidc_keycloak",
         "g2p_odk_importer",
         "g2p_odk_importer_documents",
-        "g2p_draft_publish",
         "g2p_leaflet_map",
         "g2p_enumerator",
         "g2p_agent_portal_base",
@@ -56,6 +55,7 @@
         "g2p_superset_dashboard",
         "g2p_registry_id_deduplication",
         "g2p_registry_proxy_means_test",
+        "g2p_change_management" 
         "g2p_security",
         "g2p_profile_image",
         "g2p_registry_theme",
