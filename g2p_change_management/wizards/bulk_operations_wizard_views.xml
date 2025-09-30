@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Bulk Operations Wizard Form View -->
+        <record id="view_bulk_operations_wizard_form" model="ir.ui.view">
+            <field name="name">change.request.bulk.wizard.form</field>
+            <field name="model">change.request.bulk.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Bulk Operations">
+                    <group>
+                        <field name="operation_type" readonly="1"/>
+                        <field name="assign_to_user_id" invisible="operation_type != 'assign'"/>
+                    </group>
+                    
+                    <group string="Selected Change Requests">
+                        <field name="change_request_ids" readonly="1" nolabel="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="type"/>
+                                <field name="state"/>
+                                <field name="requester_id"/>
+                                <field name="create_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                    
+                    <group string="Operation Details">
+                        <field name="reason" placeholder="Provide a reason or comment for this bulk operation..."/>
+                    </group>
+                    
+                    <group string="Summary">
+                        <field name="operation_summary" readonly="1"/>
+                    </group>
+                    
+                    <footer>
+                        <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Bulk Operations Wizard Action -->
+        <record id="action_bulk_operations_wizard" model="ir.actions.act_window">
+            <field name="name">Bulk Operations</field>
+            <field name="res_model">change.request.bulk.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

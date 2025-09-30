@@ -1,0 +1,28 @@
+<odoo>
+
+    <!-- Change Request Reject Wizard Form View -->
+    <record id="view_change_request_reject_wizard_form" model="ir.ui.view">
+        <field name="name">change.request.reject.wizard.form</field>
+        <field name="model">change.request.reject.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reject Change Request">
+                <group>
+                    <field name="change_request_id" readonly="1"/>
+                    <field name="rejection_reason"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_rejection" string="Confirm Rejection" type="object" class="btn-danger"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Change Request Reject Wizard Action -->
+    <record id="action_change_request_reject_wizard" model="ir.actions.act_window">
+        <field name="name">Reject Change Request</field>
+        <field name="res_model">change.request.reject.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
