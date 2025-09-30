@@ -7,12 +7,8 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
     """Test suite for G2P Registry Datashare WebSub functionality
     This class tests WebSub event registration, publishing, and data transformation"""
 
-    @patch("requests.post")
-    def setUp(self, mock_post):
+    def setUp(self):
         """Set up test data with mocked requests
-
-        Args:
-            mock_post: Mocked requests.post for HTTP calls
 
         Creates:
             - WebSub configuration
@@ -20,16 +16,10 @@ class TestG2PRegistryDatashareWebsub(TransactionCase):
         """
         super().setUp()
 
-        # Mock the token response for initial setup
-        mock_post.return_value.ok = True
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = {"access_token": "test_token", "expires_in": 3600}
-        mock_post.return_value.text = "hub.mode=accepted"
-
-        # Create test data
+        # Create test data without triggering WebSub calls
         self.websub_config = (
             self.env["g2p.datashare.config.websub"]
-            .with_context(test_mode=True)
+            .with_context(test_mode=True, skip_websub_registration=True)
             .create(
                 {
                     "name": "Test WebSub Config",
