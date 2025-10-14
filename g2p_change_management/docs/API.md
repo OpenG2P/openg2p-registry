@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document provides comprehensive API documentation for the Change Management module, including model definitions, method signatures, and usage examples.
+This document provides comprehensive API documentation for the Change Management module, including model
+definitions, method signatures, and usage examples.
 
 ## Models
 
@@ -13,6 +14,7 @@ The central model for managing change requests in the system.
 #### Fields
 
 ##### Basic Information
+
 ```python
 name = fields.Char(
     string='Change Request Name',
@@ -43,6 +45,7 @@ description = fields.Text(
 ```
 
 ##### Relationships
+
 ```python
 partner_id = fields.Many2one(
     'res.partner',
@@ -71,6 +74,7 @@ approver_id = fields.Many2one(
 ```
 
 ##### Configuration
+
 ```python
 is_group = fields.Boolean(
     string='Is Group',
@@ -85,6 +89,7 @@ group_kind_id = fields.Many2one(
 ```
 
 ##### Computed Fields
+
 ```python
 partner_name = fields.Char(
     string='Partner Name',
@@ -126,44 +131,45 @@ can_reject = fields.Boolean(
 #### Methods
 
 ##### Core Methods
+
 ```python
 @api.model
 def create(self, vals):
     """
     Create a new change request with default values and draft record.
-    
+
     Args:
         vals (dict): Values for creating the change request
-        
+
     Returns:
         change.request: The created change request
-        
+
     Raises:
         ValidationError: If validation fails
     """
-    
+
 def action_submit(self):
     """
     Submit the change request for approval.
-    
+
     Raises:
         ValidationError: If validation fails
         UserError: If insufficient permissions
     """
-    
+
 def action_approve(self):
     """
     Approve the change request and implement changes.
-    
+
     Raises:
         ValidationError: If validation fails
         UserError: If insufficient permissions
     """
-    
+
 def action_reject(self):
     """
     Reject the change request.
-    
+
     Raises:
         ValidationError: If validation fails
         UserError: If insufficient permissions
@@ -171,73 +177,75 @@ def action_reject(self):
 ```
 
 ##### Helper Methods
+
 ```python
 def _create_draft_record(self):
     """
     Create an associated draft record for this change request.
-    
+
     Returns:
         draft.record: The created draft record
     """
-    
+
 def _implement_changes(self):
     """
     Implement the approved changes.
-    
+
     For create requests: Creates new partner
     For modify requests: Updates existing partner
     For delete requests: Deactivates partner
     """
-    
+
 def _update_change_request_name(self):
     """
     Update the change request name based on partner or draft record.
     """
-    
+
 def _validate_before_submit(self):
     """
     Validate the change request before submission.
-    
+
     Raises:
         ValidationError: If validation fails
     """
-    
+
 def _create_approval_activity(self):
     """
     Create an approval activity for the change request.
     """
-    
+
 def _update_group_member_statuses(self, action_type):
     """
     Update the status of group members based on the action.
-    
+
     Args:
         action_type (str): Type of action (submit, approve, reject)
     """
 ```
 
 ##### Validation Methods
+
 ```python
 @api.constrains('is_group', 'group_kind_id')
 def _check_group_kind_required_for_groups(self):
     """Validate that group kind is required for group requests."""
-    
+
 @api.constrains('description')
 def _check_description_length(self):
     """Validate description length if provided."""
-    
+
 @api.constrains('partner_id', 'type')
 def _check_partner_consistency(self):
     """Validate partner consistency based on request type."""
-    
+
 @api.constrains('state')
 def _check_state_transitions(self):
     """Validate state transitions."""
-    
+
 @api.constrains('name')
 def _check_name_unique(self):
     """Validate that change request names are unique."""
-    
+
 @api.constrains('partner_id')
 def _check_duplicate_active_requests(self):
     """Validate no duplicate active requests for same partner."""
@@ -248,6 +256,7 @@ def _check_duplicate_active_requests(self):
 Extensions to the standard partner model for change management integration.
 
 #### Additional Fields
+
 ```python
 change_request_ids = fields.One2many(
     'change.request',
@@ -281,49 +290,50 @@ draft_member_ids = fields.Many2many(
 ```
 
 #### Methods
+
 ```python
 def action_create_change_request(self):
     """
     Create a new change request for this partner.
-    
+
     Returns:
         dict: Action to open the change request form
     """
-    
+
 def action_add_draft_members(self):
     """
     Open the wizard to add draft members to this group.
-    
+
     Returns:
         dict: Action to open the draft member wizard
-        
+
     Raises:
         UserError: If partner is not a group or has no active change request
     """
-    
+
 def _create_draft_from_partner(self):
     """
     Create a draft record from this partner's data.
-    
+
     Returns:
         draft.record: The created draft record
     """
-    
+
 def _validate_for_change_request(self):
     """
     Validate this partner for change request creation.
-    
+
     Returns:
         bool: True if valid
-        
+
     Raises:
         ValidationError: If validation fails
     """
-    
+
 @api.constrains('change_request_ids')
 def _check_change_request_consistency(self):
     """Validate change request consistency."""
-    
+
 @api.constrains('active')
 def _check_active_with_change_requests(self):
     """Validate partner can be deactivated with active change requests."""
@@ -336,6 +346,7 @@ def _check_active_with_change_requests(self):
 Wizard for confirming group member status updates.
 
 #### Fields
+
 ```python
 change_request_id = fields.Many2one(
     'change.request',
@@ -366,31 +377,32 @@ confirmation_message = fields.Text(
 ```
 
 #### Methods
+
 ```python
 @api.model
 def default_get(self, fields_list):
     """
     Set default values for the wizard.
-    
+
     Args:
         fields_list (list): List of field names
-        
+
     Returns:
         dict: Default values
     """
-    
+
 def action_confirm(self):
     """
     Confirm the action and update member statuses.
-    
+
     Returns:
         dict: Action to close the wizard
     """
-    
+
 def action_cancel(self):
     """
     Cancel the action.
-    
+
     Returns:
         dict: Action to close the wizard
     """
@@ -401,6 +413,7 @@ def action_cancel(self):
 ### Creating a Change Request
 
 #### Basic Create Request
+
 ```python
 # Create a new individual change request
 change_request = env['change.request'].create({
@@ -425,6 +438,7 @@ change_request.action_submit()
 ```
 
 #### Group Create Request
+
 ```python
 # Create a new group change request
 group_kind = env['g2p.group.kind'].search([], limit=1)
@@ -447,6 +461,7 @@ change_request.action_submit()
 ```
 
 #### Modify Request
+
 ```python
 # Create a modify request for existing partner
 partner = env['res.partner'].search([('is_registrant', '=', True)], limit=1)
@@ -467,6 +482,7 @@ change_request.action_submit()
 ```
 
 #### Delete Request
+
 ```python
 # Create a delete request
 partner = env['res.partner'].search([('is_registrant', '=', True)], limit=1)
@@ -483,6 +499,7 @@ change_request.action_submit()
 ### Approval Process
 
 #### Approving a Change Request
+
 ```python
 # Find submitted change requests
 submitted_requests = env['change.request'].search([
@@ -506,6 +523,7 @@ elif change_request.type == 'delete':
 ```
 
 #### Rejecting a Change Request
+
 ```python
 # Reject a change request
 change_request.action_reject()
@@ -517,6 +535,7 @@ print(f"Change request state: {change_request.state}")
 ### Managing Group Members
 
 #### Adding Draft Members
+
 ```python
 # Get a group partner with active change request
 group = env['res.partner'].search([
@@ -547,6 +566,7 @@ wizard.action_save_members()
 ### Querying Change Requests
 
 #### Basic Queries
+
 ```python
 # Get all change requests
 all_requests = env['change.request'].search([])
@@ -575,6 +595,7 @@ delete_requests = env['change.request'].search([
 ```
 
 #### Advanced Queries
+
 ```python
 # Get change requests by requester
 user_requests = env['change.request'].search([
@@ -602,6 +623,7 @@ group_requests = env['change.request'].search([
 ### Partner Extensions
 
 #### Checking Active Drafts
+
 ```python
 # Check if partner has active draft
 if partner.has_active_draft:
@@ -613,6 +635,7 @@ else:
 ```
 
 #### Creating Change Request from Partner
+
 ```python
 # Create change request from partner
 action = partner.action_create_change_request()
@@ -628,6 +651,7 @@ change_request = env['change.request'].create({
 ### Common Exceptions
 
 #### ValidationError
+
 ```python
 from odoo.exceptions import ValidationError
 
@@ -642,6 +666,7 @@ except ValidationError as e:
 ```
 
 #### UserError
+
 ```python
 from odoo.exceptions import UserError
 
@@ -654,6 +679,7 @@ except UserError as e:
 ### Error Recovery
 
 #### Transaction Rollback
+
 ```python
 try:
     with env.cr.savepoint():
@@ -668,6 +694,7 @@ except Exception as e:
 ## Security Considerations
 
 ### Access Control
+
 ```python
 # Check user permissions
 if not env.user.has_group('g2p_change_management.group_change_approver'):
@@ -678,6 +705,7 @@ change_request = env['change.request'].with_user(user).create(vals)
 ```
 
 ### Data Validation
+
 ```python
 # Validate before operations
 change_request._validate_before_submit()
@@ -690,6 +718,7 @@ change_request._check_description_length()
 ## Performance Tips
 
 ### Efficient Queries
+
 ```python
 # Use search with proper domains
 efficient_search = env['change.request'].search([
@@ -705,6 +734,7 @@ change_request = env['change.request'].browse(record_id)
 ```
 
 ### Batch Operations
+
 ```python
 # Batch create
 vals_list = [
@@ -720,6 +750,7 @@ change_requests.write({'state': 'submitted'})
 ## Testing
 
 ### Unit Tests
+
 ```python
 from odoo.tests.common import TransactionCase
 
@@ -735,6 +766,7 @@ class TestChangeRequest(TransactionCase):
 ```
 
 ### Integration Tests
+
 ```python
 def test_workflow(self):
     change_request = self.env['change.request'].create({
@@ -742,11 +774,11 @@ def test_workflow(self):
         'is_group': False,
         'description': 'Test workflow'
     })
-    
+
     # Submit
     change_request.action_submit()
     self.assertEqual(change_request.state, 'submitted')
-    
+
     # Approve
     change_request.action_approve()
     self.assertEqual(change_request.state, 'approved')

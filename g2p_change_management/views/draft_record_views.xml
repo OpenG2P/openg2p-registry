@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Inherit the draft record group form view to add members section -->
     <record id="view_draft_record_group_form_members" model="ir.ui.view">
         <field name="name">draft.record.group.form.members</field>
         <field name="model">draft.record</field>
-        <field name="inherit_id" ref="g2p_draft_publish.view_draft_imported_group_form"/>
+        <field name="inherit_id" ref="g2p_draft_publish.view_draft_imported_group_form" />
         <field name="arch" type="xml">
             <!-- Add Members tab before Partner Data tab -->
             <xpath expr="//notebook" position="inside">
@@ -29,10 +29,15 @@
         <field name="name">draft.record.individual.selection.tree</field>
         <field name="model">draft.record</field>
         <field name="arch" type="xml">
-            <tree string="Select Individual Draft Members" create="false" edit="false" delete="false" 
-                  decoration-success="active_change_request_state == 'draft'"
-                  decoration-info="active_change_request_state == 'submitted'"
-                  multi_edit="false">
+            <tree
+                string="Select Individual Draft Members"
+                create="false"
+                edit="false"
+                delete="false"
+                decoration-success="active_change_request_state == 'draft'"
+                decoration-info="active_change_request_state == 'submitted'"
+                multi_edit="false"
+            >
                 <field name="name" string="Member Name" />
                 <field name="given_name" string="Given Name" />
                 <field name="family_name" string="Family Name" />
@@ -49,7 +54,7 @@
         <field name="name">Select Individual Draft Members</field>
         <field name="res_model">draft.record</field>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_draft_record_individual_selection_tree"/>
+        <field name="view_id" ref="view_draft_record_individual_selection_tree" />
         <field name="domain">[]</field>
         <field name="context">{'member_selection_context': True}</field>
         <field name="target">new</field>
@@ -60,10 +65,15 @@
         <field name="name">draft.record.many2many.selection</field>
         <field name="model">draft.record</field>
         <field name="arch" type="xml">
-            <tree string="Select Individual Draft Members" create="false" edit="false" delete="false" 
-                  decoration-success="active_change_request_state == 'draft'"
-                  decoration-info="active_change_request_state == 'submitted'"
-                  multi_edit="false">
+            <tree
+                string="Select Individual Draft Members"
+                create="false"
+                edit="false"
+                delete="false"
+                decoration-success="active_change_request_state == 'draft'"
+                decoration-info="active_change_request_state == 'submitted'"
+                multi_edit="false"
+            >
                 <field name="name" string="Member Name" />
                 <field name="given_name" string="Given Name" />
                 <field name="family_name" string="Family Name" />

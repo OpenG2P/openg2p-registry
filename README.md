@@ -29,7 +29,6 @@ addon | version | maintainers | summary
 [g2p_change_management](g2p_change_management/) | 17.0.0.0.0 |  | OpenG2P Change Management
 [g2p_document_encryption](g2p_document_encryption/) | 17.0.0.0.0 |  | G2P Documents Encryption
 [g2p_document_field](g2p_document_field/) | 17.0.0.0.0 |  | G2P Document Field
-[g2p_draft_publish](g2p_draft_publish/) | 17.0.0.0.0 |  | OpenG2P Draft Publish
 [g2p_encryption](g2p_encryption/) | 17.0.0.0.0 |  | G2P Encryption: Base
 [g2p_encryption_keymanager](g2p_encryption_keymanager/) | 17.0.0.0.0 |  | G2P Encryption: Keymanager
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.0.0.0 |  | G2P Encryption: Rest API

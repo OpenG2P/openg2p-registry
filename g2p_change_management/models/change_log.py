@@ -1,9 +1,8 @@
 import json
 import logging
-from datetime import datetime
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -23,7 +22,7 @@ class ChangeLog(models.Model):
         index=True,
         help="The change request that triggered this log entry.",
     )
-    
+
     partner_id = fields.Many2one(
         "res.partner",
         string="Partner",
@@ -31,7 +30,7 @@ class ChangeLog(models.Model):
         index=True,
         help="The partner record that was affected by the change.",
     )
-    
+
     change_type = fields.Selection(
         selection=[
             ("create", "Create"),
@@ -41,63 +40,56 @@ class ChangeLog(models.Model):
         required=True,
         help="Type of change that was made.",
     )
-    
+
     old_values = fields.Text(
-        string="Old Values",
         help="JSON representation of the old values before the change.",
     )
-    
+
     new_values = fields.Text(
-        string="New Values", 
         help="JSON representation of the new values after the change.",
     )
-    
+
     changed_by = fields.Many2one(
         "res.users",
-        string="Changed By",
         required=True,
         default=lambda self: self.env.user,
         help="User who approved and implemented the change.",
     )
-    
+
     change_date = fields.Datetime(
-        string="Change Date",
         required=True,
         default=fields.Datetime.now,
         help="Date and time when the change was implemented.",
     )
-    
+
     change_summary = fields.Char(
-        string="Change Summary",
         required=True,
         help="Brief summary of what was changed.",
     )
-    
+
     is_group = fields.Boolean(
-        string="Is Group",
         help="Indicates if the change was for a group record.",
     )
-    
+
     # Computed fields for better display
     old_values_formatted = fields.Text(
-        string="Old Values (Formatted)",
         compute="_compute_formatted_values",
         help="Formatted display of old values.",
     )
-    
+
     new_values_formatted = fields.Text(
         string="New Values (Formatted)",
-        compute="_compute_formatted_values", 
+        compute="_compute_formatted_values",
         help="Formatted display of new values.",
     )
-    
+
     partner_name = fields.Char(
         string="Partner Name",
         related="partner_id.name",
         store=True,
         help="Name of the affected partner.",
     )
-    
+
     change_request_name = fields.Char(
         string="Change Request Name",
         related="change_request_id.name",
@@ -109,16 +101,23 @@ class ChangeLog(models.Model):
     def create(self, vals):
         """Override create to prevent manual creation of change log records."""
         # Only allow creation through the create_change_log method
-        if not self.env.context.get('allow_change_log_creation'):
-            raise UserError(_("Change log records cannot be created manually. They are automatically generated when change requests are approved."))
+        if not self.env.context.get("allow_change_log_creation"):
+            raise UserError(
+                _(
+                    "Change log records cannot be created manually. "
+                    "They are automatically generated when change requests are approved."
+                )
+            )
         return super().create(vals)
 
     def write(self, vals):
         """Override write to prevent modification of change log records."""
+        # pylint: disable=method-required-super
         raise UserError(_("Change log records cannot be modified. They are immutable audit records."))
 
     def unlink(self):
         """Override unlink to prevent deletion of change log records."""
+        # pylint: disable=method-required-super
         raise UserError(_("Change log records cannot be deleted. They are permanent audit records."))
 
     @api.depends("old_values", "new_values")
@@ -134,7 +133,7 @@ class ChangeLog(models.Model):
                     record.old_values_formatted = record.old_values
             else:
                 record.old_values_formatted = "No previous values"
-            
+
             # Format new values
             if record.new_values:
                 try:
@@ -149,7 +148,7 @@ class ChangeLog(models.Model):
     def create_change_log(self, change_request, partner, change_type, old_values=None, new_values=None):
         """
         Create a change log entry for a change request.
-        
+
         Args:
             change_request: change.request record
             partner: res.partner record that was affected
@@ -160,7 +159,7 @@ class ChangeLog(models.Model):
         try:
             # Generate change summary
             change_summary = self._generate_change_summary(change_type, partner, old_values, new_values)
-            
+
             # Create the log entry
             log_data = {
                 "change_request_id": change_request.id,
@@ -171,26 +170,27 @@ class ChangeLog(models.Model):
                 "change_summary": change_summary,
                 "is_group": getattr(partner, "is_group", False),
             }
-            
+
             # Add JSON values if provided
             if old_values:
                 log_data["old_values"] = json.dumps(old_values, ensure_ascii=False)
             if new_values:
                 log_data["new_values"] = json.dumps(new_values, ensure_ascii=False)
-            
+
             change_log = self.with_context(allow_change_log_creation=True).create(log_data)
-            
+
             _logger.info(
                 "Created change log entry %s for change request %s, partner %s",
-                change_log.id, change_request.name, partner.name
+                change_log.id,
+                change_request.name,
+                partner.name,
             )
-            
+
             return change_log
-            
+
         except Exception as e:
             _logger.error(
-                "Failed to create change log for change request %s: %s",
-                change_request.name, str(e)
+                "Failed to create change log for change request %s: %s", change_request.name, str(e)
             )
             # Don't raise the error to avoid breaking the main workflow
             return False
@@ -198,7 +198,7 @@ class ChangeLog(models.Model):
     def _generate_change_summary(self, change_type, partner, old_values=None, new_values=None):
         """Generate a human-readable summary of the change."""
         partner_name = partner.name or "Unknown Partner"
-        
+
         if change_type == "create":
             return f"Created new partner: {partner_name}"
         elif change_type == "modify":
@@ -209,7 +209,7 @@ class ChangeLog(models.Model):
                     old_value = old_values.get(field)
                     if old_value != new_value:
                         changed_fields.append(field)
-            
+
             if changed_fields:
                 return f"Modified partner {partner_name}: changed {', '.join(changed_fields[:3])}"
             else:
@@ -222,16 +222,12 @@ class ChangeLog(models.Model):
     @api.model
     def get_partner_change_history(self, partner_id):
         """Get change history for a specific partner."""
-        return self.search([
-            ("partner_id", "=", partner_id)
-        ], order="change_date desc")
+        return self.search([("partner_id", "=", partner_id)], order="change_date desc")
 
     @api.model
     def get_change_request_logs(self, change_request_id):
         """Get all logs for a specific change request."""
-        return self.search([
-            ("change_request_id", "=", change_request_id)
-        ], order="change_date desc")
+        return self.search([("change_request_id", "=", change_request_id)], order="change_date desc")
 
     def action_view_change_request(self):
         """Open the related change request."""
