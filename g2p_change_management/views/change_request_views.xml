@@ -1,0 +1,327 @@
+<odoo>
+
+<record id="view_change_request_tree" model="ir.ui.view">
+    <field name="name">change.request.tree</field>
+    <field name="model">change.request</field>
+    <field name="arch" type="xml">
+        <tree multi_edit="1" create="true" delete="true" 
+              decoration-info="state == 'draft'" 
+              decoration-warning="state == 'submitted'" 
+              decoration-success="state == 'approved'" 
+              decoration-danger="state == 'rejected'">
+            <field name="name"/>
+            <field name="type"/>
+            <field name="is_group" string="Group"/>
+            <field name="partner_name"/>
+            <field name="requester_id"/>
+            <field name="state"/>
+            <field name="create_date"/>
+        </tree>
+    </field>
+</record>
+
+<!-- Individual Change Requests Tree View -->
+<record id="view_change_request_individual_tree" model="ir.ui.view">
+    <field name="name">change.request.individual.tree</field>
+    <field name="model">change.request</field>
+    <field name="arch" type="xml">
+        <tree multi_edit="1" create="true" delete="true" 
+              decoration-info="state == 'draft'" 
+              decoration-warning="state == 'submitted'" 
+              decoration-success="state == 'approved'" 
+              decoration-danger="state == 'rejected'">
+            <field name="name"/>
+            <field name="type"/>
+            <field name="partner_name" string="Individual"/>
+            <field name="requester_id"/>
+            <field name="state"/>
+            <field name="create_date"/>
+        </tree>
+    </field>
+</record>
+
+<!-- Group Change Requests Tree View -->
+<record id="view_change_request_group_tree" model="ir.ui.view">
+    <field name="name">change.request.group.tree</field>
+    <field name="model">change.request</field>
+    <field name="arch" type="xml">
+        <tree multi_edit="1" create="true" delete="true" 
+              decoration-info="state == 'draft'" 
+              decoration-warning="state == 'submitted'" 
+              decoration-success="state == 'approved'" 
+              decoration-danger="state == 'rejected'">
+            <field name="name"/>
+            <field name="type"/>
+            <field name="group_kind_id" string="Group Kind"/>
+            <field name="partner_name" string="Group"/>
+            <field name="requester_id"/>
+            <field name="state"/>
+            <field name="create_date"/>
+        </tree>
+    </field>
+</record>
+
+<record id="view_change_request_form" model="ir.ui.view">
+    <field name="name">change.request.form</field>
+    <field name="model">change.request</field>
+    <field name="arch" type="xml">
+        <form>
+            <header>
+                <button name="action_submit" string="Submit" type="object" 
+                        class="btn-primary" 
+                        invisible="state != 'draft'"/>
+                <button name="action_approve" string="Approve" type="object" 
+                        class="btn-success" 
+                        invisible="state != 'submitted'"/>
+                <button name="action_reject" string="Reject" type="object" 
+                        class="btn-danger" 
+                        invisible="state != 'submitted'"/>
+                <button name="action_edit_draft_record" string="Go to Draft" type="object" 
+                        class="btn-info" 
+                        invisible="not draft_record_id"/>
+                <field name="state" widget="statusbar" 
+                       statusbar_visible="draft,submitted,approved,rejected"/>
+            </header>
+            <sheet>
+                                            <group>
+                    <field name="name"/>
+                    <field name="type" readonly="1"/>
+                    <field name="is_group" readonly="draft_record_id"/>
+                    <field name="group_kind_id" invisible="type != 'create' or not is_group" readonly="draft_record_id"/>
+                    <field name="state" readonly="1"/>
+                    <field name="requester_id"/>
+                    <field name="partner_id" readonly="draft_record_id"/>
+                    <field name="description" placeholder="Describe the changes being requested..."/>
+                </group>
+                
+                <!-- Draft Record Information - Direct in main form -->
+                <field name="draft_record_id" invisible="1"/>
+                <group string="Draft Record Information" invisible="not draft_record_id">
+                    <field name="draft_given_name" readonly="1" invisible="is_group"/>
+                    <field name="draft_family_name" readonly="1" invisible="is_group"/>
+                    <field name="draft_phone" readonly="1"/>
+                    <field name="draft_region" readonly="1"/>
+                </group>
+                
+
+                
+                <!-- No Draft Record Message -->
+                <div invisible="draft_record_id" class="alert alert-info" role="alert">
+                    <strong>No Draft Record Available</strong><br/>
+                    A draft record will be created automatically when you save this change request.
+                </div>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<!-- Individual Change Request Form View -->
+<record id="view_change_request_individual_form" model="ir.ui.view">
+    <field name="name">change.request.individual.form</field>
+    <field name="model">change.request</field>
+    <field name="inherit_id" ref="view_change_request_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='is_group']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='group_kind_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='draft_given_name']" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </xpath>
+        <xpath expr="//field[@name='draft_family_name']" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </xpath>
+        <xpath expr="//field[@name='state']" position="attributes">
+            <attribute name="readonly">1</attribute>
+        </xpath>
+    </field>
+</record>
+
+<!-- Group Change Request Form View -->
+<record id="view_change_request_group_form" model="ir.ui.view">
+    <field name="name">change.request.group.form</field>
+    <field name="model">change.request</field>
+    <field name="inherit_id" ref="view_change_request_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='is_group']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='group_kind_id']" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </xpath>
+        <xpath expr="//field[@name='draft_given_name']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='draft_family_name']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='state']" position="attributes">
+            <attribute name="readonly">1</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_change_request_search" model="ir.ui.view">
+    <field name="name">change.request.search</field>
+    <field name="model">change.request</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="partner_name"/>
+            <field name="requester_id"/>
+            <field name="type"/>
+            <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+            <filter string="Submitted" name="submitted" domain="[('state', '=', 'submitted')]"/>
+            <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+            <filter string="Rejected" name="rejected" domain="[('state', '=', 'rejected')]"/>
+            <filter string="My Requests" name="my_requests" domain="[('requester_id', '=', uid)]"/>
+            <filter string="Individual" name="individual" domain="[('is_group', '=', False)]"/>
+            <filter string="Group" name="group" domain="[('is_group', '=', True)]"/>
+            <group expand="0" string="Group By">
+                <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                <filter string="Type" name="group_type" context="{'group_by': 'type'}"/>
+                <filter string="Requester" name="group_requester" context="{'group_by': 'requester_id'}"/>
+                <filter string="Creation Date" name="group_create_date" context="{'group_by': 'create_date:day'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="action_change_request" model="ir.actions.act_window">
+    <field name="name">Change Requests</field>
+    <field name="res_model">change.request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_my_requests': 1}</field>
+    <field name="view_id" ref="view_change_request_tree"/>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+</record>
+
+<!-- Bulk Operations Actions -->
+<record id="action_bulk_approve" model="ir.actions.server">
+    <field name="name">Bulk Approve</field>
+    <field name="model_id" ref="model_change_request"/>
+    <field name="state">code</field>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]"/>
+    <field name="code">
+if records:
+    action = records.action_bulk_approve()
+</field>
+</record>
+
+<record id="action_bulk_reject" model="ir.actions.server">
+    <field name="name">Bulk Reject</field>
+    <field name="model_id" ref="model_change_request"/>
+    <field name="state">code</field>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]"/>
+    <field name="code">
+if records:
+    action = records.action_bulk_reject()
+</field>
+</record>
+
+<record id="action_bulk_submit" model="ir.actions.server">
+    <field name="name">Bulk Submit</field>
+    <field name="model_id" ref="model_change_request"/>
+    <field name="state">code</field>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_validator'))]"/>
+    <field name="code">
+if records:
+    action = records.action_bulk_submit()
+</field>
+</record>
+
+<record id="action_bulk_cancel" model="ir.actions.server">
+    <field name="name">Bulk Cancel</field>
+    <field name="model_id" ref="model_change_request"/>
+    <field name="state">code</field>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_validator'))]"/>
+    <field name="code">
+if records:
+    action = records.action_bulk_cancel()
+</field>
+</record>
+
+<record id="action_bulk_assign" model="ir.actions.server">
+    <field name="name">Bulk Assign</field>
+    <field name="model_id" ref="model_change_request"/>
+    <field name="state">code</field>
+    <field name="binding_model_id" ref="model_change_request"/>
+    <field name="binding_view_types">list</field>
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]"/>
+    <field name="code">
+if records:
+    action = records.action_bulk_assign()
+</field>
+</record>
+
+<!-- Individual Change Requests Action -->
+<record id="action_change_request_individual" model="ir.actions.act_window">
+    <field name="name">Individuals</field>
+    <field name="res_model">change.request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_change_request_individual_tree"/>
+    <field name="domain">[('is_group', '=', False)]</field>
+    <field name="context">{'default_is_group': False, 'search_default_individual': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create your first individual change request!
+        </p>
+        <p>
+            Individual change requests are for changes to individual registrants.
+        </p>
+    </field>
+    <field name="views" eval="[(ref('view_change_request_individual_tree'), 'tree'), (ref('view_change_request_individual_form'), 'form')]"/>
+</record>
+
+<!-- Group Change Requests Action -->
+<record id="action_change_request_group" model="ir.actions.act_window">
+    <field name="name">Groups</field>
+    <field name="res_model">change.request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_change_request_group_tree"/>
+    <field name="domain">[('is_group', '=', True)]</field>
+    <field name="context">{'default_is_group': True, 'search_default_group': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create your first group change request!
+        </p>
+        <p>
+            Group change requests are for changes to group registrants.
+        </p>
+    </field>
+    <field name="views" eval="[(ref('view_change_request_group_tree'), 'tree'), (ref('view_change_request_group_form'), 'form')]"/>
+</record>
+
+<menuitem id="menu_change_management_root"
+          name="Change Management"
+          sequence="10"/>
+
+<menuitem id="menu_change_request_individual"
+          name="Individuals"
+          parent="menu_change_management_root"
+          action="action_change_request_individual"
+          sequence="10"/>
+
+<menuitem id="menu_change_request_group"
+          name="Groups"
+          parent="menu_change_management_root"
+          action="action_change_request_group"
+          sequence="20"/>
+
+</odoo>

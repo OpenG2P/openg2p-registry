@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Enhanced Partner View for Change Management Context -->
+    <record id="view_partner_form_change_management" model="ir.ui.view">
+        <field name="name">res.partner.form.change.management</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form"/>
+        <field name="priority">300</field>
+        <field name="arch" type="xml">
+            <!-- Add Change Management button in button box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_create_change_request" 
+                        class="oe_stat_button" icon="fa-edit"
+                        invisible="not is_registrant or has_active_draft"
+                        title="Create Change Request">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Change Request</span>
+                    </div>
+                </button>
+                <button type="object" name="action_view_active_change_request" 
+                        class="oe_stat_button" icon="fa-tasks"
+                        invisible="not has_active_draft"
+                        title="View Active Change Request">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Active Change Request</span>
+                    </div>
+                </button>
+            </xpath>
+            
+            <!-- Add active change request flag at the top of the sheet -->
+            <xpath expr="//sheet" position="inside">
+                <div class="alert alert-info" role="alert" invisible="not has_active_draft">
+                    <strong>Active Change Request:</strong> This record has an active change request. 
+                    <button type="object" name="action_view_active_change_request" class="btn btn-link">
+                        View Change Request
+                    </button>
+                </div>
+            </xpath>
+            
+            <!-- Make fields read-only for registrants when not in change request context -->
+            <xpath expr="//field" position="attributes">
+                <attribute name="readonly">is_registrant and not context.get('change_request_context', False)</attribute>
+            </xpath>
+            
+            <!-- Add required fields for visibility logic -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Debug Info" invisible="1">
+                    <field name="has_active_draft"/>
+                    <field name="active_change_request_id"/>
+                    <field name="is_group"/>
+                    <field name="is_registrant"/>
+                </group>
+            </xpath>
+            
+
+            
+
+            
+
+        </field>
+    </record>
+
+    <!-- Draft Group View for Change Management Context -->
+    <!-- Add Draft Members section to the published partner's Members tab -->
+    <record id="view_partner_form_draft_members" model="ir.ui.view">
+        <field name="name">res.partner.form.draft.members</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form"/>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <!-- Add Draft Members section within the existing Members tab -->
+            <xpath expr="//page[@name='members']" position="inside">
+                <group string="Draft Members" col="1" colspan="4" invisible="not context.get('change_request_context', False)">
+                    <field name="draft_member_ids" nolabel="1" colspan="4">
+                        <tree editable="top" default_order="name asc" create="true" delete="true">
+                            <button
+                                name="action_open_individual_wizard"
+                                type="object"
+                                icon="fa-external-link"
+                                class="btn-success"
+                                title="Open Individual Form"
+                                invisible="active_change_request_state not in ('draft', 'submitted')"
+                            />
+                            <field name="name" string="Member Name" />
+                            <field name="given_name" string="Given Name" />
+                            <field name="family_name" string="Family Name" />
+                            <field name="phone" string="Phone" />
+                            <field name="gender" string="Gender" />
+                            <field name="region" string="Region" />
+                            <field name="active_change_request_state" string="CR State" />
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Enhanced Individual View for Change Management Context -->
+    <record id="view_individual_form_change_management" model="ir.ui.view">
+        <field name="name">res.partner.individual.form.change.management</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form"/>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <!-- Add Change Management button in button box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_create_change_request" 
+                        class="oe_stat_button" icon="fa-edit"
+                        invisible="not is_registrant or has_active_draft"
+                        title="Create Change Request">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Change Request</span>
+                    </div>
+                </button>
+                <button type="object" name="action_view_active_change_request" 
+                        class="oe_stat_button" icon="fa-tasks"
+                        invisible="not has_active_draft"
+                        title="View Active Change Request">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Active Change Request</span>
+                    </div>
+                </button>
+            </xpath>
+            
+            <!-- Add active change request flag at the top of the sheet -->
+            <xpath expr="//sheet" position="inside">
+                <div class="alert alert-info" role="alert" invisible="not has_active_draft">
+                    <strong>Active Change Request:</strong> This record has an active change request. 
+                    <button type="object" name="action_view_active_change_request" class="btn btn-link">
+                        View Change Request
+                    </button>
+                </div>
+            </xpath>
+            
+            <!-- Make fields read-only for registrants when not in change request context -->
+            <xpath expr="//field" position="attributes">
+                <attribute name="readonly">is_registrant and not context.get('change_request_context', False)</attribute>
+            </xpath>
+            
+            <!-- Add required fields for visibility logic -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Debug Info" invisible="1">
+                    <field name="has_active_draft"/>
+                    <field name="active_change_request_id"/>
+                    <field name="is_registrant"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action to open partner form with change management context -->
+    <record id="action_partner_form_change_management" model="ir.actions.act_window">
+        <field name="name">Partner</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_partner_form_change_management"/>
+        <field name="context">{'change_management_context': True}</field>
+    </record>
+
+</odoo>

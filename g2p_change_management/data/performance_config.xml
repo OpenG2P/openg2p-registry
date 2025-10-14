@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Performance Configuration Parameters -->
+        <record id="performance_batch_size" model="ir.config_parameter">
+            <field name="key">g2p_change_management.performance.batch_size</field>
+            <field name="value">100</field>
+        </record>
+        
+        <record id="performance_cache_timeout" model="ir.config_parameter">
+            <field name="key">g2p_change_management.performance.cache_timeout</field>
+            <field name="value">300</field>
+        </record>
+        
+        <record id="performance_max_records_per_query" model="ir.config_parameter">
+            <field name="key">g2p_change_management.performance.max_records_per_query</field>
+            <field name="value">1000</field>
+        </record>
+        
+        <record id="performance_enable_monitoring" model="ir.config_parameter">
+            <field name="key">g2p_change_management.performance.enable_monitoring</field>
+            <field name="value">True</field>
+        </record>
+        
+        <record id="performance_cleanup_days" model="ir.config_parameter">
+            <field name="key">g2p_change_management.performance.cleanup_days</field>
+            <field name="value">30</field>
+        </record>
+        
+        <!-- Performance Monitoring Settings -->
+        <record id="performance_monitoring_cron" model="ir.cron">
+            <field name="name">Change Management Performance Cleanup</field>
+            <field name="model_id" ref="model_change_request_performance_monitor"/>
+            <field name="state">code</field>
+            <field name="code">model.cleanup_old_records()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+        
+        <!-- Database Optimization Cron -->
+        <record id="database_optimization_cron" model="ir.cron">
+            <field name="name">Change Management Database Optimization</field>
+            <field name="model_id" ref="model_change_request_db_optimization"/>
+            <field name="state">code</field>
+            <field name="code">model.analyze_tables()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+        
+    </data>
+</odoo>

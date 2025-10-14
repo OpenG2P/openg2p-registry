@@ -1,0 +1,77 @@
+<odoo>
+    <record id="view_draft_group_add_members_wizard" model="ir.ui.view">
+        <field name="name">draft.group.add.members.wizard.form</field>
+        <field name="model">draft.group.add.members.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Group Members">
+                <sheet>
+                    <field name="group_id" invisible="1" />
+                    <group>
+                        <field name="selected_member_ids" 
+                               widget="many2many" 
+                               context="{'member_selection_context': True}"
+                               nolabel="1">
+                            <tree create="false" edit="false" delete="false" 
+                                  decoration-success="active_change_request_state == 'draft'"
+                                  decoration-info="active_change_request_state == 'submitted'"
+                                  multi_edit="false">
+                                <field name="name" string="Member Name" />
+                                <field name="given_name" string="Given Name" />
+                                <field name="family_name" string="Family Name" />
+                                <field name="phone" string="Phone" />
+                                <field name="gender" string="Gender" />
+                                <field name="region" string="Region" />
+                                <field name="active_change_request_state" string="CR State" />
+                            </tree>
+                        </field>
+                        <button string="Select Members" type="object" name="action_select_members" class="btn-info" />
+                    </group>
+                    <footer>
+                        <button string="Save" type="object" name="action_save_members" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_draft_group_view_members_wizard" model="ir.ui.view">
+        <field name="name">draft.group.view.members.wizard.form</field>
+        <field name="model">draft.group.add.members.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Group Members">
+                <sheet>
+                    <field name="group_id" invisible="1" />
+                    <group>
+                        <field name="selected_member_ids" 
+                               widget="many2many_tags" 
+                               readonly="1"
+                               nolabel="1" />
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-secondary" special="cancel" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_draft_group_view_members_wizard" model="ir.actions.act_window">
+        <field name="name">View Group Members</field>
+        <field name="res_model">draft.group.add.members.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_draft_group_view_members_wizard" />
+        <field name="target">new</field>
+        <field name="context">{'default_group_id': active_id}</field>
+    </record>
+
+    <record id="action_draft_group_add_members_wizard" model="ir.actions.act_window">
+        <field name="name">Add Group Members</field>
+        <field name="res_model">draft.group.add.members.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_draft_group_add_members_wizard" />
+        <field name="target">new</field>
+        <field name="context">{'member_selection_context': True}</field>
+        <field name="domain">[('is_group', '=', False)]</field>
+    </record>
+</odoo>

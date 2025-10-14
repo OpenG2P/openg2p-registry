@@ -1,0 +1,221 @@
+/* Change Management Module Styles */
+
+/* Change Request Status Colors */
+.o_change_request_draft {
+    color: #6c757d;
+}
+
+.o_change_request_submitted {
+    color: #fd7e14;
+}
+
+.o_change_request_approved {
+    color: #198754;
+}
+
+.o_change_request_rejected {
+    color: #dc3545;
+}
+
+/* Change Request Form Styles */
+.o_change_request_form .o_field_widget {
+    margin-bottom: 10px;
+}
+
+.o_change_request_form .o_field_boolean {
+    margin-top: 5px;
+}
+
+/* Partner View Extensions */
+.o_partner_change_management {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.o_partner_change_management .o_field_widget {
+    margin-bottom: 5px;
+}
+
+/* Draft Members Section */
+.o_draft_members_section {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.o_draft_members_section .o_field_widget {
+    margin-bottom: 5px;
+}
+
+/* Wizard Styles */
+.o_group_member_confirmation_wizard {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.o_group_member_confirmation_wizard .o_field_widget {
+    margin-bottom: 10px;
+}
+
+/* Button Styles */
+.o_change_request_buttons {
+    margin-top: 15px;
+}
+
+.o_change_request_buttons .btn {
+    margin-right: 10px;
+}
+
+/* Status Badge Styles */
+.o_status_badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.o_status_badge_draft {
+    background-color: #6c757d;
+    color: white;
+}
+
+.o_status_badge_submitted {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.o_status_badge_approved {
+    background-color: #198754;
+    color: white;
+}
+
+.o_status_badge_rejected {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* List View Enhancements */
+.o_change_request_list .o_list_view {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.o_change_request_list .o_list_view .o_list_table {
+    margin-bottom: 0;
+}
+
+.o_change_request_list .o_list_view .o_list_table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+}
+
+/* Form View Enhancements */
+.o_change_request_form .o_form_view {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.o_change_request_form .o_form_view .o_form_sheet {
+    background-color: transparent;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .o_change_request_form .o_form_view {
+        padding: 10px;
+    }
+    
+    .o_change_request_buttons .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Animation Effects */
+.o_change_request_transition {
+    transition: all 0.3s ease;
+}
+
+.o_change_request_transition:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Loading States */
+.o_change_request_loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.o_change_request_loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error States */
+.o_change_request_error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Success States */
+.o_change_request_success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Warning States */
+.o_change_request_warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Info States */
+.o_change_request_info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
