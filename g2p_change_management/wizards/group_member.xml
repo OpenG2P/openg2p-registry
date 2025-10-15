@@ -7,14 +7,20 @@
                 <sheet>
                     <field name="group_id" invisible="1" />
                     <group>
-                        <field name="selected_member_ids" 
-                               widget="many2many" 
-                               context="{'member_selection_context': True}"
-                               nolabel="1">
-                            <tree create="false" edit="false" delete="false" 
-                                  decoration-success="active_change_request_state == 'draft'"
-                                  decoration-info="active_change_request_state == 'submitted'"
-                                  multi_edit="false">
+                        <field
+                            name="selected_member_ids"
+                            widget="many2many"
+                            context="{'member_selection_context': True}"
+                            nolabel="1"
+                        >
+                            <tree
+                                create="false"
+                                edit="false"
+                                delete="false"
+                                decoration-success="active_change_request_state == 'draft'"
+                                decoration-info="active_change_request_state == 'submitted'"
+                                multi_edit="false"
+                            >
                                 <field name="name" string="Member Name" />
                                 <field name="given_name" string="Given Name" />
                                 <field name="family_name" string="Family Name" />
@@ -24,7 +30,12 @@
                                 <field name="active_change_request_state" string="CR State" />
                             </tree>
                         </field>
-                        <button string="Select Members" type="object" name="action_select_members" class="btn-info" />
+                        <button
+                            string="Select Members"
+                            type="object"
+                            name="action_select_members"
+                            class="btn-info"
+                        />
                     </group>
                     <footer>
                         <button string="Save" type="object" name="action_save_members" class="btn-primary" />
@@ -43,10 +54,7 @@
                 <sheet>
                     <field name="group_id" invisible="1" />
                     <group>
-                        <field name="selected_member_ids" 
-                               widget="many2many_tags" 
-                               readonly="1"
-                               nolabel="1" />
+                        <field name="selected_member_ids" widget="many2many_tags" readonly="1" nolabel="1" />
                     </group>
                     <footer>
                         <button string="Close" class="btn-secondary" special="cancel" />

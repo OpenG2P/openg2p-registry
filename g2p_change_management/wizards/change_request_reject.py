@@ -1,4 +1,4 @@
-from odoo import fields, models, _
+from odoo import _, fields, models
 
 
 class ChangeRequestRejectWizard(models.TransientModel):
@@ -13,7 +13,6 @@ class ChangeRequestRejectWizard(models.TransientModel):
     )
 
     rejection_reason = fields.Text(
-        string="Rejection Reason",
         required=True,
         help="Please provide a reason for rejecting this change request.",
     )
@@ -22,11 +21,13 @@ class ChangeRequestRejectWizard(models.TransientModel):
         """Confirm the rejection of the change request."""
         self.ensure_one()
 
-        self.change_request_id.write({
-            "state": "rejected",
-            "rejection_reason": self.rejection_reason,
-            "approver_id": self.env.user.id,
-        })
+        self.change_request_id.write(
+            {
+                "state": "rejected",
+                "rejection_reason": self.rejection_reason,
+                "approver_id": self.env.user.id,
+            }
+        )
 
         self.change_request_id.message_post(
             body=_("Change request rejected. Reason: %s") % self.rejection_reason

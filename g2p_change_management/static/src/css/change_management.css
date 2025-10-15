@@ -137,7 +137,7 @@
     .o_change_request_form .o_form_view {
         padding: 10px;
     }
-    
+
     .o_change_request_buttons .btn {
         display: block;
         width: 100%;
@@ -152,7 +152,7 @@
 
 .o_change_request_transition:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Loading States */
@@ -162,7 +162,7 @@
 }
 
 .o_change_request_loading::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -176,8 +176,12 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Error States */

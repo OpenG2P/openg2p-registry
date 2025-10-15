@@ -4,7 +4,7 @@
     <record id="view_individuals_form_readonly" model="ir.ui.view">
         <field name="name">view_individuals_form_readonly</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form"/>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <xpath expr="//form" position="attributes">
@@ -23,7 +23,7 @@
     <record id="view_groups_form_readonly" model="ir.ui.view">
         <field name="name">view_groups_form_readonly</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="g2p_registry_group.view_groups_form"/>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <xpath expr="//form" position="attributes">
@@ -44,9 +44,11 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_individuals_form_readonly"/>
+        <field name="view_id" ref="view_individuals_form_readonly" />
         <field name="target">current</field>
-        <field name="context">{'default_is_registrant':True,'default_is_group':False,'registrant_form':True}</field>
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':False,'registrant_form':True}</field>
     </record>
 
     <!-- Action for Read-only Group View -->
@@ -55,9 +57,11 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_groups_form_readonly"/>
+        <field name="view_id" ref="view_groups_form_readonly" />
         <field name="target">current</field>
-        <field name="context">{'default_is_registrant':True,'default_is_group':True,'registrant_form':True}</field>
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':True,'registrant_form':True}</field>
     </record>
 
 </odoo>

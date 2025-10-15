@@ -7,12 +7,17 @@
         <field name="arch" type="xml">
             <form string="Reject Change Request">
                 <group>
-                    <field name="change_request_id" readonly="1"/>
-                    <field name="rejection_reason"/>
+                    <field name="change_request_id" readonly="1" />
+                    <field name="rejection_reason" />
                 </group>
                 <footer>
-                    <button name="action_confirm_rejection" string="Confirm Rejection" type="object" class="btn-danger"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button
+                        name="action_confirm_rejection"
+                        string="Confirm Rejection"
+                        type="object"
+                        class="btn-danger"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
         </field>

@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Change Log Tree View -->
     <record id="view_change_log_tree" model="ir.ui.view">
         <field name="name">change.log.tree</field>
         <field name="model">change.log</field>
         <field name="arch" type="xml">
-            <tree string="Change Log" decoration-info="change_type == 'create'" decoration-warning="change_type == 'modify'" decoration-danger="change_type == 'delete'">
-                <field name="change_date"/>
-                <field name="change_type"/>
-                <field name="partner_name"/>
-                <field name="change_summary"/>
-                <field name="changed_by"/>
-                <field name="change_request_name"/>
-                <field name="is_group" invisible="1"/>
+            <tree
+                decoration-info="change_type == 'create'"
+                decoration-warning="change_type == 'modify'"
+                decoration-danger="change_type == 'delete'"
+            >
+                <field name="change_date" />
+                <field name="change_type" />
+                <field name="partner_name" />
+                <field name="change_summary" />
+                <field name="changed_by" />
+                <field name="change_request_name" />
+                <field name="is_group" invisible="1" />
             </tree>
         </field>
     </record>
@@ -24,68 +28,104 @@
         <field name="arch" type="xml">
             <form string="Change Log Entry">
                 <header>
-                    <field name="change_type" widget="badge" decoration-info="change_type == 'create'" decoration-warning="change_type == 'modify'" decoration-danger="change_type == 'delete'"/>
+                    <field
+                        name="change_type"
+                        widget="badge"
+                        decoration-info="change_type == 'create'"
+                        decoration-warning="change_type == 'modify'"
+                        decoration-danger="change_type == 'delete'"
+                    />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_change_request" type="object" class="oe_stat_button" icon="fa-file-text-o">
-                            <field name="change_request_id" widget="statinfo" string="Change Request"/>
+                        <button
+                            name="action_view_change_request"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-text-o"
+                        >
+                            <field name="change_request_id" widget="statinfo" string="Change Request" />
                         </button>
-                        <button name="action_view_partner" type="object" class="oe_stat_button" icon="fa-user">
-                            <field name="partner_id" widget="statinfo" string="Partner"/>
+                        <button
+                            name="action_view_partner"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-user"
+                        >
+                            <field name="partner_id" widget="statinfo" string="Partner" />
                         </button>
                     </div>
-                    
+
                     <div class="oe_title">
                         <h1>
-                            <field name="change_summary" readonly="1"/>
+                            <field name="change_summary" readonly="1" />
                         </h1>
                     </div>
-                    
+
                     <group>
                         <group>
-                            <field name="change_date" readonly="1"/>
-                            <field name="changed_by" readonly="1"/>
-                            <field name="change_type" readonly="1"/>
+                            <field name="change_date" readonly="1" />
+                            <field name="changed_by" readonly="1" />
+                            <field name="change_type" readonly="1" />
                         </group>
                         <group>
-                            <field name="partner_id" readonly="1"/>
-                            <field name="change_request_id" readonly="1"/>
-                            <field name="is_group" readonly="1"/>
+                            <field name="partner_id" readonly="1" />
+                            <field name="change_request_id" readonly="1" />
+                            <field name="is_group" readonly="1" />
                         </group>
                     </group>
-                    
+
                     <notebook>
                         <page string="Change Details" name="change_details">
                             <group>
                                 <group string="Old Values">
-                                    <field name="old_values_formatted" widget="text" readonly="1" nolabel="1" 
-                                           style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"/>
+                                    <field
+                                        name="old_values_formatted"
+                                        widget="text"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                    />
                                 </group>
                                 <group string="New Values">
-                                    <field name="new_values_formatted" widget="text" readonly="1" nolabel="1" 
-                                           style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"/>
+                                    <field
+                                        name="new_values_formatted"
+                                        widget="text"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                    />
                                 </group>
                             </group>
                         </page>
                         <page string="Raw JSON" name="raw_json">
                             <group>
                                 <group string="Old Values (Raw JSON)">
-                                    <field name="old_values" widget="text" readonly="1" nolabel="1" 
-                                           style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"/>
+                                    <field
+                                        name="old_values"
+                                        widget="text"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                    />
                                 </group>
                                 <group string="New Values (Raw JSON)">
-                                    <field name="new_values" widget="text" readonly="1" nolabel="1" 
-                                           style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"/>
+                                    <field
+                                        name="new_values"
+                                        widget="text"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                    />
                                 </group>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -97,28 +137,52 @@
         <field name="model">change.log</field>
         <field name="arch" type="xml">
             <search string="Change Log">
-                <field name="change_summary" string="Summary"/>
-                <field name="partner_name" string="Partner"/>
-                <field name="change_request_name" string="Change Request"/>
-                <field name="changed_by" string="Changed By"/>
-                
-                <filter string="Create" name="filter_create" domain="[('change_type', '=', 'create')]"/>
-                <filter string="Modify" name="filter_modify" domain="[('change_type', '=', 'modify')]"/>
-                <filter string="Delete" name="filter_delete" domain="[('change_type', '=', 'delete')]"/>
-                
-                <filter string="Groups" name="filter_groups" domain="[('is_group', '=', True)]"/>
-                <filter string="Individuals" name="filter_individuals" domain="[('is_group', '=', False)]"/>
-                
-                <separator/>
-                <filter string="Today" name="filter_today" domain="[('change_date', '>=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
-                <filter string="This Week" name="filter_this_week" domain="[('change_date', '>=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"/>
-                <filter string="This Month" name="filter_this_month" domain="[('change_date', '>=', datetime.datetime.combine(context_today().replace(day=1), datetime.time(0,0,0)))]"/>
-                
+                <field name="change_summary" string="Summary" />
+                <field name="partner_name" string="Partner" />
+                <field name="change_request_name" string="Change Request" />
+                <field name="changed_by" string="Changed By" />
+
+                <filter string="Create" name="filter_create" domain="[('change_type', '=', 'create')]" />
+                <filter string="Modify" name="filter_modify" domain="[('change_type', '=', 'modify')]" />
+                <filter string="Delete" name="filter_delete" domain="[('change_type', '=', 'delete')]" />
+
+                <filter string="Groups" name="filter_groups" domain="[('is_group', '=', True)]" />
+                <filter string="Individuals" name="filter_individuals" domain="[('is_group', '=', False)]" />
+
+                <separator />
+                <filter
+                    string="Today"
+                    name="filter_today"
+                    domain="[('change_date', '>=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"
+                />
+                <filter
+                    string="This Week"
+                    name="filter_this_week"
+                    domain="[('change_date', '>=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"
+                />
+                <filter
+                    string="This Month"
+                    name="filter_this_month"
+                    domain="[('change_date', '>=', datetime.datetime.combine(context_today().replace(day=1), datetime.time(0,0,0)))]"
+                />
+
                 <group expand="0" string="Group By">
-                    <filter string="Change Type" name="group_change_type" context="{'group_by': 'change_type'}"/>
-                    <filter string="Changed By" name="group_changed_by" context="{'group_by': 'changed_by'}"/>
-                    <filter string="Partner" name="group_partner" context="{'group_by': 'partner_id'}"/>
-                    <filter string="Change Date" name="group_change_date" context="{'group_by': 'change_date:day'}"/>
+                    <filter
+                        string="Change Type"
+                        name="group_change_type"
+                        context="{'group_by': 'change_type'}"
+                    />
+                    <filter
+                        string="Changed By"
+                        name="group_changed_by"
+                        context="{'group_by': 'changed_by'}"
+                    />
+                    <filter string="Partner" name="group_partner" context="{'group_by': 'partner_id'}" />
+                    <filter
+                        string="Change Date"
+                        name="group_change_date"
+                        context="{'group_by': 'change_date:day'}"
+                    />
                 </group>
             </search>
         </field>
@@ -129,7 +193,7 @@
         <field name="name">Change Log</field>
         <field name="res_model">change.log</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_change_log_search"/>
+        <field name="search_view_id" ref="view_change_log_search" />
         <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -143,10 +207,12 @@
     </record>
 
     <!-- Change Log Menu Item -->
-    <menuitem id="menu_change_log"
-              name="Change Log"
-              parent="menu_change_management_root"
-              action="action_change_log"
-              sequence="30"/>
+    <menuitem
+        id="menu_change_log"
+        name="Change Log"
+        parent="menu_change_management_root"
+        action="action_change_log"
+        sequence="30"
+    />
 
 </odoo>

@@ -9,9 +9,7 @@ class DraftGroupAddMembersWizard(models.TransientModel):
         "draft.record", string="Group", required=True, domain=[("is_group", "=", True)]
     )
     selected_member_ids = fields.Many2many(
-        "draft.record", 
-        string="Selected Members",
-        domain=[("is_group", "=", False)]
+        "draft.record", string="Selected Members", domain=[("is_group", "=", False)]
     )
 
     @api.model
@@ -47,12 +45,3 @@ class DraftGroupAddMembersWizard(models.TransientModel):
             },
             "target": "new",
         }
-
-
-
-    
-
-    
-
-    
-

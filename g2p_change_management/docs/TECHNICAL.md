@@ -2,7 +2,8 @@
 
 ## Architecture Overview
 
-The Change Management module is built on top of Odoo's framework and integrates with the existing OpenG2P ecosystem. It follows a layered architecture with clear separation of concerns.
+The Change Management module is built on top of Odoo's framework and integrates with the existing OpenG2P
+ecosystem. It follows a layered architecture with clear separation of concerns.
 
 ### Core Components
 
@@ -33,6 +34,7 @@ The Change Management module is built on top of Odoo's framework and integrates 
 The central model that manages the change request lifecycle.
 
 #### Fields
+
 ```python
 # Basic Information
 name = fields.Char('Change Request Name', required=True, default='New')
@@ -69,22 +71,23 @@ can_reject = fields.Boolean('Can Reject', compute='_compute_can_reject')
 ```
 
 #### Key Methods
+
 ```python
 def create(self, vals):
     """Override create to set defaults and create draft record"""
-    
+
 def action_submit(self):
     """Submit change request for approval"""
-    
+
 def action_approve(self):
     """Approve change request and implement changes"""
-    
+
 def action_reject(self):
     """Reject change request"""
-    
+
 def _create_draft_record(self):
     """Create associated draft record"""
-    
+
 def _implement_changes(self):
     """Implement approved changes"""
 ```
@@ -94,27 +97,29 @@ def _implement_changes(self):
 Extensions to the standard partner model for change management integration.
 
 #### Additional Fields
+
 ```python
 # Change Management Fields
 change_request_ids = fields.One2many('change.request', 'partner_id', 'Change Requests')
 has_active_draft = fields.Boolean('Has Active Draft', compute='_compute_has_active_draft')
-active_change_request_id = fields.Many2one('change.request', 'Active Change Request', 
+active_change_request_id = fields.Many2one('change.request', 'Active Change Request',
                                          compute='_compute_active_change_request', store=True)
-draft_member_ids = fields.Many2many('draft.record', 'Draft Members', 
+draft_member_ids = fields.Many2many('draft.record', 'Draft Members',
                                   compute='_compute_draft_members', store=False)
 ```
 
 #### Key Methods
+
 ```python
 def action_create_change_request(self):
     """Create change request from partner"""
-    
+
 def action_add_draft_members(self):
     """Add draft members to group"""
-    
+
 def write(self, vals):
     """Override write to prevent direct modification with active draft"""
-    
+
 def _validate_for_change_request(self):
     """Validate partner for change request creation"""
 ```
@@ -138,44 +143,46 @@ def _validate_for_change_request(self):
 ### Workflow Methods
 
 #### Submit Workflow
+
 ```python
 def action_submit(self):
     """Submit change request for approval"""
     # 1. Validate request
     self._validate_before_submit()
-    
+
     # 2. Update state
     self.write({'state': 'submitted'})
-    
+
     # 3. Create approval activity
     self._create_approval_activity()
-    
+
     # 4. Update group member statuses
     self._update_group_member_statuses('submit')
-    
+
     # 5. Log activity
     self.message_post(body="Change request submitted for approval")
 ```
 
 #### Approval Workflow
+
 ```python
 def action_approve(self):
     """Approve change request"""
     # 1. Validate approval
     self._validate_workflow_transition('approved')
-    
+
     # 2. Update state
     self.write({'state': 'approved', 'approver_id': self.env.user.id})
-    
+
     # 3. Implement changes
     self._implement_changes()
-    
+
     # 4. Update group member statuses
     self._update_group_member_statuses('approve')
-    
+
     # 5. Close activities
     self._close_related_activities()
-    
+
     # 6. Send notifications
     self._send_approval_result_notification('approved')
 ```
@@ -217,6 +224,7 @@ def _onchange_is_group(self):
 ### Access Control
 
 #### Model Access Rights
+
 ```csv
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_change_request_user,change.request.user,model_change_request,group_change_user,1,1,1,0
@@ -225,28 +233,32 @@ access_change_request_admin,change.request.admin,model_change_request,group_chan
 ```
 
 #### Record Rules
+
 ```xml
 <record id="change_request_user_rule" model="ir.rule">
     <field name="name">Change Request: User Access</field>
-    <field name="model_id" ref="model_change_request"/>
+    <field name="model_id" ref="model_change_request" />
     <field name="domain_force">[('requester_id', '=', user.id)]</field>
-    <field name="groups" eval="[(4, ref('group_change_user'))]"/>
+    <field name="groups" eval="[(4, ref('group_change_user'))]" />
 </record>
 ```
 
 ### Security Groups
 
 #### Change User Group
+
 - Can create and manage their own change requests
 - Can view their own change requests
 - Cannot approve change requests
 
 #### Change Approver Group
+
 - Can view all change requests
 - Can approve or reject change requests
 - Can manage all change request states
 
 #### Change Admin Group
+
 - Full access to all change management features
 - Can configure workflows and settings
 - Can manage user permissions
@@ -256,6 +268,7 @@ access_change_request_admin,change.request.admin,model_change_request,group_chan
 ### Field Constraints
 
 #### Change Request Constraints
+
 ```python
 @api.constrains('is_group', 'group_kind_id')
 def _check_group_kind_required_for_groups(self):
@@ -273,6 +286,7 @@ def _check_description_length(self):
 ```
 
 #### Partner Constraints
+
 ```python
 @api.constrains('change_request_ids')
 def _check_change_request_consistency(self):
@@ -290,6 +304,7 @@ def _check_change_request_consistency(self):
 ### Database Optimization
 
 #### Indexes
+
 ```python
 # Change request indexes
 _index = [
@@ -306,6 +321,7 @@ _index = [
 ```
 
 #### Query Optimization
+
 ```python
 # Efficient partner lookup
 partners_with_drafts = self.env['res.partner'].search([
@@ -322,6 +338,7 @@ pending_requests = self.env['change.request'].search([
 ### Caching Strategy
 
 #### Computed Fields
+
 ```python
 # Store computed fields for performance
 has_active_draft = fields.Boolean(compute='_compute_has_active_draft', store=True)
@@ -329,6 +346,7 @@ active_change_request_id = fields.Many2one(compute='_compute_active_change_reque
 ```
 
 #### Search Methods
+
 ```python
 def _search_active_change_request(self, operator, value):
     """Optimized search for active change requests"""
@@ -342,6 +360,7 @@ def _search_active_change_request(self, operator, value):
 ### Exception Types
 
 #### Validation Errors
+
 ```python
 from odoo.exceptions import ValidationError
 
@@ -355,6 +374,7 @@ if self.state != 'draft':
 ```
 
 #### User Errors
+
 ```python
 from odoo.exceptions import UserError
 
@@ -370,17 +390,18 @@ if not self.env.user.has_group('g2p_change_management.group_change_approver'):
 ### Error Recovery
 
 #### Transaction Rollback
+
 ```python
 @api.model
 def create(self, vals):
     try:
         # Create change request
         change_request = super().create(vals)
-        
+
         # Create draft record
         draft_record = change_request._create_draft_record()
         change_request.write({'draft_record_id': draft_record.id})
-        
+
         return change_request
     except Exception as e:
         # Log error and re-raise
@@ -391,18 +412,21 @@ def create(self, vals):
 ## Testing Strategy
 
 ### Unit Tests
+
 - Model method testing
 - Field validation testing
 - Constraint testing
 - Computed field testing
 
 ### Integration Tests
+
 - Workflow testing
 - Cross-model interaction testing
 - Draft publish integration testing
 - Security testing
 
 ### Performance Tests
+
 - Database query performance
 - Large dataset handling
 - Concurrent user testing
@@ -411,18 +435,21 @@ def create(self, vals):
 ## Deployment Considerations
 
 ### Database Migrations
+
 - Schema changes
 - Data migrations
 - Index creation
 - Constraint updates
 
 ### Configuration
+
 - User group setup
 - Permission configuration
 - Workflow customization
 - Notification settings
 
 ### Monitoring
+
 - Error logging
 - Performance metrics
 - User activity tracking

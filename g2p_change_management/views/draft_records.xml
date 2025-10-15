@@ -127,25 +127,25 @@
         <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <!-- Hide unwanted buttons from the original form -->
-            <xpath expr="//button[@name='%(g2p_registry_base.action_disable_registrant_wizard)d']" position="replace">
-                <button type="action" class="oe_stat_button" icon="fa-ban" name="%(g2p_registry_base.action_disable_registrant_wizard)d" invisible="1">
-                    <div class="o_form_field o_stat_info">
-                        <span class="o_stat_text">Disable</span>
-                    </div>
-                </button>
+            <!-- Hide unwanted buttons from the original form safely via attributes -->
+            <xpath
+                expr="//button[@name='%(g2p_registry_base.action_disable_registrant_wizard)d']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//button[@name='enable_registrant']" position="replace">
-                <button type="object" class="oe_stat_button" icon="fa-check" name="enable_registrant" invisible="1">
-                    <div class="o_form_field o_stat_info">
-                        <span class="o_stat_text">Enable</span>
-                    </div>
-                </button>
+            <xpath expr="//button[@name='enable_registrant']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//notebook" position="after">
                 <footer>
-                    <button class="btn btn-info" name="action_update" string="Save" type="object" 
-                            invisible="active_change_request_state and active_change_request_state != 'draft'" />
+                    <button
+                        class="btn btn-info"
+                        name="action_update"
+                        string="Save"
+                        type="object"
+                        invisible="active_change_request_state and active_change_request_state != 'draft'"
+                    />
                     <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
                     <field name="imported_record_state" invisible="true" />
                     <field name="active_change_request_state" invisible="true" />
@@ -162,8 +162,13 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="after">
                 <footer>
-                    <button class="btn btn-info" name="action_update" string="Save" type="object" 
-                            invisible="active_change_request_state and active_change_request_state != 'draft'" />
+                    <button
+                        class="btn btn-info"
+                        name="action_update"
+                        string="Save"
+                        type="object"
+                        invisible="active_change_request_state and active_change_request_state != 'draft'"
+                    />
                     <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
                     <!-- <button
                         class="btn btn-success"

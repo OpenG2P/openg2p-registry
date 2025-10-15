@@ -2,13 +2,15 @@
 
 ## Overview
 
-This document outlines the performance optimizations implemented in the Change Management module to ensure efficient operation with large datasets and high user loads.
+This document outlines the performance optimizations implemented in the Change Management module to ensure
+efficient operation with large datasets and high user loads.
 
 ## Performance Features
 
 ### 🚀 **Database Optimizations**
 
 #### Indexes
+
 The module includes strategic database indexes for optimal query performance:
 
 ```sql
@@ -30,6 +32,7 @@ CREATE INDEX idx_draft_record_state_group ON draft_record (state, is_group);
 ```
 
 #### Field Optimizations
+
 - **Stored Computed Fields**: Critical computed fields are stored in the database for faster access
 - **Indexed Fields**: Frequently queried fields have database indexes
 - **Optimized Dependencies**: Computed field dependencies are optimized to minimize unnecessary recalculations
@@ -37,6 +40,7 @@ CREATE INDEX idx_draft_record_state_group ON draft_record (state, is_group);
 ### ⚡ **Query Optimizations**
 
 #### Efficient Search Patterns
+
 ```python
 # Optimized search with indexed fields first
 domain = [
@@ -55,6 +59,7 @@ change_requests = self.env['change.request'].search(
 ```
 
 #### Batch Processing
+
 ```python
 # Process records in batches for better performance
 def process_change_requests(change_requests, batch_size=100):
@@ -67,6 +72,7 @@ def process_change_requests(change_requests, batch_size=100):
 ### 🧠 **Memory Optimizations**
 
 #### Computed Field Caching
+
 ```python
 # Store computed fields for better performance
 has_active_draft = fields.Boolean(
@@ -80,12 +86,13 @@ def _compute_has_active_draft(self):
     for record in self:
         # Use any() for better performance than filtered()
         record.has_active_draft = any(
-            cr.state in ['draft', 'submitted'] 
+            cr.state in ['draft', 'submitted']
             for cr in record.change_request_ids
         )
 ```
 
 #### Efficient Data Access
+
 ```python
 # Use read() for specific fields instead of accessing all fields
 field_data = self.env['change.request'].search([]).read(['name', 'state', 'type'])
@@ -97,6 +104,7 @@ change_request = self.env['change.request'].browse(record_id)
 ### 📊 **Performance Monitoring**
 
 #### Built-in Monitoring
+
 The module includes comprehensive performance monitoring:
 
 ```python
@@ -114,6 +122,7 @@ stats = self.env['change.request.performance.monitor'].get_performance_stats(day
 ```
 
 #### Performance Metrics
+
 - **Execution Time**: Track how long operations take
 - **Memory Usage**: Monitor memory consumption
 - **Record Count**: Track number of records processed
@@ -122,6 +131,7 @@ stats = self.env['change.request.performance.monitor'].get_performance_stats(day
 ### 🔧 **Configuration Options**
 
 #### Performance Parameters
+
 ```python
 # Configurable performance settings
 PERFORMANCE_CONFIG = {
@@ -134,6 +144,7 @@ PERFORMANCE_CONFIG = {
 ```
 
 #### System Parameters
+
 - `g2p_change_management.performance.batch_size`: Batch size for operations
 - `g2p_change_management.performance.cache_timeout`: Cache timeout
 - `g2p_change_management.performance.max_records_per_query`: Query limits
@@ -145,6 +156,7 @@ PERFORMANCE_CONFIG = {
 ### 🎯 **Query Optimization**
 
 #### Use Indexed Fields First
+
 ```python
 # ✅ Good: Indexed fields first
 domain = [('state', '=', 'draft'), ('type', '=', 'create')]
@@ -154,6 +166,7 @@ domain = [('description', 'ilike', 'test'), ('state', '=', 'draft')]
 ```
 
 #### Limit Results
+
 ```python
 # ✅ Good: Limit results
 change_requests = self.env['change.request'].search([], limit=100)
@@ -163,6 +176,7 @@ change_requests = self.env['change.request'].search([])
 ```
 
 #### Use Efficient Ordering
+
 ```python
 # ✅ Good: Order by indexed field
 change_requests = self.env['change.request'].search([], order='create_date desc')
@@ -174,6 +188,7 @@ change_requests = self.env['change.request'].search([], order='description')
 ### 💾 **Memory Management**
 
 #### Batch Processing
+
 ```python
 # ✅ Good: Process in batches
 for batch in self._batch_process_records(records, 100):
@@ -186,6 +201,7 @@ for record in records:  # Could be thousands of records
 ```
 
 #### Efficient Field Access
+
 ```python
 # ✅ Good: Read specific fields
 data = records.read(['name', 'state'])
@@ -199,6 +215,7 @@ for record in records:
 ### 🔄 **Computed Field Optimization**
 
 #### Store Critical Fields
+
 ```python
 # ✅ Good: Store frequently accessed computed fields
 partner_name = fields.Char(compute="_compute_partner_name", store=True, index=True)
@@ -208,6 +225,7 @@ debug_info = fields.Text(compute="_compute_debug_info", store=False)
 ```
 
 #### Optimize Dependencies
+
 ```python
 # ✅ Good: Specific dependencies
 @api.depends("partner_id", "partner_id.name")
@@ -233,12 +251,12 @@ class TestPerformance(TransactionCase):
         # Create 50 change requests and measure performance
         # Assert execution time < 10 seconds
         # Assert memory usage < 100MB
-    
+
     def test_search_performance(self):
         """Test performance of search operations."""
         # Test various search patterns
         # Assert execution time < 5 seconds
-    
+
     def test_computed_fields_performance(self):
         """Test performance of computed fields."""
         # Test computation of all computed fields
@@ -248,6 +266,7 @@ class TestPerformance(TransactionCase):
 ### 📈 **Performance Benchmarks**
 
 #### Expected Performance Metrics
+
 - **Change Request Creation**: < 10 seconds for 50 records
 - **Search Operations**: < 5 seconds for complex queries
 - **Computed Fields**: < 3 seconds for 50 records
@@ -255,6 +274,7 @@ class TestPerformance(TransactionCase):
 - **Bulk Operations**: < 8 seconds for 100 records
 
 #### Memory Usage Limits
+
 - **Normal Operations**: < 100MB memory increase
 - **Load Testing**: < 200MB memory increase
 - **Search Operations**: < 50MB memory increase
@@ -265,12 +285,14 @@ class TestPerformance(TransactionCase):
 ### 📊 **Performance Dashboard**
 
 #### Key Metrics to Monitor
+
 - **Average Execution Time**: Track operation performance
 - **Memory Usage**: Monitor memory consumption
 - **Query Performance**: Track database query times
 - **Error Rates**: Monitor operation failures
 
 #### Automated Cleanup
+
 ```python
 # Automatic cleanup of old performance records
 # Runs daily via cron job
@@ -283,6 +305,7 @@ def cleanup_old_records(self, days=30):
 ### 🔧 **Database Maintenance**
 
 #### Regular Maintenance Tasks
+
 ```python
 # Analyze tables for query optimization
 self.env['change.request.db.optimization'].analyze_tables()
@@ -295,6 +318,7 @@ stats = self.env['change.request.db.optimization'].get_table_stats()
 ```
 
 #### Index Maintenance
+
 - **Monitor Index Usage**: Check which indexes are being used
 - **Rebuild Indexes**: Rebuild indexes if needed
 - **Add New Indexes**: Add indexes for new query patterns
@@ -304,24 +328,27 @@ stats = self.env['change.request.db.optimization'].get_table_stats()
 ### 🐛 **Common Performance Problems**
 
 #### Slow Queries
-**Problem**: Queries taking too long
-**Solutions**:
+
+**Problem**: Queries taking too long **Solutions**:
+
 1. Check if indexes are being used
 2. Optimize domain conditions
 3. Add appropriate indexes
 4. Limit result sets
 
 #### High Memory Usage
-**Problem**: Excessive memory consumption
-**Solutions**:
+
+**Problem**: Excessive memory consumption **Solutions**:
+
 1. Use batch processing
 2. Optimize computed fields
 3. Clear unnecessary caches
 4. Monitor memory usage patterns
 
 #### Slow Computed Fields
-**Problem**: Computed fields taking too long
-**Solutions**:
+
+**Problem**: Computed fields taking too long **Solutions**:
+
 1. Store frequently accessed fields
 2. Optimize dependencies
 3. Use efficient computation logic
@@ -330,15 +357,17 @@ stats = self.env['change.request.db.optimization'].get_table_stats()
 ### 🔍 **Performance Debugging**
 
 #### Enable Performance Monitoring
+
 ```python
 # Enable detailed performance monitoring
 self.env['ir.config_parameter'].set_param(
-    'g2p_change_management.performance.enable_monitoring', 
+    'g2p_change_management.performance.enable_monitoring',
     'True'
 )
 ```
 
 #### Analyze Performance Logs
+
 ```python
 # Get performance statistics
 stats = self.env['change.request.performance.monitor'].get_performance_stats()
@@ -350,6 +379,7 @@ slow_operations = self.env['change.request.performance.monitor'].search([
 ```
 
 #### Database Query Analysis
+
 ```python
 # Enable query logging
 # Check database logs for slow queries
@@ -361,16 +391,19 @@ slow_operations = self.env['change.request.performance.monitor'].search([
 ### 🚀 **Planned Improvements**
 
 #### Advanced Caching
+
 - **Redis Integration**: External caching for better performance
 - **Query Result Caching**: Cache frequently accessed query results
 - **Computed Field Caching**: Advanced caching strategies
 
 #### Database Optimizations
+
 - **Partitioning**: Partition large tables by date or region
 - **Materialized Views**: Pre-computed views for complex queries
 - **Connection Pooling**: Optimize database connections
 
 #### Application Optimizations
+
 - **Async Processing**: Background processing for heavy operations
 - **Queue Management**: Queue-based processing for better scalability
 - **Load Balancing**: Distribute load across multiple instances
@@ -378,22 +411,28 @@ slow_operations = self.env['change.request.performance.monitor'].search([
 ### 📊 **Performance Roadmap**
 
 #### Short Term (1-3 months)
+
 - Implement advanced caching
 - Optimize remaining queries
 - Add more performance tests
 
 #### Medium Term (3-6 months)
+
 - Database partitioning
 - Async processing
 - Advanced monitoring
 
 #### Long Term (6+ months)
+
 - Microservices architecture
 - Advanced load balancing
 - Real-time performance dashboards
 
 ## Conclusion
 
-The Change Management module includes comprehensive performance optimizations to ensure efficient operation with large datasets. By following the best practices outlined in this guide and monitoring performance metrics, you can maintain optimal performance as your system scales.
+The Change Management module includes comprehensive performance optimizations to ensure efficient operation
+with large datasets. By following the best practices outlined in this guide and monitoring performance
+metrics, you can maintain optimal performance as your system scales.
 
-For additional performance tuning or specific optimization needs, consult the technical documentation or contact the development team.
+For additional performance tuning or specific optimization needs, consult the technical documentation or
+contact the development team.
