@@ -2,14 +2,14 @@ from odoo import api, fields, models
 
 
 class DraftGroupAddMembersWizard(models.TransientModel):
-    _name = "draft.group.add.members.wizard"
+    _name = "g2p.draft.group.add.members.wizard"
     _description = "Add Group Members Wizard"
 
     group_id = fields.Many2one(
-        "draft.record", string="Group", required=True, domain=[("is_group", "=", True)]
+        "g2p.draft.record", string="Group", required=True, domain=[("is_group", "=", True)]
     )
     selected_member_ids = fields.Many2many(
-        "draft.record", string="Selected Members", domain=[("is_group", "=", False)]
+        "g2p.draft.record", string="Selected Members", domain=[("is_group", "=", False)]
     )
 
     @api.model
@@ -17,11 +17,11 @@ class DraftGroupAddMembersWizard(models.TransientModel):
         res = super().default_get(fields_list)
         group_id = self._context.get("default_group_id")
         if group_id:
-            group = self.env["draft.record"].browse(group_id)
+            group = self.env["g2p.draft.record"].browse(group_id)
             res["group_id"] = group_id
             if group and group.group_member_ids_json:
                 member_ids = group.group_member_ids_json
-                members = self.env["draft.record"].browse(member_ids)
+                members = self.env["g2p.draft.record"].browse(member_ids)
                 res["selected_member_ids"] = [(6, 0, members.ids)]
         return res
 
@@ -35,7 +35,7 @@ class DraftGroupAddMembersWizard(models.TransientModel):
         return {
             "type": "ir.actions.act_window",
             "name": "Select Individual Draft Members",
-            "res_model": "draft.record",
+            "res_model": "g2p.draft.record",
             "view_mode": "tree",
             "view_id": self.env.ref("g2p_change_management.view_draft_record_individual_selection_tree").id,
             "domain": [],

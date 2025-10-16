@@ -4,8 +4,8 @@ from odoo.tests import TransactionCase
 class TestDraftGroupAddMembersWizard(TransactionCase):
     def setUp(self):
         super().setUp()
-        self.Draft = self.env["draft.record"]
-        self.Wizard = self.env["draft.group.add.members.wizard"]
+        self.Draft = self.env["g2p.draft.record"]
+        self.Wizard = self.env["g2p.draft.group.add.members.wizard"]
 
         self.individual_1 = self.Draft.create(
             {"given_name": "Alice", "family_name": "Wonder", "is_group": False}

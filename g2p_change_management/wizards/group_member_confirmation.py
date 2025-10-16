@@ -7,11 +7,11 @@ _logger = logging.getLogger(__name__)
 
 
 class GroupMemberConfirmationWizard(models.TransientModel):
-    _name = "group.member.confirmation.wizard"
+    _name = "g2p.group.member.confirmation.wizard"
     _description = "Group Member Status Update Confirmation"
 
     change_request_id = fields.Many2one(
-        "change.request",
+        "g2p.change.request",
         string="Change Request",
         required=True,
         readonly=True,
@@ -47,7 +47,7 @@ class GroupMemberConfirmationWizard(models.TransientModel):
         res = super().default_get(fields_list)
 
         if self.env.context.get("active_id"):
-            change_request = self.env["change.request"].browse(self.env.context.get("active_id"))
+            change_request = self.env["g2p.change.request"].browse(self.env.context.get("active_id"))
             action_type = self.env.context.get("action_type", "submit")
 
             if change_request and change_request.draft_record_id and change_request.draft_record_id.is_group:
@@ -82,7 +82,7 @@ class GroupMemberConfirmationWizard(models.TransientModel):
 
             for member in member_data:
                 if member.get("draft_id"):
-                    draft_individual = self.env["draft.record"].browse(member["draft_id"])
+                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
                     if draft_individual.exists() and draft_individual.state in ["draft", "submitted"]:
                         draft_members.append(draft_individual.name)
 

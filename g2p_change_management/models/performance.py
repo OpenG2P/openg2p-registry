@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class ChangeRequestPerformance(models.Model):
     """Performance optimization mixin for Change Request model."""
 
-    _name = "change.request.performance"
+    _name = "g2p.g2p.change.request.performance"
     _description = "Change Request Performance Optimizations"
 
     @api.model
@@ -113,7 +113,7 @@ class ResPartnerPerformance(models.Model):
             return
 
         # Get all change requests for these partners
-        change_requests = self.env["change.request"].search([("partner_id", "in", partner_ids)])
+        change_requests = self.env["g2p.change.request"].search([("partner_id", "in", partner_ids)])
 
         # Update names in batches
         for batch in self._batch_process_records(change_requests):
@@ -130,7 +130,7 @@ class ResPartnerPerformance(models.Model):
 class DraftRecordPerformance(models.Model):
     """Performance optimization mixin for Draft Record model."""
 
-    _name = "draft.record.performance"
+    _name = "g2p.draft.record.performance"
     _description = "Draft Record Performance Optimizations"
 
     @api.model
@@ -165,7 +165,7 @@ class DraftRecordPerformance(models.Model):
 class PerformanceMonitoring(models.Model):
     """Performance monitoring and metrics."""
 
-    _name = "change.request.performance.monitor"
+    _name = "g2p.change.request.performance.monitor"
     _description = "Change Request Performance Monitor"
 
     name = fields.Char("Operation Name", required=True)
@@ -229,7 +229,7 @@ class PerformanceMonitoring(models.Model):
 class DatabaseOptimization(models.Model):
     """Database optimization utilities."""
 
-    _name = "change.request.db.optimization"
+    _name = "g2p.change.request.db.optimization"
     _description = "Change Request Database Optimization"
 
     @api.model

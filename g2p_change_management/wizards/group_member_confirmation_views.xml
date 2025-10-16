@@ -3,8 +3,8 @@
 
         <!-- Group Member Confirmation Wizard Form View -->
         <record id="view_group_member_confirmation_wizard_form" model="ir.ui.view">
-            <field name="name">group.member.confirmation.wizard.form</field>
-            <field name="model">group.member.confirmation.wizard</field>
+            <field name="name">g2p.group.member.confirmation.wizard.form</field>
+            <field name="model">g2p.group.member.confirmation.wizard</field>
             <field name="arch" type="xml">
                 <form string="Group Member Status Update Confirmation">
                     <sheet>
@@ -41,7 +41,7 @@
         <!-- Group Member Confirmation Wizard Action -->
         <record id="action_group_member_confirmation_wizard" model="ir.actions.act_window">
             <field name="name">Group Member Status Update</field>
-            <field name="res_model">group.member.confirmation.wizard</field>
+            <field name="res_model">g2p.group.member.confirmation.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="context">{}</field>

@@ -51,7 +51,7 @@ class TestWebSave(TransactionCase):
 class TestDraftRecord(TransactionCase):
     def setUp(self):
         super().setUp()
-        self.Draft = self.env["draft.record"]
+        self.Draft = self.env["g2p.draft.record"]
 
     def test_create_individual_record(self):
         record = self.Draft.create(
@@ -124,7 +124,7 @@ class TestDraftRecord(TransactionCase):
     def test_action_reject(self):
         record = self.Draft.create({"name": "RejectMe"})
         result = record.action_reject()
-        self.assertEqual(result["res_model"], "reject.wizard")
+        self.assertEqual(result["res_model"], "g2p.reject.wizard")
         self.assertEqual(result["target"], "new")
 
     def test_process_json_data(self):
@@ -238,7 +238,7 @@ class TestDraftRecord(TransactionCase):
 
         self.env["mail.activity"].create(
             {
-                "res_model_id": self.env["ir.model"]._get("draft.record").id,
+                "res_model_id": self.env["ir.model"]._get("g2p.draft.record").id,
                 "res_id": group.id,
                 "user_id": self.env.user.id,
                 "activity_type_id": self.env.ref("mail.mail_activity_data_todo").id,
@@ -248,9 +248,9 @@ class TestDraftRecord(TransactionCase):
 
         group.action_submit()
 
-        group = self.env["draft.record"].browse(group.id)
-        individual1 = self.env["draft.record"].browse(individual1.id)
-        individual2 = self.env["draft.record"].browse(individual2.id)
+        group = self.env["g2p.draft.record"].browse(group.id)
+        individual1 = self.env["g2p.draft.record"].browse(individual1.id)
+        individual2 = self.env["g2p.draft.record"].browse(individual2.id)
 
         self.assertEqual(group.state, "submitted")
         self.assertEqual(individual1.state, "submitted")
@@ -261,7 +261,7 @@ class TestDraftRecord(TransactionCase):
 
         done_activities = self.env["mail.activity"].search(
             [
-                ("res_model", "=", "draft.record"),
+                ("res_model", "=", "g2p.draft.record"),
                 ("res_id", "=", group.id),
                 ("user_id", "=", self.env.user.id),
                 ("activity_type_id", "=", self.env.ref("mail.mail_activity_data_todo").id),
@@ -271,7 +271,7 @@ class TestDraftRecord(TransactionCase):
 
         approver_activities = self.env["mail.activity"].search(
             [
-                ("res_model", "=", "draft.record"),
+                ("res_model", "=", "g2p.draft.record"),
                 ("res_id", "=", group.id),
                 ("user_id", "=", approver_user.id),
             ]
@@ -437,7 +437,7 @@ class TestWebSaveResPartner(TransactionCase):
     def setUp(self):
         super().setUp()
         self.Partner = self.env["res.partner"]
-        self.DraftRecord = self.env["draft.record"]
+        self.DraftRecord = self.env["g2p.draft.record"]
 
     def test_action_save_to_draft_json_update(self):
         """Ensure action_save_to_draft updates the partner_data JSON correctly."""
@@ -460,14 +460,14 @@ class TestWebSaveResPartner(TransactionCase):
 
         context = {
             "draft": True,
-            "active_model": "draft.record",
+            "active_model": "g2p.draft.record",
             "active_id": draft.id,
         }
 
         partner = self.Partner.create({"name": "DRAFT TEMP"})
         partner.with_context(**context).web_save(vals, {})
 
-        draft = self.env["draft.record"].browse(draft.id)
+        draft = self.env["g2p.draft.record"].browse(draft.id)
 
         data = json.loads(draft.partner_data)
 
@@ -496,14 +496,14 @@ class TestWebSaveResPartner(TransactionCase):
 
         context = {
             "draft": True,
-            "active_model": "draft.record",
+            "active_model": "g2p.draft.record",
             "active_id": draft.id,
         }
 
         partner = self.Partner.create({"name": "DRAFT TEMP"})
         partner.with_context(**context).web_save(vals, {})
 
-        draft = self.env["draft.record"].browse(draft.id)
+        draft = self.env["g2p.draft.record"].browse(draft.id)
         data = json.loads(draft.partner_data)
 
         self.assertEqual(data["name"], "Updated Group Name")
@@ -512,7 +512,7 @@ class TestWebSaveResPartner(TransactionCase):
         self.assertEqual(data["is_registrant"], True)
 
     def test_res_partner_action_submit(self):
-        draft = self.env["draft.record"].create(
+        draft = self.env["g2p.draft.record"].create(
             {
                 "given_name": "Alice",
                 "family_name": "Smith",
@@ -524,7 +524,7 @@ class TestWebSaveResPartner(TransactionCase):
         partner = (
             self.env["res.partner"]
             .with_context(
-                active_model="draft.record",
+                active_model="g2p.draft.record",
                 active_id=draft.id,
             )
             .create({"name": "Temp"})
@@ -532,11 +532,11 @@ class TestWebSaveResPartner(TransactionCase):
 
         partner.action_submit()
 
-        draft = self.env["draft.record"].browse(draft.id)
+        draft = self.env["g2p.draft.record"].browse(draft.id)
         self.assertEqual(draft.state, "submitted")
 
     def test_res_partner_action_submit_already_submitted(self):
-        draft = self.env["draft.record"].create(
+        draft = self.env["g2p.draft.record"].create(
             {
                 "given_name": "Bob",
                 "family_name": "Test",
@@ -549,7 +549,7 @@ class TestWebSaveResPartner(TransactionCase):
         partner = (
             self.env["res.partner"]
             .with_context(
-                active_model="draft.record",
+                active_model="g2p.draft.record",
                 active_id=draft.id,
             )
             .create({"name": "Temp"})
@@ -559,7 +559,7 @@ class TestWebSaveResPartner(TransactionCase):
             partner.action_submit()
 
     def test_res_partner_action_publish(self):
-        draft = self.env["draft.record"].create(
+        draft = self.env["g2p.draft.record"].create(
             {
                 "given_name": "John",
                 "family_name": "Doe",
@@ -571,7 +571,7 @@ class TestWebSaveResPartner(TransactionCase):
         partner = (
             self.env["res.partner"]
             .with_context(
-                active_model="draft.record",
+                active_model="g2p.draft.record",
                 active_id=draft.id,
             )
             .create({"name": "Temp"})
@@ -580,11 +580,11 @@ class TestWebSaveResPartner(TransactionCase):
         partner.action_submit()
         partner.action_publish()
 
-        draft = self.env["draft.record"].browse(draft.id)
+        draft = self.env["g2p.draft.record"].browse(draft.id)
         self.assertEqual(draft.state, "published")
 
     def test_res_partner_action_publish_already_published(self):
-        draft = self.env["draft.record"].create(
+        draft = self.env["g2p.draft.record"].create(
             {
                 "given_name": "Jane",
                 "family_name": "Doe",
@@ -597,7 +597,7 @@ class TestWebSaveResPartner(TransactionCase):
         partner = (
             self.env["res.partner"]
             .with_context(
-                active_model="draft.record",
+                active_model="g2p.draft.record",
                 active_id=draft.id,
             )
             .create({"name": "Temp"})

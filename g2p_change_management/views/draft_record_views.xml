@@ -1,10 +1,136 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Inherit the draft record group form view to add members section -->
+    <!-- Individual Draft Record Tree View -->
+    <record id="view_draft_imported_individual_tree" model="ir.ui.view">
+        <field name="name">g2p.draft.record.individual.tree</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="given_name" />
+                <field name="family_name" />
+                <field name="addl_name" />
+                <field name="phone" />
+                <field name="gender" />
+                <field name="region" />
+                <field name="is_group" column_invisible="1" />
+                <button
+                    string="View"
+                    type="object"
+                    name="action_open_individual_wizard_view_only"
+                    groups="g2p_change_management.group_change_management_admin,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                />
+                <button
+                    string="Edit"
+                    type="object"
+                    name="action_open_individual_wizard"
+                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group Draft Record Tree View -->
+    <record id="view_draft_imported_group_tree" model="ir.ui.view">
+        <field name="name">g2p.draft.record.group.tree</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="phone" />
+                <field name="region" />
+                <field name="is_group" column_invisible="1" />
+                <button
+                    string="Add Members"
+                    type="action"
+                    name="%(g2p_change_management.action_draft_group_add_members_wizard)d"
+                    class="btn-link"
+                    icon="fa-users"
+                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                    context="{'default_group_id': active_id, 'change_request_context': context.get('change_request_context', False)}"
+                />
+                <button
+                    string="View Members"
+                    type="action"
+                    name="%(g2p_change_management.action_draft_group_view_members_wizard)d"
+                    class="btn-link"
+                    icon="fa-users"
+                    context="{'default_group_id': active_id}"
+                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                />
+                <button
+                    string="View"
+                    type="object"
+                    name="action_open_group_wizard_view_only"
+                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                />
+                <button
+                    string="Edit"
+                    type="object"
+                    name="action_open_group_wizard"
+                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Individual Draft Record Form View -->
+    <record id="view_draft_imported_individual_form" model="ir.ui.view">
+        <field name="name">g2p.draft.record.individual.form</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="arch" type="xml">
+            <form string="Individual Draft Record">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="given_name" />
+                        <field name="family_name" />
+                        <field name="addl_name" />
+                        <field name="phone" />
+                        <field name="gender" />
+                        <field name="region" />
+                        <field name="is_group" column_invisible="1" />
+                    </group>
+                    <notebook>
+                        <page string="Partner Data">
+                            <field name="partner_data" widget="g2p_registry_addl_info_widget" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Group Draft Record Form View -->
+    <record id="view_draft_imported_group_form" model="ir.ui.view">
+        <field name="name">g2p.draft.record.group.form</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="arch" type="xml">
+            <form string="Group Draft Record">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="phone" />
+                        <field name="region" />
+                        <field name="is_group" column_invisible="1" />
+                    </group>
+                    <notebook>
+                        <page string="Partner Data">
+                            <field name="partner_data" widget="g2p_registry_addl_info_widget" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Group form view with members section -->
     <record id="view_draft_record_group_form_members" model="ir.ui.view">
-        <field name="name">draft.record.group.form.members</field>
-        <field name="model">draft.record</field>
-        <field name="inherit_id" ref="g2p_draft_publish.view_draft_imported_group_form" />
+        <field name="name">g2p.draft.record.group.form.members</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="inherit_id" ref="view_draft_imported_group_form" />
         <field name="arch" type="xml">
             <!-- Add Members tab before Partner Data tab -->
             <xpath expr="//notebook" position="inside">
@@ -26,11 +152,10 @@
 
     <!-- Dedicated view for individual draft member selection -->
     <record id="view_draft_record_individual_selection_tree" model="ir.ui.view">
-        <field name="name">draft.record.individual.selection.tree</field>
-        <field name="model">draft.record</field>
+        <field name="name">g2p.draft.record.individual.selection.tree</field>
+        <field name="model">g2p.draft.record</field>
         <field name="arch" type="xml">
             <tree
-                string="Select Individual Draft Members"
                 create="false"
                 edit="false"
                 delete="false"
@@ -52,7 +177,7 @@
     <!-- Action for individual draft member selection -->
     <record id="action_draft_record_individual_selection" model="ir.actions.act_window">
         <field name="name">Select Individual Draft Members</field>
-        <field name="res_model">draft.record</field>
+        <field name="res_model">g2p.draft.record</field>
         <field name="view_mode">tree</field>
         <field name="view_id" ref="view_draft_record_individual_selection_tree" />
         <field name="domain">[]</field>
@@ -60,13 +185,12 @@
         <field name="target">new</field>
     </record>
 
-    <!-- Custom many2many selection view for draft.record -->
+    <!-- Custom many2many selection view for g2p.draft.record -->
     <record id="view_draft_record_many2many_selection" model="ir.ui.view">
-        <field name="name">draft.record.many2many.selection</field>
-        <field name="model">draft.record</field>
+        <field name="name">g2p.draft.record.many2many.selection</field>
+        <field name="model">g2p.draft.record</field>
         <field name="arch" type="xml">
             <tree
-                string="Select Individual Draft Members"
                 create="false"
                 edit="false"
                 delete="false"
@@ -84,4 +208,211 @@
             </tree>
         </field>
     </record>
+
+    <!-- Validation Form Views for res.partner -->
+    <record id="g2p_validation_individual_form_view" model="ir.ui.view">
+        <field name="name">Validation Form View - Individual</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <!-- Hide unwanted buttons from the original form safely via attributes -->
+            <xpath
+                expr="//button[@name='%(g2p_registry_base.action_disable_registrant_wizard)d']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='enable_registrant']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="after">
+                <footer>
+                    <button
+                        class="btn btn-info"
+                        name="action_update"
+                        string="Save"
+                        type="object"
+                        invisible="active_change_request_state and active_change_request_state != 'draft'"
+                    />
+                    <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
+                    <field name="imported_record_state" invisible="true" />
+                    <field name="active_change_request_state" invisible="true" />
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="g2p_validation_group_form_view" model="ir.ui.view">
+        <field name="name">Validation Form View - Group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="after">
+                <footer>
+                    <button
+                        class="btn btn-info"
+                        name="action_update"
+                        string="Save"
+                        type="object"
+                        invisible="active_change_request_state and active_change_request_state != 'draft'"
+                    />
+                    <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
+                    <field name="imported_record_state" invisible="true" />
+                    <field name="active_change_request_state" invisible="true" />
+                    <field name="active_change_request_state" string="DEBUG: Context CR State" readonly="1" />
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="g2p_validation_individual_form_view_only" model="ir.ui.view">
+        <field name="name">Validation Form View Only</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="after">
+                <footer>
+                    <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="g2p_validation_group_form_view_only" model="ir.ui.view">
+        <field name="name">Validation Group Form View Only</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="after">
+                <footer>
+                    <button string="Discard" class="btn btn-warning" special="cancel" />
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree View Enhancements for res.partner -->
+    <record id="g2p_validation_base_tree_view_individual" model="ir.ui.view">
+        <field name="name">Validation Tree View Individual</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_list_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field
+                    name="db_import"
+                    string="Imported"
+                    widget="badge"
+                    decoration-muted="db_import == 'no'"
+                    decoration-info="db_import == 'yes'"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="g2p_validation_base_tree_view_group" model="ir.ui.view">
+        <field name="name">Validation Tree View Group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_list_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field
+                    name="db_import"
+                    string="Imported"
+                    widget="badge"
+                    decoration-muted="db_import == 'no'"
+                    decoration-info="db_import == 'yes'"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Rejection Form Wizard View -->
+    <record id="rejection_form_wizard_view" model="ir.ui.view">
+        <field name="name">g2p.draft.record.form</field>
+        <field name="model">g2p.draft.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="rejection_reason" />
+                </group>
+                <footer>
+                    <button name="action_reject" string="Reject" class="btn btn-warning" type="object" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions for Draft Records -->
+    <record id="action_draft_group_record" model="ir.actions.act_window">
+        <field name="name">Group Draft</field>
+        <field name="res_model">g2p.draft.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_group', '=', True)]</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+                (0,0,{'view_mode': 'tree', 'view_id': ref('view_draft_imported_group_tree')}),
+                (0,0,{'view_mode': 'form', 'view_id': ref('view_draft_imported_group_form')})]"
+        />
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':True,'registrant_form':True}</field>
+    </record>
+
+    <record id="action_submitted_group_record" model="ir.actions.act_window">
+        <field name="name">Submitted Group</field>
+        <field name="res_model">g2p.draft.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_group', '=', True)]</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+                (0,0,{'view_mode': 'tree', 'view_id': ref('view_draft_imported_group_tree')}),
+                (0,0,{'view_mode': 'form', 'view_id': ref('view_draft_imported_group_form')})]"
+        />
+        <field name="context">{'create': False}</field>
+    </record>
+
+    <record id="action_draft_individual_record" model="ir.actions.act_window">
+        <field name="name">Individual Draft</field>
+        <field name="res_model">g2p.draft.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_group', '=', False)]</field>
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':False,'registrant_form':True}</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+                (0,0,{'view_mode': 'tree', 'view_id': ref('view_draft_imported_individual_tree')}),
+                (0,0,{'view_mode': 'form', 'view_id': ref('view_draft_imported_individual_form')})]"
+        />
+    </record>
+
+    <record id="action_submitted_individual_record" model="ir.actions.act_window">
+        <field name="name">Submitted Individual</field>
+        <field name="res_model">g2p.draft.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_group', '=', False)]</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+                (0,0,{'view_mode': 'tree', 'view_id': ref('view_draft_imported_individual_tree')}),
+                (0,0,{'view_mode': 'form', 'view_id': ref('view_draft_imported_individual_form')})]"
+        />
+        <field name="context">{'create': False}</field>
+    </record>
+
 </odoo>

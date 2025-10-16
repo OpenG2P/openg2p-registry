@@ -1,7 +1,7 @@
 <odoo>
     <record id="view_draft_group_add_members_wizard" model="ir.ui.view">
-        <field name="name">draft.group.add.members.wizard.form</field>
-        <field name="model">draft.group.add.members.wizard</field>
+        <field name="name">g2p.draft.group.add.members.wizard.form</field>
+        <field name="model">g2p.draft.group.add.members.wizard</field>
         <field name="arch" type="xml">
             <form string="Add Group Members">
                 <sheet>
@@ -48,7 +48,7 @@
 
     <record id="view_draft_group_view_members_wizard" model="ir.ui.view">
         <field name="name">draft.group.view.members.wizard.form</field>
-        <field name="model">draft.group.add.members.wizard</field>
+        <field name="model">g2p.draft.group.add.members.wizard</field>
         <field name="arch" type="xml">
             <form string="Group Members">
                 <sheet>
@@ -66,7 +66,7 @@
 
     <record id="action_draft_group_view_members_wizard" model="ir.actions.act_window">
         <field name="name">View Group Members</field>
-        <field name="res_model">draft.group.add.members.wizard</field>
+        <field name="res_model">g2p.draft.group.add.members.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_draft_group_view_members_wizard" />
         <field name="target">new</field>
@@ -75,7 +75,7 @@
 
     <record id="action_draft_group_add_members_wizard" model="ir.actions.act_window">
         <field name="name">Add Group Members</field>
-        <field name="res_model">draft.group.add.members.wizard</field>
+        <field name="res_model">g2p.draft.group.add.members.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_draft_group_add_members_wizard" />
         <field name="target">new</field>

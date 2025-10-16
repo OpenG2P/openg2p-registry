@@ -69,7 +69,7 @@ class TestPerformance(TransactionCase):
         def create_change_requests():
             change_requests = []
             for i in range(50):
-                cr = self.env["change.request"].create(
+                cr = self.env["g2p.change.request"].create(
                     {
                         "type": "create",
                         "is_group": i % 5 == 0,
@@ -88,7 +88,7 @@ class TestPerformance(TransactionCase):
         self.assertEqual(len(result), 50, "Should create 50 change requests")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "change_request_creation_batch", execution_time, len(result), memory_usage, "create"
         )
 
@@ -96,7 +96,7 @@ class TestPerformance(TransactionCase):
         """Test performance of change request searches."""
         # Create test data
         for i in range(100):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "create" if i % 2 == 0 else "modify",
                     "is_group": i % 10 == 0,
@@ -109,18 +109,18 @@ class TestPerformance(TransactionCase):
             results = {}
 
             # Search by state
-            results["draft"] = self.env["change.request"].search([("state", "=", "draft")])
+            results["draft"] = self.env["g2p.change.request"].search([("state", "=", "draft")])
 
             # Search by type
-            results["create"] = self.env["change.request"].search([("type", "=", "create")])
+            results["create"] = self.env["g2p.change.request"].search([("type", "=", "create")])
 
             # Search by requester
-            results["requester"] = self.env["change.request"].search(
+            results["requester"] = self.env["g2p.change.request"].search(
                 [("requester_id", "=", self.env.user.id)]
             )
 
             # Complex search
-            results["complex"] = self.env["change.request"].search(
+            results["complex"] = self.env["g2p.change.request"].search(
                 [("state", "=", "draft"), ("type", "=", "create"), ("is_group", "=", False)]
             )
 
@@ -137,7 +137,7 @@ class TestPerformance(TransactionCase):
         self.assertGreater(len(result["create"]), 0, "Should find create change requests")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "change_request_search_operations",
             execution_time,
             sum(len(r) for r in result.values()),
@@ -151,7 +151,7 @@ class TestPerformance(TransactionCase):
         change_requests = []
         for i in range(50):
             partner = self.partners[i % len(self.partners)]
-            cr = self.env["change.request"].create(
+            cr = self.env["g2p.change.request"].create(
                 {
                     "type": "modify",
                     "partner_id": partner.id,
@@ -180,7 +180,7 @@ class TestPerformance(TransactionCase):
         self.assertEqual(result, 50, "Should process all change requests")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "computed_fields_computation", execution_time, result, memory_usage, "compute"
         )
 
@@ -189,7 +189,7 @@ class TestPerformance(TransactionCase):
         # Create change requests for partners
         for i in range(50):
             partner = self.partners[i % len(self.partners)]
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "modify",
                     "partner_id": partner.id,
@@ -213,7 +213,7 @@ class TestPerformance(TransactionCase):
         self.assertEqual(result, 100, "Should process all partners")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "partner_computed_fields_computation", execution_time, result, memory_usage, "compute"
         )
 
@@ -222,7 +222,7 @@ class TestPerformance(TransactionCase):
         # Create change requests
         change_requests = []
         for i in range(20):
-            cr = self.env["change.request"].create(
+            cr = self.env["g2p.change.request"].create(
                 {
                     "type": "create",
                     "is_group": i % 5 == 0,
@@ -254,14 +254,14 @@ class TestPerformance(TransactionCase):
         self.assertEqual(result, 20, "Should process all change requests")
 
         # Verify workflow states
-        approved_count = len(self.env["change.request"].search([("state", "=", "approved")]))
-        rejected_count = len(self.env["change.request"].search([("state", "=", "rejected")]))
+        approved_count = len(self.env["g2p.change.request"].search([("state", "=", "approved")]))
+        rejected_count = len(self.env["g2p.change.request"].search([("state", "=", "rejected")]))
 
         self.assertEqual(approved_count, 10, "Should have 10 approved requests")
         self.assertEqual(rejected_count, 10, "Should have 10 rejected requests")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "workflow_operations_batch", execution_time, result, memory_usage, "workflow"
         )
 
@@ -280,7 +280,7 @@ class TestPerformance(TransactionCase):
                     }
                 )
 
-            return self.env["change.request"].create(vals_list)
+            return self.env["g2p.change.request"].create(vals_list)
 
         result, execution_time, memory_usage = self._measure_execution_time(bulk_create)
 
@@ -290,7 +290,7 @@ class TestPerformance(TransactionCase):
         self.assertEqual(len(result), 100, "Should create 100 change requests")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "bulk_change_request_creation", execution_time, len(result), memory_usage, "create"
         )
 
@@ -298,7 +298,7 @@ class TestPerformance(TransactionCase):
         """Test performance of database queries."""
         # Create test data
         for i in range(200):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "create" if i % 3 == 0 else "modify",
                     "is_group": i % 20 == 0,
@@ -311,7 +311,7 @@ class TestPerformance(TransactionCase):
             results = {}
 
             # Query with multiple conditions
-            results["complex"] = self.env["change.request"].search(
+            results["complex"] = self.env["g2p.change.request"].search(
                 [
                     ("state", "=", "draft"),
                     ("type", "in", ["create", "modify"]),
@@ -321,13 +321,13 @@ class TestPerformance(TransactionCase):
             )
 
             # Query with ordering
-            results["ordered"] = self.env["change.request"].search(
+            results["ordered"] = self.env["g2p.change.request"].search(
                 [("state", "=", "draft")], order="create_date desc", limit=50
             )
 
             # Query with grouping (using read)
             results["grouped"] = (
-                self.env["change.request"].search([("state", "=", "draft")]).read(["type", "state"])
+                self.env["g2p.change.request"].search([("state", "=", "draft")]).read(["type", "state"])
             )
 
             return results
@@ -344,7 +344,7 @@ class TestPerformance(TransactionCase):
         self.assertGreater(len(result["grouped"]), 0, "Should read grouped data")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "complex_database_queries",
             execution_time,
             sum(len(r) if isinstance(r, list) else 1 for r in result.values()),
@@ -359,7 +359,7 @@ class TestPerformance(TransactionCase):
             # Create a large number of records to test memory usage
             change_requests = []
             for i in range(500):
-                cr = self.env["change.request"].create(
+                cr = self.env["g2p.change.request"].create(
                     {
                         "type": "create",
                         "is_group": i % 50 == 0,
@@ -384,19 +384,19 @@ class TestPerformance(TransactionCase):
         self.assertEqual(result, 500, "Should create all test records")
 
         # Log performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "memory_usage_load_test", execution_time, result, memory_usage, "create"
         )
 
     def test_performance_monitoring(self):
         """Test performance monitoring functionality."""
         # Log some performance metrics
-        self.env["change.request.performance.monitor"].log_performance(
+        self.env["g2p.change.request.performance.monitor"].log_performance(
             "test_operation", 1.5, 100, 50.0, "compute"
         )
 
         # Get performance stats
-        stats = self.env["change.request.performance.monitor"].get_performance_stats()
+        stats = self.env["g2p.change.request.performance.monitor"].get_performance_stats()
 
         # Verify stats
         self.assertGreater(stats["total_operations"], 0, "Should have logged operations")
@@ -404,16 +404,16 @@ class TestPerformance(TransactionCase):
         self.assertGreater(stats["total_records_processed"], 0, "Should have processed records")
 
         # Test cleanup
-        self.env["change.request.performance.monitor"].cleanup_old_records(days=0)
+        self.env["g2p.change.request.performance.monitor"].cleanup_old_records(days=0)
 
         # Verify cleanup worked
-        remaining_records = self.env["change.request.performance.monitor"].search([])
+        remaining_records = self.env["g2p.change.request.performance.monitor"].search([])
         self.assertEqual(len(remaining_records), 0, "Should have cleaned up all records")
 
     def test_database_optimization(self):
         """Test database optimization utilities."""
         # Test table stats
-        stats = self.env["change.request.db.optimization"].get_table_stats()
+        stats = self.env["g2p.change.request.db.optimization"].get_table_stats()
 
         # Verify stats structure
         self.assertIn("change_request", stats, "Should have change_request stats")
@@ -422,19 +422,19 @@ class TestPerformance(TransactionCase):
 
         # Test analyze tables (should not raise exception)
         try:
-            self.env["change.request.db.optimization"].analyze_tables()
+            self.env["g2p.change.request.db.optimization"].analyze_tables()
         except Exception as e:
             self.fail(f"analyze_tables should not raise exception: {e}")
 
         # Test vacuum tables (should not raise exception)
         try:
-            self.env["change.request.db.optimization"].vacuum_tables()
+            self.env["g2p.change.request.db.optimization"].vacuum_tables()
         except Exception as e:
             self.fail(f"vacuum_tables should not raise exception: {e}")
 
     def tearDown(self):
         """Clean up test data."""
         # Clean up performance monitoring records
-        self.env["change.request.performance.monitor"].search([]).unlink()
+        self.env["g2p.change.request.performance.monitor"].search([]).unlink()
 
         super().tearDown()

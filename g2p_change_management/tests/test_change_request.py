@@ -44,7 +44,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_create_change_request(self):
         """Test creating a new change request."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -60,7 +60,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_create_group_change_request(self):
         """Test creating a group change request."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": True,
@@ -75,7 +75,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_modify_change_request(self):
         """Test creating a modify change request."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.partner.id,
@@ -89,7 +89,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_delete_change_request(self):
         """Test creating a delete change request."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "delete",
                 "partner_id": self.partner.id,
@@ -103,7 +103,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_change_request_name_generation(self):
         """Test change request name generation."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -124,7 +124,7 @@ class TestChangeRequest(TransactionCase):
         """Test validation constraints."""
         # Test group kind required for group creation
         with self.assertRaises(ValidationError):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "create",
                     "is_group": True,
@@ -134,7 +134,7 @@ class TestChangeRequest(TransactionCase):
 
         # Test partner required for modify
         with self.assertRaises(ValidationError):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "modify",
                     "description": "Test modify without partner",
@@ -143,7 +143,7 @@ class TestChangeRequest(TransactionCase):
 
         # Test partner required for delete
         with self.assertRaises(ValidationError):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "delete",
                     "description": "Test delete without partner",
@@ -152,7 +152,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_description_optional(self):
         """Test that description is optional."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -166,7 +166,7 @@ class TestChangeRequest(TransactionCase):
         """Test description validation when provided."""
         # Test short description
         with self.assertRaises(ValidationError):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "create",
                     "is_group": False,
@@ -177,7 +177,7 @@ class TestChangeRequest(TransactionCase):
     def test_duplicate_active_requests(self):
         """Test duplicate active requests constraint."""
         # Create first change request
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.partner.id,
@@ -187,7 +187,7 @@ class TestChangeRequest(TransactionCase):
 
         # Should not allow second active request for same partner
         with self.assertRaises(ValidationError):
-            self.env["change.request"].create(
+            self.env["g2p.change.request"].create(
                 {
                     "type": "modify",
                     "partner_id": self.partner.id,
@@ -197,7 +197,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_computed_fields(self):
         """Test computed fields."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.partner.id,
@@ -213,7 +213,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_validation_summary(self):
         """Test validation summary computation."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": True,
@@ -227,7 +227,7 @@ class TestChangeRequest(TransactionCase):
         self.assertFalse(change_request.has_validation_errors)
 
         # Test invalid case
-        invalid_cr = self.env["change.request"].create(
+        invalid_cr = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": True,
@@ -241,7 +241,7 @@ class TestChangeRequest(TransactionCase):
 
     def test_can_submit_approve_reject(self):
         """Test can_submit, can_approve, can_reject fields."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,

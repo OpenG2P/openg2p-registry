@@ -53,7 +53,7 @@ class TestResPartner(TransactionCase):
         self.assertFalse(self.individual.active_change_request_id)
 
         # Create a change request
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
@@ -69,18 +69,18 @@ class TestResPartner(TransactionCase):
         """Test creating change request from partner action."""
         # Test individual
         action = self.individual.action_create_change_request()
-        self.assertEqual(action["res_model"], "change.request")
+        self.assertEqual(action["res_model"], "g2p.change.request")
         self.assertEqual(action["view_mode"], "form")
 
         # Test group
         action = self.group.action_create_change_request()
-        self.assertEqual(action["res_model"], "change.request")
+        self.assertEqual(action["res_model"], "g2p.change.request")
         self.assertEqual(action["view_mode"], "form")
 
     def test_create_change_request_with_active_draft(self):
         """Test creating change request when partner already has active draft."""
         # Create first change request
-        first_cr = self.env["change.request"].create(
+        first_cr = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
@@ -92,13 +92,13 @@ class TestResPartner(TransactionCase):
         action = self.individual.action_create_change_request()
 
         # Should return action to existing change request
-        self.assertEqual(action["res_model"], "change.request")
+        self.assertEqual(action["res_model"], "g2p.change.request")
         self.assertEqual(action["res_id"], first_cr.id)
 
     def test_write_restriction_with_active_draft(self):
         """Test that partner cannot be modified directly when it has active draft."""
         # Create change request
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
@@ -116,7 +116,7 @@ class TestResPartner(TransactionCase):
     def test_draft_member_ids_computation(self):
         """Test draft_member_ids computation for groups."""
         # Create a group change request
-        _change_request = self.env["change.request"].create(
+        _change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.group.id,
@@ -128,7 +128,7 @@ class TestResPartner(TransactionCase):
         self.assertEqual(len(self.group.draft_member_ids), 0)
 
         # Add draft members to the draft record
-        draft_member = self.env["draft.record"].create(
+        draft_member = self.env["g2p.draft.record"].create(
             {
                 "name": "Draft Member",
                 "is_group": False,
@@ -146,7 +146,7 @@ class TestResPartner(TransactionCase):
     def test_add_draft_members_action(self):
         """Test add draft members action for groups."""
         # Create a group change request
-        _change_request = self.env["change.request"].create(
+        _change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.group.id,
@@ -156,7 +156,7 @@ class TestResPartner(TransactionCase):
 
         # Test action for group
         action = self.group.action_add_draft_members()
-        self.assertEqual(action["res_model"], "draft.group.add.members.wizard")
+        self.assertEqual(action["res_model"], "g2p.draft.group.add.members.wizard")
         self.assertEqual(action["view_mode"], "form")
 
         # Test action for individual (should fail)
@@ -188,7 +188,7 @@ class TestResPartner(TransactionCase):
 
         # Test partner with active draft
         self.individual.write({"active": True})
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
@@ -202,7 +202,7 @@ class TestResPartner(TransactionCase):
     def test_change_request_consistency_constraint(self):
         """Test change request consistency constraint."""
         # Create first change request
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
@@ -211,7 +211,7 @@ class TestResPartner(TransactionCase):
         )
 
         # Create second change request of different type (should be allowed)
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "delete",
                 "partner_id": self.individual.id,
@@ -225,7 +225,7 @@ class TestResPartner(TransactionCase):
     def test_active_with_change_requests_constraint(self):
         """Test constraint preventing deactivation with active change requests."""
         # Create change request
-        self.env["change.request"].create(
+        self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.individual.id,
