@@ -618,6 +618,12 @@ class G2PRespartnerIntegration(models.Model):
 
         draft_record.update(dynamic_fields)
 
+        # First, capture all fields from vals that are not already processed
+        for field_name, field_value in vals.items():
+            if field_name not in processed_m2m_fields and field_name not in draft_record:
+                draft_record[field_name] = field_value
+
+        # Then handle static fields from views
         for field in static_fields:
             if field in self.env[model_name]._fields:
                 if field in vals:
@@ -639,7 +645,7 @@ class G2PRespartnerIntegration(models.Model):
         active_record.write({"partner_data": json.dumps(draft_record)})
 
         # After updating partner_data (the JSON), also update the direct fields
-        direct_fields = ["region"]
+        direct_fields = ["region", "name", "given_name", "family_name", "addl_name", "gender", "phone"]
         update_vals = {}
 
         for field in direct_fields:
@@ -650,11 +656,6 @@ class G2PRespartnerIntegration(models.Model):
                     update_vals[field] = region.name if region.exists() else ""
                 else:
                     update_vals[field] = field_val
-            elif field_val:
-                # Field doesn't exist on this model, skip it
-                _logger.warning(
-                    f"Field '{field}' does not exist on model '{active_record._name}', skipping update"
-                )
 
         if update_vals:  # Only write if there are valid fields to update
             active_record.write(update_vals)

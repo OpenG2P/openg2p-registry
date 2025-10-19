@@ -40,24 +40,6 @@
                 <field name="region" />
                 <field name="is_group" column_invisible="1" />
                 <button
-                    string="Add Members"
-                    type="action"
-                    name="%(g2p_change_management.action_draft_group_add_members_wizard)d"
-                    class="btn-link"
-                    icon="fa-users"
-                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
-                    context="{'default_group_id': active_id, 'change_request_context': context.get('change_request_context', False)}"
-                />
-                <button
-                    string="View Members"
-                    type="action"
-                    name="%(g2p_change_management.action_draft_group_view_members_wizard)d"
-                    class="btn-link"
-                    icon="fa-users"
-                    context="{'default_group_id': active_id}"
-                    groups="g2p_change_management.group_change_management_user,g2p_change_management.group_change_management_approver,g2p_change_management.group_change_management_admin"
-                />
-                <button
                     string="View"
                     type="object"
                     name="action_open_group_wizard_view_only"

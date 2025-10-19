@@ -61,14 +61,10 @@
                     <field name="is_registrant" />
                 </group>
             </xpath>
-
-
-
-
-
-
         </field>
     </record>
+
+
 
     <!-- Draft Group View for Change Management Context -->
     <!-- Add Draft Members section to the published partner's Members tab -->
@@ -78,31 +74,28 @@
         <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
         <field name="priority">200</field>
         <field name="arch" type="xml">
+
+        <!-- Change the Members tab label to Approved Members -->
+        <xpath expr="//page[@name='members']" position="attributes">
+            <attribute name="string">Approved Members</attribute>
+        </xpath>
+
             <!-- Add Draft Members section within the existing Members tab -->
             <xpath expr="//page[@name='members']" position="inside">
                 <group
                     string="Draft Members"
-                    col="1"
-                    colspan="4"
                     invisible="not context.get('change_request_context', False)"
+                    col="4"
+                    colspan="4"
                 >
                     <field name="draft_member_ids" nolabel="1" colspan="4">
-                        <tree editable="top" default_order="name asc" create="true" delete="true">
-                            <button
-                                name="action_open_individual_wizard"
-                                type="object"
-                                icon="fa-external-link"
-                                class="btn-success"
-                                title="Open Individual Form"
-                                invisible="active_change_request_state not in ('draft', 'submitted')"
-                            />
+                        <tree editable="top" default_order='name asc,ended_date asc'>
                             <field name="name" string="Member Name" />
                             <field name="given_name" string="Given Name" />
                             <field name="family_name" string="Family Name" />
                             <field name="phone" string="Phone" />
                             <field name="gender" string="Gender" />
                             <field name="region" string="Region" />
-                            <field name="active_change_request_state" string="CR State" />
                         </tree>
                     </field>
                 </group>
