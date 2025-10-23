@@ -1,3 +1,5 @@
+import base64
+
 from odoo import api, models
 
 
@@ -15,6 +17,8 @@ class ResPartner(models.Model):
             if res[i].is_registrant:
                 new_vals = vals[i].copy()
                 new_vals["id"] = res[i].id
+                # Convert bytes to base64 strings for JSON serialization
+                new_vals = self._sanitize_for_json(new_vals)
                 self.env["g2p.datashare.config.websub"].with_delay().publish_event(
                     "WEBSUB_GROUP_CREATED" if res[i].is_group else "WEBSUB_INDIVIDUAL_CREATED", new_vals
                 )
@@ -26,6 +30,8 @@ class ResPartner(models.Model):
             if rec.is_registrant:
                 new_vals = vals.copy()
                 new_vals["id"] = rec.id
+                # Convert bytes to base64 strings for JSON serialization
+                new_vals = self._sanitize_for_json(new_vals)
                 self.env["g2p.datashare.config.websub"].with_delay().publish_event(
                     "WEBSUB_GROUP_UPDATED" if rec.is_group else "WEBSUB_INDIVIDUAL_UPDATED", new_vals
                 )
@@ -38,3 +44,14 @@ class ResPartner(models.Model):
                     "WEBSUB_GROUP_DELETED" if rec.is_group else "WEBSUB_INDIVIDUAL_DELETED", dict(id=rec.id)
                 )
         return super().unlink()
+
+    def _sanitize_for_json(self, data):
+        """Convert bytes to base64 strings for JSON serialization"""
+        if isinstance(data, dict):
+            return {k: self._sanitize_for_json(v) for k, v in data.items()}
+        elif isinstance(data, list):
+            return [self._sanitize_for_json(item) for item in data]
+        elif isinstance(data, bytes):
+            return base64.b64encode(data).decode()
+        else:
+            return data
