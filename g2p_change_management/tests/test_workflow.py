@@ -46,7 +46,7 @@ class TestWorkflow(TransactionCase):
 
     def test_submit_workflow(self):
         """Test submit workflow."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -70,7 +70,7 @@ class TestWorkflow(TransactionCase):
         # Should have created approval activity
         activities = self.env["mail.activity"].search(
             [
-                ("res_model", "=", "change.request"),
+                ("res_model", "=", "g2p.change.request"),
                 ("res_id", "=", change_request.id),
             ]
         )
@@ -79,7 +79,7 @@ class TestWorkflow(TransactionCase):
 
     def test_approve_workflow(self):
         """Test approve workflow."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -104,7 +104,7 @@ class TestWorkflow(TransactionCase):
 
     def test_reject_workflow(self):
         """Test reject workflow."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -129,7 +129,7 @@ class TestWorkflow(TransactionCase):
 
     def test_workflow_permissions(self):
         """Test workflow permissions."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -166,7 +166,7 @@ class TestWorkflow(TransactionCase):
 
     def test_create_workflow_with_implementation(self):
         """Test create workflow with actual implementation."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -195,7 +195,7 @@ class TestWorkflow(TransactionCase):
 
     def test_modify_workflow(self):
         """Test modify workflow."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.partner.id,
@@ -221,7 +221,7 @@ class TestWorkflow(TransactionCase):
 
     def test_delete_workflow(self):
         """Test delete workflow."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "delete",
                 "partner_id": self.partner.id,
@@ -271,7 +271,7 @@ class TestWorkflow(TransactionCase):
         )
 
         # Create change request for group
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": group.id,
@@ -280,14 +280,14 @@ class TestWorkflow(TransactionCase):
         )
 
         # Add draft members
-        draft_member1 = self.env["draft.record"].create(
+        draft_member1 = self.env["g2p.draft.record"].create(
             {
                 "name": "Draft Member 1",
                 "is_group": False,
             }
         )
 
-        draft_member2 = self.env["draft.record"].create(
+        draft_member2 = self.env["g2p.draft.record"].create(
             {
                 "name": "Draft Member 2",
                 "is_group": False,
@@ -315,7 +315,7 @@ class TestWorkflow(TransactionCase):
     def test_validation_before_submit(self):
         """Test validation before submit."""
         # Create change request without description
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -327,7 +327,7 @@ class TestWorkflow(TransactionCase):
         self.assertEqual(change_request.state, "submitted")
 
         # Create change request with short description
-        change_request2 = self.env["change.request"].create(
+        change_request2 = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -341,7 +341,7 @@ class TestWorkflow(TransactionCase):
 
     def test_workflow_messages(self):
         """Test workflow messages."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -361,7 +361,7 @@ class TestWorkflow(TransactionCase):
 
     def test_workflow_activities(self):
         """Test workflow activities."""
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -373,7 +373,7 @@ class TestWorkflow(TransactionCase):
         change_request.action_submit()
         activities = self.env["mail.activity"].search(
             [
-                ("res_model", "=", "change.request"),
+                ("res_model", "=", "g2p.change.request"),
                 ("res_id", "=", change_request.id),
             ]
         )
@@ -383,7 +383,7 @@ class TestWorkflow(TransactionCase):
         change_request.action_approve()
         activities = self.env["mail.activity"].search(
             [
-                ("res_model", "=", "change.request"),
+                ("res_model", "=", "g2p.change.request"),
                 ("res_id", "=", change_request.id),
             ]
         )

@@ -30,7 +30,7 @@
         <!-- Performance Monitoring Settings -->
         <record id="performance_monitoring_cron" model="ir.cron">
             <field name="name">Change Management Performance Cleanup</field>
-            <field name="model_id" ref="model_change_request_performance_monitor" />
+            <field name="model_id" ref="model_g2p_change_request_performance_monitor" />
             <field name="state">code</field>
             <field name="code">model.cleanup_old_records()</field>
             <field name="interval_number">1</field>
@@ -43,7 +43,7 @@
         <!-- Database Optimization Cron -->
         <record id="database_optimization_cron" model="ir.cron">
             <field name="name">Change Management Database Optimization</field>
-            <field name="model_id" ref="model_change_request_db_optimization" />
+            <field name="model_id" ref="model_g2p_change_request_db_optimization" />
             <field name="state">code</field>
             <field name="code">model.analyze_tables()</field>
             <field name="interval_number">1</field>

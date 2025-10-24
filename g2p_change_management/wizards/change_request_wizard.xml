@@ -2,8 +2,8 @@
 
     <!-- Change Request Reject Wizard Form View -->
     <record id="view_change_request_reject_wizard_form" model="ir.ui.view">
-        <field name="name">change.request.reject.wizard.form</field>
-        <field name="model">change.request.reject.wizard</field>
+        <field name="name">g2p.change.request.reject.wizard.form</field>
+        <field name="model">g2p.change.request.reject.wizard</field>
         <field name="arch" type="xml">
             <form string="Reject Change Request">
                 <group>
@@ -26,7 +26,7 @@
     <!-- Change Request Reject Wizard Action -->
     <record id="action_change_request_reject_wizard" model="ir.actions.act_window">
         <field name="name">Reject Change Request</field>
-        <field name="res_model">change.request.reject.wizard</field>
+        <field name="res_model">g2p.change.request.reject.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

@@ -2,8 +2,8 @@
 <odoo>
 
 <record id="reject_wizard_view" model="ir.ui.view">
-    <field name="name">reject.wizard.form</field>
-    <field name="model">reject.wizard</field>
+    <field name="name">g2p.reject.wizard.form</field>
+    <field name="model">g2p.reject.wizard</field>
     <field name="arch" type="xml">
         <form>
             <group>
@@ -23,7 +23,7 @@
 
 <record id="reject_wizard_action" model="ir.actions.act_window">
     <field name="name">Confirm Rejection</field>
-    <field name="res_model">reject.wizard</field>
+    <field name="res_model">g2p.reject.wizard</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>
 </record>

@@ -2,8 +2,8 @@
 <odoo>
     <!-- Change Log Tree View -->
     <record id="view_change_log_tree" model="ir.ui.view">
-        <field name="name">change.log.tree</field>
-        <field name="model">change.log</field>
+        <field name="name">g2p.change.log.tree</field>
+        <field name="model">g2p.change.log</field>
         <field name="arch" type="xml">
             <tree
                 decoration-info="change_type == 'create'"
@@ -23,8 +23,8 @@
 
     <!-- Change Log Form View -->
     <record id="view_change_log_form" model="ir.ui.view">
-        <field name="name">change.log.form</field>
-        <field name="model">change.log</field>
+        <field name="name">g2p.change.log.form</field>
+        <field name="model">g2p.change.log</field>
         <field name="arch" type="xml">
             <form string="Change Log Entry">
                 <header>
@@ -133,8 +133,8 @@
 
     <!-- Change Log Search View -->
     <record id="view_change_log_search" model="ir.ui.view">
-        <field name="name">change.log.search</field>
-        <field name="model">change.log</field>
+        <field name="name">g2p.change.log.search</field>
+        <field name="model">g2p.change.log</field>
         <field name="arch" type="xml">
             <search string="Change Log">
                 <field name="change_summary" string="Summary" />
@@ -191,7 +191,7 @@
     <!-- Change Log Action -->
     <record id="action_change_log" model="ir.actions.act_window">
         <field name="name">Change Log</field>
-        <field name="res_model">change.log</field>
+        <field name="res_model">g2p.change.log</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_change_log_search" />
         <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
@@ -214,5 +214,6 @@
         action="action_change_log"
         sequence="30"
     />
+
 
 </odoo>

@@ -2,11 +2,11 @@ from odoo import _, fields, models
 
 
 class ChangeRequestRejectWizard(models.TransientModel):
-    _name = "change.request.reject.wizard"
+    _name = "g2p.change.request.reject.wizard"
     _description = "Reject Change Request Wizard"
 
     change_request_id = fields.Many2one(
-        "change.request",
+        "g2p.change.request",
         string="Change Request",
         required=True,
         default=lambda self: self.env.context.get("default_change_request_id"),

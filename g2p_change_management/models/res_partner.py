@@ -11,12 +11,9 @@ class ResPartner(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # import logging
-        # _logger = logging.getLogger(__name__)
-        # _logger.info("ResPartner model initialized")
 
     change_request_ids = fields.One2many(
-        "change.request",
+        "g2p.change.request",
         "partner_id",
         string="Change Requests",
         help="Change requests related to this partner.",
@@ -32,7 +29,7 @@ class ResPartner(models.Model):
 
     # Computed field to show active change request
     active_change_request_id = fields.Many2one(
-        "change.request",
+        "g2p.change.request",
         compute="_compute_active_change_request",
         store=False,  # Don't store, always compute
         search="_search_active_change_request",
@@ -71,7 +68,7 @@ class ResPartner(models.Model):
 
     # Draft members field - Many2many for draft individual members
     draft_member_ids = fields.Many2many(
-        "draft.record",
+        "g2p.draft.record",
         "partner_draft_member_rel",
         "partner_id",
         "draft_id",
@@ -232,7 +229,7 @@ class ResPartner(models.Model):
             return [("change_request_ids", "!=", value)]
         elif operator in ("=", "!=") and not value:
             # Search for partners with/without any active change request
-            active_crs = self.env["change.request"].search([("state", "in", ["draft", "submitted"])])
+            active_crs = self.env["g2p.change.request"].search([("state", "in", ["draft", "submitted"])])
             if operator == "=":
                 return [("change_request_ids", "in", active_crs.ids)]
             else:
@@ -322,7 +319,7 @@ class ResPartner(models.Model):
         self.ensure_one()
 
         # Only return draft records that are in draft or submitted state (not published/rejected)
-        available_drafts = self.env["draft.record"].search(
+        available_drafts = self.env["g2p.draft.record"].search(
             [
                 ("is_group", "=", False),  # Only individual records
                 ("state", "in", ["draft", "submitted"]),  # Only draft and submitted
@@ -357,12 +354,12 @@ class ResPartner(models.Model):
             for member in member_data:
                 if member.get("draft_id"):
                     # This is a draft individual record
-                    draft_individual = self.env["draft.record"].browse(member["draft_id"])
+                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
                     if draft_individual.exists() and draft_individual.state in ["draft", "submitted"]:
                         # Map change request states to draft record states
                         state_mapping = {
                             "submitted": "submitted",
-                            "approved": "published",  # draft.record uses 'published' instead of 'approved'
+                            "approved": "published",
                             "rejected": "rejected",
                         }
                         target_state = state_mapping.get(new_state)
@@ -388,14 +385,14 @@ class ResPartner(models.Model):
             return {
                 "type": "ir.actions.act_window",
                 "name": _("Active Change Request"),
-                "res_model": "change.request",
+                "res_model": "g2p.change.request",
                 "res_id": self.active_change_request_id.id,
                 "view_mode": "form",
                 "target": "current",
             }
 
         # Create new change request
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": self.id,
@@ -410,7 +407,7 @@ class ResPartner(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": _("Change Request"),
-            "res_model": "change.request",
+            "res_model": "g2p.change.request",
             "res_id": change_request.id,
             "view_mode": "form",
             "target": "current",
@@ -426,7 +423,7 @@ class ResPartner(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": _("Active Change Request"),
-            "res_model": "change.request",
+            "res_model": "g2p.change.request",
             "res_id": self.active_change_request_id.id,
             "view_mode": "form",
             "target": "current",
@@ -446,7 +443,7 @@ class ResPartner(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": _("Add Draft Members"),
-            "res_model": "draft.group.add.members.wizard",
+            "res_model": "g2p.draft.group.add.members.wizard",
             "view_mode": "form",
             "target": "new",
             "context": {
@@ -479,7 +476,7 @@ class ResPartner(models.Model):
         }
 
         # Create draft record
-        draft_record = self.env["draft.record"].create(partner_data)
+        draft_record = self.env["g2p.draft.record"].create(partner_data)
 
         return draft_record
 

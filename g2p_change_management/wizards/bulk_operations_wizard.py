@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 
 class BulkOperationsWizard(models.TransientModel):
-    _name = "change.request.bulk.wizard"
+    _name = "g2p.change.request.bulk.wizard"
     _description = "Bulk Operations Wizard for Change Requests"
 
     operation_type = fields.Selection(
@@ -21,7 +21,7 @@ class BulkOperationsWizard(models.TransientModel):
         required=True,
     )
 
-    change_request_ids = fields.Many2many("change.request", string="Change Requests", required=True)
+    change_request_ids = fields.Many2many("g2p.change.request", string="Change Requests", required=True)
 
     reason = fields.Text(string="Reason/Comment", help="Provide a reason or comment for this bulk operation")
 

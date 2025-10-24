@@ -1,8 +1,8 @@
 <odoo>
 
 <record id="view_change_request_tree" model="ir.ui.view">
-    <field name="name">change.request.tree</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.tree</field>
+    <field name="model">g2p.change.request</field>
     <field name="arch" type="xml">
         <tree
                 multi_edit="1"
@@ -26,8 +26,8 @@
 
 <!-- Individual Change Requests Tree View -->
 <record id="view_change_request_individual_tree" model="ir.ui.view">
-    <field name="name">change.request.individual.tree</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.individual.tree</field>
+    <field name="model">g2p.change.request</field>
     <field name="arch" type="xml">
         <tree
                 multi_edit="1"
@@ -50,8 +50,8 @@
 
 <!-- Group Change Requests Tree View -->
 <record id="view_change_request_group_tree" model="ir.ui.view">
-    <field name="name">change.request.group.tree</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.group.tree</field>
+    <field name="model">g2p.change.request</field>
     <field name="arch" type="xml">
         <tree
                 multi_edit="1"
@@ -74,8 +74,8 @@
 </record>
 
 <record id="view_change_request_form" model="ir.ui.view">
-    <field name="name">change.request.form</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.form</field>
+    <field name="model">g2p.change.request</field>
     <field name="arch" type="xml">
         <form>
             <header>
@@ -118,11 +118,7 @@
                     <field name="name" />
                     <field name="type" readonly="1" />
                     <field name="is_group" readonly="draft_record_id" />
-                    <field
-                            name="group_kind_id"
-                            invisible="type != 'create' or not is_group"
-                            readonly="draft_record_id"
-                        />
+                    <field name="group_kind_id" invisible="not is_group" readonly="draft_record_id" />
                     <field name="state" readonly="1" />
                     <field name="requester_id" />
                     <field name="partner_id" readonly="draft_record_id" />
@@ -157,14 +153,11 @@
 
 <!-- Individual Change Request Form View -->
 <record id="view_change_request_individual_form" model="ir.ui.view">
-    <field name="name">change.request.individual.form</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.individual.form</field>
+    <field name="model">g2p.change.request</field>
     <field name="inherit_id" ref="view_change_request_form" />
     <field name="arch" type="xml">
         <xpath expr="//field[@name='is_group']" position="attributes">
-            <attribute name="invisible">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='group_kind_id']" position="attributes">
             <attribute name="invisible">1</attribute>
         </xpath>
         <xpath expr="//field[@name='draft_given_name']" position="attributes">
@@ -181,15 +174,12 @@
 
 <!-- Group Change Request Form View -->
 <record id="view_change_request_group_form" model="ir.ui.view">
-    <field name="name">change.request.group.form</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.group.form</field>
+    <field name="model">g2p.change.request</field>
     <field name="inherit_id" ref="view_change_request_form" />
     <field name="arch" type="xml">
         <xpath expr="//field[@name='is_group']" position="attributes">
             <attribute name="invisible">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='group_kind_id']" position="attributes">
-            <attribute name="invisible">0</attribute>
         </xpath>
         <xpath expr="//field[@name='draft_given_name']" position="attributes">
             <attribute name="invisible">1</attribute>
@@ -204,8 +194,8 @@
 </record>
 
 <record id="view_change_request_search" model="ir.ui.view">
-    <field name="name">change.request.search</field>
-    <field name="model">change.request</field>
+    <field name="name">g2p.change.request.search</field>
+    <field name="model">g2p.change.request</field>
     <field name="arch" type="xml">
         <search>
             <field name="name" />
@@ -235,22 +225,22 @@
 
 <record id="action_change_request" model="ir.actions.act_window">
     <field name="name">Change Requests</field>
-    <field name="res_model">change.request</field>
+    <field name="res_model">g2p.change.request</field>
     <field name="view_mode">tree,form</field>
     <field name="context">{'search_default_my_requests': 1}</field>
     <field name="view_id" ref="view_change_request_tree" />
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
 </record>
 
 <!-- Bulk Operations Actions -->
 <record id="action_bulk_approve" model="ir.actions.server">
     <field name="name">Bulk Approve</field>
-    <field name="model_id" ref="model_change_request" />
+    <field name="model_id" ref="model_g2p_change_request" />
     <field name="state">code</field>
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
-    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]" />
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_change_management_approver'))]" />
     <field name="code">
 if records:
     action = records.action_bulk_approve()
@@ -259,11 +249,11 @@ if records:
 
 <record id="action_bulk_reject" model="ir.actions.server">
     <field name="name">Bulk Reject</field>
-    <field name="model_id" ref="model_change_request" />
+    <field name="model_id" ref="model_g2p_change_request" />
     <field name="state">code</field>
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
-    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]" />
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_change_management_approver'))]" />
     <field name="code">
 if records:
     action = records.action_bulk_reject()
@@ -272,11 +262,11 @@ if records:
 
 <record id="action_bulk_submit" model="ir.actions.server">
     <field name="name">Bulk Submit</field>
-    <field name="model_id" ref="model_change_request" />
+    <field name="model_id" ref="model_g2p_change_request" />
     <field name="state">code</field>
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
-    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_validator'))]" />
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_change_management_user'))]" />
     <field name="code">
 if records:
     action = records.action_bulk_submit()
@@ -285,11 +275,11 @@ if records:
 
 <record id="action_bulk_cancel" model="ir.actions.server">
     <field name="name">Bulk Cancel</field>
-    <field name="model_id" ref="model_change_request" />
+    <field name="model_id" ref="model_g2p_change_request" />
     <field name="state">code</field>
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
-    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_validator'))]" />
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_change_management_user'))]" />
     <field name="code">
 if records:
     action = records.action_bulk_cancel()
@@ -298,11 +288,11 @@ if records:
 
 <record id="action_bulk_assign" model="ir.actions.server">
     <field name="name">Bulk Assign</field>
-    <field name="model_id" ref="model_change_request" />
+    <field name="model_id" ref="model_g2p_change_request" />
     <field name="state">code</field>
-    <field name="binding_model_id" ref="model_change_request" />
+    <field name="binding_model_id" ref="model_g2p_change_request" />
     <field name="binding_view_types">list</field>
-    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_int_approver'))]" />
+    <field name="groups_id" eval="[(4, ref('g2p_change_management.group_change_management_approver'))]" />
     <field name="code">
 if records:
     action = records.action_bulk_assign()
@@ -312,7 +302,7 @@ if records:
 <!-- Individual Change Requests Action -->
 <record id="action_change_request_individual" model="ir.actions.act_window">
     <field name="name">Individuals</field>
-    <field name="res_model">change.request</field>
+    <field name="res_model">g2p.change.request</field>
     <field name="view_mode">tree,form</field>
     <field name="view_id" ref="view_change_request_individual_tree" />
     <field name="domain">[('is_group', '=', False)]</field>
@@ -334,7 +324,7 @@ if records:
 <!-- Group Change Requests Action -->
 <record id="action_change_request_group" model="ir.actions.act_window">
     <field name="name">Groups</field>
-    <field name="res_model">change.request</field>
+    <field name="res_model">g2p.change.request</field>
     <field name="view_mode">tree,form</field>
     <field name="view_id" ref="view_change_request_group_tree" />
     <field name="domain">[('is_group', '=', True)]</field>

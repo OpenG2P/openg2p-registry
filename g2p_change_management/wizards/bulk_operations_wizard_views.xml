@@ -4,8 +4,8 @@
 
         <!-- Bulk Operations Wizard Form View -->
         <record id="view_bulk_operations_wizard_form" model="ir.ui.view">
-            <field name="name">change.request.bulk.wizard.form</field>
-            <field name="model">change.request.bulk.wizard</field>
+            <field name="name">g2p.change.request.bulk.wizard.form</field>
+            <field name="model">g2p.change.request.bulk.wizard</field>
             <field name="arch" type="xml">
                 <form string="Bulk Operations">
                     <group>
@@ -47,7 +47,7 @@
         <!-- Bulk Operations Wizard Action -->
         <record id="action_bulk_operations_wizard" model="ir.actions.act_window">
             <field name="name">Bulk Operations</field>
-            <field name="res_model">change.request.bulk.wizard</field>
+            <field name="res_model">g2p.change.request.bulk.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="context">{}</field>

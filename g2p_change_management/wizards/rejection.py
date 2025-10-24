@@ -6,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 
 class RejectWizard(models.TransientModel):
-    _name = "reject.wizard"
+    _name = "g2p.reject.wizard"
     _description = "Reject Wizard"
 
     rejection_reason = fields.Text(string="Reason for Rejection", required=True)
@@ -14,7 +14,7 @@ class RejectWizard(models.TransientModel):
     def confirm_rejection(self):
         active_ids = self._context.get("active_ids")
         self.ensure_one()
-        record = self.env["draft.record"].browse(active_ids[0])
+        record = self.env["g2p.draft.record"].browse(active_ids[0])
 
         record.write(
             {
@@ -35,7 +35,7 @@ class RejectWizard(models.TransientModel):
                         "activity_type_id": self.env.ref("mail.mail_activity_data_todo").id,
                         "res_model_id": self.sudo()
                         .env["ir.model"]
-                        .search([("model", "=", "draft.record")])
+                        .search([("model", "=", "g2p.draft.record")])
                         .id,
                         "res_id": record.id,
                         "user_id": user.id,

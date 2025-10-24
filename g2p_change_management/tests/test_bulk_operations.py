@@ -32,7 +32,7 @@ class TestBulkOperations(TransactionCase):
         )
 
         # Create test change requests
-        self.change_request_1 = self.env["change.request"].create(
+        self.change_request_1 = self.env["g2p.change.request"].create(
             {
                 "name": "Test CR 1",
                 "type": "create",
@@ -43,7 +43,7 @@ class TestBulkOperations(TransactionCase):
             }
         )
 
-        self.change_request_2 = self.env["change.request"].create(
+        self.change_request_2 = self.env["g2p.change.request"].create(
             {
                 "name": "Test CR 2",
                 "type": "create",
@@ -54,7 +54,7 @@ class TestBulkOperations(TransactionCase):
             }
         )
 
-        self.change_request_3 = self.env["change.request"].create(
+        self.change_request_3 = self.env["g2p.change.request"].create(
             {
                 "name": "Test CR 3",
                 "type": "create",
@@ -68,7 +68,7 @@ class TestBulkOperations(TransactionCase):
     def test_bulk_approve_wizard_creation(self):
         """Test bulk approval wizard creation"""
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(active_ids=[self.change_request_3.id], operation_type="approve")
             .create({})
         )
@@ -80,7 +80,7 @@ class TestBulkOperations(TransactionCase):
     def test_bulk_reject_wizard_creation(self):
         """Test bulk rejection wizard creation"""
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(active_ids=[self.change_request_3.id], operation_type="reject")
             .create({})
         )
@@ -91,7 +91,7 @@ class TestBulkOperations(TransactionCase):
     def test_bulk_submit_wizard_creation(self):
         """Test bulk submission wizard creation"""
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(
                 active_ids=[self.change_request_1.id, self.change_request_2.id], operation_type="submit"
             )
@@ -104,7 +104,7 @@ class TestBulkOperations(TransactionCase):
     def test_bulk_operation_summary(self):
         """Test operation summary computation"""
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(
                 active_ids=[self.change_request_1.id, self.change_request_2.id], operation_type="submit"
             )
@@ -118,7 +118,7 @@ class TestBulkOperations(TransactionCase):
         """Test bulk approval action"""
         # Create wizard with submitted change request
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(active_ids=[self.change_request_3.id], operation_type="approve")
             .create({"reason": "Bulk approval test"})
         )
@@ -136,7 +136,7 @@ class TestBulkOperations(TransactionCase):
 
     def test_bulk_operation_validation(self):
         """Test bulk operation validation"""
-        wizard = self.env["change.request.bulk.wizard"].create(
+        wizard = self.env["g2p.change.request.bulk.wizard"].create(
             {
                 "operation_type": "approve",
                 "change_request_ids": [(6, 0, [])],  # Empty list
@@ -149,7 +149,7 @@ class TestBulkOperations(TransactionCase):
     def test_bulk_assign_wizard(self):
         """Test bulk assignment wizard"""
         wizard = (
-            self.env["change.request.bulk.wizard"]
+            self.env["g2p.change.request.bulk.wizard"]
             .with_context(
                 active_ids=[self.change_request_1.id, self.change_request_2.id], operation_type="assign"
             )
@@ -166,22 +166,22 @@ class TestBulkOperations(TransactionCase):
 
         # Test bulk approve method
         result = change_requests.action_bulk_approve()
-        self.assertEqual(result["res_model"], "change.request.bulk.wizard")
+        self.assertEqual(result["res_model"], "g2p.change.request.bulk.wizard")
         self.assertEqual(result["context"]["operation_type"], "approve")
 
         # Test bulk reject method
         result = change_requests.action_bulk_reject()
-        self.assertEqual(result["res_model"], "change.request.bulk.wizard")
+        self.assertEqual(result["res_model"], "g2p.change.request.bulk.wizard")
         self.assertEqual(result["context"]["operation_type"], "reject")
 
         # Test bulk submit method
         result = change_requests.action_bulk_submit()
-        self.assertEqual(result["res_model"], "change.request.bulk.wizard")
+        self.assertEqual(result["res_model"], "g2p.change.request.bulk.wizard")
         self.assertEqual(result["context"]["operation_type"], "submit")
 
     def test_empty_selection_validation(self):
         """Test validation when no records are selected"""
-        empty_records = self.env["change.request"]
+        empty_records = self.env["g2p.change.request"]
 
         with self.assertRaises(UserError):
             empty_records.action_bulk_approve()

@@ -44,7 +44,7 @@ class TestSecurity(TransactionCase):
     def test_change_request_access_rights(self):
         """Test change request access rights."""
         # Create change request as admin
-        change_request = self.env["change.request"].create(
+        change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -53,12 +53,12 @@ class TestSecurity(TransactionCase):
         )
 
         # Test user should be able to read their own change requests
-        change_request_user = self.env["change.request"].with_user(self.user).browse(change_request.id)
+        change_request_user = self.env["g2p.change.request"].with_user(self.user).browse(change_request.id)
         self.assertEqual(change_request_user.name, change_request.name)
 
         # Should be able to create change requests
         new_cr = (
-            self.env["change.request"]
+            self.env["g2p.change.request"]
             .with_user(self.user)
             .create(
                 {
@@ -78,12 +78,12 @@ class TestSecurity(TransactionCase):
 
         # Should be able to create change requests from partner
         action = partner_user.action_create_change_request()
-        self.assertEqual(action["res_model"], "change.request")
+        self.assertEqual(action["res_model"], "g2p.change.request")
 
     def test_draft_record_access_rights(self):
         """Test draft record access rights."""
         # Create change request
-        _change_request = self.env["change.request"].create(
+        _change_request = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -94,7 +94,7 @@ class TestSecurity(TransactionCase):
         draft_record = _change_request.draft_record_id
 
         # Test user should be able to read draft records
-        draft_user = self.env["draft.record"].with_user(self.user).browse(draft_record.id)
+        draft_user = self.env["g2p.draft.record"].with_user(self.user).browse(draft_record.id)
         self.assertEqual(draft_user.name, draft_record.name)
 
         # Should be able to update draft records
@@ -114,7 +114,7 @@ class TestSecurity(TransactionCase):
             }
         )
 
-        _change_request = self.env["change.request"].create(
+        _change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
                 "partner_id": group.id,
@@ -124,13 +124,13 @@ class TestSecurity(TransactionCase):
 
         # Test user should be able to access wizard
         action = group.with_user(self.user).action_add_draft_members()
-        self.assertEqual(action["res_model"], "draft.group.add.members.wizard")
+        self.assertEqual(action["res_model"], "g2p.draft.group.add.members.wizard")
 
     def test_workflow_permissions(self):
         """Test workflow permissions."""
         # Create change request as user
         change_request = (
-            self.env["change.request"]
+            self.env["g2p.change.request"]
             .with_user(self.user)
             .create(
                 {
@@ -153,7 +153,7 @@ class TestSecurity(TransactionCase):
     def test_data_isolation(self):
         """Test data isolation between users."""
         # Create change request as admin
-        admin_cr = self.env["change.request"].create(
+        admin_cr = self.env["g2p.change.request"].create(
             {
                 "type": "create",
                 "is_group": False,
@@ -163,7 +163,7 @@ class TestSecurity(TransactionCase):
 
         # Create change request as user
         user_cr = (
-            self.env["change.request"]
+            self.env["g2p.change.request"]
             .with_user(self.user)
             .create(
                 {
@@ -175,13 +175,13 @@ class TestSecurity(TransactionCase):
         )
 
         # User should see their own change request
-        user_crs = self.env["change.request"].with_user(self.user).search([])
+        user_crs = self.env["g2p.change.request"].with_user(self.user).search([])
         self.assertIn(user_cr, user_crs)
 
         # User should not see admin's change request
         # (This depends on the security rules configuration)
         # For now, we'll test that both exist in the system
-        all_crs = self.env["change.request"].with_context(active_test=False).search([])
+        all_crs = self.env["g2p.change.request"].with_context(active_test=False).search([])
         self.assertIn(admin_cr, all_crs)
         self.assertIn(user_cr, all_crs)
 
@@ -211,14 +211,14 @@ class TestSecurity(TransactionCase):
 
     def test_model_access_rights(self):
         """Test model access rights."""
-        # Test change.request model access
-        change_request_model = self.env["ir.model"].search([("model", "=", "change.request")])
+        # Test g2p.change.request model access
+        change_request_model = self.env["ir.model"].search([("model", "=", "g2p.change.request")])
         if change_request_model:
             access_rights = self.env["ir.model.access"].search([("model_id", "=", change_request_model.id)])
             self.assertTrue(access_rights)
 
-        # Test draft.record model access
-        draft_record_model = self.env["ir.model"].search([("model", "=", "draft.record")])
+        # Test g2p.draft.record model access
+        draft_record_model = self.env["ir.model"].search([("model", "=", "g2p.draft.record")])
         if draft_record_model:
             access_rights = self.env["ir.model.access"].search([("model_id", "=", draft_record_model.id)])
             self.assertTrue(access_rights)
@@ -226,7 +226,7 @@ class TestSecurity(TransactionCase):
     def test_record_rules(self):
         """Test record rules."""
         # Test that record rules are properly configured
-        change_request_rules = self.env["ir.rule"].search([("model_id.model", "=", "change.request")])
+        change_request_rules = self.env["ir.rule"].search([("model_id.model", "=", "g2p.change.request")])
         self.assertTrue(change_request_rules)
 
         # Test that rules have proper domains
@@ -255,5 +255,5 @@ class TestSecurity(TransactionCase):
             "g2p_change_management.action_change_request", raise_if_not_found=False
         )
         if change_request_action:
-            self.assertEqual(change_request_action.res_model, "change.request")
+            self.assertEqual(change_request_action.res_model, "g2p.change.request")
             self.assertEqual(change_request_action.view_mode, "tree,form")

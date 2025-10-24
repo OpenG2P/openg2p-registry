@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 
 class ChangeRequest(models.Model):
-    _name = "change.request"
+    _name = "g2p.change.request"
     _description = "Change Request"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "create_date desc"
@@ -70,7 +70,7 @@ class ChangeRequest(models.Model):
     )
 
     draft_record_id = fields.Many2one(
-        "draft.record",
+        "g2p.draft.record",
         string="Draft Record",
         tracking=True,
         help="The draft record containing the proposed changes.",
@@ -448,7 +448,7 @@ class ChangeRequest(models.Model):
         for record in self:
             user = self.env.user
             record.can_approve = record.state == "submitted" and user.has_group(
-                "g2p_change_management.group_int_approver"
+                "g2p_change_management.group_change_management_approver"
             )
 
     @api.depends("state", "requester_id")
@@ -457,7 +457,7 @@ class ChangeRequest(models.Model):
         for record in self:
             user = self.env.user
             record.can_reject = record.state == "submitted" and user.has_group(
-                "g2p_change_management.group_int_approver"
+                "g2p_change_management.group_change_management_approver"
             )
 
     @api.constrains("name")
@@ -564,9 +564,9 @@ class ChangeRequest(models.Model):
             for member in member_data:
                 if member.get("draft_id"):
                     # This is a draft individual record
-                    draft_individual = self.env["draft.record"].browse(member["draft_id"])
+                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
                     if draft_individual.exists():
-                        # Since we removed state from draft.record, we just log the update
+                        # Since we removed state from g2p.draft.record, we just log the update
                         updated_count += 1
                         _logger.info(
                             "Updated draft individual %s (state management moved to Change Request)",
@@ -596,7 +596,7 @@ class ChangeRequest(models.Model):
 
             for member in member_data:
                 if member.get("draft_id"):
-                    draft_individual = self.env["draft.record"].browse(member["draft_id"])
+                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
                     if draft_individual.exists():
                         draft_members.append(draft_individual.name)
 
@@ -625,7 +625,7 @@ class ChangeRequest(models.Model):
                 return {
                     "name": "Group Member Status Update",
                     "type": "ir.actions.act_window",
-                    "res_model": "group.member.confirmation.wizard",
+                    "res_model": "g2p.group.member.confirmation.wizard",
                     "view_mode": "form",
                     "target": "new",
                     "context": {
@@ -639,7 +639,7 @@ class ChangeRequest(models.Model):
 
         # Validate approvers exist
         approvers = self.env["res.users"].search(
-            [("groups_id", "in", self.env.ref("g2p_change_management.group_int_approver").id)]
+            [("groups_id", "in", self.env.ref("g2p_change_management.group_change_management_approver").id)]
         )
         if not approvers:
             raise UserError(_("No approvers found. Please contact your administrator."))
@@ -677,7 +677,7 @@ class ChangeRequest(models.Model):
             raise UserError(_("Only submitted change requests can be approved."))
 
         # Validate permissions
-        if not self.env.user.has_group("g2p_change_management.group_int_approver"):
+        if not self.env.user.has_group("g2p_change_management.group_change_management_approver"):
             raise UserError(_("You don't have permission to approve change requests."))
 
         # Update state
@@ -729,7 +729,7 @@ class ChangeRequest(models.Model):
             raise UserError(_("Only submitted change requests can be rejected."))
 
         # Validate permissions
-        if not self.env.user.has_group("g2p_change_management.group_int_approver"):
+        if not self.env.user.has_group("g2p_change_management.group_change_management_approver"):
             raise UserError(_("You don't have permission to reject change requests."))
 
         # For now, we'll handle rejection directly without a wizard
@@ -788,7 +788,7 @@ class ChangeRequest(models.Model):
         user = self.env.user
 
         if action in ["approve", "reject"]:
-            if not user.has_group("g2p_change_management.group_int_approver"):
+            if not user.has_group("g2p_change_management.group_change_management_approver"):
                 raise UserError(_("You don't have permission to %s change requests.") % action)
 
         elif action == "submit":
@@ -811,9 +811,9 @@ class ChangeRequest(models.Model):
             "has_draft_record": bool(self.draft_record_id),
             "can_submit": self.state == "draft" and self.requester_id == self.env.user,
             "can_approve": self.state == "submitted"
-            and self.env.user.has_group("g2p_change_management.group_int_approver"),
+            and self.env.user.has_group("g2p_change_management.group_change_management_approver"),
             "can_reject": self.state == "submitted"
-            and self.env.user.has_group("g2p_change_management.group_int_approver"),
+            and self.env.user.has_group("g2p_change_management.group_change_management_approver"),
         }
 
     def action_reset_to_draft(self):
@@ -835,7 +835,7 @@ class ChangeRequest(models.Model):
     def _create_approval_activity(self):
         """Create approval activity for approvers."""
         approvers = self.env["res.users"].search(
-            [("groups_id", "in", self.env.ref("g2p_change_management.group_int_approver").id)]
+            [("groups_id", "in", self.env.ref("g2p_change_management.group_change_management_approver").id)]
         )
 
         if not approvers:
@@ -862,7 +862,7 @@ class ChangeRequest(models.Model):
                         f"Description: {self.description or 'No description provided'}"
                     ),
                     "res_id": self.id,
-                    "res_model_id": self.env["ir.model"]._get("change.request").id,
+                    "res_model_id": self.env["ir.model"]._get("g2p.change.request").id,
                     "user_id": approver.id,
                     "date_deadline": deadline,
                 }
@@ -919,7 +919,7 @@ class ChangeRequest(models.Model):
             activities = self.env["mail.activity"].search(
                 [
                     ("res_id", "=", self.id),
-                    ("res_model", "=", "change.request"),
+                    ("res_model", "=", "g2p.change.request"),
                     ("state", "=", "planned"),
                 ]
             )
@@ -945,7 +945,7 @@ class ChangeRequest(models.Model):
                     self.write({"partner_id": created_partner.id})
 
                     # Create change log entry for creation
-                    self.env["change.log"].create_change_log(
+                    self.env["g2p.change.log"].create_change_log(
                         change_request=self,
                         partner=created_partner,
                         change_type="create",
@@ -1009,7 +1009,7 @@ class ChangeRequest(models.Model):
                 self.partner_id.with_context(force_write=True).write(update_data)
 
                 # Create change log entry for modification
-                self.env["change.log"].create_change_log(
+                self.env["g2p.change.log"].create_change_log(
                     change_request=self,
                     partner=self.partner_id,
                     change_type="modify",
@@ -1040,7 +1040,7 @@ class ChangeRequest(models.Model):
                 self.partner_id.with_context(force_write=True).write({"active": False})
 
                 # Create change log entry for deletion
-                self.env["change.log"].create_change_log(
+                self.env["g2p.change.log"].create_change_log(
                     change_request=self, partner=self.partner_id, change_type="delete", old_values=old_values
                 )
 
@@ -1154,7 +1154,7 @@ class ChangeRequest(models.Model):
             # For groups, we need to handle group_kind_id in the JSON data
             if self.is_group:
                 # Create the draft record first, then update its JSON data
-                draft_record = self.env["draft.record"].create(draft_data)
+                draft_record = self.env["g2p.draft.record"].create(draft_data)
 
                 # Update the JSON data to include group_kind_id if set
                 partner_data = json.loads(draft_record.partner_data or "{}")
@@ -1200,7 +1200,7 @@ class ChangeRequest(models.Model):
         try:
             # Create the draft record
             _logger.info("Attempting to create draft record with data: %s", draft_data)
-            draft_record = self.env["draft.record"].create(draft_data)
+            draft_record = self.env["g2p.draft.record"].create(draft_data)
             _logger.info("Draft record created successfully: %s", draft_record.name)
             return draft_record
         except Exception as err:
@@ -1247,7 +1247,7 @@ class ChangeRequest(models.Model):
         if action and "context" in action:
             action["context"].update(
                 {
-                    "active_model": "draft.record",
+                    "active_model": "g2p.draft.record",
                     "active_id": self.draft_record_id.id,
                     "change_request_context": True,  # Add change request context for filtering
                 }
@@ -1472,13 +1472,13 @@ class ChangeRequest(models.Model):
             raise UserError(_("No change requests selected for bulk operation."))
 
         # Validate that all selected records are change requests
-        if not all(record._name == "change.request" for record in self):
+        if not all(record._name == "g2p.change.request" for record in self):
             raise UserError(_("All selected records must be change requests."))
 
         return {
             "type": "ir.actions.act_window",
             "name": f"Bulk {operation_type.title()}",
-            "res_model": "change.request.bulk.wizard",
+            "res_model": "g2p.change.request.bulk.wizard",
             "view_mode": "form",
             "target": "new",
             "context": {

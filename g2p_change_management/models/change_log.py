@@ -8,14 +8,14 @@ _logger = logging.getLogger(__name__)
 
 
 class ChangeLog(models.Model):
-    _name = "change.log"
+    _name = "g2p.change.log"
     _description = "Change Log"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "change_date desc"
     _rec_name = "change_summary"
 
     change_request_id = fields.Many2one(
-        "change.request",
+        "g2p.change.request",
         string="Change Request",
         required=True,
         ondelete="cascade",
@@ -235,7 +235,7 @@ class ChangeLog(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": "Change Request",
-            "res_model": "change.request",
+            "res_model": "g2p.change.request",
             "res_id": self.change_request_id.id,
             "view_mode": "form",
             "target": "current",
