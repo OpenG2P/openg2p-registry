@@ -9,3 +9,4 @@ from . import registry_config
 from . import district_config
 from . import gender
 from . import que_background_task
+from . import region

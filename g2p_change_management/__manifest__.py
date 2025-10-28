@@ -10,9 +10,11 @@
     "depends": [
         "base",
         "mail",
-        "g2p_social_registry",
         "g2p_registry_addl_info",
         "g2p_registry_base",
+        "g2p_registry_group",
+        "g2p_registry_individual",
+        "g2p_registry_membership",
         "web",
     ],
     "data": [

@@ -23,6 +23,7 @@
         "views/res_config_view.xml",
         "views/district_config.xml",
         "views/gender_view.xml",
+        "views/region.xml",
     ],
     "assets": {
         "web.assets_backend": [
