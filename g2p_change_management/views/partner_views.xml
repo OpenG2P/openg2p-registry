@@ -175,4 +175,30 @@
         <field name="context">{'change_management_context': True}</field>
     </record>
 
+
+    <!-- Hide Create button for Individuals list -->
+    <record id="view_individuals_list_tree_disabled_create" model="ir.ui.view">
+        <field name="name">view.individuals.list.tree.no.create</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_list_tree" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">false</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Hide Create button for Groups list -->
+    <record id="view_groups_list_tree_disabled_create" model="ir.ui.view">
+        <field name="name">view.groups.list.tree.no.create</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_list_tree" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">false</attribute>
+            </tree>
+        </field>
+    </record>
+
+
 </odoo>
