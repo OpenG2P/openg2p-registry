@@ -171,7 +171,6 @@ class ChangeLog(models.Model):
                 "changed_by": self.env.user.id,
                 "change_date": fields.Datetime.now(),
                 "change_summary": change_summary,
-                # is_group is a related field; no need to set explicitly
             }
 
             # Add JSON values if provided

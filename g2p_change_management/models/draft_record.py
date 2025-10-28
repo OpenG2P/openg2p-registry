@@ -257,9 +257,18 @@ class G2PDraftRecord(models.Model):
             partner_data["name"] = vals.get("name", "")
             partner_data["is_group"] = True
         else:
-            given_name = vals.get("given_name", "")
-            family_name = vals.get("family_name", "")
-            addl_name = vals.get("addl_name", "")
+            raw_gn = vals.get("given_name", "")
+            raw_fn = vals.get("family_name", "")
+            raw_an = vals.get("addl_name", "")
+            given_name = (
+                raw_gn.strip() if isinstance(raw_gn, str) else ("" if not raw_gn else str(raw_gn).strip())
+            )
+            family_name = (
+                raw_fn.strip() if isinstance(raw_fn, str) else ("" if not raw_fn else str(raw_fn).strip())
+            )
+            addl_name = (
+                raw_an.strip() if isinstance(raw_an, str) else ("" if not raw_an else str(raw_an).strip())
+            )
             partner_data = {
                 "given_name": given_name,
                 "family_name": family_name,
@@ -305,14 +314,26 @@ class G2PDraftRecord(models.Model):
             raise ValueError("No valid data found to create a partner record.")
 
         if partner_data.get("is_group"):
-            group_name = partner_data.get("name", "").strip().upper()
+            raw = partner_data.get("name", "")
+            group_name = (
+                raw.strip() if isinstance(raw, str) else ("" if not raw else str(raw).strip())
+            ).upper()
 
             valid_data["name"] = group_name
             valid_data["is_group"] = True
         else:
-            given_name = partner_data.get("given_name", "")
-            family_name = partner_data.get("family_name", "")
-            addl_name = partner_data.get("addl_name", "")
+            raw_gn = partner_data.get("given_name", "")
+            raw_fn = partner_data.get("family_name", "")
+            raw_an = partner_data.get("addl_name", "")
+            given_name = (
+                raw_gn.strip() if isinstance(raw_gn, str) else ("" if not raw_gn else str(raw_gn).strip())
+            )
+            family_name = (
+                raw_fn.strip() if isinstance(raw_fn, str) else ("" if not raw_fn else str(raw_fn).strip())
+            )
+            addl_name = (
+                raw_an.strip() if isinstance(raw_an, str) else ("" if not raw_an else str(raw_an).strip())
+            )
 
             valid_data["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
             valid_data["is_group"] = False

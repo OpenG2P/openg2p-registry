@@ -928,6 +928,12 @@ class ChangeRequest(models.Model):
         except Exception as e:
             _logger.error("Failed to close activities for change request %s: %s", self.name, str(e))
 
+    def _normalize_value(self, value):
+        """Normalize values for persistence: None/False ->"""
+        if value is None or value is False:
+            return ""
+        return value.strip()
+
     def _implement_changes(self):
         """Implement the changes based on the change request type."""
         self.ensure_one()
@@ -979,20 +985,20 @@ class ChangeRequest(models.Model):
                 # Get the data from the draft record and update the existing partner
                 partner_data = json.loads(self.draft_record_id.partner_data)
 
-                # Prepare update data
                 update_data = {}
                 if partner_data.get("is_group"):
-                    group_name = partner_data.get("name", "").strip().upper()
+                    group_name = self._normalize_value(partner_data.get("name", "")).upper()
                     update_data["name"] = group_name
                     update_data["is_group"] = True
                 else:
-                    given_name = partner_data.get("given_name", "")
-                    family_name = partner_data.get("family_name", "")
-                    addl_name = partner_data.get("addl_name", "")
-                    update_data["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
+                    given_name = self._normalize_value(partner_data.get("given_name", ""))
+                    family_name = self._normalize_value(partner_data.get("family_name", ""))
+                    addl_name = self._normalize_value(partner_data.get("addl_name", ""))
+                    name_parts = [p for p in [given_name, family_name, addl_name] if p]
+                    update_data["name"] = " ".join(name_parts).upper()
                     update_data["is_group"] = False
 
-                # Add other fields from partner_data
+                # Add other fields from partner_data (allow clearing with empty string)
                 for field_name in [
                     "given_name",
                     "family_name",
@@ -1002,8 +1008,8 @@ class ChangeRequest(models.Model):
                     "gender",
                     "region",
                 ]:
-                    if field_name in partner_data and partner_data[field_name]:
-                        update_data[field_name] = partner_data[field_name]
+                    if field_name in partner_data:
+                        update_data[field_name] = self._normalize_value(partner_data.get(field_name))
 
                 # Update the existing partner with force_write context
                 self.partner_id.with_context(force_write=True).write(update_data)
@@ -1178,16 +1184,7 @@ class ChangeRequest(models.Model):
             elif not region_value:
                 region_value = ""
 
-            draft_data = {
-                "name": self.partner_id.name,
-                "is_group": self.partner_id.is_group,
-                "given_name": getattr(self.partner_id, "given_name", ""),
-                "family_name": getattr(self.partner_id, "family_name", ""),
-                "addl_name": getattr(self.partner_id, "addl_name", ""),
-                "phone": self.partner_id.phone if hasattr(self.partner_id, "phone") else "",
-                "gender": getattr(self.partner_id, "gender", ""),
-                "region": region_value,
-            }
+                # no change here; ensure defaulting uses empty strings elsewhere
             _logger.info("Modify request draft data: %s", draft_data)
 
         elif self.type == "delete":
