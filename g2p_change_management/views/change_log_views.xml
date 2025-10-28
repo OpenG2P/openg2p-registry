@@ -16,7 +16,7 @@
                 <field name="change_summary" />
                 <field name="changed_by" />
                 <field name="change_request_name" />
-                <field name="is_group" invisible="1" />
+                <field name="is_group" string="Is Group" />
             </tree>
         </field>
     </record>

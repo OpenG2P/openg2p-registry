@@ -68,6 +68,9 @@ class ChangeLog(models.Model):
     )
 
     is_group = fields.Boolean(
+        related="partner_id.is_group",
+        store=True,
+        readonly=True,
         help="Indicates if the change was for a group record.",
     )
 
@@ -168,7 +171,7 @@ class ChangeLog(models.Model):
                 "changed_by": self.env.user.id,
                 "change_date": fields.Datetime.now(),
                 "change_summary": change_summary,
-                "is_group": getattr(partner, "is_group", False),
+                # is_group is a related field; no need to set explicitly
             }
 
             # Add JSON values if provided
