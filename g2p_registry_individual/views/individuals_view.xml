@@ -17,7 +17,6 @@
                 />
                 <field name="birthdate" />
                 <field name="registration_date" />
-                <field name="unique_id" readonly="1" />
                 <field name="disabled" column_invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
             </tree>

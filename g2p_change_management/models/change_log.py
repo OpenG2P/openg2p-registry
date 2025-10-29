@@ -244,13 +244,24 @@ class ChangeLog(models.Model):
         }
 
     def action_view_partner(self):
-        """Open the related partner."""
+        """Open the related partner using G2P defined form view."""
         self.ensure_one()
+
+        if not self.partner_id:
+            raise UserError(_("No partner to open."))
+
+        # Determine which view to use based on partner type
+        if self.is_group:
+            view_id = self.env.ref("g2p_registry_group.view_groups_form").id
+        else:
+            view_id = self.env.ref("g2p_registry_individual.view_individuals_form").id
+
         return {
             "type": "ir.actions.act_window",
             "name": "Partner",
             "res_model": "res.partner",
             "res_id": self.partner_id.id,
             "view_mode": "form",
+            "view_id": view_id,
             "target": "current",
         }

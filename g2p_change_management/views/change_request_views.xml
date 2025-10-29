@@ -121,7 +121,11 @@
                     <field name="group_kind_id" invisible="not is_group" readonly="draft_record_id" />
                     <field name="state" readonly="1" />
                     <field name="requester_id" />
-                    <field name="partner_id" readonly="draft_record_id" />
+                    <field
+                            name="partner_id"
+                            readonly="draft_record_id"
+                            context="{'form_view_ref': is_group and 'g2p_registry_group.view_groups_form' or 'g2p_registry_individual.view_individuals_form'}"
+                        />
                     <field name="description" placeholder="Describe the changes being requested..." />
                 </group>
 

@@ -343,18 +343,6 @@ class ChangeRequest(models.Model):
             if record.type == "create" and record.is_group and not record.group_kind_id:
                 raise ValidationError(_("Group Kind is required when creating a group change request."))
 
-    @api.constrains("is_group", "draft_record_id")
-    def _check_is_group_consistency(self):
-        """Prevent changes to is_group after draft record is created."""
-        for record in self:
-            if record.draft_record_id and record.is_group != record.draft_record_id.is_group:
-                raise ValidationError(
-                    _(
-                        "Cannot change 'Is Group' field after draft record is created. "
-                        "The draft record and change request must have consistent group status."
-                    )
-                )
-
     @api.constrains("description")
     def _check_description_length(self):
         """Ensure description has meaningful content."""
@@ -928,12 +916,6 @@ class ChangeRequest(models.Model):
         except Exception as e:
             _logger.error("Failed to close activities for change request %s: %s", self.name, str(e))
 
-    def _normalize_value(self, value):
-        """Normalize values for persistence: None/False ->"""
-        if value is None or value is False:
-            return ""
-        return value.strip()
-
     def _implement_changes(self):
         """Implement the changes based on the change request type."""
         self.ensure_one()
@@ -987,13 +969,13 @@ class ChangeRequest(models.Model):
 
                 update_data = {}
                 if partner_data.get("is_group"):
-                    group_name = self._normalize_value(partner_data.get("name", "")).upper()
+                    group_name = (partner_data.get("name") or "").strip().upper()
                     update_data["name"] = group_name
                     update_data["is_group"] = True
                 else:
-                    given_name = self._normalize_value(partner_data.get("given_name", ""))
-                    family_name = self._normalize_value(partner_data.get("family_name", ""))
-                    addl_name = self._normalize_value(partner_data.get("addl_name", ""))
+                    given_name = (partner_data.get("given_name") or "").strip()
+                    family_name = (partner_data.get("family_name") or "").strip()
+                    addl_name = (partner_data.get("addl_name") or "").strip()
                     name_parts = [p for p in [given_name, family_name, addl_name] if p]
                     update_data["name"] = " ".join(name_parts).upper()
                     update_data["is_group"] = False
@@ -1009,7 +991,7 @@ class ChangeRequest(models.Model):
                     "region",
                 ]:
                     if field_name in partner_data:
-                        update_data[field_name] = self._normalize_value(partner_data.get(field_name))
+                        update_data[field_name] = (partner_data.get(field_name) or "").strip()
 
                 # Update the existing partner with force_write context
                 self.partner_id.with_context(force_write=True).write(update_data)
@@ -1149,7 +1131,7 @@ class ChangeRequest(models.Model):
         self.ensure_one()
 
         _logger.info("Creating draft record for type: %s", self.type)
-
+        draft_data = {}
         if self.type == "create":
             # For create requests, use the is_group field from change request
             draft_data = {

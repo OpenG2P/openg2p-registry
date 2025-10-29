@@ -69,7 +69,11 @@
                             <field name="change_type" readonly="1" />
                         </group>
                         <group>
-                            <field name="partner_id" readonly="1" />
+                            <field
+                                name="partner_id"
+                                readonly="1"
+                                context="{'form_view_ref': is_group and 'g2p_registry_group.view_groups_form' or 'g2p_registry_individual.view_individuals_form'}"
+                            />
                             <field name="change_request_id" readonly="1" />
                             <field name="is_group" readonly="1" />
                         </group>

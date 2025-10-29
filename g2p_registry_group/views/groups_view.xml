@@ -19,8 +19,6 @@
                     string="Tags"
                 />
                 <field name="registration_date" />
-                <field name="region" string="Region" />
-                <field name="unique_id" string="Unique ID" />
                 <field name="disabled" column_invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
             </tree>
