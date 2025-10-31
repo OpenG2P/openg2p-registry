@@ -534,38 +534,114 @@ class ChangeRequest(models.Model):
         return True
 
     def _update_group_member_statuses(self, new_state):
-        """Update the status of all draft individual members in this group's change request."""
         self.ensure_one()
 
         if not self.draft_record_id or not self.draft_record_id.is_group:
             return 0
 
-        # Get draft members from the group's draft record
-        draft_record = self.draft_record_id
-        if not draft_record.group_member_ids_json:
-            return 0
+        member_ids = set()
+        if self.draft_record_id.draft_member_ids:
+            member_ids |= set(self.draft_record_id.draft_member_ids.ids)
 
-        try:
-            member_data = json.loads(draft_record.group_member_ids_json)
-            updated_count = 0
+        # Pass context to prevent recursive group processing
+        ctx = dict(
+            self.env.context,
+            group_member_confirmed=True,
+            group_cascade_processing=True,
+            group_member_approval=True,
+        )
 
-            for member in member_data:
-                if member.get("draft_id"):
-                    # This is a draft individual record
-                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
-                    if draft_individual.exists():
-                        # Since we removed state from g2p.draft.record, we just log the update
-                        updated_count += 1
-                        _logger.info(
-                            "Updated draft individual %s (state management moved to Change Request)",
-                            draft_individual.name,
-                        )
+        if new_state == "submitted":
+            return self._cascade_group_submit(member_ids, ctx)
+        elif new_state == "rejected":
+            return self._cascade_group_reject(member_ids, ctx)
+        elif new_state == "approved":
+            return self.with_context(**ctx)._cascade_group_approve(member_ids, ctx)
+        return 0
 
-            return updated_count
+    def _cascade_group_submit(self, member_ids, ctx):
+        updated = 0
+        for draft_id in sorted(member_ids):
+            member_cr = self._get_member_change_request(draft_id)
+            if member_cr and member_cr.state == "draft":
+                member_cr.sudo().write({"state": "submitted"})
+                updated += 1
+        return updated
 
-        except (json.JSONDecodeError, KeyError) as err:
-            _logger.error("Error updating group member statuses: %s", str(err))
-            return 0
+    def _cascade_group_reject(self, member_ids, ctx):
+        updated = 0
+        for draft_id in sorted(member_ids):
+            member_cr = self._get_member_change_request(draft_id)
+            if member_cr and member_cr.state in ("draft", "submitted"):
+                member_cr.sudo().write({"state": "rejected"})
+                updated += 1
+        return updated
+
+    def _cascade_group_approve(self, member_ids, ctx):
+        updated = 0
+        failed = 0
+
+        for draft_id in sorted(member_ids):
+            member_cr = self._get_member_change_request(draft_id)
+
+            if not member_cr:
+                _logger.warning("No change request found for draft_id %s", draft_id)
+                failed += 1
+                continue
+
+            if member_cr.state not in ("draft", "submitted"):
+                _logger.info("Skipping member CR %s - already in state %s", member_cr.name, member_cr.state)
+                continue
+
+            try:
+                # Check if this is a recursive call (member of a group)
+                # If so, just implement changes without cascading
+                if self.env.context.get("group_member_approval"):
+                    # Update state and implement changes directly
+                    member_cr.sudo().write(
+                        {
+                            "state": "approved",
+                            "approver_id": self.env.user.id,
+                        }
+                    )
+
+                    # Log the approval
+                    member_cr.message_post(
+                        body=_("Change request approved by %(user)s (via group approval).")
+                        % {"user": self.env.user.name},
+                        subject=_("Change Request Approved: %(name)s") % {"name": member_cr.name},
+                    )
+
+                    # Implement changes (publish individual partner)
+                    member_cr._implement_changes()
+
+                    # Send notification
+                    member_cr._send_approval_result_notification("approved")
+
+                    # Close activities
+                    member_cr._close_related_activities()
+
+                    updated += 1
+                    _logger.info("Successfully approved member CR %s (via group)", member_cr.name)
+                else:
+                    # Normal approval workflow
+                    member_cr.sudo().action_approve()
+                    updated += 1
+                    _logger.info("Successfully approved member CR %s", member_cr.name)
+
+            except Exception as e:
+                _logger.error("Failed to approve member CR %s: %s", member_cr.name, str(e))
+                failed += 1
+
+        # Log summary
+        if updated > 0 or failed > 0:
+            _logger.info("Group member approval cascade: %s approved, %s failed", updated, failed)
+
+        return updated
+
+    def _get_member_change_request(self, draft_id):
+        ChangeRequest = self.env["g2p.change.request"]
+        return ChangeRequest.search([("draft_record_id", "=", draft_id)], order="create_date desc", limit=1)
 
     def _get_group_member_info(self):
         """Get information about draft members in the group."""
@@ -579,12 +655,18 @@ class ChangeRequest(models.Model):
             return {"count": 0, "names": ""}
 
         try:
-            member_data = json.loads(draft_record.group_member_ids_json)
+            raw = draft_record.group_member_ids_json
+            data = json.loads(raw) if isinstance(raw, str) else raw
             draft_members = []
 
-            for member in member_data:
-                if member.get("draft_id"):
-                    draft_individual = self.env["g2p.draft.record"].browse(member["draft_id"])
+            if isinstance(data, list):
+                for item in data:
+                    if isinstance(item, dict) and item.get("draft_id"):
+                        draft_individual = self.env["g2p.draft.record"].browse(item["draft_id"])
+                    elif isinstance(item, int):
+                        draft_individual = self.env["g2p.draft.record"].browse(item)
+                    else:
+                        continue
                     if draft_individual.exists():
                         draft_members.append(draft_individual.name)
 
@@ -593,34 +675,12 @@ class ChangeRequest(models.Model):
                 "names": "\n".join(draft_members) if draft_members else "No draft members found",
             }
 
-        except (json.JSONDecodeError, KeyError):
+        except Exception:
             return {"count": 0, "names": _("Error reading member data")}
 
     def action_submit(self):
         """Submit the change request for approval."""
         self.ensure_one()
-
-        # Check if this is a group request with draft members that need confirmation
-        if (
-            self.draft_record_id
-            and self.draft_record_id.is_group
-            and not self.env.context.get("group_member_confirmed")
-        ):
-            # Check if there are draft members to update
-            member_info = self._get_group_member_info()
-            if member_info.get("count", 0) > 0:
-                # Show confirmation wizard
-                return {
-                    "name": "Group Member Status Update",
-                    "type": "ir.actions.act_window",
-                    "res_model": "g2p.group.member.confirmation.wizard",
-                    "view_mode": "form",
-                    "target": "new",
-                    "context": {
-                        "active_id": self.id,
-                        "action_type": "submit",
-                    },
-                }
 
         # Comprehensive validation before submission
         self._validate_before_submit()
@@ -682,22 +742,23 @@ class ChangeRequest(models.Model):
             subject=_("Change Request Approved: %(name)s") % {"name": self.name},
         )
 
-        # Implement the changes based on type
+        # For groups, approve members FIRST before implementing group creation
+        if self.is_group and self.draft_record_id and self.draft_record_id.is_group:
+            updated_count = self._update_group_member_statuses("approved")
+            if updated_count > 0:
+                self.message_post(
+                    body=_("Approved %s draft individual members.") % updated_count,
+                    subject=_("Group Members Approved"),
+                )
+                _logger.info("Group CR %s: Approved %s member change requests", self.name, updated_count)
+
+        # Now implement the changes (create group partner and link members)
         try:
             self._implement_changes()
             _logger.info("Changes implemented successfully for change request %s", self.name)
         except Exception as err:
             _logger.error("Failed to implement changes for change request %s: %s", self.name, str(err))
             raise UserError(_("Failed to implement changes: %s") % str(err)) from err
-
-        # Update group member statuses if this is a group request
-        if self.draft_record_id and self.draft_record_id.is_group:
-            updated_count = self._update_group_member_statuses("approved")
-            if updated_count > 0:
-                self.message_post(
-                    body=_("Updated status of %s draft individual members to 'published'.") % updated_count,
-                    subject=_("Group Member Status Updated"),
-                )
 
         # Send notification to requester
         self._send_approval_result_notification("approved")
@@ -917,122 +978,178 @@ class ChangeRequest(models.Model):
             _logger.error("Failed to close activities for change request %s: %s", self.name, str(e))
 
     def _implement_changes(self):
-        """Implement the changes based on the change request type."""
+        self.ensure_one()
+        if self.type == "create":
+            self._implement_create()
+        elif self.type == "modify":
+            self._implement_modify()
+        elif self.type == "delete":
+            self._implement_delete()
+
+    def _implement_create(self):
+        if not self.draft_record_id:
+            return
+
+        # Capture new values from draft record before publishing
+        new_values = self._get_draft_record_values()
+
+        # Publish the draft record to create a new partner
+        # Use force_write context to bypass write protection during publishing
+        created_partner = self.draft_record_id.with_context(force_write=True).action_publish()
+        if created_partner:
+            # Link the created partner to this change request
+            self.write({"partner_id": created_partner.id})
+
+            # For groups, link already-approved member partners to the group
+            if self.is_group:
+                self._link_approved_members_to_group(created_partner.id)
+
+            # Create change log entry for creation
+            self.env["g2p.change.log"].create_change_log(
+                change_request=self,
+                partner=created_partner,
+                change_type="create",
+                new_values=new_values,
+            )
+
+            # Update the change request name with the new partner name and unique_id
+            unique_id = getattr(created_partner, "unique_id", "")
+            if unique_id:
+                self.name = f"{created_partner.name} ({unique_id}) - CR #{self.id}"
+            else:
+                self.name = f"{created_partner.name} - CR #{self.id}"
+            self.message_post(
+                body=_("New partner '%s' has been created and published to the registry.")
+                % created_partner.name,
+                subject=_("Partner Created: %s") % created_partner.name,
+            )
+            _logger.info(
+                "Partner created successfully: %s (ID: %s)", created_partner.name, created_partner.id
+            )
+
+    def _implement_modify(self):
+        if not self.partner_id or not self.draft_record_id:
+            return
+        # Capture old values from existing partner before modification
+        old_values = self._get_partner_values(self.partner_id)
+
+        # Capture new values from draft record
+        new_values = self._get_draft_record_values()
+
+        # For modify requests, we need to update the existing partner instead of creating a new one
+        # Get the data from the draft record and update the existing partner
+        partner_data = json.loads(self.draft_record_id.partner_data)
+
+        # Prepare update data
+        update_data = {}
+        if partner_data.get("is_group"):
+            group_name = (partner_data.get("name") or "").strip().upper()
+            update_data["name"] = group_name
+            update_data["is_group"] = True
+        else:
+            given_name = (partner_data.get("given_name") or "").strip()
+            family_name = (partner_data.get("family_name") or "").strip()
+            addl_name = (partner_data.get("addl_name") or "").strip()
+            update_data["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
+            update_data["is_group"] = False
+
+        # Add other fields from partner_data
+        for field_name in [
+            "given_name",
+            "family_name",
+            "addl_name",
+            "phone",
+            "email",
+            "gender",
+            "region",
+        ]:
+            if field_name in partner_data and partner_data[field_name]:
+                update_data[field_name] = partner_data[field_name]
+
+        # Update the existing partner with force_write context
+        self.partner_id.with_context(force_write=True).write(update_data)
+
+        # Create change log entry for modification
+        self.env["g2p.change.log"].create_change_log(
+            change_request=self,
+            partner=self.partner_id,
+            change_type="modify",
+            old_values=old_values,
+            new_values=new_values,
+        )
+
+        # Update the change request name with the updated partner name and unique_id
+        unique_id = getattr(self.partner_id, "unique_id", "")
+        if unique_id:
+            self.name = f"{self.partner_id.name} ({unique_id}) - CR #{self.id}"
+        else:
+            self.name = f"{self.partner_id.name} - CR #{self.id}"
+        self.message_post(
+            body=_("Partner '%s' has been updated in the registry.") % self.partner_id.name,
+            subject=_("Partner Updated: %s") % self.partner_id.name,
+        )
+        _logger.info("Partner updated successfully: %s (ID: %s)", self.partner_id.name, self.partner_id.id)
+
+    def _implement_delete(self):
+        if not self.partner_id:
+            return
+        # Capture old values from partner before deletion
+        old_values = self._get_partner_values(self.partner_id)
+
+        # Use force_write context to bypass write protection during deletion
+        self.partner_id.with_context(force_write=True).write({"active": False})
+
+        # Create change log entry for deletion
+        self.env["g2p.change.log"].create_change_log(
+            change_request=self, partner=self.partner_id, change_type="delete", old_values=old_values
+        )
+
+        self.message_post(body=_("Partner '%s' has been deactivated.") % self.partner_id.name)
+
+    def _link_approved_members_to_group(self, group_partner_id):
         self.ensure_one()
 
-        if self.type == "create":
-            if self.draft_record_id:
-                # Capture new values from draft record before publishing
-                new_values = self._get_draft_record_values()
+        if not self.draft_record_id or not self.draft_record_id.draft_member_ids:
+            return
 
-                # Publish the draft record to create a new partner
-                # Use force_write context to bypass write protection during publishing
-                created_partner = self.draft_record_id.with_context(force_write=True).action_publish()
-                if created_partner:
-                    # Link the created partner to this change request
-                    self.write({"partner_id": created_partner.id})
+        membership_model = self.env["g2p.group.membership"].sudo()
+        linked_count = 0
+        skipped_count = 0
 
-                    # Create change log entry for creation
-                    self.env["g2p.change.log"].create_change_log(
-                        change_request=self,
-                        partner=created_partner,
-                        change_type="create",
-                        new_values=new_values,
+        for draft_member in self.draft_record_id.draft_member_ids:
+            member_cr = self._get_member_change_request(draft_member.id)
+
+            if not member_cr:
+                skipped_count += 1
+                continue
+
+            if member_cr.state == "approved" and member_cr.partner_id:
+                existing_membership = membership_model.search(
+                    [("group", "=", group_partner_id), ("individual", "=", member_cr.partner_id.id)], limit=1
+                )
+
+                if not existing_membership:
+                    membership_model.create(
+                        {
+                            "group": group_partner_id,
+                            "individual": member_cr.partner_id.id,
+                        }
                     )
-
-                    # Update the change request name with the new partner name and unique_id
-                    unique_id = getattr(created_partner, "unique_id", "")
-                    if unique_id:
-                        self.name = f"{created_partner.name} ({unique_id}) - CR #{self.id}"
-                    else:
-                        self.name = f"{created_partner.name} - CR #{self.id}"
-                    self.message_post(
-                        body=_("New partner '%s' has been created and published to the registry.")
-                        % created_partner.name,
-                        subject=_("Partner Created: %s") % created_partner.name,
-                    )
-                    _logger.info(
-                        "Partner created successfully: %s (ID: %s)", created_partner.name, created_partner.id
-                    )
-
-        elif self.type == "modify":
-            if self.draft_record_id and self.partner_id:
-                # Capture old values from existing partner before modification
-                old_values = self._get_partner_values(self.partner_id)
-
-                # Capture new values from draft record
-                new_values = self._get_draft_record_values()
-
-                # For modify requests, we need to update the existing partner instead of creating a new one
-                # Get the data from the draft record and update the existing partner
-                partner_data = json.loads(self.draft_record_id.partner_data)
-
-                update_data = {}
-                if partner_data.get("is_group"):
-                    group_name = (partner_data.get("name") or "").strip().upper()
-                    update_data["name"] = group_name
-                    update_data["is_group"] = True
+                    linked_count += 1
                 else:
-                    given_name = (partner_data.get("given_name") or "").strip()
-                    family_name = (partner_data.get("family_name") or "").strip()
-                    addl_name = (partner_data.get("addl_name") or "").strip()
-                    name_parts = [p for p in [given_name, family_name, addl_name] if p]
-                    update_data["name"] = " ".join(name_parts).upper()
-                    update_data["is_group"] = False
+                    linked_count += 1
+            else:
+                skipped_count += 1
 
-                # Add other fields from partner_data (allow clearing with empty string)
-                for field_name in [
-                    "given_name",
-                    "family_name",
-                    "addl_name",
-                    "phone",
-                    "email",
-                    "gender",
-                    "region",
-                ]:
-                    if field_name in partner_data:
-                        update_data[field_name] = (partner_data.get(field_name) or "").strip()
-
-                # Update the existing partner with force_write context
-                self.partner_id.with_context(force_write=True).write(update_data)
-
-                # Create change log entry for modification
-                self.env["g2p.change.log"].create_change_log(
-                    change_request=self,
-                    partner=self.partner_id,
-                    change_type="modify",
-                    old_values=old_values,
-                    new_values=new_values,
+        if linked_count > 0 or skipped_count > 0:
+            self.message_post(
+                body=_(
+                    "Group membership linking completed:\n"
+                    "- Successfully linked: %(linked_count)s members\n- Skipped: %(skipped_count)s members"
                 )
-
-                # Update the change request name with the updated partner name and unique_id
-                unique_id = getattr(self.partner_id, "unique_id", "")
-                if unique_id:
-                    self.name = f"{self.partner_id.name} ({unique_id}) - CR #{self.id}"
-                else:
-                    self.name = f"{self.partner_id.name} - CR #{self.id}"
-                self.message_post(
-                    body=_("Partner '%s' has been updated in the registry.") % self.partner_id.name,
-                    subject=_("Partner Updated: %s") % self.partner_id.name,
-                )
-                _logger.info(
-                    "Partner updated successfully: %s (ID: %s)", self.partner_id.name, self.partner_id.id
-                )
-
-        elif self.type == "delete":
-            if self.partner_id:
-                # Capture old values from partner before deletion
-                old_values = self._get_partner_values(self.partner_id)
-
-                # Use force_write context to bypass write protection during deletion
-                self.partner_id.with_context(force_write=True).write({"active": False})
-
-                # Create change log entry for deletion
-                self.env["g2p.change.log"].create_change_log(
-                    change_request=self, partner=self.partner_id, change_type="delete", old_values=old_values
-                )
-
-                self.message_post(body=_("Partner '%s' has been deactivated.") % self.partner_id.name)
+                % {"linked_count": linked_count, "skipped_count": skipped_count},
+                subject=_("Group Members Linked"),
+            )
 
     def _get_partner_values(self, partner):
         """Get current values from a partner record for change logging."""
@@ -1131,7 +1248,7 @@ class ChangeRequest(models.Model):
         self.ensure_one()
 
         _logger.info("Creating draft record for type: %s", self.type)
-        draft_data = {}
+
         if self.type == "create":
             # For create requests, use the is_group field from change request
             draft_data = {
@@ -1166,7 +1283,16 @@ class ChangeRequest(models.Model):
             elif not region_value:
                 region_value = ""
 
-                # no change here; ensure defaulting uses empty strings elsewhere
+            draft_data = {
+                "name": self.partner_id.name,
+                "is_group": self.partner_id.is_group,
+                "given_name": getattr(self.partner_id, "given_name", ""),
+                "family_name": getattr(self.partner_id, "family_name", ""),
+                "addl_name": getattr(self.partner_id, "addl_name", ""),
+                "phone": self.partner_id.phone if hasattr(self.partner_id, "phone") else "",
+                "gender": getattr(self.partner_id, "gender", ""),
+                "region": region_value,
+            }
             _logger.info("Modify request draft data: %s", draft_data)
 
         elif self.type == "delete":

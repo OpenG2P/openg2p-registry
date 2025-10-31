@@ -88,8 +88,13 @@
                     col="4"
                     colspan="4"
                 >
-                    <field name="draft_member_ids" nolabel="1" colspan="4">
-                        <tree editable="top" default_order='name asc,ended_date asc'>
+                    <field
+                        name="draft_member_ids"
+                        nolabel="1"
+                        colspan="4"
+                        domain="[('is_group', '=', False), ('active_change_request_state', 'in', ['draft', 'submitted'])]"
+                    >
+                        <tree editable="top" default_order="name asc">
                             <field name="name" string="Member Name" />
                             <field name="given_name" string="Given Name" />
                             <field name="family_name" string="Family Name" />
@@ -98,6 +103,7 @@
                             <field name="region" string="Region" />
                         </tree>
                     </field>
+
                 </group>
             </xpath>
         </field>
