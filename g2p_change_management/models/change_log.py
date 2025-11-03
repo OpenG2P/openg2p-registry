@@ -23,12 +23,12 @@ class ChangeLog(models.Model):
         help="The change request that triggered this log entry.",
     )
 
-    partner_id = fields.Many2one(
+    registrant_id = fields.Many2one(
         "res.partner",
-        string="Partner",
+        string="Registrant",
         required=True,
         index=True,
-        help="The partner record that was affected by the change.",
+        help="The registrant record that was affected by the change.",
     )
 
     change_type = fields.Selection(
@@ -68,7 +68,7 @@ class ChangeLog(models.Model):
     )
 
     is_group = fields.Boolean(
-        related="partner_id.is_group",
+        related="registrant_id.is_group",
         store=True,
         readonly=True,
         help="Indicates if the change was for a group record.",
@@ -86,11 +86,11 @@ class ChangeLog(models.Model):
         help="Formatted display of new values.",
     )
 
-    partner_name = fields.Char(
-        string="Partner Name",
-        related="partner_id.name",
+    registrant_name = fields.Char(
+        string="Registrant Name",
+        related="registrant_id.name",
         store=True,
-        help="Name of the affected partner.",
+        help="Name of the affected registrant.",
     )
 
     change_request_name = fields.Char(
@@ -148,30 +148,30 @@ class ChangeLog(models.Model):
                 record.new_values_formatted = "No new values"
 
     @api.model
-    def create_change_log(self, change_request, partner, change_type, old_values=None, new_values=None):
+    def create_change_log(self, change_request, registrant, change_type, old_values=None, new_values=None):
         """
         Create a change log entry for a change request.
 
         Args:
             change_request: change.request record
-            partner: res.partner record that was affected
+            registrant: res.partner record that was affected
             change_type: 'create', 'modify', or 'delete'
             old_values: dict of old values (for modify/delete)
             new_values: dict of new values (for create/modify)
         """
         try:
             # Generate change summary
-            change_summary = self._generate_change_summary(change_type, partner, old_values, new_values)
+            change_summary = self._generate_change_summary(change_type, registrant, old_values, new_values)
 
             # Create the log entry
             log_data = {
                 "change_request_id": change_request.id,
-                "partner_id": partner.id,
+                "registrant_id": registrant.id,
                 "change_type": change_type,
                 "changed_by": self.env.user.id,
                 "change_date": fields.Datetime.now(),
                 "change_summary": change_summary,
-                "is_group": getattr(partner, "is_group", False),
+                "is_group": getattr(registrant, "is_group", False),
             }
 
             # Add JSON values if provided
@@ -183,10 +183,10 @@ class ChangeLog(models.Model):
             change_log = self.with_context(allow_change_log_creation=True).create(log_data)
 
             _logger.info(
-                "Created change log entry %s for change request %s, partner %s",
+                "Created change log entry %s for change request %s, registrant %s",
                 change_log.id,
                 change_request.name,
-                partner.name,
+                registrant.name,
             )
 
             return change_log
@@ -198,12 +198,12 @@ class ChangeLog(models.Model):
             # Don't raise the error to avoid breaking the main workflow
             return False
 
-    def _generate_change_summary(self, change_type, partner, old_values=None, new_values=None):
+    def _generate_change_summary(self, change_type, registrant, old_values=None, new_values=None):
         """Generate a human-readable summary of the change."""
-        partner_name = partner.name or "Unknown Partner"
+        registrant_name = registrant.name or "Unknown Registrant"
 
         if change_type == "create":
-            return f"Created new partner: {partner_name}"
+            return f"Created new registrant: {registrant_name}"
         elif change_type == "modify":
             # Try to identify what fields changed
             changed_fields = []
@@ -214,18 +214,18 @@ class ChangeLog(models.Model):
                         changed_fields.append(field)
 
             if changed_fields:
-                return f"Modified partner {partner_name}: changed {', '.join(changed_fields[:3])}"
+                return f"Modified registrant {registrant_name}: changed {', '.join(changed_fields[:3])}"
             else:
-                return f"Modified partner: {partner_name}"
+                return f"Modified registrant: {registrant_name}"
         elif change_type == "delete":
-            return f"Deactivated partner: {partner_name}"
+            return f"Deactivated registrant: {registrant_name}"
         else:
-            return f"Unknown change type for partner: {partner_name}"
+            return f"Unknown change type for registrant: {registrant_name}"
 
     @api.model
-    def get_partner_change_history(self, partner_id):
-        """Get change history for a specific partner."""
-        return self.search([("partner_id", "=", partner_id)], order="change_date desc")
+    def get_registrant_change_history(self, registrant_id):
+        """Get change history for a specific registrant."""
+        return self.search([("registrant_id", "=", registrant_id)], order="change_date desc")
 
     @api.model
     def get_change_request_logs(self, change_request_id):
@@ -244,19 +244,19 @@ class ChangeLog(models.Model):
             "target": "current",
         }
 
-    def action_view_partner(self):
+    def action_view_registrant(self):
         self.ensure_one()
-        if not self.partner_id:
-            raise UserError(_("No partner to open."))
+        if not self.registrant_id:
+            raise UserError(_("No registrant to open."))
         if self.is_group:
             view_id = self.env.ref("g2p_registry_group.view_groups_form").id
         else:
             view_id = self.env.ref("g2p_registry_individual.view_individuals_form").id
         return {
             "type": "ir.actions.act_window",
-            "name": "Partner",
+            "name": "Registrant",
             "res_model": "res.partner",
-            "res_id": self.partner_id.id,
+            "res_id": self.registrant_id.id,
             "view_mode": "form",
             "view_id": view_id,
             "target": "current",

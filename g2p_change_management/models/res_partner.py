@@ -14,9 +14,9 @@ class ResPartner(models.Model):
 
     change_request_ids = fields.One2many(
         "g2p.change.request",
-        "partner_id",
+        "registrant_id",
         string="Change Requests",
-        help="Change requests related to this partner.",
+        help="Change requests related to this registrant.",
     )
 
     # Computed field to check if group has active draft
@@ -34,7 +34,7 @@ class ResPartner(models.Model):
         store=False,  # Don't store, always compute
         search="_search_active_change_request",
         string="Active Change Request",
-        help="Active change request for this partner",
+        help="Active change request for this registrant",
     )
 
     # Computed field to show active change request state
@@ -47,21 +47,21 @@ class ResPartner(models.Model):
         ],
         compute="_compute_active_change_request_state",
         store=False,  # Don't store, always compute
-        help="State of the active change request for this partner",
+        help="State of the active change request for this registrant",
     )
 
     @property
     def active_change_request_state_property(self):
         """Property to force computation of active change request state."""
 
-        _logger.info(f"PROPERTY ACCESS - Partner {self.id}")
+        _logger.info(f"PROPERTY ACCESS - Registrant {self.id}")
 
         # Force computation
         self._compute_active_change_request()
         self._compute_active_change_request_state()
 
         _logger.info(
-            f"PROPERTY RESULT - Partner {self.id}: \
+            f"PROPERTY RESULT - Registrant {self.id}: \
             active_change_request_state = {self.active_change_request_state}"
         )
         return self.active_change_request_state
@@ -69,17 +69,17 @@ class ResPartner(models.Model):
     # Draft members field - Many2many for draft individual members
     draft_member_ids = fields.Many2many(
         "g2p.draft.record",
-        "partner_draft_member_rel",
-        "partner_id",
+        "registrant_draft_member_rel",
+        "registrant_id",
         "draft_id",
         string="Draft Members",
-        help="Draft individual members from new change requests (without partner_id)",
+        help="Draft individual members from new change requests (without registrant_id)",
         domain="[('is_group', '=', False)]",
     )
 
     @api.depends("change_request_ids", "change_request_ids.state")
     def _compute_has_active_draft(self):
-        """Compute if partner has active change request with optimized logic."""
+        """Compute if registrant has active change request with optimized logic."""
         for record in self:
             # Use any() for better performance than filtered()
             record.has_active_draft = any(
@@ -88,55 +88,58 @@ class ResPartner(models.Model):
 
     @api.depends("change_request_ids")
     def _compute_active_change_request(self):
-        """Compute the active change request for this partner."""
+        """Compute the active change request for this registrant."""
 
-        _logger.info(f"_compute_active_change_request called for {len(self)} partners")
+        _logger.info(f"_compute_active_change_request called for {len(self)} registrants")
 
         for record in self:
-            _logger.info(f"Partner {record.id}: Total change requests = {len(record.change_request_ids)}")
+            _logger.info(f"Registrant {record.id}: Total change requests = {len(record.change_request_ids)}")
 
             # Log all change requests and their states
             for cr in record.change_request_ids:
-                _logger.info(f"Partner {record.id}: Change Request {cr.id} - State: {cr.state}")
+                _logger.info(f"Registrant {record.id}: Change Request {cr.id} - State: {cr.state}")
 
             # Include all change requests (draft, submitted, approved, rejected) to track state
             active_crs = record.change_request_ids.filtered(
                 lambda cr: cr.state in ["draft", "submitted", "approved", "rejected"]
             )
-            _logger.info(f"Partner {record.id}: Filtered active change requests = {len(active_crs)}")
+            _logger.info(f"Registrant {record.id}: Filtered active change requests = {len(active_crs)}")
 
             # Get the most recent change request (by ID, which should be the latest created)
             if active_crs:
                 most_recent = active_crs.sorted("id", reverse=True)[0]
                 record.active_change_request_id = most_recent
                 _logger.info(
-                    ("Partner %s: Selected change request %s with state %s"),
+                    ("Registrant %s: Selected change request %s with state %s"),
                     record.id,
                     most_recent.id,
                     most_recent.state,
                 )
             else:
                 record.active_change_request_id = False
-                _logger.info(f"Partner {record.id}: No active change requests found")
+                _logger.info(f"Registrant {record.id}: No active change requests found")
 
     def action_debug_active_change_request(self):
         """Manual method to debug active change request computation."""
         for record in self:
-            _logger.info(f"DEBUG - Partner {record.id}: change_request_ids = {record.change_request_ids.ids}")
+            _logger.info(
+                f"DEBUG - Registrant {record.id}: \
+                change_request_ids = {record.change_request_ids.ids}"
+            )
             for cr in record.change_request_ids:
-                _logger.info(f"DEBUG - Partner {record.id}: CR {cr.id} state = {cr.state}")
+                _logger.info(f"DEBUG - Registrant {record.id}: CR {cr.id} state = {cr.state}")
 
             # Force computation manually
             record._compute_active_change_request()
             record._compute_active_change_request_state()
 
             _logger.info(
-                ("DEBUG - Partner %s: active_change_request_id = %s"),
+                ("DEBUG - Registrant %s: active_change_request_id = %s"),
                 record.id,
                 record.active_change_request_id.id if record.active_change_request_id else False,
             )
             _logger.info(
-                ("DEBUG - Partner %s: active_change_request_state = %s"),
+                ("DEBUG - Registrant %s: active_change_request_state = %s"),
                 record.id,
                 record.active_change_request_state,
             )
@@ -145,13 +148,13 @@ class ResPartner(models.Model):
     def action_force_compute_fields(self):
         """Force computation of all computed fields."""
         for record in self:
-            _logger.info(f"FORCE COMPUTE - Partner {record.id}")
+            _logger.info(f"FORCE COMPUTE - Registrant {record.id}")
             # Force computation of all computed fields
             record._compute_active_change_request()
             record._compute_active_change_request_state()
             record._compute_has_active_draft()
             _logger.info(
-                ("FORCE COMPUTE - Partner %s: active_change_request_state = %s"),
+                ("FORCE COMPUTE - Registrant %s: active_change_request_state = %s"),
                 record.id,
                 record.active_change_request_state,
             )
@@ -159,7 +162,7 @@ class ResPartner(models.Model):
 
     @api.depends("active_change_request_id", "active_change_request_id.state")
     def _compute_active_change_request_state(self):
-        """Compute the state of the active change request for this partner."""
+        """Compute the state of the active change request for this registrant."""
 
         for record in self:
             # Check if we're in draft context with change_request_state
@@ -167,22 +170,22 @@ class ResPartner(models.Model):
                 change_request_state = self.env.context.get("change_request_state")
                 record.active_change_request_state = change_request_state
                 _logger.info(
-                    f"Partner {record.id}: Using context change_request_state = {change_request_state}"
+                    f"Registrant {record.id}: Using context change_request_state = {change_request_state}"
                 )
             elif record.active_change_request_id:
                 record.active_change_request_state = record.active_change_request_id.state
                 _logger.info(
-                    ("Partner %s: Using computed active_change_request_state = %s"),
+                    ("Registrant %s: Using computed active_change_request_state = %s"),
                     record.id,
                     record.active_change_request_state,
                 )
             else:
                 record.active_change_request_state = False
-                _logger.info(f"Partner {record.id}: No active change request, state = False")
+                _logger.info(f"Registrant {record.id}: No active change request, state = False")
 
     @api.model
     def create(self, vals):
-        """Override create to sync draft members to group_member_ids_json."""
+        """Override create to sync draft members to group_member_ids_json for registrants."""
         record = super().create(vals)
         if "draft_member_ids" in vals:
             record._sync_draft_members_to_json()
@@ -238,7 +241,7 @@ class ResPartner(models.Model):
 
     @api.constrains("change_request_ids")
     def _check_change_request_consistency(self):
-        """Ensure change request consistency for this partner."""
+        """Ensure change request consistency for this registrant."""
         for record in self:
             # Check for conflicting change requests
             active_requests = record.change_request_ids.filtered(
@@ -250,7 +253,7 @@ class ResPartner(models.Model):
             if len(request_types) != len(set(request_types)):
                 raise ValidationError(
                     _(
-                        "Partner '%s' has multiple active change requests "
+                        "Registrant '%s' has multiple active change requests "
                         "of the same type. Please resolve conflicts before "
                         "proceeding."
                     )
@@ -278,33 +281,33 @@ class ResPartner(models.Model):
                     )
 
     def _validate_for_change_request(self, change_type):
-        """Validate partner for specific change request type."""
+        """Validate registrant for specific change request type."""
         self.ensure_one()
         errors = []
 
         if change_type == "modify":
-            # Check if partner is active
+            # Check if registrant is active
             if not self.active:
-                errors.append("Cannot modify inactive partner")
+                errors.append("Cannot modify inactive registrant")
 
             # Check for existing active modify requests
             existing_modify = self.change_request_ids.filtered(
                 lambda cr: cr.type == "modify" and cr.state in ["draft", "submitted"]
             )
             if existing_modify:
-                errors.append("Partner already has an active modify request")
+                errors.append("Registrant already has an active modify request")
 
         elif change_type == "delete":
-            # Check if partner is active
+            # Check if registrant is active
             if not self.active:
-                errors.append("Partner is already inactive")
+                errors.append("Registrant is already inactive")
 
             # Check for existing active delete requests
             existing_delete = self.change_request_ids.filtered(
                 lambda cr: cr.type == "delete" and cr.state in ["draft", "submitted"]
             )
             if existing_delete:
-                errors.append("Partner already has an active delete request")
+                errors.append("Registrant already has an active delete request")
 
         if errors:
             raise ValidationError(
@@ -377,7 +380,7 @@ class ResPartner(models.Model):
             return False
 
     def action_create_change_request(self):
-        """Create a change request for this partner."""
+        """Create a change request for this registrant."""
         self.ensure_one()
 
         # Check if there's already an active change request
@@ -395,13 +398,12 @@ class ResPartner(models.Model):
         change_request = self.env["g2p.change.request"].create(
             {
                 "type": "modify",
-                "partner_id": self.id,
-                "description": f"Modify partner: {self.name}",
+                "registrant_id": self.id,
             }
         )
 
-        # Create draft record by copying partner data
-        draft_record = self._create_draft_from_partner()
+        # Create draft record by copying registrant data
+        draft_record = self._create_draft_from_registrant()
         change_request.write({"draft_record_id": draft_record.id})
 
         return {
@@ -414,11 +416,11 @@ class ResPartner(models.Model):
         }
 
     def action_view_active_change_request(self):
-        """View the active change request for this partner."""
+        """View the active change request for this registrant."""
         self.ensure_one()
 
         if not self.has_active_draft:
-            raise UserError(_("No active change request found for this partner."))
+            raise UserError(_("No active change request found for this registrant."))
 
         return {
             "type": "ir.actions.act_window",
@@ -430,14 +432,14 @@ class ResPartner(models.Model):
         }
 
     def action_add_draft_members(self):
-        """Open the draft member selection wizard for this partner's active change request."""
+        """Open the draft member selection wizard for this registrant's active change request."""
         self.ensure_one()
 
         if not self.active_change_request_id or not self.active_change_request_id.draft_record_id:
-            raise UserError(_("No active change request with draft record found for this partner."))
+            raise UserError(_("No active change request with draft record found for this registrant."))
 
         if not self.active_change_request_id.draft_record_id.is_group:
-            raise UserError(_("Draft member selection is only available for group partners."))
+            raise UserError(_("Draft member selection is only available for group registrants."))
 
         # Open the draft member selection wizard
         return {
@@ -452,11 +454,11 @@ class ResPartner(models.Model):
             },
         }
 
-    def _create_draft_from_partner(self):
-        """Create a draft record by copying partner data."""
+    def _create_draft_from_registrant(self):
+        """Create a draft record by copying registrant data."""
         self.ensure_one()
 
-        # Prepare partner data for draft record
+        # Prepare registrant data for draft record
         # Get region value safely - convert Many2one to ID if it exists
         region_value = getattr(self, "region", "")
         if hasattr(region_value, "id"):
@@ -464,7 +466,7 @@ class ResPartner(models.Model):
         elif not region_value:
             region_value = ""
 
-        partner_data = {
+        registrant_data = {
             "name": self.name,
             "is_group": self.is_group,
             "given_name": getattr(self, "given_name", ""),
@@ -476,7 +478,7 @@ class ResPartner(models.Model):
         }
 
         # Create draft record
-        draft_record = self.env["g2p.draft.record"].create(partner_data)
+        draft_record = self.env["g2p.draft.record"].create(registrant_data)
 
         return draft_record
 
@@ -495,11 +497,11 @@ class ResPartner(models.Model):
             or self.env.context.get("install_mode")
             or self.env.context.get("upgrade_mode")
             or not self.env.context.get("change_management_enabled", True)
-            or not any(partner.is_registrant for partner in self)
+            or not any(registrant.is_registrant for registrant in self)
         ):
             return super().write(vals)
 
-        # Only block writes for registrant partners when change management is enabled
+        # Only block writes for registrants when change management is enabled
         # and not in change request context
         raise ValidationError(
             _(

@@ -74,8 +74,8 @@
                         <field name="is_group" column_invisible="1" />
                     </group>
                     <notebook>
-                        <page string="Partner Data">
-                            <field name="partner_data" widget="g2p_registry_addl_info_widget" />
+                        <page string="Registrant Data">
+                            <field name="registrant_data" widget="g2p_registry_addl_info_widget" />
                         </page>
                     </notebook>
                 </sheet>
@@ -99,8 +99,8 @@
                         <field name="is_group" column_invisible="1" />
                     </group>
                     <notebook>
-                        <page string="Partner Data">
-                            <field name="partner_data" widget="g2p_registry_addl_info_widget" />
+                        <page string="Registrant Data">
+                            <field name="registrant_data" widget="g2p_registry_addl_info_widget" />
                         </page>
                     </notebook>
                 </sheet>

@@ -172,9 +172,9 @@
         </field>
     </record>
 
-    <!-- Action to open partner form with change management context -->
+    <!-- Action to open registrant form with change management context -->
     <record id="action_partner_form_change_management" model="ir.actions.act_window">
-        <field name="name">Partner</field>
+        <field name="name">Registrant</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_partner_form_change_management" />

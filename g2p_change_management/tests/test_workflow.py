@@ -33,10 +33,10 @@ class TestWorkflow(TransactionCase):
             }
         )
 
-        # Create test partner
+        # Create test registrant
         self.partner = self.env["res.partner"].create(
             {
-                "name": "Test Partner",
+                "name": "Test Registrant",
                 "is_registrant": True,
                 "is_group": False,
                 "unique_id": "TEST001",
@@ -188,7 +188,7 @@ class TestWorkflow(TransactionCase):
         change_request.action_submit()
         change_request.action_approve()
 
-        # Should have created a partner
+        # Should have created a registrant
         self.assertIsNotNone(change_request.partner_id)
         self.assertEqual(change_request.partner_id.name, "John Doe")
         self.assertEqual(change_request.partner_id.phone, "1234567890")
@@ -206,7 +206,7 @@ class TestWorkflow(TransactionCase):
         # Update draft record
         change_request.draft_record_id.write(
             {
-                "name": "Modified Partner",
+                "name": "Modified Registrant",
                 "phone": "9876543210",
             }
         )
@@ -215,8 +215,8 @@ class TestWorkflow(TransactionCase):
         change_request.action_submit()
         change_request.action_approve()
 
-        # Partner should be updated
-        self.assertEqual(self.partner.name, "Modified Partner")
+        # Registrant should be updated
+        self.assertEqual(self.partner.name, "Modified Registrant")
         self.assertEqual(self.partner.phone, "9876543210")
 
     def test_delete_workflow(self):
@@ -233,7 +233,7 @@ class TestWorkflow(TransactionCase):
         change_request.action_submit()
         change_request.action_approve()
 
-        # Partner should be deactivated
+        # Registrant should be deactivated
         self.assertFalse(self.partner.active)
 
     def test_group_member_workflow(self):

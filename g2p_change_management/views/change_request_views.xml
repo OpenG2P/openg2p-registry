@@ -16,7 +16,7 @@
             <field name="name" />
             <field name="type" />
             <field name="is_group" string="Group" />
-            <field name="partner_name" />
+            <field name="registrant_name" />
             <field name="requester_id" />
             <field name="state" />
             <field name="create_date" />
@@ -40,7 +40,7 @@
             >
             <field name="name" />
             <field name="type" />
-            <field name="partner_name" string="Individual" />
+            <field name="registrant_name" string="Individual" />
             <field name="requester_id" />
             <field name="state" />
             <field name="create_date" />
@@ -65,7 +65,7 @@
             <field name="name" />
             <field name="type" />
             <field name="group_kind_id" string="Group Kind" />
-            <field name="partner_name" string="Group" />
+            <field name="registrant_name" string="Group" />
             <field name="requester_id" />
             <field name="state" />
             <field name="create_date" />
@@ -114,24 +114,45 @@
                     />
             </header>
             <sheet>
-                                            <group>
-                    <field name="name" />
-                    <field name="type" readonly="1" />
-                    <field name="is_group" readonly="draft_record_id" />
-                    <field name="group_kind_id" invisible="not is_group" readonly="draft_record_id" />
-                    <field name="state" readonly="1" />
-                    <field name="requester_id" />
-                    <field
-                            name="partner_id"
-                            readonly="draft_record_id"
-                            context="{'form_view_ref': is_group and 'g2p_registry_group.view_groups_form' or 'g2p_registry_individual.view_individuals_form'}"
-                        />
-                    <field name="description" placeholder="Describe the changes being requested..." />
+                <group>
+                    <group string="Change Request Information">
+                        <field name="name" />
+                        <field name="type" readonly="1" />
+                        <field name="state" readonly="1" />
+                        <field name="is_group" readonly="draft_record_id" />
+                    </group>
+                    <group string="Request Details">
+                        <field name="requester_id" />
+                        <field name="change_reason" />
+                        <field
+                                name="change_source"
+                                placeholder="Enter the source or origin of this change request..."
+                            />
+                    </group>
                 </group>
 
-                <!-- Draft Record Information - Direct in main form -->
+                <group>
+                    <group string="Registrant Information">
+                        <field
+                                name="registrant_id"
+                                string="Registrant"
+                                readonly="draft_record_id"
+                                context="{'form_view_ref': is_group and 'g2p_registry_group.view_groups_form' or 'g2p_registry_individual.view_individuals_form'}"
+                            />
+                        <field name="group_kind_id" invisible="not is_group" readonly="draft_record_id" />
+                    </group>
+                    <group string="Approval Information" invisible="state == 'draft'">
+                        <field
+                                name="approver_id"
+                                readonly="1"
+                                invisible="state not in ['approved', 'rejected']"
+                            />
+                        <field name="rejection_reason" readonly="1" invisible="state != 'rejected'" />
+                    </group>
+                </group>
+
+                <!-- Draft Record Information -->
                 <field name="draft_record_id" invisible="1" />
-                <!-- No Draft Record Message -->
                 <div invisible="draft_record_id" class="alert alert-info" role="alert">
                     <strong>No Draft Record Available</strong><br />
                     A draft record will be created automatically when you save this change request.
@@ -182,8 +203,10 @@
     <field name="arch" type="xml">
         <search>
             <field name="name" />
-            <field name="partner_name" />
+            <field name="registrant_name" />
             <field name="requester_id" />
+            <field name="change_reason" />
+            <field name="change_source" />
             <field name="type" />
             <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
             <filter string="Submitted" name="submitted" domain="[('state', '=', 'submitted')]" />
