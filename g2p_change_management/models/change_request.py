@@ -16,7 +16,6 @@ class ChangeRequest(models.Model):
     _rec_name = "name"
 
     name = fields.Char(
-        string="Change Request Name",
         required=True,
         copy=False,
         readonly=True,
@@ -117,7 +116,7 @@ class ChangeRequest(models.Model):
 
     @api.model
     def _get_change_reason_selection(self):
-        reasons = self.env["g2p.change.reason"].search([("active", "=", True)], order="name")
+        reasons = self.env["g2p.change.request.reason"].search([("active", "=", True)], order="name")
         selection_list = [(str(reason.id), reason.name) for reason in reasons]
         if selection_list:
             return [("", "")] + selection_list
