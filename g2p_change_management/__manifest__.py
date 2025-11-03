@@ -10,9 +10,11 @@
     "depends": [
         "base",
         "mail",
-        "g2p_social_registry",
         "g2p_registry_addl_info",
         "g2p_registry_base",
+        "g2p_registry_group",
+        "g2p_registry_individual",
+        "g2p_registry_membership",
         "web",
     ],
     "data": [
@@ -25,6 +27,7 @@
         "views/change_log_views.xml",
         "views/draft_record_views.xml",
         "views/readonly_registry_views.xml",
+        "views/change_reason_views.xml",
         "wizards/change_request_wizard.xml",
         "wizards/bulk_operations_wizard_views.xml",
     ],

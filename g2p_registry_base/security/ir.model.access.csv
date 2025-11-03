@@ -32,3 +32,5 @@ g2p_gender_type_registrar_registrar,Gender Type Accesss,g2p_registry_base.model_
 "access_portal_wizard","access.portal.wizard","portal.model_portal_wizard",,1,1,1,0
 "access_portal_wizard_user","access.portal.wizard.user","portal.model_portal_wizard_user",,1,1,1,0
 "access_ir_config_parameter_system","ir_config_parameter_system","base.model_ir_config_parameter","base.group_system",1,1,1,1
+g2p_region_admin,Region Admin Access,g2p_registry_base.model_g2p_region,g2p_registry_base.group_g2p_admin,1,1,1,1
+g2p_region_registrar,Region Registrar Access,g2p_registry_base.model_g2p_region,g2p_registry_base.group_g2p_registrar,1,0,0,0

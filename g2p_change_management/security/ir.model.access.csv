@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_draft_record_user,Access Draft Record User,model_g2p_draft_record,g2p_change_management.group_change_management_user,1,1,1,1
-access_res_partner_user,Access Partner User,model_res_partner,g2p_change_management.group_change_management_user,1,1,1,1
+access_res_partner_user,Access Registrant User,model_res_partner,g2p_change_management.group_change_management_user,1,1,1,1
 access_tag_user,Access Tag User,g2p_registry_base.model_g2p_registrant_tags,g2p_change_management.group_change_management_user,1,1,1,1
 access_reg_id_user,Access Registration ID User,g2p_registry_base.model_g2p_reg_id,g2p_change_management.group_change_management_user,1,1,1,1
 access_id_type_user,Access ID Type User,g2p_registry_base.model_g2p_id_type,g2p_change_management.group_change_management_user,1,1,0,1
@@ -20,3 +20,7 @@ access_change_request_admin,Access Change Request Admin,model_g2p_change_request
 access_g2p_change_log_user,g2p.change.log user,model_g2p_change_log,g2p_change_management.group_change_management_user,1,0,1,0
 access_g2p_change_log_approver,g2p.change.log approver,model_g2p_change_log,g2p_change_management.group_change_management_approver,1,0,1,0
 access_g2p_change_log_admin,g2p.change.log admin,model_g2p_change_log,g2p_change_management.group_change_management_admin,1,1,1,0
+
+access_change_reason_user,Access Change Reason User,model_g2p_change_reason,g2p_change_management.group_change_management_user,1,1,1,1
+access_change_reason_approver,Access Change Reason Approver,model_g2p_change_reason,g2p_change_management.group_change_management_approver,1,1,1,1
+access_change_reason_admin,Access Change Reason Admin,model_g2p_change_reason,g2p_change_management.group_change_management_admin,1,1,1,1

@@ -88,8 +88,13 @@
                     col="4"
                     colspan="4"
                 >
-                    <field name="draft_member_ids" nolabel="1" colspan="4">
-                        <tree editable="top" default_order='name asc,ended_date asc'>
+                    <field
+                        name="draft_member_ids"
+                        nolabel="1"
+                        colspan="4"
+                        domain="[('is_group', '=', False), ('active_change_request_state', 'in', ['draft', 'submitted'])]"
+                    >
+                        <tree editable="top" default_order="name asc">
                             <field name="name" string="Member Name" />
                             <field name="given_name" string="Given Name" />
                             <field name="family_name" string="Family Name" />
@@ -98,6 +103,7 @@
                             <field name="region" string="Region" />
                         </tree>
                     </field>
+
                 </group>
             </xpath>
         </field>
@@ -166,13 +172,39 @@
         </field>
     </record>
 
-    <!-- Action to open partner form with change management context -->
+    <!-- Action to open registrant form with change management context -->
     <record id="action_partner_form_change_management" model="ir.actions.act_window">
-        <field name="name">Partner</field>
+        <field name="name">Registrant</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_partner_form_change_management" />
         <field name="context">{'change_management_context': True}</field>
     </record>
+
+
+    <!-- Hide Create button for Individuals list -->
+    <record id="view_individuals_list_tree_disabled_create" model="ir.ui.view">
+        <field name="name">view.individuals.list.tree.no.create</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_list_tree" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">false</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Hide Create button for Groups list -->
+    <record id="view_groups_list_tree_disabled_create" model="ir.ui.view">
+        <field name="name">view.groups.list.tree.no.create</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_list_tree" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">false</attribute>
+            </tree>
+        </field>
+    </record>
+
 
 </odoo>

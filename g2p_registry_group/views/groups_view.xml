@@ -115,6 +115,7 @@
                             options="{'no_open':True, 'no_create_edit':True,'no_create':True}"
                             readonly="disabled"
                         />
+                        <field name="unique_id" string="Unique ID" readonly="1" />
                     </group>
                     <notebook>
                         <page string="IDs" name="ids">
@@ -197,6 +198,7 @@
                                     <div class="o_address_format">
                                         <field name="address" readonly="disabled" />
                                     </div>
+                                    <field name="region" string="Region" />
                                 </group>
                                 <group colspan="2">
                                     <field

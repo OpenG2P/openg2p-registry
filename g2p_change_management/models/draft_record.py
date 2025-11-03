@@ -44,11 +44,18 @@ class G2PDraftRecord(models.Model):
     gender = fields.Char()
     region = fields.Char()
     is_group = fields.Boolean(default=False)
-    partner_data = fields.Json(string="Partner Data (JSON)")
+    registrant_data = fields.Json(string="Registrant Data (JSON)")
 
     rejection_reason = fields.Text("remark")
 
     group_member_ids_json = fields.Json(string="Group Members (JSON)", default=list)
+
+    # Add One2many to link all change requests using this draft record
+    change_request_ids = fields.One2many(
+        "g2p.change.request",
+        "draft_record_id",
+        string="Change Requests",
+    )
 
     # Computed field to show active change request state
     active_change_request_state = fields.Selection(
@@ -59,7 +66,7 @@ class G2PDraftRecord(models.Model):
             ("rejected", "Rejected"),
         ],
         compute="_compute_active_change_request_state",
-        store=False,  # Don't store, always compute
+        store=True,
         help="State of the active change request for this draft record",
     )
 
@@ -80,36 +87,32 @@ class G2PDraftRecord(models.Model):
     )
 
     def _return_wizard_with_context(self, view_id):
-        """Override to filter out draft_member_ids from partner_data before processing."""
-        # Get the partner_data and filter out draft_member_ids
-        if self.partner_data:
+        """Override to filter out draft_member_ids from registrant_data before processing."""
+        # Get the registrant_data and filter out draft_member_ids
+        if self.registrant_data:
             try:
-                json_data = json.loads(self.partner_data)
+                json_data = json.loads(self.registrant_data)
                 # Remove draft_member_ids if it exists
                 if "draft_member_ids" in json_data:
                     del json_data["draft_member_ids"]
-                # Update the partner_data with filtered data
-                self.partner_data = json.dumps(json_data)
+                # Update the registrant_data with filtered data
+                self.registrant_data = json.dumps(json_data)
             except (json.JSONDecodeError, KeyError) as err:
                 _logger.warning(
-                    "Failed to filter draft_member_ids from partner_data JSON for draft record %s: %s",
+                    "Failed to filter draft_member_ids from registrant_data JSON for draft record %s: %s",
                     self.id,
                     err,
-                )  # Continue with original data
-
-        # Call the parent method
+                )
         return super()._return_wizard_with_context(view_id)
 
+    @api.depends("change_request_ids.state")
     def _compute_active_change_request_state(self):
         """Compute the state of the active change request for this draft record."""
-
         for record in self:
             # Find the most recent change request for this draft record
-            change_request = self.env["g2p.change.request"].search(
-                [("draft_record_id", "=", record.id)], order="create_date desc", limit=1
-            )
-
+            change_request = record.change_request_ids.sorted("create_date", reverse=True)[:1]
             if change_request:
+                change_request = change_request[0]
                 record.active_change_request_state = change_request.state
                 _logger.info(
                     "Draft Record %s: active_change_request_state = %s",
@@ -249,32 +252,10 @@ class G2PDraftRecord(models.Model):
 
     @api.model
     def create(self, vals):
-        partner_data = {}
-        is_group = vals.get("is_group", False)
-        vals["is_group"] = is_group
-
-        if vals.get("is_group"):
-            partner_data["name"] = vals.get("name", "")
-            partner_data["is_group"] = True
-        else:
-            given_name = vals.get("given_name", "")
-            family_name = vals.get("family_name", "")
-            addl_name = vals.get("addl_name", "")
-            partner_data = {
-                "given_name": given_name,
-                "family_name": family_name,
-                "addl_name": addl_name,
-                "gender": vals.get("gender", ""),
-                "region": vals.get("region", ""),
-                "is_group": False,
-            }
-            vals["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
-
-        if vals.get("phone"):
-            partner_data["phone_number_ids"] = [(0, 0, {"phone_no": vals["phone"]})]
-
-        partner_data["imported_record_state"] = "draft"
-        vals["partner_data"] = json.dumps(partner_data)
+        registrant_data = {}
+        registrant_data["is_group"] = vals.get("is_group")
+        registrant_data["imported_record_state"] = "draft"
+        vals["registrant_data"] = json.dumps(registrant_data)
 
         return super().create(vals)
 
@@ -290,13 +271,13 @@ class G2PDraftRecord(models.Model):
 
     def action_publish(self):
         self.ensure_one()
-        partner_data = json.loads(self.partner_data)
+        registrant_data = json.loads(self.registrant_data)
         res_partner_model = self.env["res.partner"]
         fields_metadata = res_partner_model.fields_get()
         valid_data = {}
         created_partner = None
 
-        self._prepare_valid_data(valid_data, fields_metadata, partner_data)
+        self._prepare_valid_data(valid_data, fields_metadata, registrant_data)
 
         if valid_data:
             valid_data["db_import"] = "yes"
@@ -304,39 +285,27 @@ class G2PDraftRecord(models.Model):
         else:
             raise ValueError("No valid data found to create a partner record.")
 
-        if partner_data.get("is_group"):
-            group_name = partner_data.get("name", "").strip().upper()
-
+        if registrant_data.get("is_group"):
+            group_name = (registrant_data.get("name") or "").strip().upper()
             valid_data["name"] = group_name
             valid_data["is_group"] = True
         else:
-            given_name = partner_data.get("given_name", "")
-            family_name = partner_data.get("family_name", "")
-            addl_name = partner_data.get("addl_name", "")
-
+            given_name = (registrant_data.get("given_name") or "").strip()
+            family_name = (registrant_data.get("family_name") or "").strip()
+            addl_name = (registrant_data.get("addl_name") or "").strip()
             valid_data["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
             valid_data["is_group"] = False
 
         created_partner = res_partner_model.sudo().create(valid_data)
-
-        if partner_data.get("is_group"):
-            individual_draft_ids = self.group_member_ids_json or []
-            membership_model = self.env["g2p.group.membership"].sudo()
-            for draft_id in individual_draft_ids:
-                draft_individual = self.env["g2p.draft.record"].browse(draft_id)
-                if draft_individual.exists():
-                    individual_partner = draft_individual.action_publish()
-                    membership_model.create(
-                        {
-                            "group": created_partner.id,
-                            "individual": individual_partner.id,
-                        }
-                    )
+        if registrant_data.get("is_group"):
+            _logger.info(
+                "Group partner %s created. Members will be linked after their approval.", created_partner.name
+            )
 
         self._notify_validators()
         return created_partner
 
-    def _prepare_valid_data(self, valid_data, fields_metadata, partner_data):
+    def _prepare_valid_data(self, valid_data, fields_metadata, registrant_data):
         """Prepare valid data for partner creation based on field types."""
         validators = {
             "char": lambda v, f: isinstance(v, str),
@@ -353,7 +322,7 @@ class G2PDraftRecord(models.Model):
             "selection": lambda v, f: v in [option[0] for option in f.get("selection", [])],
         }
 
-        for field_name, value in partner_data.items():
+        for field_name, value in registrant_data.items():
             if field_name not in fields_metadata:
                 continue
 
@@ -409,17 +378,17 @@ class G2PDraftRecord(models.Model):
 
     def action_submit(self):
         for record in self:
-            partner_data = json.loads(record.partner_data)
-            partner_data["imported_record_state"] = "submitted"
+            registrant_data = json.loads(record.registrant_data)
+            registrant_data["imported_record_state"] = "submitted"
 
-            if partner_data.get("is_group"):
+            if registrant_data.get("is_group"):
                 individual_draft_ids = record.group_member_ids_json or []
                 for draft_id in individual_draft_ids:
                     draft_individual = self.env["g2p.draft.record"].browse(draft_id)
                     if draft_individual.exists():
                         draft_individual.action_submit()
 
-            self.write({"state": "submitted", "partner_data": json.dumps(partner_data)})
+            self.write({"state": "submitted", "registrant_data": json.dumps(registrant_data)})
             activities = self.env["mail.activity"].search(
                 [("res_model", "=", self._name), ("res_id", "in", self.ids)]
             )
@@ -448,24 +417,17 @@ class G2PDraftRecord(models.Model):
         self.ensure_one()
         active_id = self.id
 
-        if not self.partner_data:
-            raise UserError(_("No partner data available."))
+        if not self.registrant_data:
+            raise UserError(_("No registrant data available."))
 
         try:
-            json_data = json.loads(self.partner_data)
+            json_data = json.loads(self.registrant_data)
         except json.JSONDecodeError as err:
-            raise UserError(_("Invalid JSON data in partner_data.")) from err
+            raise UserError(_("Invalid JSON data in registrant_data.")) from err
 
         context_data, additional_g2p_info = self._process_json_data(json_data)
 
         context_data["active_id"] = active_id
-
-        # Get the change request state for this draft record
-        change_request = self.env["g2p.change.request"].search(
-            [("draft_record_id", "=", self.id)], order="create_date desc", limit=1
-        )
-
-        change_request_state = change_request.state if change_request else False
 
         _logger.info("The Additionla info")
         _logger.info(additional_g2p_info)
@@ -484,7 +446,6 @@ class G2PDraftRecord(models.Model):
                 "default_individual_membership_ids": json_data.get("individual_membership_ids", []),
                 "default_reg_ids": json_data.get("reg_ids", []),
                 "default_is_group": json_data.get("is_group", False),
-                "change_request_state": change_request_state,
             },
         }
 
@@ -595,15 +556,11 @@ class G2PRespartnerIntegration(models.Model):
         model_name = context.get("active_model")
         record_id = context.get("active_id")
         active_record = self.env[model_name].browse(record_id)
-        partner_data = json.loads(active_record.partner_data or "{}")
-        m2m_fields = {
-            "tags_ids": "tags_ids",
-        }
-
+        registrant_data = json.loads(active_record.registrant_data or "{}")
+        m2m_fields = {"tags_ids": "tags_ids"}
         processed_m2m_fields = {}
         for field in m2m_fields:
             processed_m2m_fields[field] = [item[1] for item in vals.get(field, [])]
-
         dynamic_fields = {
             "is_company": False,
             "is_group": active_record.is_group,
@@ -611,62 +568,80 @@ class G2PRespartnerIntegration(models.Model):
             "db_import": "yes",
             **processed_m2m_fields,
         }
-
         static_fields = self.get_fields_in_view()
-
         draft_record = {}
-
         draft_record.update(dynamic_fields)
+        self._update_fields_from_vals(draft_record, vals)
+        self._update_fields_from_static(draft_record, static_fields, vals, registrant_data, model_name)
+        if not self.is_group and (vals.get("given_name") or vals.get("family_name") or vals.get("addl_name")):
+            draft_record["name"] = self._compose_name(vals)
+        active_record.write({"registrant_data": json.dumps(draft_record)})
+        if active_record.is_group:
+            member_ids = self._extract_member_ids_from_commands(vals.get("draft_member_ids"))
+            if member_ids:
+                unique_ids = sorted(set(member_ids))
+                active_record.write(
+                    {"draft_member_ids": [(6, 0, unique_ids)], "group_member_ids_json": unique_ids}
+                )
+        self._sync_direct_fields(active_record, vals)
+        change_requests = self.env["g2p.change.request"].search([("draft_record_id", "=", active_record.id)])
+        if change_requests:
+            for cr in change_requests:
+                cr._update_change_request_name()
 
-        # First, capture all fields from vals that are not already processed
+    def _update_fields_from_vals(self, draft_record, vals):
         for field_name, field_value in vals.items():
-            if field_name not in processed_m2m_fields and field_name not in draft_record:
+            if field_name not in draft_record:
                 draft_record[field_name] = field_value
 
-        # Then handle static fields from views
+    def _update_fields_from_static(self, draft_record, static_fields, vals, registrant_data, model_name):
         for field in static_fields:
             if field in self.env[model_name]._fields:
-                if field in vals:
-                    draft_record[field] = vals[field]
-                else:
-                    draft_record[field] = partner_data.get(field)
+                draft_record[field] = vals.get(field, registrant_data.get(field))
             else:
                 if field in vals:
                     draft_record[field] = vals[field]
 
-        if not self.is_group and (vals.get("given_name") or vals.get("family_name") or vals.get("addl_name")):
-            name_parts = [
-                val.upper()
-                for val in [vals.get("given_name"), vals.get("family_name"), vals.get("addl_name")]
-                if val
-            ]
-            draft_record["name"] = " ".join(filter(None, name_parts)).strip()
+    def _compose_name(self, vals):
+        name_parts = [
+            val.upper()
+            for val in [vals.get("given_name"), vals.get("family_name"), vals.get("addl_name")]
+            if val
+        ]
+        return " ".join(filter(None, name_parts)).strip()
 
-        active_record.write({"partner_data": json.dumps(draft_record)})
+    def _extract_member_ids_from_commands(self, cmds):
+        member_ids = []
+        if isinstance(cmds, list):
+            for cmd in cmds:
+                if isinstance(cmd, list | tuple) and len(cmd) >= 2:
+                    if cmd[0] == 6 and len(cmd) >= 3 and isinstance(cmd[2], list):
+                        member_ids.extend(int(x) for x in cmd[2])
+                    elif cmd[0] == 4 and isinstance(cmd[1], int):
+                        member_ids.append(int(cmd[1]))
+                    elif cmd[0] == 3 and isinstance(cmd[1], int):
+                        try:
+                            member_ids.remove(int(cmd[1]))
+                        except ValueError as e:
+                            _logger.warning(
+                                f"Tried to remove draft_member_id \
+                                {cmd[1]} but it was not present: {e}"
+                            )
+        return member_ids
 
-        # After updating partner_data (the JSON), also update the direct fields
+    def _sync_direct_fields(self, active_record, vals):
         direct_fields = ["region", "name", "given_name", "family_name", "addl_name", "gender", "phone"]
         update_vals = {}
-
         for field in direct_fields:
             field_val = vals.get(field)
-            if field_val and hasattr(active_record, field):  # Check if field exists on the model
+            if field_val and hasattr(active_record, field):
                 if field == "region":
                     region = self.env["g2p.region"].browse(field_val)
                     update_vals[field] = region.name if region.exists() else ""
                 else:
                     update_vals[field] = field_val
-
-        if update_vals:  # Only write if there are valid fields to update
+        if update_vals:
             active_record.write(update_vals)
-
-        # Update change request name when draft record is saved for the first time
-        change_requests = self.env["g2p.change.request"].search([("draft_record_id", "=", active_record.id)])
-        if change_requests:
-            for cr in change_requests:
-                # Update with draft record name (without unique_id since it's not published yet)
-                if active_record.name:
-                    cr.name = f"{active_record.name} - CR #{cr.id}"
 
     def action_publish(self):
         context = self.env.context
@@ -721,6 +696,6 @@ class G2PRespartnerIntegration(models.Model):
         if "name" in vals:
             change_requests = self.env["g2p.change.request"].search([("draft_record_id", "in", self.ids)])
             if change_requests:
-                change_requests.update_name_from_partner()
+                change_requests.update_name_from_registrant()
 
         return result
