@@ -28,7 +28,7 @@ class ChangeRequestPerformance(models.Model):
     def _optimize_search_domain(self, domain):
         """Optimize search domain for better performance."""
         # Move indexed fields to the beginning of the domain
-        indexed_fields = ["state", "type", "requester_id", "partner_id", "create_date"]
+        indexed_fields = ["state", "type", "requester_id", "registrant_id", "create_date"]
         optimized_domain = []
         remaining_domain = []
 
@@ -107,13 +107,13 @@ class ResPartnerPerformance(models.Model):
         return self.search(domain)
 
     @api.model
-    def _bulk_update_change_request_names(self, partner_ids):
-        """Bulk update change request names for multiple partners."""
-        if not partner_ids:
+    def _bulk_update_change_request_names(self, registrant_ids):
+        """Bulk update change request names for multiple registrants."""
+        if not registrant_ids:
             return
 
-        # Get all change requests for these partners
-        change_requests = self.env["g2p.change.request"].search([("partner_id", "in", partner_ids)])
+        # Get all change requests for these registrants
+        change_requests = self.env["g2p.change.request"].search([("registrant_id", "in", registrant_ids)])
 
         # Update names in batches
         for batch in self._batch_process_records(change_requests):
@@ -241,7 +241,7 @@ class DatabaseOptimization(models.Model):
         indexes = [
             ("idx_change_request_state_type", "change_request", ["state", "type"]),
             ("idx_change_request_requester_state", "change_request", ["requester_id", "state"]),
-            ("idx_change_request_partner_state", "change_request", ["partner_id", "state"]),
+            ("idx_change_request_registrant_state", "change_request", ["registrant_id", "state"]),
             ("idx_change_request_create_date", "change_request", ["create_date"]),
             ("idx_res_partner_has_active_draft", "res_partner", ["has_active_draft"]),
             ("idx_res_partner_active_cr", "res_partner", ["active_change_request_id"]),

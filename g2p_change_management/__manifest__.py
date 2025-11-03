@@ -27,6 +27,7 @@
         "views/change_log_views.xml",
         "views/draft_record_views.xml",
         "views/readonly_registry_views.xml",
+        "views/change_request_reason_views.xml",
         "wizards/change_request_wizard.xml",
         "wizards/bulk_operations_wizard_views.xml",
     ],

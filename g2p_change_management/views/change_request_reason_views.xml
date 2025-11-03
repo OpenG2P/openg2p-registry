@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Change Reason Tree View -->
+    <record id="view_change_request_reason_tree" model="ir.ui.view">
+        <field name="name">g2p.change.request.reason.tree</field>
+        <field name="model">g2p.change.request.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Change Reason Form View -->
+    <record id="view_change_request_reason_form" model="ir.ui.view">
+        <field name="name">g2p.change.request.reason.form</field>
+        <field name="model">g2p.change.request.reason</field>
+        <field name="arch" type="xml">
+            <form string="Change Reason">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Change Reason Action -->
+    <record id="action_change_request_reason" model="ir.actions.act_window">
+        <field name="name">Change Request Reasons</field>
+        <field name="res_model">g2p.change.request.reason</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first change request reason!
+            </p>
+        </field>
+    </record>
+
+    <!-- Change Reason Menu Item -->
+    <menuitem
+        id="menu_change_request_reason"
+        name="Change Request Reasons"
+        parent="menu_change_management_config"
+        action="action_change_request_reason"
+        sequence="10"
+    />
+
+</odoo>
