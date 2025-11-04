@@ -1,4 +1,8 @@
+import logging
+
 from odoo import _, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class ChangeRequestRejectWizard(models.TransientModel):
@@ -31,6 +35,25 @@ class ChangeRequestRejectWizard(models.TransientModel):
 
         self.change_request_id.message_post(
             body=_("Change request rejected. Reason: %s") % self.rejection_reason
+        )
+
+        if self.change_request_id.draft_record_id and self.change_request_id.draft_record_id.is_group:
+            updated_count = self.change_request_id._update_group_member_statuses("rejected")
+            if updated_count > 0:
+                self.change_request_id.message_post(
+                    body=_("Updated status of %(count)s draft individual members to 'rejected'.")
+                    % {"count": updated_count}
+                )
+
+        # Notify requester and close activities
+        self.change_request_id._send_approval_result_notification("rejected")
+        self.change_request_id._close_related_activities()
+
+        _logger.info(
+            "Change request %s rejected by %s. Reason: %s",
+            self.change_request_id.name,
+            self.env.user.name,
+            self.rejection_reason,
         )
 
         return {"type": "ir.actions.act_window_close"}

@@ -233,8 +233,9 @@ class ChangeRequest(models.Model):
             change_request.name = f"CR #{change_request.id}"
 
         # Create draft record after change request is created
-        draft_record = change_request._create_draft_record()
-        change_request.write({"draft_record_id": draft_record.id})
+        draft_record = change_request._create_draft_record_for_different_type_cr()
+        if draft_record:
+            change_request.write({"draft_record_id": draft_record.id})
 
         # Update the change request name based on the draft record
         change_request._update_change_request_name()
@@ -762,105 +763,13 @@ class ChangeRequest(models.Model):
         if not self.env.user.has_group("g2p_change_management.group_change_management_approver"):
             raise UserError(_("You don't have permission to reject change requests."))
 
-        # For now, we'll handle rejection directly without a wizard
-        # TODO: Implement rejection wizard in future task
-        self.write(
-            {
-                "state": "rejected",
-                "approver_id": self.env.user.id,
-            }
-        )
-
-        # Log the rejection
-        self.message_post(
-            body=_("Change request rejected by %(user)s.") % {"user": self.env.user.name},
-            subject=_("Change Request Rejected: %(name)s") % {"name": self.name},
-        )
-
-        # Update group member statuses if this is a group request
-        if self.draft_record_id and self.draft_record_id.is_group:
-            updated_count = self._update_group_member_statuses("rejected")
-            if updated_count > 0:
-                self.message_post(
-                    body=_("Updated status of %(count)s draft individual members to 'rejected'.")
-                    % {"count": updated_count},
-                    subject=_("Group Member Status Updated"),
-                )
-
-        # Send notification to requester
-        self._send_approval_result_notification("rejected")
-
-        # Close related activities
-        self._close_related_activities()
-
-        _logger.info("Change request %s rejected by %s", self.name, self.env.user.name)
-        return True
-
-    def _validate_workflow_transition(self, from_state, to_state):
-        """Validate if the state transition is allowed."""
-        allowed_transitions = {
-            "draft": ["submitted"],
-            "submitted": ["approved", "rejected"],
-            "approved": [],  # No further transitions
-            "rejected": ["draft"],  # Can be reset to draft
+        # Open rejection wizard to capture reason
+        action = self.env.ref("g2p_change_management.action_change_request_reject_wizard").read()[0]
+        action["context"] = {
+            **self.env.context,
+            "default_change_request_id": self.id,
         }
-
-        if to_state not in allowed_transitions.get(from_state, []):
-            raise UserError(
-                _("Invalid state transition from '%(from)s' to '%(to)s'.")
-                % {"from": from_state, "to": to_state}
-            )
-
-        return True
-
-    def _check_workflow_permissions(self, action):
-        """Check if user has permissions for the workflow action."""
-        user = self.env.user
-
-        if action in ["approve", "reject"]:
-            if not user.has_group("g2p_change_management.group_change_management_approver"):
-                raise UserError(_("You don't have permission to %s change requests.") % action)
-
-        elif action == "submit":
-            # Any user can submit their own requests
-            if self.requester_id != user:
-                raise UserError(_("You can only submit your own change requests."))
-
-        return True
-
-    def get_workflow_summary(self):
-        """Get a summary of the workflow status."""
-        return {
-            "name": self.name,
-            "type": dict(self._fields["type"].selection).get(self.type, self.type),
-            "state": dict(self._fields["state"].selection).get(self.state, self.state),
-            "requester": self.requester_id.name,
-            "approver": self.approver_id.name if self.approver_id else None,
-            "created_date": self.create_date,
-            "last_update": self.write_date,
-            "has_draft_record": bool(self.draft_record_id),
-            "can_submit": self.state == "draft" and self.requester_id == self.env.user,
-            "can_approve": self.state == "submitted"
-            and self.env.user.has_group("g2p_change_management.group_change_management_approver"),
-            "can_reject": self.state == "submitted"
-            and self.env.user.has_group("g2p_change_management.group_change_management_approver"),
-        }
-
-    def action_reset_to_draft(self):
-        """Reset the change request to draft state."""
-        self.ensure_one()
-        if self.state not in ["submitted", "rejected"]:
-            raise UserError(_("Only submitted or rejected change requests can be reset to draft."))
-
-        self.write(
-            {
-                "state": "draft",
-                "rejection_reason": False,
-            }
-        )
-        self.message_post(body=_("Change request reset to draft."))
-
-        return True
+        return action
 
     def _create_approval_activity(self):
         """Create approval activity for approvers."""
@@ -1228,7 +1137,7 @@ class ChangeRequest(models.Model):
                 "error": "Failed to capture values",
             }
 
-    def _create_draft_record(self):
+    def _create_draft_record_for_different_type_cr(self):
         """Create a draft record based on the change request type."""
         self.ensure_one()
 
@@ -1238,10 +1147,9 @@ class ChangeRequest(models.Model):
             # For create requests, use the is_group field from change request
             draft_data = {
                 "name": f"New {'Group' if self.is_group else 'Individual'} - {self.id}",
-                "is_group": self.is_group,  # Use the user's selection
+                "is_group": self.is_group,
             }
 
-            # For groups, we need to handle group_kind_id in the JSON data
             if self.is_group:
                 # Create the draft record first, then update its JSON data
                 draft_record = self.env["g2p.draft.record"].create(draft_data)
@@ -1254,7 +1162,11 @@ class ChangeRequest(models.Model):
 
                 return draft_record
 
+            # For individuals, create draft record
             _logger.info("Create request draft data: %s", draft_data)
+            draft_record = self.env["g2p.draft.record"].create(draft_data)
+            _logger.info("Draft record created successfully: %s", draft_record.name)
+            return draft_record
 
         elif self.type == "modify":
             # For modify requests, copy registrant data to draft
@@ -1280,22 +1192,19 @@ class ChangeRequest(models.Model):
             }
             _logger.info("Modify request draft data: %s", draft_data)
 
-        elif self.type == "delete":
-            # For delete requests, no draft record needed
-            raise UserError(_("Draft records are not needed for delete requests."))
-
-        else:
-            raise UserError(_("Invalid change request type."))
-
-        try:
-            # Create the draft record
+            # Create the draft record for modify
             _logger.info("Attempting to create draft record with data: %s", draft_data)
             draft_record = self.env["g2p.draft.record"].create(draft_data)
             _logger.info("Draft record created successfully: %s", draft_record.name)
             return draft_record
-        except Exception as err:
-            _logger.error("Error in _create_draft_record: %s", str(err))
-            raise
+
+        elif self.type == "delete":
+            # For delete requests, no draft record needed
+            _logger.info("Delete request - no draft record created")
+            return None
+
+        else:
+            raise UserError(_("Invalid change request type."))
 
     def action_edit_draft_record(self):
         """Open the draft record in edit mode using existing draft record methods."""
@@ -1343,7 +1252,7 @@ class ChangeRequest(models.Model):
         _logger.info(additional_g2p_info)
         return {
             "type": "ir.actions.act_window",
-            "name": "Record Data",
+            "name": "Registrant Data",
             "view_mode": "form",
             "res_model": "res.partner",
             "view_id": view_id,

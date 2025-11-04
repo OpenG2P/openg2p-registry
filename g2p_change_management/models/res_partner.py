@@ -321,7 +321,6 @@ class ResPartner(models.Model):
         """Get available draft individual records for group membership selection."""
         self.ensure_one()
 
-        # Only return draft records that are in draft or submitted state (not published/rejected)
         available_drafts = self.env["g2p.draft.record"].search(
             [
                 ("is_group", "=", False),  # Only individual records

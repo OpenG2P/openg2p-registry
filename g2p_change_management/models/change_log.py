@@ -41,12 +41,23 @@ class ChangeLog(models.Model):
         help="Type of change that was made.",
     )
 
-    old_values = fields.Text(
+    old_values = fields.Json(
         help="JSON representation of the old values before the change.",
     )
 
-    new_values = fields.Text(
+    new_values = fields.Json(
         help="JSON representation of the new values after the change.",
+    )
+
+    old_values_formatted = fields.Text(
+        compute="_compute_formatted_values",
+        help="Formatted display of old values as JSON string.",
+    )
+
+    new_values_formatted = fields.Text(
+        string="New Values (Formatted)",
+        compute="_compute_formatted_values",
+        help="Formatted display of new values as JSON string.",
     )
 
     changed_by = fields.Many2one(
@@ -72,18 +83,6 @@ class ChangeLog(models.Model):
         store=True,
         readonly=True,
         help="Indicates if the change was for a group record.",
-    )
-
-    # Computed fields for better display
-    old_values_formatted = fields.Text(
-        compute="_compute_formatted_values",
-        help="Formatted display of old values.",
-    )
-
-    new_values_formatted = fields.Text(
-        string="New Values (Formatted)",
-        compute="_compute_formatted_values",
-        help="Formatted display of new values.",
     )
 
     registrant_name = fields.Char(
@@ -127,23 +126,13 @@ class ChangeLog(models.Model):
     def _compute_formatted_values(self):
         """Format JSON values for better display."""
         for record in self:
-            # Format old values
             if record.old_values:
-                try:
-                    old_data = json.loads(record.old_values)
-                    record.old_values_formatted = json.dumps(old_data, indent=2, ensure_ascii=False)
-                except (json.JSONDecodeError, TypeError):
-                    record.old_values_formatted = record.old_values
+                record.old_values_formatted = json.dumps(record.old_values, indent=2, ensure_ascii=False)
             else:
                 record.old_values_formatted = "No previous values"
 
-            # Format new values
             if record.new_values:
-                try:
-                    new_data = json.loads(record.new_values)
-                    record.new_values_formatted = json.dumps(new_data, indent=2, ensure_ascii=False)
-                except (json.JSONDecodeError, TypeError):
-                    record.new_values_formatted = record.new_values
+                record.new_values_formatted = json.dumps(record.new_values, indent=2, ensure_ascii=False)
             else:
                 record.new_values_formatted = "No new values"
 
@@ -174,11 +163,11 @@ class ChangeLog(models.Model):
                 "is_group": getattr(registrant, "is_group", False),
             }
 
-            # Add JSON values if provided
+            # Add JSON values if provided (JSON fields accept dicts directly)
             if old_values:
-                log_data["old_values"] = json.dumps(old_values, ensure_ascii=False)
+                log_data["old_values"] = old_values
             if new_values:
-                log_data["new_values"] = json.dumps(new_values, ensure_ascii=False)
+                log_data["new_values"] = new_values
 
             change_log = self.with_context(allow_change_log_creation=True).create(log_data)
 

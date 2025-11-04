@@ -12,8 +12,9 @@
                 <button
                     type="object"
                     name="action_create_change_request"
-                    class="oe_stat_button"
+                    class="oe_stat_button o_active_cr_highlight "
                     icon="fa-edit"
+                    confirm="Are you sure you want to create a Change Request for this registrant?"
                     invisible="not is_registrant or has_active_draft"
                     title="Create Change Request"
                 >
@@ -24,7 +25,7 @@
                 <button
                     type="object"
                     name="action_view_active_change_request"
-                    class="oe_stat_button"
+                    class="oe_stat_button o_active_cr_highlight"
                     icon="fa-tasks"
                     invisible="not has_active_draft"
                     title="View Active Change Request"
@@ -121,8 +122,9 @@
                 <button
                     type="object"
                     name="action_create_change_request"
-                    class="oe_stat_button"
+                    class="oe_stat_button o_active_cr_highlight"
                     icon="fa-edit"
+                    confirm="Are you sure you want to create a Change Request for this registrant?"
                     invisible="not is_registrant or has_active_draft"
                     title="Create Change Request"
                 >
@@ -133,7 +135,7 @@
                 <button
                     type="object"
                     name="action_view_active_change_request"
-                    class="oe_stat_button"
+                    class="oe_stat_button o_active_cr_highlight"
                     icon="fa-tasks"
                     invisible="not has_active_draft"
                     title="View Active Change Request"

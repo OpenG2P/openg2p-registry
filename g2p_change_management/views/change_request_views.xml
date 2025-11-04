@@ -102,10 +102,10 @@
                     />
                 <button
                         name="action_edit_draft_record"
-                        string="Go to Draft"
+                        string="Go to Draft Registrant "
                         type="object"
                         class="btn-info"
-                        invisible="not draft_record_id"
+                        invisible="state == 'approved' or not draft_record_id"
                     />
                 <field
                         name="state"
@@ -122,11 +122,12 @@
                         <field name="is_group" readonly="draft_record_id" />
                     </group>
                     <group string="Request Details">
-                        <field name="requester_id" />
-                        <field name="change_reason" />
+                        <field name="requester_id" readonly="draft_record_id" />
+                        <field name="change_reason" readonly="state and state != 'draft'" />
                         <field
                                 name="change_source"
                                 placeholder="Enter the source or origin of this change request..."
+                                readonly="state and state != 'draft'"
                             />
                     </group>
                 </group>
@@ -213,8 +214,16 @@
             <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]" />
             <filter string="Rejected" name="rejected" domain="[('state', '=', 'rejected')]" />
             <filter string="My Requests" name="my_requests" domain="[('requester_id', '=', uid)]" />
-            <filter string="Individual" name="individual" domain="[('is_group', '=', False)]" />
-            <filter string="Group" name="group" domain="[('is_group', '=', True)]" />
+            <filter
+                    string="Individual"
+                    name="individual"
+                    domain="[('is_group', '=', False), ('state', 'in', ['draft', 'submitted'])]"
+                />
+            <filter
+                    string="Group"
+                    name="group"
+                    domain="[('is_group', '=', True), ('state', 'in', ['draft', 'submitted'])]"
+                />
             <group expand="0" string="Group By">
                 <filter string="State" name="group_state" context="{'group_by': 'state'}" />
                 <filter string="Type" name="group_type" context="{'group_by': 'type'}" />
