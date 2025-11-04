@@ -215,7 +215,7 @@
                         name="action_update"
                         string="Save"
                         type="object"
-                        invisible="active_change_request_state and active_change_request_state != 'draft'"
+                        invisible="active_change_request_state and active_change_request_state != 'draft' "
                     />
                     <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
                     <field name="imported_record_state" invisible="true" />
@@ -233,6 +233,7 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="after">
                 <footer>
+                    <field name="active_change_request_state" invisible="true" />
                     <button
                         class="btn btn-info"
                         name="action_update"
@@ -242,8 +243,6 @@
                     />
                     <button string="Discard" class="btn btn-warning" special="cancel" data-hotkey="x" />
                     <field name="imported_record_state" invisible="true" />
-                    <field name="active_change_request_state" invisible="true" />
-                    <field name="active_change_request_state" string="DEBUG: Context CR State" readonly="1" />
                 </footer>
             </xpath>
         </field>

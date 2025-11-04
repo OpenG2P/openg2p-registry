@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="g2p_change_management.ChangeLogJsonWidget">
+        <t t-set="jsonToRender" t-value="this.renderjson()" />
+        <t t-call="g2p_change_management.ChangeLogJsonTable" />
+    </t>
+
+    <t t-name="g2p_change_management.ChangeLogJsonTable">
+        <table class="o_group o_inner_group table table-bordered" border="1" style="border-collapse:collapse">
+            <tbody>
+                <t t-set="isArray" t-value="Array.isArray(jsonToRender)" />
+                <t t-foreach="Object.entries(jsonToRender)" t-as="key" t-key="key[0]">
+                    <tr>
+                        <t t-if="!isArray">
+                            <td class="o_td_label">
+                                <label class="o_form_label">
+                                    <strong>
+                                        <t t-esc="key[0]" />
+                                    </strong>
+                                </label>
+                            </td>
+                        </t>
+                        <td>
+                            <t t-if="Array.isArray(key[1]) || this.isPlainObject(key[1])">
+                                <t t-set="jsonToRender" t-value="key[1]" />
+                                <t t-call="g2p_change_management.ChangeLogJsonTable" />
+                            </t>
+                            <t t-elif="typeof key[1] === 'object' &amp;&amp; key[1] !== null">
+                                <span class="o_field_widget">
+                                   <t t-raw="key[1]" />
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="o_field_widget">
+                                   <t t-raw="key[1]" />
+                                </span>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+</templates>

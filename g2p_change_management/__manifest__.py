@@ -10,7 +10,6 @@
     "depends": [
         "base",
         "mail",
-        "g2p_registry_addl_info",
         "g2p_registry_base",
         "g2p_registry_group",
         "g2p_registry_individual",
@@ -20,7 +19,6 @@
     "data": [
         "security/ir.rules.xml",
         "security/ir.model.access.csv",
-        "data/performance_config.xml",
         "wizards/rejection.xml",
         "views/partner_views.xml",
         "views/change_request_views.xml",

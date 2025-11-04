@@ -80,51 +80,86 @@
                     </group>
 
                     <notebook>
-                        <page string="Change Details" name="change_details">
-                            <group>
-                                <group string="Old Values">
-                                    <field
+                    <page string="Change Details" name="change_details">
+                        <div style="display: flex; width: 100%; gap: 10px;">
+                            <div style="flex: 1; width: 50%;">
+                                <h4
+                                        style="margin: 0 0 10px 0; padding: 5px; border-radius: 4px;"
+                                    >Old Values</h4>
+                                <field
+                                        name="old_values"
+                                        widget="change_log_json_widget"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace;
+                                        white-space: pre-wrap;
+                                        width: 100%;
+                                        display: block;"
+                                    />
+                            </div>
+                            <div style="flex: 1; width: 50%;">
+                                <h4
+                                        style="margin: 0 0 10px 0; padding: 5px; border-radius: 4px;"
+                                    >New Values</h4>
+                                <field
+                                        name="new_values"
+                                        widget="change_log_json_widget"
+                                        readonly="1"
+                                        nolabel="1"
+                                        style="font-family: monospace;
+                                        white-space: pre-wrap;
+                                        width: 100%;
+                                        display: block;"
+                                    />
+                            </div>
+                        </div>
+                    </page>
+
+                    <page string="Raw JSON" name="raw_json">
+                        <div style="display: flex; width: 100%; gap: 10px;">
+                            <div style="flex: 1; width: 50%;">
+                                <h4
+                                        style="margin: 0 0 10px 0; padding: 5px; border-radius: 4px;"
+                                    >Old Values (Raw JSON)</h4>
+                                <field
                                         name="old_values_formatted"
                                         widget="text"
                                         readonly="1"
                                         nolabel="1"
-                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                        style="font-family: monospace;
+                                        white-space: pre-wrap;
+                                        word-wrap: break-word;
+                                        padding: 10px;
+                                        border: 1px solid #dee2e6;
+                                        border-radius: 4px;
+                                        width: 100%;
+                                        display: block;
+                                        overflow: visible;"
                                     />
-                                </group>
-                                <group string="New Values">
-                                    <field
+                            </div>
+                            <div style="flex: 1; width: 50%;">
+                                <h4
+                                        style="margin: 0 0 10px 0; padding: 5px; border-radius: 4px;"
+                                    >New Values (Raw JSON)</h4>
+                                <field
                                         name="new_values_formatted"
                                         widget="text"
                                         readonly="1"
                                         nolabel="1"
-                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
+                                        style="font-family: monospace;
+                                        white-space: pre-wrap;
+                                        word-wrap: break-word;
+                                        padding: 10px;
+                                        border: 1px solid #dee2e6;
+                                        border-radius: 4px;
+                                        width: 100%;
+                                        display: block;
+                                        overflow: visible;"
                                     />
-                                </group>
-                            </group>
-                        </page>
-                        <page string="Raw JSON" name="raw_json">
-                            <group>
-                                <group string="Old Values (Raw JSON)">
-                                    <field
-                                        name="old_values"
-                                        widget="text"
-                                        readonly="1"
-                                        nolabel="1"
-                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
-                                    />
-                                </group>
-                                <group string="New Values (Raw JSON)">
-                                    <field
-                                        name="new_values"
-                                        widget="text"
-                                        readonly="1"
-                                        nolabel="1"
-                                        style="font-family: monospace; white-space: pre-wrap; background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px;"
-                                    />
-                                </group>
-                            </group>
-                        </page>
-                    </notebook>
+                            </div>
+                        </div>
+                    </page>
+                </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />

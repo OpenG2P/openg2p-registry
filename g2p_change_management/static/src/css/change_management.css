@@ -74,6 +74,18 @@
     margin-right: 10px;
 }
 
+.o_active_cr_highlight.oe_stat_button {
+    background-color: #e7f1ff;
+}
+
+.o_active_cr_highlight.oe_stat_button .o_stat_text {
+    font-weight: 600;
+}
+
+.o_active_cr_highlight.oe_stat_button:hover {
+    background-color: #d6e8ff;
+}
+
 /* Status Badge Styles */
 .o_status_badge {
     display: inline-block;

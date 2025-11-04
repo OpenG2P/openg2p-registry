@@ -252,10 +252,32 @@ class G2PDraftRecord(models.Model):
 
     @api.model
     def create(self, vals):
-        registrant_data = {}
-        registrant_data["is_group"] = vals.get("is_group")
-        registrant_data["imported_record_state"] = "draft"
-        vals["registrant_data"] = json.dumps(registrant_data)
+        partner_data = {}
+        is_group = vals.get("is_group", False)
+        vals["is_group"] = is_group
+
+        if vals.get("is_group"):
+            partner_data["name"] = vals.get("name", "")
+            partner_data["is_group"] = True
+        else:
+            given_name = vals.get("given_name", "")
+            family_name = vals.get("family_name", "")
+            addl_name = vals.get("addl_name", "")
+            partner_data = {
+                "given_name": given_name,
+                "family_name": family_name,
+                "addl_name": addl_name,
+                "gender": vals.get("gender", ""),
+                "region": vals.get("region", ""),
+                "is_group": False,
+            }
+            vals["name"] = f"{given_name} {family_name} {addl_name}".strip().upper()
+
+        if vals.get("phone"):
+            partner_data["phone_number_ids"] = [(0, 0, {"phone_no": vals["phone"]})]
+
+        partner_data["imported_record_state"] = "draft"
+        vals["registrant_data"] = json.dumps(partner_data)
 
         return super().create(vals)
 
@@ -433,7 +455,7 @@ class G2PDraftRecord(models.Model):
         _logger.info(additional_g2p_info)
         return {
             "type": "ir.actions.act_window",
-            "name": "Record Data",
+            "name": "Registrant Data",
             "view_mode": "form",
             "res_model": "res.partner",
             "view_id": view_id,
@@ -442,6 +464,7 @@ class G2PDraftRecord(models.Model):
                 **context_data,
                 "default_additional_g2p_info": json.dumps(additional_g2p_info),
                 "draft": "yes",
+                "change_request_state": self.active_change_request_state,
                 "default_phone_number_ids": json_data.get("phone_number_ids", []),
                 "default_individual_membership_ids": json_data.get("individual_membership_ids", []),
                 "default_reg_ids": json_data.get("reg_ids", []),
