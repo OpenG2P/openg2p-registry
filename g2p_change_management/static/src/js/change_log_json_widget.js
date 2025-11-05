@@ -1,6 +1,6 @@
 /** @odoo-module **/
-import {registry} from "@web/core/registry";
 import {Component, markup} from "@odoo/owl";
+import {registry} from "@web/core/registry";
 
 export class ChangeLogJsonWidget extends Component {
     static template = "g2p_change_management.ChangeLogJsonWidget";

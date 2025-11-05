@@ -70,11 +70,6 @@ class G2PDraftRecord(models.Model):
         help="State of the active change request for this draft record",
     )
 
-    # Add missing fields that are expected by the view
-    disabled = fields.Datetime("Date Disabled")
-    disabled_reason = fields.Text("Reason for Disabling")
-    disabled_by = fields.Many2one("res.users")
-
     # Draft members field - Many2many relationship for draft individual members
     draft_member_ids = fields.Many2many(
         "g2p.draft.record",
