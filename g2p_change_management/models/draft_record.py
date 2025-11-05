@@ -45,9 +45,6 @@ class G2PDraftRecord(models.Model):
     region = fields.Char()
     is_group = fields.Boolean(default=False)
     registrant_data = fields.Json(string="Registrant Data (JSON)")
-
-    rejection_reason = fields.Text("remark")
-
     group_member_ids_json = fields.Json(string="Group Members (JSON)", default=list)
 
     # Add One2many to link all change requests using this draft record
