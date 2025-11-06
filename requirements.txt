@@ -8,3 +8,4 @@ pika
 pydantic
 python-jose
 schwifty
+graphene
