@@ -138,6 +138,25 @@
                     <strong>No Draft Record Available</strong><br />
                     A draft record will be created automatically when you save this change request.
                 </div>
+                    <notebook>
+                    <page name="documents" string="Documents">
+                                <field
+                                    name="supporting_documents_ids"
+                                    nolabel="1"
+                                    colspan="2"
+                                    context="{'registry_documents': True, }"
+                                >
+                                    <tree default_order="id desc">
+                                        <field name="slug" string="Name" readonly="1" />
+                                        <field name="tags_ids" widget="many2many_tags" readonly="1" />
+                                        <field name="url" readonly="1" column_invisible="1" />
+                                        <field name="file_type" readonly="1" />
+                                        <field name="mimetype" readonly="1" column_invisible="1" />
+                                        <widget name="g2p_documents_action_preview" />
+                                    </tree>
+                                </field>
+                            </page>
+                </notebook>
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" />

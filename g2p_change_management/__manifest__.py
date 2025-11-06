@@ -14,6 +14,7 @@
         "g2p_registry_group",
         "g2p_registry_individual",
         "g2p_registry_membership",
+		"g2p_registry_documents",
         "web",
     ],
     "data": [

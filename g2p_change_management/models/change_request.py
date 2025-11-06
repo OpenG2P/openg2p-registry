@@ -114,6 +114,14 @@ class ChangeRequest(models.Model):
         help="Source or origin of the change request.",
     )
 
+    supporting_documents_ids = fields.One2many(
+        "storage.file",
+        "change_request_id",
+        string="Supporting Documents",
+        help="Files or documents submitted in support of this change request.",
+    )
+    tags_ids = fields.Many2many("g2p.document.tag")
+
     @api.model
     def _get_change_reason_selection(self):
         reasons = self.env["g2p.change.request.reason"].search([("active", "=", True)], order="name")
