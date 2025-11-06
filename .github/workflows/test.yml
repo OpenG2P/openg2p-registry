@@ -58,6 +58,15 @@ jobs:
               "container": "ghcr.io/oca/oca-ci/py3.10-ocb17.0:latest",
               "name": "test with OCB 17"
             }]}'
+        else
+          matrix='{"include": [{
+              "container": "ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest",
+              "makepot": "true",
+              "name": "test with Odoo 17"
+            },{
+              "container": "ghcr.io/oca/oca-ci/py3.10-ocb17.0:latest",
+              "name": "test with OCB 17"
+            }]}'
         fi
         echo "matrix=$matrix" | tr -d '\n' >> $GITHUB_OUTPUT
   test:
