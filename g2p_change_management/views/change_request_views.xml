@@ -1,29 +1,5 @@
 <odoo>
 
-<record id="view_change_request_tree" model="ir.ui.view">
-    <field name="name">g2p.change.request.tree</field>
-    <field name="model">g2p.change.request</field>
-    <field name="arch" type="xml">
-        <tree
-                multi_edit="1"
-                create="true"
-                delete="true"
-                decoration-info="state == 'draft'"
-                decoration-warning="state == 'submitted'"
-                decoration-success="state == 'approved'"
-                decoration-danger="state == 'rejected'"
-            >
-            <field name="name" />
-            <field name="type" />
-            <field name="is_group" string="Group" />
-            <field name="registrant_name" />
-            <field name="requester_id" />
-            <field name="state" />
-            <field name="create_date" />
-        </tree>
-    </field>
-</record>
-
 <!-- Individual Change Requests Tree View -->
 <record id="view_change_request_individual_tree" model="ir.ui.view">
     <field name="name">g2p.change.request.individual.tree</field>
@@ -43,6 +19,8 @@
             <field name="registrant_name" string="Individual" />
             <field name="requester_id" />
             <field name="state" />
+            <field name="change_reason" />
+            <field name="change_source" />
             <field name="create_date" />
         </tree>
     </field>
@@ -68,6 +46,8 @@
             <field name="registrant_name" string="Group" />
             <field name="requester_id" />
             <field name="state" />
+            <field name="change_reason" />
+            <field name="change_source" />
             <field name="create_date" />
         </tree>
     </field>
@@ -126,7 +106,7 @@
                         <field name="change_reason" readonly="state and state != 'draft'" />
                         <field
                                 name="change_source"
-                                placeholder="Enter the source or origin of this change request..."
+                                placeholder="Select change source"
                                 readonly="state and state != 'draft'"
                             />
                     </group>
@@ -158,6 +138,25 @@
                     <strong>No Draft Record Available</strong><br />
                     A draft record will be created automatically when you save this change request.
                 </div>
+                    <notebook>
+                    <page name="documents" string="Documents">
+                                <field
+                                name="supporting_documents_ids"
+                                nolabel="1"
+                                colspan="2"
+                                context="{'registry_documents': True, }"
+                            >
+                                    <tree default_order="id desc">
+                                        <field name="slug" string="Name" readonly="1" />
+                                        <field name="tags_ids" widget="many2many_tags" readonly="1" />
+                                        <field name="url" readonly="1" column_invisible="1" />
+                                        <field name="file_type" readonly="1" />
+                                        <field name="mimetype" readonly="1" column_invisible="1" />
+                                        <widget name="g2p_documents_action_preview" />
+                                    </tree>
+                                </field>
+                            </page>
+                </notebook>
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" />
@@ -236,16 +235,6 @@
             </group>
         </search>
     </field>
-</record>
-
-<record id="action_change_request" model="ir.actions.act_window">
-    <field name="name">Change Requests</field>
-    <field name="res_model">g2p.change.request</field>
-    <field name="view_mode">tree,form</field>
-    <field name="context">{'search_default_my_requests': 1}</field>
-    <field name="view_id" ref="view_change_request_tree" />
-    <field name="binding_model_id" ref="model_g2p_change_request" />
-    <field name="binding_view_types">list</field>
 </record>
 
 <!-- Bulk Operations Actions -->

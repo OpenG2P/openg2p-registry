@@ -488,7 +488,6 @@ class ResPartner(models.Model):
         # 2. Change request context (editing draft records)
         # 3. Force write context (explicit bypass)
         # 4. Non-registrant partners (regular business partners)
-        # 5. When change management is disabled
 
         if (
             self.env.context.get("change_request_context")

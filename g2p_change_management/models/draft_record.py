@@ -45,9 +45,6 @@ class G2PDraftRecord(models.Model):
     region = fields.Char()
     is_group = fields.Boolean(default=False)
     registrant_data = fields.Json(string="Registrant Data (JSON)")
-
-    rejection_reason = fields.Text("remark")
-
     group_member_ids_json = fields.Json(string="Group Members (JSON)", default=list)
 
     # Add One2many to link all change requests using this draft record
@@ -69,11 +66,6 @@ class G2PDraftRecord(models.Model):
         store=True,
         help="State of the active change request for this draft record",
     )
-
-    # Add missing fields that are expected by the view
-    disabled = fields.Datetime("Date Disabled")
-    disabled_reason = fields.Text("Reason for Disabling")
-    disabled_by = fields.Many2one("res.users")
 
     # Draft members field - Many2many relationship for draft individual members
     draft_member_ids = fields.Many2many(

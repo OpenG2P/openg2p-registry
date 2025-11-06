@@ -319,22 +319,6 @@
         </field>
     </record>
 
-    <!-- Rejection Form Wizard View -->
-    <record id="rejection_form_wizard_view" model="ir.ui.view">
-        <field name="name">g2p.draft.record.form</field>
-        <field name="model">g2p.draft.record</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
-                    <field name="rejection_reason" />
-                </group>
-                <footer>
-                    <button name="action_reject" string="Reject" class="btn btn-warning" type="object" />
-                </footer>
-            </form>
-        </field>
-    </record>
-
     <!-- Actions for Draft Records -->
     <record id="action_draft_group_record" model="ir.actions.act_window">
         <field name="name">Group Draft</field>

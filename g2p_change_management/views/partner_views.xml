@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!-- Enhanced Partner View for Change Management Context -->
+
     <record id="view_partner_form_change_management" model="ir.ui.view">
         <field name="name">res.partner.form.change.management</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
         <field name="priority">300</field>
         <field name="arch" type="xml">
-            <!-- Add Change Management button in button box -->
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button
                     type="object"
                     name="action_create_change_request"
-                    class="oe_stat_button o_active_cr_highlight "
+                    class="oe_stat_button o_active_cr_highlight"
                     icon="fa-edit"
                     confirm="Are you sure you want to create a Change Request for this registrant?"
                     invisible="not is_registrant or has_active_draft"
@@ -36,7 +35,6 @@
                 </button>
             </xpath>
 
-            <!-- Add active change request flag at the top of the sheet -->
             <xpath expr="//sheet" position="inside">
                 <div class="alert alert-info" role="alert" invisible="not has_active_draft">
                     <strong>Active Change Request:</strong> This record has an active change request.
@@ -46,14 +44,12 @@
                 </div>
             </xpath>
 
-            <!-- Make fields read-only for registrants when not in change request context -->
             <xpath expr="//field" position="attributes">
                 <attribute
                     name="readonly"
                 >is_registrant and not context.get('change_request_context', False)</attribute>
             </xpath>
 
-            <!-- Add required fields for visibility logic -->
             <xpath expr="//sheet" position="inside">
                 <group string="Debug Info" invisible="1">
                     <field name="has_active_draft" />
@@ -65,23 +61,16 @@
         </field>
     </record>
 
-
-
-    <!-- Draft Group View for Change Management Context -->
-    <!-- Add Draft Members section to the published partner's Members tab -->
     <record id="view_partner_form_draft_members" model="ir.ui.view">
         <field name="name">res.partner.form.draft.members</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
         <field name="priority">200</field>
         <field name="arch" type="xml">
+            <xpath expr="//page[@name='members']" position="attributes">
+                <attribute name="string">Approved Members</attribute>
+            </xpath>
 
-        <!-- Change the Members tab label to Approved Members -->
-        <xpath expr="//page[@name='members']" position="attributes">
-            <attribute name="string">Approved Members</attribute>
-        </xpath>
-
-            <!-- Add Draft Members section within the existing Members tab -->
             <xpath expr="//page[@name='members']" position="inside">
                 <group
                     string="Draft Members"
@@ -104,20 +93,17 @@
                             <field name="region" string="Region" />
                         </tree>
                     </field>
-
                 </group>
             </xpath>
         </field>
     </record>
 
-    <!-- Enhanced Individual View for Change Management Context -->
     <record id="view_individual_form_change_management" model="ir.ui.view">
         <field name="name">res.partner.individual.form.change.management</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <!-- Add Change Management button in button box -->
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button
                     type="object"
@@ -146,7 +132,6 @@
                 </button>
             </xpath>
 
-            <!-- Add active change request flag at the top of the sheet -->
             <xpath expr="//sheet" position="inside">
                 <div class="alert alert-info" role="alert" invisible="not has_active_draft">
                     <strong>Active Change Request:</strong> This record has an active change request.
@@ -156,14 +141,12 @@
                 </div>
             </xpath>
 
-            <!-- Make fields read-only for registrants when not in change request context -->
             <xpath expr="//field" position="attributes">
                 <attribute
                     name="readonly"
                 >is_registrant and not context.get('change_request_context', False)</attribute>
             </xpath>
 
-            <!-- Add required fields for visibility logic -->
             <xpath expr="//sheet" position="inside">
                 <group string="Debug Info" invisible="1">
                     <field name="has_active_draft" />
@@ -174,7 +157,6 @@
         </field>
     </record>
 
-    <!-- Action to open registrant form with change management context -->
     <record id="action_partner_form_change_management" model="ir.actions.act_window">
         <field name="name">Registrant</field>
         <field name="res_model">res.partner</field>
@@ -183,30 +165,84 @@
         <field name="context">{'change_management_context': True}</field>
     </record>
 
-
-    <!-- Hide Create button for Individuals list -->
-    <record id="view_individuals_list_tree_disabled_create" model="ir.ui.view">
+    <record id="view_individuals_list_tree_no_create" model="ir.ui.view">
         <field name="name">view.individuals.list.tree.no.create</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_individual.view_individuals_list_tree" />
         <field name="arch" type="xml">
-            <tree position="attributes">
-                <attribute name="create">false</attribute>
-            </tree>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
         </field>
     </record>
 
-    <!-- Hide Create button for Groups list -->
-    <record id="view_groups_list_tree_disabled_create" model="ir.ui.view">
+    <record id="view_groups_list_tree_no_create" model="ir.ui.view">
         <field name="name">view.groups.list.tree.no.create</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="g2p_registry_group.view_groups_list_tree" />
         <field name="arch" type="xml">
-            <tree position="attributes">
-                <attribute name="create">false</attribute>
-            </tree>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
         </field>
     </record>
 
+    <record id="view_individuals_form_readonly" model="ir.ui.view">
+        <field name="name">view_individuals_form_readonly</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_individual.view_individuals_form" />
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+                <attribute name="delete">0</attribute>
+            </xpath>
+            <xpath expr="//field" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_groups_form_readonly" model="ir.ui.view">
+        <field name="name">view_groups_form_readonly</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="g2p_registry_group.view_groups_form" />
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+                <attribute name="delete">0</attribute>
+            </xpath>
+            <xpath expr="//field" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_individuals_readonly" model="ir.actions.act_window">
+        <field name="name">Individual (Read-only)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_individuals_form_readonly" />
+        <field name="target">current</field>
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':False,'registrant_form':True}</field>
+    </record>
+
+    <record id="action_groups_readonly" model="ir.actions.act_window">
+        <field name="name">Group (Read-only)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_groups_form_readonly" />
+        <field name="target">current</field>
+        <field
+            name="context"
+        >{'default_is_registrant':True,'default_is_group':True,'registrant_form':True}</field>
+    </record>
 
 </odoo>

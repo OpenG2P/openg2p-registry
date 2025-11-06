@@ -109,10 +109,22 @@ class ChangeRequest(models.Model):
         copy=False,
     )
 
-    change_source = fields.Text(
+    change_source = fields.Selection(
+        selection=[
+            ("non_form_based", "Non-form based"),
+            ("form_based", "Form based"),
+        ],
         tracking=True,
-        help="Source or origin of the change request.",
+        copy=False,
     )
+
+    supporting_documents_ids = fields.One2many(
+        "storage.file",
+        "change_request_id",
+        string="Supporting Documents",
+        help="Files or documents submitted in support of this change request.",
+    )
+    tags_ids = fields.Many2many("g2p.document.tag")
 
     @api.model
     def _get_change_reason_selection(self):
