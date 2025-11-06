@@ -318,7 +318,7 @@
             </xpath>
         </field>
     </record>
-    
+
     <!-- Actions for Draft Records -->
     <record id="action_draft_group_record" model="ir.actions.act_window">
         <field name="name">Group Draft</field>

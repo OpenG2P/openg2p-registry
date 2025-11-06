@@ -19,7 +19,6 @@
     "data": [
         "security/ir.rules.xml",
         "security/ir.model.access.csv",
-        "wizards/rejection.xml",
         "views/partner_views.xml",
         "views/change_request_views.xml",
         "views/change_log_views.xml",
