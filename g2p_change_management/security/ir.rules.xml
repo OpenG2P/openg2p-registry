@@ -18,9 +18,16 @@
 
 <record id="group_change_management_admin" model="res.groups">
     <field name="name">Admin</field>
-    <field name="implied_ids" eval="[(4, ref('group_change_management_approver'))]" />
+    <field
+            name="implied_ids"
+            eval="[
+        (4, ref('group_change_management_approver')),
+        (4, ref('g2p_documents.group_g2p_document_admin')),
+    ]"
+        />
     <field name="category_id" ref="module_category_change_management" />
 </record>
+
 
 <record id="rule_g2p_change_management_draft_record_follower_restriction" model="ir.rule">
     <field name="name">Change Management Record Follower</field>

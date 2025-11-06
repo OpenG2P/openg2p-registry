@@ -106,7 +106,7 @@
                         <field name="change_reason" readonly="state and state != 'draft'" />
                         <field
                                 name="change_source"
-                                placeholder="Enter the source or origin of this change request..."
+                                placeholder="Select change source"
                                 readonly="state and state != 'draft'"
                             />
                     </group>
