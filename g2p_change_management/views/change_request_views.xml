@@ -141,11 +141,11 @@
                     <notebook>
                     <page name="documents" string="Documents">
                                 <field
-                                    name="supporting_documents_ids"
-                                    nolabel="1"
-                                    colspan="2"
-                                    context="{'registry_documents': True, }"
-                                >
+                                name="supporting_documents_ids"
+                                nolabel="1"
+                                colspan="2"
+                                context="{'registry_documents': True, }"
+                            >
                                     <tree default_order="id desc">
                                         <field name="slug" string="Name" readonly="1" />
                                         <field name="tags_ids" widget="many2many_tags" readonly="1" />

@@ -14,7 +14,7 @@
         "g2p_registry_group",
         "g2p_registry_individual",
         "g2p_registry_membership",
-		"g2p_registry_documents",
+        "g2p_registry_documents",
         "web",
     ],
     "data": [
@@ -24,7 +24,6 @@
         "views/change_request_views.xml",
         "views/change_log_views.xml",
         "views/draft_record_views.xml",
-        "views/readonly_registry_views.xml",
         "views/change_request_reason_views.xml",
         "wizards/change_request_wizard.xml",
         "wizards/bulk_operations_wizard_views.xml",
