@@ -6,7 +6,7 @@
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "LGPL-3",
-    "depends": ["base", "web", "auth_signup"],
+    "depends": ["base", "web", "auth_signup", "g2p_registry_base"],
     "data": [
         "templates/g2p_login_page.xml",
         "templates/g2p_reset_password.xml",

@@ -1,7 +1,9 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from odoo.exceptions import AccessDenied
 from odoo.tests import TransactionCase
+
+from odoo.addons.g2p_registry_theme import models
 
 
 class TestResUser(TransactionCase):
@@ -18,7 +20,7 @@ class TestResUser(TransactionCase):
                 "active": True,
             }
         )
-        self.valid_user.partner_id.is_registrant = False
+        self.valid_user.partner_id.write({"is_registrant": False})
         user_group = self.env.ref("base.group_user")
         self.valid_user.groups_id = [(4, user_group.id)]
         self.invalid_user = self.user_model.create(
@@ -39,7 +41,7 @@ class TestResUser(TransactionCase):
                 "active": True,
             }
         )
-        self.registrant_user.partner_id.is_registrant = True
+        self.registrant_user.partner_id.write({"is_registrant": True})
 
     def test_reset_password_invalid_user(self):
         """Test that an exception is raised when resetting password for an invalid user."""
@@ -57,10 +59,16 @@ class TestResUser(TransactionCase):
 
     def test_login_access_denied_for_registrant(self):
         """Test that a registrant user is denied access."""
-        with self.assertRaises(AccessDenied):
-            self.registrant_user._login(
-                db="myTestDB",
-                login="registrant_user@example.com",
-                password="AgentUser1!",
-                user_agent_env=None,
-            )
+        mock_request = MagicMock()
+        mock_httprequest = MagicMock()
+        mock_httprequest.path = "/web/login"
+        mock_request.httprequest = mock_httprequest
+
+        with patch.object(models.res_user, "request", mock_request):
+            with self.assertRaises(AccessDenied):
+                self.registrant_user._login(
+                    db=self.env.cr.dbname,
+                    login="registrant_user@example.com",
+                    password="AgentUser1!",
+                    user_agent_env=None,
+                )

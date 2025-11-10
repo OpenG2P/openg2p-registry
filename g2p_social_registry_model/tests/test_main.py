@@ -1,5 +1,7 @@
 # Part of OpenG2P. See LICENSE file for full copyright and licensing details.
 
+from unittest.mock import patch
+
 from odoo.tests.common import HttpCase, tagged
 
 
@@ -20,18 +22,20 @@ class TestG2PSocialRegistryModel(HttpCase):
                 }
             )
 
-        # Create a shared test user
-        cls.test_user = cls.env["res.users"].create(
-            {
-                "name": "Test Social User",
-                "login": "test_social_user",
-                "email": "test_social@example.com",
-            }
-        )
-        cls.test_user.write({"password": "SocialTest123!"})
+        # Mock S3 backend to avoid AWS configuration issues during tests
+        with patch("odoo.addons.storage_backend_s3.components.s3_adapter.S3StorageAdapter._get_bucket"):
+            # Create a shared test user
+            cls.test_user = cls.env["res.users"].create(
+                {
+                    "name": "Test Social User",
+                    "login": "test_social_user",
+                    "email": "test_social@example.com",
+                }
+            )
+            cls.test_user.write({"password": "SocialTest123!"})
 
-        # Make the user a supplier with supplier_rank > 0 so portal check passes
-        cls.test_user.partner_id.write({"supplier_rank": 1})
+            # Make the user a supplier with supplier_rank > 0 so portal check passes
+            cls.test_user.partner_id.write({"supplier_rank": 1})
 
         # Shared payload data
         cls.shared_data = {
@@ -99,16 +103,17 @@ class TestG2PSocialRegistryModel(HttpCase):
         self.authenticate("test_social_user", "SocialTest123!")
 
         # Create individual once and update
-        partner = self.env["res.partner"].create(
-            {
-                "name": "Verma, Amit",
-                "given_name": "Amit",
-                "family_name": "Verma",
-                "is_group": False,
-                "is_registrant": True,
-                "user_id": self.test_user.id,
-            }
-        )
+        with patch("odoo.addons.storage_backend_s3.components.s3_adapter.S3StorageAdapter._get_bucket"):
+            partner = self.env["res.partner"].create(
+                {
+                    "name": "Verma, Amit",
+                    "given_name": "Amit",
+                    "family_name": "Verma",
+                    "is_group": False,
+                    "is_registrant": True,
+                    "user_id": self.test_user.id,
+                }
+            )
 
         data = self.shared_data.copy()
         data.update(
