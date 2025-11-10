@@ -195,6 +195,11 @@ msgstr ""
 
 #. module: g2p_registry_individual
 #: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
+msgid "Region"
+msgstr ""
+
+#. module: g2p_registry_individual
+#: model_terms:ir.ui.view,arch_db:g2p_registry_individual.view_individuals_form
 msgid "Registrant"
 msgstr ""
 
