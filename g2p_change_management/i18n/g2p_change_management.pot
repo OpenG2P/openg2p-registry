@@ -1,0 +1,1917 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* g2p_change_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "<span class=\"o_stat_text\">Active Change Request</span>"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "<span class=\"o_stat_text\">Create Change Request</span>"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid ""
+"<strong>Active Change Request:</strong> This record has an active change "
+"request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid ""
+"<strong>No Draft Record Available</strong><br/>\n"
+"                    A draft record will be created automatically when you save this change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_needaction
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_needaction
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__active
+msgid "Active"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__active_change_request_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__active_change_request_id
+#, python-format
+msgid "Active Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__active_change_request_state
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__active_change_request_state
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__active_change_request_state
+msgid "Active Change Request State"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_res_partner__active_change_request_id
+#: model:ir.model.fields,help:g2p_change_management.field_res_users__active_change_request_id
+msgid "Active change request for this registrant"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_exception_decoration
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_exception_decoration
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_state
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_state
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_type_icon
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_type_icon
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid "Add Draft Members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__addl_name
+msgid "Addl Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:res.groups,name:g2p_change_management.group_change_management_admin
+msgid "Admin"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "All selected records must be change requests."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Approval Information"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Approval notification sent to %s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request_bulk_wizard__operation_type__approve
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Approve"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__state__approved
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_draft_record__active_change_request_state__approved
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__active_change_request_state__approved
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Approved"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Approved %s draft individual members."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Approved Members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__approver_id
+#: model:res.groups,name:g2p_change_management.group_change_management_approver
+msgid "Approver"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Approver must be set when state is approved."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Approver must be set when state is rejected."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "Are you sure you want to create a Change Request for this registrant?"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request_bulk_wizard__operation_type__assign
+msgid "Assign"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__assign_to_user_id
+msgid "Assign To"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_attachment_count
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_attachment_count
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_base
+msgid "Base"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__change_summary
+msgid "Brief summary of what was changed."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.server,name:g2p_change_management.action_bulk_approve
+msgid "Bulk Approve"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.server,name:g2p_change_management.action_bulk_assign
+msgid "Bulk Assign"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.server,name:g2p_change_management.action_bulk_cancel
+msgid "Bulk Cancel"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "Bulk Operation Completed"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_bulk_operations_wizard
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+msgid "Bulk Operations"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_g2p_change_request_bulk_wizard
+msgid "Bulk Operations Wizard for Change Requests"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.server,name:g2p_change_management.action_bulk_reject
+msgid "Bulk Reject"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.server,name:g2p_change_management.action_bulk_submit
+msgid "Bulk Submit"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "Bulk operation failed: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+msgid "CR State"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__can_approve
+msgid "Can Approve"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__can_reject
+msgid "Can Reject"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__can_submit
+msgid "Can Submit"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request_bulk_wizard__operation_type__cancel
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_reject_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid ""
+"Cannot modify registrant records directly.Please use the Change Request "
+"workflow to make changes."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__change_date
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Change Date"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "Change Details"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_change_log
+#: model:ir.model,name:g2p_change_management.model_g2p_change_log
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_log
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Change Log"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "Change Log Entry"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.module.category,name:g2p_change_management.module_category_change_management
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_management_root
+msgid "Change Management"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__change_reason
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_reason_form
+msgid "Change Reason"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#: model:ir.model,name:g2p_change_management.model_g2p_change_request
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__change_request_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__change_request_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_storage_file__change_request_id
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+#, python-format
+msgid "Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change Request Approval Required: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#: code:addons/g2p_change_management/models/change_request.py:0
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change Request Approved: %(name)s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Change Request Information"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__change_request_name
+msgid "Change Request Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_g2p_change_request_reason
+msgid "Change Request Reason"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_change_request_reason
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_request_reason
+msgid "Change Request Reasons"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change Request Rejected: %(name)s"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change Request Submitted: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__change_request_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__change_request_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__change_request_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__change_request_ids
+msgid "Change Requests"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__change_source
+msgid "Change Source"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__change_summary
+msgid "Change Summary"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__change_type
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Change Type"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_log
+msgid ""
+"Change log entries are automatically created when change requests are approved and implemented.\n"
+"                These are read-only audit records that cannot be modified or deleted."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_log.py:0
+#, python-format
+msgid ""
+"Change log records cannot be created manually. They are automatically "
+"generated when change requests are approved."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_log.py:0
+#, python-format
+msgid ""
+"Change log records cannot be deleted. They are permanent audit records."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_log.py:0
+#, python-format
+msgid ""
+"Change log records cannot be modified. They are immutable audit records."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change request approved by %(user)s (via group approval)."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change request approved by %(user)s."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change request name '%s' already exists. Please use a unique name."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request_reason.py:0
+#, python-format
+msgid "Change request reason '%s' already exists. Please use a unique name."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/change_request_reject.py:0
+#, python-format
+msgid "Change request rejected. Reason: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Change request submitted for approval by %s."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_res_partner__change_request_ids
+#: model:ir.model.fields,help:g2p_change_management.field_res_users__change_request_ids
+msgid "Change requests related to this registrant."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__changed_by
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Changed By"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_management_config
+msgid "Configuration"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+msgid "Confirm"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_reject_wizard_form
+msgid "Confirm Rejection"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_log__change_type__create
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__type__create
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Create"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "Create Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_request_reason
+msgid "Create your first change request reason!"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_request_group
+msgid "Create your first group change request!"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_request_individual
+msgid "Create your first individual change request!"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__create_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__create_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__create_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__create_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__create_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__create_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__create_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__create_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__create_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__create_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Creation Date"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__state
+msgid "Current state of the change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__change_date
+msgid "Date and time when the change was implemented."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "Debug Info"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_log__change_type__delete
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__type__delete
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Delete"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_group_form_view
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_group_form_view_only
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_individual_form_view
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_individual_form_view_only
+msgid "Discard"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__display_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__display_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__display_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__display_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__display_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Documents"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__state__draft
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_draft_record__active_change_request_state__draft
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__active_change_request_state__draft
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__imported_record_state__draft
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Draft"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_family_name
+msgid "Draft Family Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_given_name
+msgid "Draft Given Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_is_group
+msgid "Draft Is Group"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__draft_member_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__draft_member_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__draft_member_ids
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Draft Members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_name
+msgid "Draft Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_phone
+msgid "Draft Phone"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_record_id
+msgid "Draft Record"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_g2p_draft_record
+msgid "Draft Records"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__draft_region
+msgid "Draft Region"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_res_partner__draft_member_ids
+#: model:ir.model.fields,help:g2p_change_management.field_res_users__draft_member_ids
+msgid ""
+"Draft individual members from new change requests (without registrant_id)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__draft_member_ids
+msgid "Draft individual members of this group"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid "Draft member selection is only available for group registrants."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Draft record is required for %(type)s requests in %(state)s state."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_group_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_individual_tree
+msgid "Edit"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Error reading member data"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Failed to implement changes: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__family_name
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Family Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__supporting_documents_ids
+msgid "Files or documents submitted in support of this change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_follower_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_follower_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_partner_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_partner_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__activity_type_icon
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__activity_type_icon
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__change_source__form_based
+msgid "Form based"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__new_values_formatted
+msgid "Formatted display of new values as JSON string."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__old_values_formatted
+msgid "Formatted display of old values as JSON string."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__gender
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Gender"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__given_name
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Given Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Go to Draft Registrant"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__is_group
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_group_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Group"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_groups_readonly
+msgid "Group (Read-only)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Group By"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_draft_group_record
+msgid "Group Draft"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_group_form
+msgid "Group Draft Record"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__group_kind_id
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_group_tree
+msgid "Group Kind"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Group Kind is required when creating a group change request."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Group Member Status Updated"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__group_member_ids_json
+msgid "Group Members (JSON)"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Group Members Approved"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Group Members Linked"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_request_group
+msgid "Group change requests are for changes to group registrants."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid ""
+"Group membership linking completed:\n"
+"- Successfully linked: %(linked_count)s members\n"
+"- Skipped: %(skipped_count)s members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_change_request_group
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_request_group
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Groups"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__has_active_draft
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__has_active_draft
+msgid "Has Active Draft"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__has_message
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__has_message
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__has_validation_errors
+msgid "Has Validation Errors"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__id
+msgid "ID"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_exception_icon
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_exception_icon
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__activity_exception_icon
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__activity_exception_icon
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__message_needaction
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__message_needaction
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__message_has_error
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__message_has_sms_error
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__message_has_error
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__message_has_sms_error
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__message_has_error
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__db_import
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__db_import
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_base_tree_view_group
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_base_tree_view_individual
+msgid "Imported"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_partner__imported_record_state
+#: model:ir.model.fields,field_description:g2p_change_management.field_res_users__imported_record_state
+msgid "Imported Record State"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__can_approve
+msgid "Indicates if the change request can be approved."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__can_reject
+msgid "Indicates if the change request can be rejected."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__can_submit
+msgid "Indicates if the change request can be submitted."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__is_group
+msgid "Indicates if the change was for a group record."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__has_validation_errors
+msgid "Indicates if there are any validation errors."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__is_group
+msgid ""
+"Indicates if this change request is for a group (True) or individual "
+"(False)."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_individual_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Individual"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_individuals_readonly
+msgid "Individual (Read-only)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_draft_individual_record
+msgid "Individual Draft"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_individual_form
+msgid "Individual Draft Record"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_request_individual
+msgid "Individual change requests are for changes to individual registrants."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_change_request_individual
+#: model:ir.ui.menu,name:g2p_change_management.menu_change_request_individual
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Individuals"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#: code:addons/g2p_change_management/models/draft_record.py:0
+#, python-format
+msgid "Invalid JSON data in registrant_data."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Invalid change request type."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_is_follower
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_is_follower
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__is_group
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__is_group
+msgid "Is Group"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__registrant_data
+msgid "JSON data for registrant form wizard"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__new_values
+msgid "JSON representation of the new values after the change."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__old_values
+msgid "JSON representation of the old values before the change."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__write_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__write_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__write_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__write_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__write_uid
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__write_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__write_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__write_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__write_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__write_date
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Member Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+msgid "Members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_has_error
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_has_error
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_log__change_type__modify
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__type__modify
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Modify"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__my_activity_date_deadline
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__my_activity_date_deadline
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "My Requests"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reason__name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__name
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__registrant_name
+msgid "Name of the affected registrant."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__registrant_name
+msgid "Name of the associated registrant"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__change_request_name
+msgid "Name of the change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__new_values
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "New Values"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__new_values_formatted
+msgid "New Values (Formatted)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "New Values (Raw JSON)"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "New registrant '%s' has been created and published to the registry."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_date_deadline
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_date_deadline
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_summary
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_summary
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_type_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_type_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__db_import__no
+msgid "No"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid "No active change request found for this registrant."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid "No active change request with draft record found for this registrant."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "No approvers found. Please contact your administrator."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.actions.act_window,help:g2p_change_management.action_change_log
+msgid "No change log entries found!"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "No change requests selected for bulk operation."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "No draft record to edit."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#: code:addons/g2p_change_management/models/draft_record.py:0
+#, python-format
+msgid "No registrant data available."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_log.py:0
+#, python-format
+msgid "No registrant to open."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__change_source__non_form_based
+msgid "Non-form based"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_needaction_counter
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_needaction_counter
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_has_error_counter
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_has_error_counter
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__message_needaction_counter
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__message_needaction_counter
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__message_has_error_counter
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__message_has_error_counter
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__old_values
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "Old Values"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "Old Values (Raw JSON)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__old_values_formatted
+msgid "Old Values Formatted"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Only submitted change requests can be approved."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Only submitted change requests can be rejected."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+msgid "Operation Details"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__operation_summary
+msgid "Operation Summary"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__phone
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Phone"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request_reject_wizard__rejection_reason
+msgid "Please provide a reason for rejecting this change request."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "Please select a user to assign the change requests to."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request_bulk_wizard__reason
+msgid "Provide a reason or comment for this bulk operation"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+msgid "Provide a reason or comment for this bulk operation..."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__imported_record_state__published
+msgid "Published"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+msgid "Raw JSON"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__rejection_reason
+msgid "Reason for rejection if the change request was rejected."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__change_reason
+msgid ""
+"Reason for the change request. Configure reasons in Configuration > Change "
+"Reasons."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_bulk_wizard__reason
+msgid "Reason/Comment"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/draft_record.py:0
+#, python-format
+msgid "Record Published"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/draft_record.py:0
+#, python-format
+msgid "Record has been published"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__region
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_group_form_members
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_individual_selection_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_record_many2many_selection
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_draft_members
+msgid "Region"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_partner_form_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__registrant_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_id
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_form
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Registrant"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant '%s' has been deactivated."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant '%s' has been updated in the registry."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/res_partner.py:0
+#, python-format
+msgid ""
+"Registrant '%s' has multiple active change requests of the same type. Please"
+" resolve conflicts before proceeding."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant Created: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_group_form
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_individual_form
+msgid "Registrant Data"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_data
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__registrant_data
+msgid "Registrant Data (JSON)"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_family_name
+msgid "Registrant Family Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_given_name
+msgid "Registrant Given Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Registrant Information"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__registrant_name
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_name
+msgid "Registrant Name"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_phone
+msgid "Registrant Phone"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__registrant_region
+msgid "Registrant Region"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant Updated: %s"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant must be specified for %s requests."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant must be specified for modify and delete change requests."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Registrant must be specified for modify requests."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid ""
+"Registrant should not be specified for create requests. A new registrant "
+"will be created upon approval."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request_bulk_wizard__operation_type__reject
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Reject"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_change_request_reject_wizard
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_reject_wizard_form
+msgid "Reject Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_g2p_change_request_reject_wizard
+msgid "Reject Change Request Wizard"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__state__rejected
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_draft_record__active_change_request_state__rejected
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__active_change_request_state__rejected
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__imported_record_state__rejected
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Rejected"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__rejection_reason
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request_reject_wizard__rejection_reason
+msgid "Rejection Reason"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Request Details"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__requester_id
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Requester"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__activity_user_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__activity_user_id
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__message_has_sms_error
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__message_has_sms_error
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_group_form_view
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.g2p_validation_individual_form_view
+msgid "Save"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_draft_record_individual_selection
+msgid "Select Individual Draft Members"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Select change source"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request_bulk_wizard__assign_to_user_id
+msgid "Select user to assign the change requests to"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+msgid "Selected Change Requests"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__state
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "State"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__active_change_request_state
+msgid "State of the active change request for this draft record"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_res_partner__active_change_request_state
+#: model:ir.model.fields,help:g2p_change_management.field_res_users__active_change_request_state
+msgid "State of the active change request for this registrant"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__activity_state
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__activity_state
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model,name:g2p_change_management.model_storage_file
+msgid "Storage File"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request_bulk_wizard__operation_type__submit
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_form
+msgid "Submit"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_change_request__state__submitted
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__g2p_draft_record__active_change_request_state__submitted
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__active_change_request_state__submitted
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__imported_record_state__submitted
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Submitted"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_submitted_group_record
+msgid "Submitted Group"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.actions.act_window,name:g2p_change_management.action_submitted_individual_record
+msgid "Submitted Individual"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "Successfully %(op)s %(count)d change request(s)."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_bulk_operations_wizard_form
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Summary"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__validation_summary
+msgid "Summary of validation status and any errors found."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__supporting_documents_ids
+msgid "Supporting Documents"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__tags_ids
+msgid "Tags"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__change_request_id
+msgid "The change request that triggered this log entry."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_storage_file__change_request_id
+msgid "The change request this document is associated with."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__draft_record_id
+msgid "The draft record containing the proposed changes."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__registrant_id
+msgid "The registrant record that was affected by the change."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__registrant_id
+msgid ""
+"The registrant record this change request relates to. Empty for create "
+"requests."
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "This Month"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "This Week"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_log_search
+msgid "Today"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_res_partner__has_active_draft
+#: model:ir.model.fields,help:g2p_change_management.field_res_users__has_active_draft
+msgid "True if this group has an active change request with draft"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__type
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_change_request_search
+msgid "Type"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__change_type
+msgid "Type of change that was made."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__group_kind_id
+msgid "Type of group for group change requests."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__activity_exception_decoration
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__activity_exception_decoration
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/change_request_reject.py:0
+#, python-format
+msgid "Updated status of %(count)s draft individual members to 'rejected'."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Updated status of %s draft individual members to 'submitted'."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:res.groups,name:g2p_change_management.group_change_management_user
+msgid "User"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.module.category,description:g2p_change_management.module_category_change_management
+msgid "User access level for the Change Management module"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__changed_by
+msgid "User who approved and implemented the change."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__approver_id
+msgid "User who approved or rejected this change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__requester_id
+msgid "User who created this change request."
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__validation_summary
+msgid "Validation Summary"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Validation errors found:\n"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_group_tree
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_draft_imported_individual_tree
+msgid "View"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "View Active Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_individual_form_change_management
+#: model_terms:ir.ui.view,arch_db:g2p_change_management.view_partner_form_change_management
+msgid "View Change Request"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_log__website_message_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_change_request__website_message_ids
+#: model:ir.model.fields,field_description:g2p_change_management.field_g2p_draft_record__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_log__website_message_ids
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_change_request__website_message_ids
+#: model:ir.model.fields,help:g2p_change_management.field_g2p_draft_record__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: g2p_change_management
+#: model:ir.model.fields.selection,name:g2p_change_management.selection__res_partner__db_import__yes
+msgid "Yes"
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "You don't have permission to approve change requests."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/wizards/bulk_operations_wizard.py:0
+#, python-format
+msgid "You don't have permission to perform this bulk operation."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "You don't have permission to reject change requests."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Your change request '%(name)s' has been approved by %(approver)s."
+msgstr ""
+
+#. module: g2p_change_management
+#. odoo-python
+#: code:addons/g2p_change_management/models/change_request.py:0
+#, python-format
+msgid "Your change request '%(name)s' has been rejected by %(approver)s."
+msgstr ""
