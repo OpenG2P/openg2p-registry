@@ -390,7 +390,10 @@ class TestOdkImport(TransactionCase):
 
         self.odk_import.process_records_handle_media_import(mapped_json, member)
 
-        self.assertEqual(mapped_json["image_1920"], base64.b64encode(b"fake_image_data"))
+        expected_value = base64.b64encode(b"fake_image_data").decode("utf-8")
+        self.assertEqual(mapped_json["image_1920"], expected_value)
+        # Ensure the value is a string, not bytes
+        self.assertIsInstance(mapped_json["image_1920"], str)
 
     def test_handle_media_import_no_instance_id(self):
         # Test with missing instance_id

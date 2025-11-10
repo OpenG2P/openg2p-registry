@@ -27,11 +27,10 @@ class TestResPartnerDashboard(TransactionCase):
         )
 
         with patch.object(self.env, "cr") as mock_cr:
-            mock_cr.fetchone.return_value = mock_result
-
+            mock_cr.fetchone.side_effect = [None, mock_result]
             result = self.partner_model.get_dashboard_data()
-
-            mock_cr.execute.assert_called_once_with(
+            self.assertEqual(mock_cr.execute.call_count, 2)
+            mock_cr.execute.assert_any_call(
                 """
             SELECT total_registrants, gender_spec, age_distribution
             FROM g2p_registry_dashboard_data
