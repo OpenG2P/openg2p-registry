@@ -116,9 +116,9 @@ jobs:
         run: oca_export_and_push_pot https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'openg2p' }}
         
-      - name: Trigger Test Suite in Another Repo
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.OPENG2P_BOT_GITHUB_PAT }}
-          repository: OpenG2P/openg2p-registry-ui-test-automation
-          event-type: trigger-tests
+      # - name: Trigger Test Suite in Another Repo
+      #   uses: peter-evans/repository-dispatch@v3
+      #   with:
+      #     token: ${{ secrets.OPENG2P_BOT_GITHUB_PAT }}
+      #     repository: OpenG2P/openg2p-registry-ui-test-automation
+      #     event-type: trigger-tests
