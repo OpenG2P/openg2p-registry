@@ -48,6 +48,11 @@ msgid "Active"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_region
+msgid "Add Region!"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_reg_rel
 msgid "Add a Registrant Relationship!"
 msgstr ""
@@ -140,6 +145,11 @@ msgid "Click the create button to enter a new ID type."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model_terms:ir.actions.act_window,help:g2p_registry_base.action_region
+msgid "Click the create button to enter a new Region."
+msgstr ""
+
+#. module: g2p_registry_base
 #: model_terms:ir.actions.act_window,help:g2p_registry_base.action_district_config
 msgid "Click the create button to enter a new district."
 msgstr ""
@@ -179,6 +189,7 @@ msgstr ""
 
 #. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_district__code
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__code
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__code
 msgid "Code"
 msgstr ""
@@ -221,6 +232,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__create_uid
@@ -235,6 +247,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__create_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__create_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__create_date
@@ -320,6 +333,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__display_name
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__display_name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__display_name
@@ -371,6 +385,11 @@ msgstr ""
 #. module: g2p_registry_base
 #: model:ir.model,name:g2p_registry_base.model_g2p_que_background_task
 msgid "G2P Queue Background Task"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model,name:g2p_registry_base.model_g2p_region
+msgid "G2P Region"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -433,6 +452,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__id
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__id
@@ -544,6 +564,11 @@ msgid "Is Related to:"
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__iso_code
+msgid "Iso Code"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__last_attempt_datetime
 msgid "Last Attempt Datetime"
 msgstr ""
@@ -561,6 +586,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_uid
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_uid
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__write_uid
@@ -575,6 +601,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_que_background_task__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__write_date
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_registrant_tags__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__write_date
 #: model:ir.model.fields,field_description:g2p_registry_base.field_gender_type__write_date
@@ -601,6 +628,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_id_type__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_id__id_type_as_str
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_reg_rel__relation_as_str
+#: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_region__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_relationship__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__name
 #: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__name
@@ -696,6 +724,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:g2p_registry_base.field_g2p_disable_registrant_wizard__disabled_reason
 #: model_terms:ir.ui.view,arch_db:g2p_registry_base.disable_registrant_wizard_form_view
 msgid "Reason for disabling"
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.actions.act_window,name:g2p_registry_base.action_region
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__region
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__region
+#: model:ir.ui.menu,name:g2p_registry_base.menu_region
+msgid "Region"
 msgstr ""
 
 #. module: g2p_registry_base
@@ -933,6 +969,12 @@ msgid "This registrant is not applicable for this relation type."
 msgstr ""
 
 #. module: g2p_registry_base
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_partner__unique_id
+#: model:ir.model.fields,field_description:g2p_registry_base.field_res_users__unique_id
+msgid "Unique ID"
+msgstr ""
+
+#. module: g2p_registry_base
 #: model:ir.module.category,description:g2p_registry_base.openg2p_module
 msgid "User access level for the OpenG2P module"
 msgstr ""
@@ -989,4 +1031,9 @@ msgstr ""
 msgid ""
 "You do not have the necessary permissions to delete partner records. Please "
 "contact the administrator."
+msgstr ""
+
+#. module: g2p_registry_base
+#: model:ir.model.constraint,message:g2p_registry_base.constraint_res_partner_unique_id_uniq
+msgid "unique_id is an unique identifier!"
 msgstr ""
