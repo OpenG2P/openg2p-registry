@@ -190,6 +190,11 @@ msgstr ""
 
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Region"
+msgstr ""
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Registrant"
 msgstr ""
 
@@ -227,6 +232,11 @@ msgstr ""
 #. module: g2p_registry_group
 #: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
 msgid "Tags:"
+msgstr ""
+
+#. module: g2p_registry_group
+#: model_terms:ir.ui.view,arch_db:g2p_registry_group.view_groups_form
+msgid "Unique ID"
 msgstr ""
 
 #. module: g2p_registry_group
