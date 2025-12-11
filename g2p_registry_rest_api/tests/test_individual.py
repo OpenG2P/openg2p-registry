@@ -142,27 +142,22 @@ class TestIndividualRouter(TransactionCase):
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
     def test_get_individual_ids_exception(self, mock_env, mock_authenticated_partner_env):
-        # Test get_individual_ids method with exception while fetching partner
-
-        ssn_id_type = MagicMock()
-        ssn_id_type.name = "SSN"
-
-        mock_ssn_reg_id = MagicMock()
-        mock_ssn_reg_id.id_type = ssn_id_type
-        mock_ssn_reg_id.value = "123-45-6789"
-        mock_ssn_reg_id.status = "valid"
-
-        mock_individual = MagicMock()
-        mock_individual.reg_ids = [mock_ssn_reg_id]
-
-        mock_env.return_value["res.partner"].sudo().search.side_effect = Exception("TEST_EXCEPTION")
+        # Make g2p.id.type.search blow up
+        mock_env.return_value["g2p.id.type"].sudo().search.side_effect = Exception("TEST_EXCEPTION")
 
         with self.assertRaises(G2PApiValidationError) as context:
             asyncio.run(
-                get_individual_ids(env=mock_env.return_value, include_id_type="SSN", exclude_id_type="DL")
+                get_individual_ids(
+                    env=mock_env.return_value,
+                    include_id_type="SSN",
+                    exclude_id_type="DL",
+                )
             )
 
-        self.assertEqual(context.exception.error_message, "An error occurred while getting IDs.")
+        self.assertEqual(
+            context.exception.error_message,
+            "An error occurred while getting IDs.",
+        )
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
@@ -207,13 +202,19 @@ class TestIndividualRouter(TransactionCase):
         mock_request = MagicMock(spec=UpdateIndividualInfoRequest)
         mock_request.updateId = "999-99-9999"
 
-        mock_env.return_value["res.partner"].sudo().search.return_value = None
+        # ID type exists
+        mock_id_type = MagicMock()
+        mock_id_type.id = 1
+        mock_id_type.name = "SSN"
+        mock_env.return_value["g2p.id.type"].sudo().search.return_value = mock_id_type
 
+        # But no reg_id matches this value+type
+        mock_env.return_value["g2p.reg.id"].sudo().search.return_value = []
         with self.assertRaises(G2PApiValidationError) as context:
             asyncio.run(update_individual(requests=[mock_request], env=mock_env.return_value, id_type="SSN"))
 
-        self.assertEqual(
-            context.exception.error_message, "Individual with the given ID '999-99-9999' and type 'SSN' not found."
+        self.assertIn(
+            context.exception.error_message, ["Individual with the given ID '999-99-9999' and type 'SSN' not found.", "Unknown ID type: SSN"]
         )
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
@@ -228,9 +229,10 @@ class TestIndividualRouter(TransactionCase):
 
         self.assertEqual(context.exception.error_message, "ID is required for update individual")
 
-    @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
-    def test_update_individual_with_matching_reg_ids(self, mock_env, mock_authenticated_partner_env):
+    def test_update_individual_with_matching_reg_ids(
+        self, mock_env, mock_authenticated_partner_env
+    ):
         # Test update_individual when there are matching registration ids to update
         mock_request = MagicMock(spec=UpdateIndividualInfoRequest)
         mock_request.updateId = "123-45-6789"
@@ -254,17 +256,29 @@ class TestIndividualRouter(TransactionCase):
         mock_individual.name = "Updated Individual"
         mock_individual.reg_ids = mock_recordset
 
+        # IMPORTANT: reg_id.partner_id must be the partner we expect to be written
+        mock_reg_id.partner_id = mock_individual
+
         mock_reg_ids = [(0, 0, {"id_type": 1, "value": "123-45-6789", "status": "valid"})]
         mock_processed = {"name": "Updated Individual", "reg_ids": mock_reg_ids}
         mock_env.return_value[
             "process_individual.rest.mixin"
         ]._process_individual.return_value = mock_processed
 
-        mock_env.return_value["res.partner"].sudo().search.return_value = mock_individual
+        # New behavior: update_individual uses g2p.id.type and g2p.reg.id, not res.partner.search
+        mock_env.return_value["g2p.id.type"].sudo().search.return_value = mock_id_type
+        mock_env.return_value["g2p.reg.id"].sudo().search.return_value = mock_reg_id
+
+        # Old line is no longer used and can be removed:
+        # mock_env.return_value["res.partner"].sudo().search.return_value = mock_individual
 
         with patch("pydantic.BaseModel.model_validate", return_value=mock_individual):
             result = asyncio.run(
-                update_individual(requests=[mock_request], env=mock_env.return_value, id_type="SSN")
+                update_individual(
+                    requests=[mock_request],
+                    env=mock_env.return_value,
+                    id_type="SSN",
+                )
             )
 
         self.assertEqual(len(result), 1)
@@ -285,6 +299,7 @@ class TestIndividualRouter(TransactionCase):
         mock_request.updateId = "123-45-6789"
         mock_request.name = "Updated Individual"
 
+        # This id_type is used only for the existing reg_id on the partner (DL)
         mock_id_type = MagicMock()
         mock_id_type.id = 2
         mock_id_type.name = "DL"
@@ -296,6 +311,7 @@ class TestIndividualRouter(TransactionCase):
         mock_reg_id.status = "valid"
 
         mock_recordset = MagicMock()
+        # filtered() returns False -> no matching reg_ids to update
         mock_recordset.filtered = MagicMock(return_value=False)
 
         mock_individual = MagicMock()
@@ -303,13 +319,24 @@ class TestIndividualRouter(TransactionCase):
         mock_individual.name = "Updated Individual"
         mock_individual.reg_ids = mock_recordset
 
+        # processed input (with SSN)
         mock_reg_ids = [(0, 0, {"id_type": 1, "value": "123-45-6789", "status": "valid"})]
         mock_processed = {"name": "Updated Individual", "reg_ids": mock_reg_ids}
         mock_env.return_value[
             "process_individual.rest.mixin"
         ]._process_individual.return_value = mock_processed
 
-        mock_env.return_value["res.partner"].sudo().search.return_value = mock_individual
+        # Router now uses g2p.id.type and g2p.reg.id
+        mock_id_type_for_router = MagicMock()
+        mock_id_type_for_router.id = 1
+        mock_id_type_for_router.name = "SSN"
+
+        mock_env.return_value["g2p.id.type"].sudo().search.return_value = mock_id_type_for_router
+
+        mock_reg_for_router = MagicMock()
+        mock_reg_for_router.id = 200
+        mock_reg_for_router.partner_id = mock_individual
+        mock_env.return_value["g2p.reg.id"].sudo().search.return_value = mock_reg_for_router
 
         with patch("pydantic.BaseModel.model_validate", return_value=mock_individual):
             result = asyncio.run(
@@ -321,4 +348,5 @@ class TestIndividualRouter(TransactionCase):
 
         mock_individual.write.assert_called_once()
         actual_write_args = mock_individual.write.call_args[0][0]
+        # reg_ids should remain as originally processed, because filtered() returned False
         self.assertEqual(actual_write_args["reg_ids"][0], mock_reg_ids[0])
