@@ -213,7 +213,7 @@ class TestIndividualRouter(TransactionCase):
             asyncio.run(update_individual(requests=[mock_request], env=mock_env.return_value, id_type="SSN"))
 
         self.assertEqual(
-            context.exception.error_message, "Individual with the given ID 999-99-9999 not found."
+            context.exception.error_message, "Individual with the given ID '999-99-9999' and type 'SSN' not found."
         )
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")

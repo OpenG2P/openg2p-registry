@@ -210,7 +210,7 @@ async def update_individual(
 
             if not _id:
                 raise G2PApiValidationError(
-                    error_message="updateId is required for update individual",
+                    error_message="ID is required for update individual",
                     error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
                 )
 
