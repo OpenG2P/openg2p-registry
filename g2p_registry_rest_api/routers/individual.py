@@ -130,7 +130,7 @@ async def get_individual_ids(
         # Get all valid reg_ids of the include type, with partner constraints
         include_reg_ids = reg_id_model.search(
             [
-                ("id_type", "=", include_type_rec.id),
+                ("id_type", "=", include_type_rec[0].id),
                 ("status", "=", "valid"),
                 ("partner_id.is_registrant", "=", True),
                 ("partner_id.is_group", "=", False),
@@ -149,7 +149,7 @@ async def get_individual_ids(
             if exclude_type_rec:
                 has_exclude = bool(
                     partner.reg_ids.filtered(
-                        lambda x, exclude_type_id=exclude_type_rec.id: x.id_type.id == exclude_type_id
+                        lambda x, exclude_type_id=exclude_type_rec[0].id: x.id_type.id == exclude_type_id
                     )
                 )
                 if has_exclude:
@@ -218,7 +218,7 @@ async def update_individual(
             reg_id = reg_id_model.search(
                 [
                     ("value", "=", _id),
-                    ("id_type", "=", id_type_rec.id),
+                    ("id_type", "=", id_type_rec[0].id),
                 ],
                 limit=1,
             )
