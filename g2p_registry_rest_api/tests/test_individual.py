@@ -214,7 +214,8 @@ class TestIndividualRouter(TransactionCase):
             asyncio.run(update_individual(requests=[mock_request], env=mock_env.return_value, id_type="SSN"))
 
         self.assertIn(
-            context.exception.error_message, ["Individual with the given ID '999-99-9999' and type 'SSN' not found.", "Unknown ID type: SSN"]
+            context.exception.error_message,
+            ["Individual with the given ID '999-99-9999' and type 'SSN' not found.", "Unknown ID type: SSN"],
         )
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
@@ -230,9 +231,7 @@ class TestIndividualRouter(TransactionCase):
         self.assertEqual(context.exception.error_message, "ID is required for update individual")
 
     @patch("odoo.api.Environment")
-    def test_update_individual_with_matching_reg_ids(
-        self, mock_env, mock_authenticated_partner_env
-    ):
+    def test_update_individual_with_matching_reg_ids(self, mock_env, mock_authenticated_partner_env):
         # Test update_individual when there are matching registration ids to update
         mock_request = MagicMock(spec=UpdateIndividualInfoRequest)
         mock_request.updateId = "123-45-6789"
