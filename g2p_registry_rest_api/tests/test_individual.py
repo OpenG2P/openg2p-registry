@@ -118,46 +118,71 @@ class TestIndividualRouter(TransactionCase):
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
     def test_get_individual_ids_success(self, mock_env, mock_authenticated_partner_env):
-        # Test get_individual_ids method for successful response
+        env = mock_env.return_value
 
-        ssn_id_type = MagicMock()
-        ssn_id_type.name = "SSN"
+        # distinct mocks per model
+        id_type_model = MagicMock()
+        reg_id_model = MagicMock()
+        id_type_model.sudo.return_value = id_type_model
+        reg_id_model.sudo.return_value = reg_id_model
 
-        mock_ssn_reg_id = MagicMock()
-        mock_ssn_reg_id.id_type = ssn_id_type
-        mock_ssn_reg_id.value = "123-45-6789"
-        mock_ssn_reg_id.status = "valid"
+        def getitem_side_effect(key):
+            if key == "g2p.id.type":
+                return id_type_model
+            if key == "g2p.reg.id":
+                return reg_id_model
+            return MagicMock()
 
-        mock_individual = MagicMock()
-        mock_individual.reg_ids = [mock_ssn_reg_id]
+        env.__getitem__.side_effect = getitem_side_effect
+        ssn_type = MagicMock(id=1, name="SSN")
+        dl_type = MagicMock(id=2, name="DL")
 
-        mock_env.return_value["res.partner"].sudo().search.return_value = [mock_individual]
+        def id_type_search_side_effect(domain, limit=1):
+            name = domain[0][2]
+            if name == "SSN":
+                return ssn_type
+            if name == "DL":
+                return dl_type
+            return False
 
-        result = asyncio.run(
-            get_individual_ids(env=mock_env.return_value, include_id_type="SSN", exclude_id_type="DL")
-        )
+        id_type_model.search.side_effect = id_type_search_side_effect
 
+        partner = MagicMock(active=True, is_registrant=True, is_group=False)
+        partner.reg_ids = MagicMock()
+        partner.reg_ids.filtered.return_value = []  # no exclude IDs
+
+        reg = MagicMock(value="123-45-6789", status="valid", partner_id=partner)
+        reg_id_model.search.return_value = [reg]
+
+        result = asyncio.run(get_individual_ids(env=env, include_id_type="SSN", exclude_id_type="DL"))
         self.assertEqual(result, ["123-45-6789"])
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
+    @patch("odoo.addons.g2p_registry_rest_api.routers.individual._logger.exception")
     @patch("odoo.api.Environment")
-    def test_get_individual_ids_exception(self, mock_env, mock_authenticated_partner_env):
-        # Make g2p.id.type.search blow up
-        mock_env.return_value["g2p.id.type"].sudo().search.side_effect = Exception("TEST_EXCEPTION")
+    def test_get_individual_ids_exception(
+        self, mock_env, mock_authenticated_partner_env, mock_logger_exception
+    ):
+        env = mock_env.return_value
+
+        id_type_model = MagicMock()
+        id_type_model.sudo.return_value = id_type_model
+
+        def getitem_side_effect(key):
+            if key == "g2p.id.type":
+                return id_type_model
+            if key == "g2p.reg.id":
+                return MagicMock()
+            return MagicMock()
+
+        env.__getitem__.side_effect = getitem_side_effect
+
+        id_type_model.search.side_effect = Exception("TEST_EXCEPTION")
 
         with self.assertRaises(G2PApiValidationError) as context:
-            asyncio.run(
-                get_individual_ids(
-                    env=mock_env.return_value,
-                    include_id_type="SSN",
-                    exclude_id_type="DL",
-                )
-            )
+            asyncio.run(get_individual_ids(env=env, include_id_type="SSN", exclude_id_type="DL"))
 
-        self.assertEqual(
-            context.exception.error_message,
-            "An error occurred while getting IDs.",
-        )
+        self.assertEqual(context.exception.error_message, "An error occurred while getting IDs.")
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
@@ -230,6 +255,7 @@ class TestIndividualRouter(TransactionCase):
 
         self.assertEqual(context.exception.error_message, "ID is required for update individual")
 
+    @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.api.Environment")
     def test_update_individual_with_matching_reg_ids(self, mock_env, mock_authenticated_partner_env):
         # Test update_individual when there are matching registration ids to update
