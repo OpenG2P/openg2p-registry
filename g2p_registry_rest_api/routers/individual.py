@@ -131,7 +131,6 @@ async def get_individual_ids(
         include_reg_ids = reg_id_model.search(
             [
                 ("id_type", "=", include_type_rec.id),
-                ("status", "=", "valid"),
                 ("partner_id.is_registrant", "=", True),
                 ("partner_id.is_group", "=", False),
                 ("partner_id.active", "=", True),
