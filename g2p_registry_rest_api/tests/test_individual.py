@@ -222,9 +222,7 @@ class TestIndividualRouter(TransactionCase):
             MagicMock(value="fin2", id_type=fin_type, partner_id=partner_2),
         ]
 
-        result = asyncio.run(
-            get_individual_ids(env=env, include_id_type=["RID", "FAN", "FIN"])
-        )
+        result = asyncio.run(get_individual_ids(env=env, include_id_type=["RID", "FAN", "FIN"]))
 
         self.assertEqual(result, [["rid1", "fan1", "fin1"], ["rid2", "fan2", "fin2"]])
 
