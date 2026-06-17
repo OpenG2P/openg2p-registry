@@ -1,7 +1,7 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 
 from odoo.api import Environment
 
@@ -89,22 +89,24 @@ def create_individual(
 
 @individual_router.get(
     "/get_individual_ids",
-    responses={200: {"model": list[str]}},
+    responses={200: {"model": list[str] | list[list[str | None]]}},
 )
 async def get_individual_ids(
     env: Annotated[Environment, Depends(authenticated_partner_env)],
-    include_id_type: str | None = "",
+    include_id_type: Annotated[list[str] | None, Query()] = None,
     exclude_id_type: str | None = "",
-):
+) -> list[str] | list[list[str | None]]:
     """
     Get registration IDs for individuals that:
     - are registrants
     - are not groups
     - are active
-    - have at least one valid ID of `include_id_type`
+    - have at least one valid ID of any requested `include_id_type`
     - do NOT have any ID of `exclude_id_type` (if provided)
     """
-    if not include_id_type:
+    include_id_types = _normalize_id_types(include_id_type)
+
+    if not include_id_types:
         raise G2PApiValidationError(
             error_message="Record is not present in the database.",
             error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
@@ -114,10 +116,14 @@ async def get_individual_ids(
         # Resolve include / exclude id types by name on g2p.id.type
         id_type_model = env["g2p.id.type"].sudo()
 
-        include_type_rec = id_type_model.search([("name", "=", include_id_type)], limit=1)
-        if not include_type_rec:
+        include_type_recs = id_type_model.search([("name", "in", include_id_types)])
+        include_type_by_name = {rec.name: rec for rec in include_type_recs}
+        missing_include_types = [
+            include_type for include_type in include_id_types if include_type not in include_type_by_name
+        ]
+        if missing_include_types:
             raise G2PApiValidationError(
-                error_message=f"Unknown include_id_type: {include_id_type}",
+                error_message=f"Unknown include_id_type: {', '.join(missing_include_types)}",
                 error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
             )
 
@@ -126,16 +132,21 @@ async def get_individual_ids(
             exclude_type_rec = id_type_model.search([("name", "=", exclude_id_type)], limit=1)
 
         reg_id_model = env["g2p.reg.id"].sudo()
+        include_type_recs = [include_type_by_name[include_id_type] for include_id_type in include_id_types]
+        include_type_ids = [include_type_rec.id for include_type_rec in include_type_recs]
 
         # Get all valid reg_ids of the include type, with partner constraints
         include_reg_ids = reg_id_model.search(
             [
-                ("id_type", "=", include_type_rec.id),
+                ("id_type", "in", include_type_ids),
                 ("partner_id.is_registrant", "=", True),
                 ("partner_id.is_group", "=", False),
                 ("partner_id.active", "=", True),
             ]
         )
+
+        if len(include_type_recs) > 1:
+            return _get_multiple_individual_id_rows(include_reg_ids, include_type_recs, exclude_type_rec)
 
         result_ids: set[str] = set()
 
@@ -167,6 +178,54 @@ async def get_individual_ids(
             error_message="An error occurred while getting IDs.",
             error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
         ) from e
+
+
+def _normalize_id_types(include_id_type: list[str] | str | None) -> list[str]:
+    if isinstance(include_id_type, str):
+        include_id_type = [include_id_type]
+
+    result = []
+    seen = set()
+    for id_type in include_id_type or []:
+        id_type = id_type.strip()
+        if id_type and id_type not in seen:
+            result.append(id_type)
+            seen.add(id_type)
+    return result
+
+
+def _get_multiple_individual_id_rows(
+    include_reg_ids, include_type_recs, exclude_type_rec
+) -> list[list[str | None]]:
+    partner_values_by_id = {}
+    partners_by_id = {}
+
+    for reg in include_reg_ids:
+        partner = reg.partner_id
+        if not partner:
+            continue
+
+        partners_by_id[partner.id] = partner
+        values_by_type = partner_values_by_id.setdefault(partner.id, {})
+        values_by_type.setdefault(reg.id_type.id, reg.value)
+
+    result_ids = []
+    for partner_id, values_by_type in partner_values_by_id.items():
+        partner = partners_by_id[partner_id]
+
+        if exclude_type_rec:
+            has_exclude = bool(
+                partner.reg_ids.filtered(
+                    lambda x, exclude_type_id=exclude_type_rec.id: x.id_type.id == exclude_type_id
+                )
+            )
+            if has_exclude:
+                continue
+
+        row = [values_by_type.get(include_type_rec.id) for include_type_rec in include_type_recs]
+        result_ids.append(row)
+
+    return result_ids
 
 
 @individual_router.put("/update_individual", responses={200: {"model": UpdateIndividualInfoResponse}})

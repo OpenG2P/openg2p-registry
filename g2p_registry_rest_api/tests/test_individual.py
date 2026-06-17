@@ -134,14 +134,21 @@ class TestIndividualRouter(TransactionCase):
             return MagicMock()
 
         env.__getitem__.side_effect = getitem_side_effect
-        ssn_type = MagicMock(id=1, name="SSN")
-        dl_type = MagicMock(id=2, name="DL")
+        ssn_type = MagicMock()
+        ssn_type.id = 1
+        ssn_type.name = "SSN"
+        dl_type = MagicMock()
+        dl_type.id = 2
+        dl_type.name = "DL"
 
-        def id_type_search_side_effect(domain, limit=1):
-            name = domain[0][2]
-            if name == "SSN":
+        def id_type_search_side_effect(domain, limit=None):
+            operator = domain[0][1]
+            value = domain[0][2]
+            if operator == "in":
+                return [id_type for id_type in [ssn_type, dl_type] if id_type.name in value]
+            if value == "SSN":
                 return ssn_type
-            if name == "DL":
+            if value == "DL":
                 return dl_type
             return False
 
@@ -156,6 +163,117 @@ class TestIndividualRouter(TransactionCase):
 
         result = asyncio.run(get_individual_ids(env=env, include_id_type="SSN", exclude_id_type="DL"))
         self.assertEqual(result, ["123-45-6789"])
+
+    @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
+    @patch("odoo.api.Environment")
+    def test_get_individual_ids_multiple_include_types_success(
+        self, mock_env, mock_authenticated_partner_env
+    ):
+        env = mock_env.return_value
+
+        id_type_model = MagicMock()
+        reg_id_model = MagicMock()
+        id_type_model.sudo.return_value = id_type_model
+        reg_id_model.sudo.return_value = reg_id_model
+
+        def getitem_side_effect(key):
+            if key == "g2p.id.type":
+                return id_type_model
+            if key == "g2p.reg.id":
+                return reg_id_model
+            return MagicMock()
+
+        env.__getitem__.side_effect = getitem_side_effect
+
+        rid_type = MagicMock()
+        rid_type.id = 1
+        rid_type.name = "RID"
+        fan_type = MagicMock()
+        fan_type.id = 2
+        fan_type.name = "FAN"
+        fin_type = MagicMock()
+        fin_type.id = 3
+        fin_type.name = "FIN"
+
+        def id_type_search_side_effect(domain, limit=None):
+            operator = domain[0][1]
+            value = domain[0][2]
+            if operator == "in":
+                return [id_type for id_type in [rid_type, fan_type, fin_type] if id_type.name in value]
+            return False
+
+        id_type_model.search.side_effect = id_type_search_side_effect
+
+        partner_1 = MagicMock(id=10, active=True, is_registrant=True, is_group=False)
+        partner_1.reg_ids = MagicMock()
+
+        partner_2 = MagicMock(id=20, active=True, is_registrant=True, is_group=False)
+        partner_2.reg_ids = MagicMock()
+
+        for partner in [partner_1, partner_2]:
+            partner.reg_ids.filtered.return_value = []
+
+        reg_id_model.search.return_value = [
+            MagicMock(value="rid1", id_type=rid_type, partner_id=partner_1),
+            MagicMock(value="fan1", id_type=fan_type, partner_id=partner_1),
+            MagicMock(value="fin1", id_type=fin_type, partner_id=partner_1),
+            MagicMock(value="rid2", id_type=rid_type, partner_id=partner_2),
+            MagicMock(value="fan2", id_type=fan_type, partner_id=partner_2),
+            MagicMock(value="fin2", id_type=fin_type, partner_id=partner_2),
+        ]
+
+        result = asyncio.run(get_individual_ids(env=env, include_id_type=["RID", "FAN", "FIN"]))
+
+        self.assertEqual(result, [["rid1", "fan1", "fin1"], ["rid2", "fan2", "fin2"]])
+
+    @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
+    @patch("odoo.api.Environment")
+    def test_get_individual_ids_multiple_include_types_with_missing_values(
+        self, mock_env, mock_authenticated_partner_env
+    ):
+        env = mock_env.return_value
+
+        id_type_model = MagicMock()
+        reg_id_model = MagicMock()
+        id_type_model.sudo.return_value = id_type_model
+        reg_id_model.sudo.return_value = reg_id_model
+
+        def getitem_side_effect(key):
+            if key == "g2p.id.type":
+                return id_type_model
+            if key == "g2p.reg.id":
+                return reg_id_model
+            return MagicMock()
+
+        env.__getitem__.side_effect = getitem_side_effect
+
+        rid_type = MagicMock()
+        rid_type.id = 1
+        rid_type.name = "RID"
+        fan_type = MagicMock()
+        fan_type.id = 2
+        fan_type.name = "FAN"
+
+        def id_type_search_side_effect(domain, limit=None):
+            operator = domain[0][1]
+            value = domain[0][2]
+            if operator == "in":
+                return [id_type for id_type in [rid_type, fan_type] if id_type.name in value]
+            return False
+
+        id_type_model.search.side_effect = id_type_search_side_effect
+
+        partner = MagicMock(id=10, active=True, is_registrant=True, is_group=False)
+        partner.reg_ids = MagicMock()
+        partner.reg_ids.filtered.return_value = []
+
+        reg_id_model.search.return_value = [
+            MagicMock(value="rid1", id_type=rid_type, partner_id=partner),
+        ]
+
+        result = asyncio.run(get_individual_ids(env=env, include_id_type=["RID", "FAN"]))
+
+        self.assertEqual(result, [["rid1", None]])
 
     @patch("odoo.addons.fastapi.dependencies.authenticated_partner_env")
     @patch("odoo.addons.g2p_registry_rest_api.routers.individual._logger.exception")
