@@ -4,6 +4,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query
 
 from odoo.api import Environment
+from odoo.osv import expression
 
 from odoo.addons.fastapi.dependencies import authenticated_partner_env
 
@@ -95,6 +96,7 @@ async def get_individual_ids(
     env: Annotated[Environment, Depends(authenticated_partner_env)],
     include_id_type: Annotated[list[str] | None, Query()] = None,
     exclude_id_type: str | None = "",
+    fayda_processed: str | None = None,
 ) -> list[str] | list[list[str | None]]:
     """
     Get registration IDs for individuals that:
@@ -103,6 +105,7 @@ async def get_individual_ids(
     - are active
     - have at least one valid ID of any requested `include_id_type`
     - do NOT have any ID of `exclude_id_type` (if provided)
+    - optionally match the `fayda_processed` state on the registration ID row
     """
     include_id_types = _normalize_id_types(include_id_type)
 
@@ -135,15 +138,25 @@ async def get_individual_ids(
         include_type_recs = [include_type_by_name[include_id_type] for include_id_type in include_id_types]
         include_type_ids = [include_type_rec.id for include_type_rec in include_type_recs]
 
-        # Get all valid reg_ids of the include type, with partner constraints
-        include_reg_ids = reg_id_model.search(
-            [
-                ("id_type", "in", include_type_ids),
-                ("partner_id.is_registrant", "=", True),
-                ("partner_id.is_group", "=", False),
-                ("partner_id.active", "=", True),
-            ]
-        )
+        # Get all reg_ids of the include type, with partner constraints.
+        include_domain = [
+            ("id_type", "in", include_type_ids),
+            ("partner_id.is_registrant", "=", True),
+            ("partner_id.is_group", "=", False),
+            ("partner_id.active", "=", True),
+        ]
+        fayda_processed_values = _normalize_fayda_processed_value(fayda_processed)
+        if fayda_processed_values:
+            include_domain = expression.AND(
+                [
+                    include_domain,
+                    expression.OR(
+                        [[("fayda_processed", "=", value)] for value in fayda_processed_values]
+                    ),
+                ]
+            )
+
+        include_reg_ids = reg_id_model.search(include_domain)
 
         if len(include_type_recs) > 1:
             return _get_multiple_individual_id_rows(include_reg_ids, include_type_recs, exclude_type_rec)
@@ -192,6 +205,24 @@ def _normalize_id_types(include_id_type: list[str] | str | None) -> list[str]:
             result.append(id_type)
             seen.add(id_type)
     return result
+
+
+def _normalize_fayda_processed_value(fayda_processed: str | None) -> list[str | bool]:
+    if fayda_processed is None:
+        return []
+
+    normalized_text = str(fayda_processed).strip().lower()
+
+    if normalized_text == "true":
+        return ["true"]
+
+    if normalized_text == "false":
+        return ["false", False, ""]
+
+    raise G2PApiValidationError(
+        error_message="Invalid fayda_processed value. Expected 'true' or 'false'.",
+        error_code=G2PErrorCodes.G2P_REQ_010.get_error_code(),
+    )
 
 
 def _get_multiple_individual_id_rows(
@@ -303,13 +334,27 @@ async def update_individual(
             for i, reg_cmd in enumerate(reg_ids_cmds):
                 vals = reg_cmd[2] if len(reg_cmd) > 2 else {}
                 id_type_id = vals.get("id_type")
+                id_value = vals.get("value")
 
                 if not id_type_id:
                     continue
 
-                id_rec_existing = partner_rec.reg_ids.filtered(
-                    lambda x, id_type_id=id_type_id: x.id_type.id == id_type_id
+                id_rec_existing = reg_id_model.search(
+                    [
+                        ("partner_id", "=", partner_rec.id),
+                        ("id_type", "=", id_type_id),
+                        ("value", "=", id_value),
+                    ],
+                    limit=1,
                 )
+                if not id_rec_existing:
+                    id_rec_existing = reg_id_model.search(
+                        [
+                            ("partner_id", "=", partner_rec.id),
+                            ("id_type", "=", id_type_id),
+                        ],
+                        limit=1,
+                    )
 
                 if id_rec_existing:
                     reg_ids_cmds[i] = (1, id_rec_existing.id, vals)

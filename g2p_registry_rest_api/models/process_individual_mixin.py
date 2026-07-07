@@ -57,17 +57,26 @@ class ProcessIndividualMixin(models.AbstractModel):
                 # Search ID Type
                 id_type_id = self.env["g2p.id.type"].sudo().search([("name", "=", rec.id_type)])
                 if id_type_id:
+                    reg_id_values = {
+                        "id_type": id_type_id[0].id,
+                        "value": rec.value,
+                        "expiry_date": rec.expiry_date,
+                        "status": rec.status if rec.status else None,
+                        "description": rec.description if rec.description else None,
+                    }
+                    if "fayda_processed" in rec.model_fields_set:
+                        if rec.fayda_processed is None:
+                            reg_id_values["fayda_processed"] = False
+                        else:
+                            reg_id_values["fayda_processed"] = "true" if rec.fayda_processed else "false"
+                    if "fayda_response_status" in rec.model_fields_set:
+                        reg_id_values["fayda_response_status"] = rec.fayda_response_status
+
                     ids.append(
                         (
                             0,
                             0,
-                            {
-                                "id_type": id_type_id[0].id,
-                                "value": rec.value,
-                                "expiry_date": rec.expiry_date,
-                                "status": rec.status if rec.status else None,
-                                "description": rec.description if rec.description else None,
-                            },
+                            reg_id_values,
                         )
                     )
 

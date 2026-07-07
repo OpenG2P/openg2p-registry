@@ -14,6 +14,17 @@ class RegistrantIDResponse(NaiveOrmModel):
     id_type: str = Field(..., alias="id_type_as_str")
     value: str | None
     expiry_date: date | None = None
+    fayda_processed: bool | None = None
+    fayda_response_status: str | None = None
+
+    @field_validator("fayda_processed", mode="before")
+    @classmethod
+    def parse_fayda_processed(cls, v):
+        if v in (None, ""):
+            return None
+        if isinstance(v, bool):
+            return v
+        return str(v).strip().lower() == "true"
 
 
 class PhoneNumberResponse(NaiveOrmModel):
@@ -68,6 +79,8 @@ class RegistrantIDRequest(NaiveOrmModel):
     )
     status: str = None
     description: str = None
+    fayda_processed: bool | None = None
+    fayda_response_status: str | None = None
 
     @field_validator("id_type", "value")
     @classmethod
