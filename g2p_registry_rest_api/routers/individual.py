@@ -150,9 +150,7 @@ async def get_individual_ids(
             include_domain = expression.AND(
                 [
                     include_domain,
-                    expression.OR(
-                        [[("fayda_processed", "=", value)] for value in fayda_processed_values]
-                    ),
+                    expression.OR([[("fayda_processed", "=", value)] for value in fayda_processed_values]),
                 ]
             )
 
