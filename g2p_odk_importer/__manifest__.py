@@ -4,7 +4,7 @@
     "name": "G2P ODK Importer",
     "category": "G2P",
     "summary": "Import records from ODK",
-    "version": "17.0.1.6.0",
+    "version": "17.0.1.6.1",
     "sequence": 3,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
@@ -18,8 +18,10 @@
     "data": [
         "security/odk_groups.xml",
         "security/ir.model.access.csv",
+        "data/queue_job_channel_data.xml",
         "views/odk_config_views.xml",
         "views/odk_import_views.xml",
+        "views/odk_instance_id_views.xml",
         "views/odk_menu.xml",
     ],
     "external_dependencies": {
