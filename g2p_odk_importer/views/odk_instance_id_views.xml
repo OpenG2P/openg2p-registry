@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_odk_instance_id_tree" model="ir.ui.view">
+        <field name="name">odk.instance.id.tree</field>
+        <field name="model">odk.instance.id</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="true">
+                <field name="instance_id" />
+                <field name="odk_import_id" />
+                <field
+                    name="status"
+                    decoration-success="status == 'done'"
+                    decoration-danger="status == 'failed'"
+                    decoration-info="status in ('pending','queued')"
+                    decoration-warning="status in ('processing','partial')"
+                />
+                <field name="error_message" optional="hide" />
+                <field name="create_date" />
+                <field name="write_date" />
+                <button
+                    name="action_reset_to_pending"
+                    type="object"
+                    string="Reset to Pending"
+                    invisible="status not in ('failed','partial','done','queued','processing')"
+                    confirm="Reset this instance to pending so it can be queued again on the next import run?"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odk_instance_id_form" model="ir.ui.view">
+        <field name="name">odk.instance.id.form</field>
+        <field name="model">odk.instance.id</field>
+        <field name="arch" type="xml">
+            <form string="ODK Instance ID" create="false" edit="false" delete="true">
+                <header>
+                    <button
+                        name="action_reset_to_pending"
+                        type="object"
+                        string="Reset to Pending"
+                        class="oe_highlight"
+                        invisible="status == 'pending'"
+                        confirm="Reset this instance to pending so it can be queued again on the next import run?"
+                    />
+                    <field
+                        name="status"
+                        widget="statusbar"
+                        statusbar_visible="pending,queued,processing,done,partial,failed"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="instance_id" readonly="1" />
+                            <field name="odk_import_id" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="create_date" />
+                            <field name="write_date" />
+                        </group>
+                    </group>
+                    <group string="Error / Partial Message" invisible="not error_message">
+                        <field name="error_message" nolabel="1" colspan="2" readonly="1" />
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        To re-import this submission: delete this record (or reset to pending),
+                        then run Import Records / wait for the cron. Unique instance IDs prevent
+                        accidental duplicates.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odk_instance_id_search" model="ir.ui.view">
+        <field name="name">odk.instance.id.search</field>
+        <field name="model">odk.instance.id</field>
+        <field name="arch" type="xml">
+            <search string="ODK Instance IDs">
+                <field name="instance_id" />
+                <field name="odk_import_id" />
+                <field name="status" />
+                <filter
+                    name="filter_needs_attention"
+                    string="Needs Attention"
+                    domain="[('status', 'in', ('pending', 'queued', 'processing', 'partial', 'failed'))]"
+                />
+                <filter name="filter_pending" string="Pending" domain="[('status', '=', 'pending')]" />
+                <filter name="filter_queued" string="Queued" domain="[('status', '=', 'queued')]" />
+                <filter
+                    name="filter_processing"
+                    string="Processing"
+                    domain="[('status', '=', 'processing')]"
+                />
+                <filter name="filter_done" string="Done" domain="[('status', '=', 'done')]" />
+                <filter name="filter_partial" string="Partial" domain="[('status', '=', 'partial')]" />
+                <filter name="filter_failed" string="Failed" domain="[('status', '=', 'failed')]" />
+                <group expand="0" string="Group By">
+                    <filter name="group_status" string="Status" context="{'group_by': 'status'}" />
+                    <filter name="group_import" string="ODK Import" context="{'group_by': 'odk_import_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odk_instance_id" model="ir.actions.act_window">
+        <field name="name">ODK Instance IDs</field>
+        <field name="res_model">odk.instance.id</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odk_instance_id_search" />
+        <field
+            name="context"
+        >{"create": False, "edit": False, "search_default_filter_needs_attention": 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No ODK instance IDs yet
+            </p>
+            <p>
+                Each ODK submission gets one row here when async import is enabled.
+                Delete a row (or reset to pending) to allow that submission to be imported again.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_odk_instance_id_reset_to_pending_multi" model="ir.actions.server">
+        <field name="name">Reset to Pending</field>
+        <field name="model_id" ref="model_odk_instance_id" />
+        <field name="binding_model_id" ref="model_odk_instance_id" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_reset_to_pending()
+        </field>
+    </record>
+</odoo>

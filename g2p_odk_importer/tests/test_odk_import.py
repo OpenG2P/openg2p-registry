@@ -73,8 +73,8 @@ class TestOdkImport(TransactionCase):
                 "status": "pending",
             }
         )
-        self.odk_import._process_pending_instance_id([instance_id])
-        self.assertEqual(instance_id.status, "processing")
+        self.odk_import._process_pending_instance_id(instance_id.ids)
+        self.assertEqual(instance_id.status, "done")
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_import.OdkImport.process_records")
     def test_process_pending_instance_id_exception(self, mock_process_records):
@@ -91,7 +91,7 @@ class TestOdkImport(TransactionCase):
 
         # Process the instance_id and handle the exception
         with self.assertLogs(level="ERROR") as log:
-            self.odk_import._process_pending_instance_id([instance_id])
+            self.odk_import._process_pending_instance_id(instance_id.ids)
 
             # Verify logger was called with the exception details
             self.assertTrue(
@@ -103,6 +103,7 @@ class TestOdkImport(TransactionCase):
 
         # Check that the status was updated to "failed"
         self.assertEqual(updated_instance_id.status, "failed")
+        self.assertTrue(updated_instance_id.error_message)
 
     @patch("odoo.addons.g2p_odk_importer.models.odk_config.OdkConfig.get_submissions")
     def test_import_records_with_async(self, mock_get_submissions):
@@ -112,15 +113,24 @@ class TestOdkImport(TransactionCase):
         self.odk_import.enable_async = True
         self.odk_import.import_records()
 
-        pending_instance = self.env["odk.instance.id"].search([("instance_id", "=", "test_instance_id")])
-        self.assertTrue(pending_instance)
-        self.assertEqual(pending_instance.status, "pending")
+        registered = self.env["odk.instance.id"].search([("instance_id", "=", "test_instance_id")])
+        self.assertTrue(registered)
+        # Claimed to queued before enqueue so the next cron cannot re-queue it
+        self.assertEqual(registered.status, "queued")
+
+        # Second pull of the same submission must not create a duplicate row
+        self.odk_import.import_records()
+        self.assertEqual(
+            self.env["odk.instance.id"].search_count([("instance_id", "=", "test_instance_id")]),
+            1,
+        )
 
     def test_odk_import_action_trigger(self):
         # Test ODK import action trigger method
         self.odk_import.odk_import_action_trigger()
         self.assertEqual(self.odk_import.job_status, "running")
         self.assertTrue(self.odk_import.cron_id)
+        self.assertEqual(self.odk_import.cron_id.interval_type, "hours")
 
         self.odk_import.odk_import_action_trigger()
         self.assertEqual(self.odk_import.job_status, "completed")

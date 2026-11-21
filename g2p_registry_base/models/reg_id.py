@@ -2,7 +2,7 @@
 
 import re
 
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 
@@ -18,8 +18,8 @@ class G2PRegistrantID(models.Model):
         index=True,
         domain=[("is_registrant", "=", True)],
     )
-    id_type = fields.Many2one("g2p.id.type", "ID Type", required=True)
-    value = fields.Char(size=100)
+    id_type = fields.Many2one("g2p.id.type", "ID Type", required=True, index=True)
+    value = fields.Char(size=100, index=True)
 
     expiry_date = fields.Date()
     id_type_as_str = fields.Char(related="id_type.name")
@@ -27,6 +27,14 @@ class G2PRegistrantID(models.Model):
     status = fields.Selection([("invalid", "Invalid"), ("valid", "Valid")])
 
     description = fields.Char()
+
+    def init(self):
+        tools.create_index(
+            self._cr,
+            "g2p_reg_id_id_type_value_idx",
+            self._table,
+            ["id_type", "value"],
+        )
 
     def _compute_display_name(self):
         res = super()._compute_display_name()

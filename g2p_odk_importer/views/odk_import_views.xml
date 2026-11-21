@@ -96,11 +96,24 @@
                         <field name="json_formatter" />
                     </group>
                     <group string="Time interval">
-                        <field name="interval_hours" />
+                        <field
+                            name="interval_hours"
+                            help="How often the pull cron runs, in hours (e.g. 24 = once per day)."
+                        />
                     </group>
                     <group string="Additional Settings">
                         <field name="enable_import_by_instance_id" />
                         <field name="enable_async" />
+                        <field
+                            name="async_claim_limit"
+                            invisible="not enable_async"
+                            help="Max pending instances claimed per cron/import run."
+                        />
+                        <field
+                            name="async_batch_size"
+                            invisible="not enable_async"
+                            help="Instances processed per queue job."
+                        />
                     </group>
                     <group
                         string="Fetch Records Using Instance ID"

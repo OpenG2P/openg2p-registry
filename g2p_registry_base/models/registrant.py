@@ -21,8 +21,8 @@ class G2PRegistrant(models.Model):
     disabled_by = fields.Many2one("res.users")
 
     reg_ids = fields.One2many("g2p.reg.id", "partner_id", "Registrant IDs")
-    is_registrant = fields.Boolean("Registrant")
-    is_group = fields.Boolean("Group")
+    is_registrant = fields.Boolean("Registrant", index=True)
+    is_group = fields.Boolean("Group", index=True)
 
     name = fields.Char(index=True)
 

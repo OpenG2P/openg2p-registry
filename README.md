@@ -34,7 +34,7 @@ addon | version | maintainers | summary
 [g2p_encryption_rest_api](g2p_encryption_rest_api/) | 17.0.1.6.0 |  | G2P Encryption: Rest API
 [g2p_enumerator](g2p_enumerator/) | 17.0.1.6.0 |  | G2P Enumerator
 [g2p_leaflet_map](g2p_leaflet_map/) | 17.0.1.6.0 |  | OpenG2P Leaflet Map
-[g2p_odk_importer](g2p_odk_importer/) | 17.0.1.6.0 |  | Import records from ODK
+[g2p_odk_importer](g2p_odk_importer/) | 17.0.1.6.1 |  | Import records from ODK
 [g2p_odk_importer_documents](g2p_odk_importer_documents/) | 17.0.1.6.0 |  | ODK Import Records with Documents
 [g2p_odk_user_mapping](g2p_odk_user_mapping/) | 17.0.1.6.0 |  | ODK App User Mapping
 [g2p_openid_vci](g2p_openid_vci/) | 17.0.1.6.0 |  | G2P OpenID VCI: Base
@@ -46,7 +46,7 @@ addon | version | maintainers | summary
 [g2p_registry](g2p_registry/) | 17.0.1.6.0 |  | G2P Registry
 [g2p_registry_addl_info](g2p_registry_addl_info/) | 17.0.1.6.0 |  | G2P Registry: Additional Info
 [g2p_registry_addl_info_rest_api](g2p_registry_addl_info_rest_api/) | 17.0.1.6.0 |  | G2P Registry: Additional Info REST API
-[g2p_registry_base](g2p_registry_base/) | 17.0.1.6.0 |  | G2P Registry: Base
+[g2p_registry_base](g2p_registry_base/) | 17.0.1.6.1 |  | G2P Registry: Base
 [g2p_registry_dashboard](g2p_registry_dashboard/) | 17.0.1.6.0 |  | OpenG2P Registry: Dashboard
 [g2p_registry_datashare_rabbitmq](g2p_registry_datashare_rabbitmq/) | 17.0.1.6.0 |  | G2P Registry Datashare: RabbitMQ
 [g2p_registry_datashare_websub](g2p_registry_datashare_websub/) | 17.0.1.6.0 |  | G2P Registry Datashare: WebSub

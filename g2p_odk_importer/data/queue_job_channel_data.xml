@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Isolates ODK import jobs so they do not starve other root-channel work.
+         Set capacity in odoo.conf, e.g. queue_job.channels = root:2,root.odk_import:2 -->
+    <record id="channel_odk_import" model="queue.job.channel">
+        <field name="name">odk_import</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+</odoo>

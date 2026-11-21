@@ -17,10 +17,18 @@
     />
 
     <menuitem
+        id="odk_instance_id_menu"
+        name="Instance IDs"
+        parent="odk_menu_root"
+        action="g2p_odk_importer.action_odk_instance_id"
+        sequence="2"
+    />
+
+    <menuitem
         id="odk_config_menu"
         name="Configuration"
         parent="odk_menu_root"
-        sequence="1"
+        sequence="10"
         action="g2p_odk_importer.action_odk_config"
     />
 
