@@ -28,7 +28,7 @@ class OdkInstanceId(models.Model):
         ondelete="cascade",
         index=True,
     )
-    error_message = fields.Text(string="Error Message", readonly=True)
+    error_message = fields.Text(readonly=True)
 
     _sql_constraints = [
         (

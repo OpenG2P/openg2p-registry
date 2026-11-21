@@ -44,14 +44,12 @@ class OdkImport(models.Model):
     enable_async = fields.Boolean()
     # Cap how many pending rows one cron tick claims/enqueues (avoids flooding queue_job).
     async_claim_limit = fields.Integer(
-        string="Async Claim Limit",
         default=500,
         help="Max pending instance IDs to claim and enqueue per import run. "
         "Remaining pending rows are picked up on the next cron/import.",
     )
     # Instances processed per queue_job job.
     async_batch_size = fields.Integer(
-        string="Async Batch Size",
         default=10,
         help="How many ODK instance IDs each queue job processes.",
     )
@@ -289,16 +287,12 @@ class OdkImport(models.Model):
             remaining,
         )
 
-        import_label = self.odk_config_name or self.odk_config.name or ("Import #%s" % self.id)
+        import_label = self.odk_config_name or self.odk_config.name or f"Import #{self.id}"
         for batch_start in range(0, len(pending_instance_ids), batch_size):
             batch = pending_instance_ids[batch_start : batch_start + batch_size]
             batch_ids = batch.ids
             batch_end = batch_start + len(batch_ids)
-            identity_key = "odk.import.%s.batch.%s-%s" % (
-                self.id,
-                batch_ids[0],
-                batch_ids[-1],
-            )
+            identity_key = f"odk.import.{self.id}.batch.{batch_ids[0]}-{batch_ids[-1]}"
             description = _(
                 "ODK Import '%(import)s' (#%(import_id)s): process %(count)s instance(s) "
                 "[batch %(from)s-%(to)s of %(total)s]"
@@ -380,8 +374,7 @@ class OdkImport(models.Model):
                     created_in_tx = instance.odk_import_id._count_partners_created_in_current_tx()
                 except Exception:
                     _logger.exception(
-                        "Could not detect partners created in current tx for %s; "
-                        "marking as failed",
+                        "Could not detect partners created in current tx for %s; " "marking as failed",
                         instance.instance_id,
                     )
                     created_in_tx = 0
